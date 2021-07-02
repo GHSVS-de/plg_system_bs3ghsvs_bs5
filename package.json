@@ -1,0 +1,70 @@
+{
+	"name": "plg_system_bs3ghsvs_bs5",
+	"nameReal": "plg_system_bs3ghsvs",
+	"filename": "bs3ghsvs",
+	"version": "2021.07.22",
+	"minimumPhp": "7.3.0",
+	"maximumPhp": "8.99999.99999",
+	"minimumJoomla": "3.9.8",
+	"maximumJoomla": "",
+	"allowDowngrades": "1",
+	"creationDate": "2021-02-31",
+	"licenseLong": "GNU General Public License version 3 or later; see LICENSE.txt.",
+	"copyright": "(C) 2015, G@HService Berlin Neukölln, Volkmar Volli Schlothauer.",
+	"author": {
+		"name": "G@HService Berlin Neukölln, Volkmar Volli Schlothauer",
+		"email": "",
+		"url": "https://www.ghsvs.de"
+	},
+	"contributors": [
+		{
+			"name": "G@HService Berlin Neukölln, Volkmar Volli Schlothauer",
+			"email": "",
+			"url": "https://www.ghsvs.de"
+		}
+	],
+	"bugs": "https://github.com/GHSVS-de/plg_system_bs3ghsvs/issues",
+	"homepage": "https://github.com/GHSVS-de/plg_system_bs3ghsvs#readme",
+	"keywords": [
+		"joomla",
+		"system plugin"
+	],
+	"private": false,
+	"description": "Joomla system plugin to register and override JHtml helpers. And more!",
+	"license": "GPL-3.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/GHSVS-de/plg_system_bs3ghsvs.git"
+	},
+	"scripts": {
+		"g-build": "node build.js",
+		"g-build-plus-svg": "node build.js --svg",
+		"g-npm-update-check": "ncu",
+		"g-ncu-override-json": "ncu -u",
+		"g-icons": "node build/build-svgs.js"
+	},
+	"dependencies": {
+		"@fortawesome/fontawesome-free": "^5",
+		"@popperjs/core": "^2.9.2",
+		"bootstrap": "^5.0.2",
+		"bootstrap-icons": "^1.5.0",
+		"jquery": "^3",
+		"jquery-migrate": "^3",
+		"npm-check-updates": "^11.7.1",
+		"skipto": "^4"
+	},
+	"devDependencies": {
+		"adm-zip": "0.5.5",
+		"chalk": "^4.1.1",
+		"cheerio": "^1.0.0-rc.10",
+		"commander": "^8.0.0",
+		"fs-extra": "10.0.0",
+		"js-yaml": "^4.1.0",
+		"klaw-sync": "^6.0.0",
+		"path": "^0.12.7",
+		"recursive-readdir": "^2.2.2",
+		"rimraf": "3.0.2",
+		"svgo": "^2.3.1"
+	},
+	"browserslist": []
+}
