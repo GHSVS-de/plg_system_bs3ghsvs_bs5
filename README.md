@@ -1,21 +1,26 @@
 # plg_system_bs3ghsvs (BOOTSTRAP 5)
-Joomla system plugin to register and override JHtml helpers. And more.
+- Joomla system plugin to register and override JHtml helpers. And more more more.
+- Plugin for ghsvs.de templates.
+- **Don't use it if you don't need it.**
 
-Plugin for ghsvs.de templates.
-
-Don't use it if you don't need it.
+# Beware
+- It replaces, respectively updates, the Bootstrap 4 plugin https://github.com/GHSVS-de/plg_system_bs3ghsvs if already installed on your site!
+- This one here uses the same folders and deletes outdated files and folders from the old installation.
+- Internally it has the same name like the older
+- Code changes, new features etc. will only be backported to the old plugin when I think it makes sense.
 
 ## npm/composer. Create new Joomla extension installation package
 - Clone repository into your server environment (WSL or whatever).
 
-- `cd /mnt/z/git-kram/plg_system_bs3ghsvs`
+- `cd /mnt/z/git-kram/plg_system_bs3ghsvs_bs5`
 
 - Check/edit `/package.json` and add plugin `version` and further settings like `minimumPhp` and so on. Will be copied during build process into manifest XML.
+- **Do not overlook the new parameter `nameReal`!**
 - Check also versions of dependencies, devDependencies. `npm run g-npm-update-check` and `npm run g-ncu-override-json`
-- Check/adapt versions in `/src/composer.json`. Something to bump in `vendor/`?
+- Check/adapt versions in `/_composer/composer.json`. Something to bump in `vendor/`?
 
 ```
-cd src/
+cd _composer/
 
 composer outdated
 
@@ -25,10 +30,10 @@ composer show -l
 ```
 - both commands accept the parameter `--direct` to show only direct dependencies in the listing
 
-### "Download" PHP packages into `/src/vendor/`
+### "Download" PHP packages into `_composer/vendor/`
 
 ```
-cd src/
+cd _composer/
 composer install
 ```
 
@@ -36,7 +41,7 @@ OR
 (whenever libraries in vendor/ shall be updated)
 
 ```
-cd src/
+cd _composer/
 composer update
 ```
 
@@ -55,16 +60,6 @@ OR
 
 . IGNORE: `npm WARN bootstrap@ requires a peer of popper.js@ but none is installed. You must install peer dependencies yourself.`
 
-#### Only if you want to include conflicting, other versions parallel to current ones:
-
-Let's say you have already a Bootstrap 4 dependency in root `/package.json` but want also to download BS3 for later copy actions:
-
-- Edit `/others/package.json`
-- `cd others`
-- `npm install`
-- `cd ..`
-- Edit `/build.js` to also copy these "downloaded" files to `/src/media/` during build step.
-
 ### Build new Joomla package ZIP.
 
 - <strike>`nvm use 12` or `nvm use 13` to get rid of f'ing messages of NodeJs 14 that nobody understands but the creators and JS professors. Only `node build.js --svg` has still problems.</strike>
@@ -82,7 +77,7 @@ Let's say you have already a Bootstrap 4 dependency in root `/package.json` but 
 
 #####
 - New ZIP is in `/dist/`
-- FYI: Packed files for this ZIP can be seen in `/package/`.
+- FYI: Packed files for this ZIP can be seen in `/package/`. **But only if you disable deletion of this folder at the end of build.js**.
 
 #### For Joomla update server
 - Create new release with new tag.
