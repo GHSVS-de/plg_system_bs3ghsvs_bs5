@@ -95,6 +95,8 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/media/plg_system_bs3ghsvs/fontawesome-free/attribution.js',
 		'/plugins/system/bs3ghsvs/language/de-DE/de-DE.plg_system_bs3ghsvs-copy.ini',
 		'/plugins/system/bs3ghsvs/language/en-GB/en-GB.plg_system_bs3ghsvs-copy.ini',
+		'/plugins/system/bs3ghsvs/Field/lessenabled.php',
+		'/plugins/system/bs3ghsvs/html/lessghsvs.php',
 	);
 
 	/**
@@ -129,6 +131,7 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/media/plg_system_bs3ghsvs/js/SlickNav',
 		'/media/plg_system_bs3ghsvs/fontawesome-free/sprites',
 		'/media/plg_system_bs3ghsvs/fontawesome-free/svgs',
+		'/media/plg_system_bs3ghsvs/js/slide-in-panel',
 	);
 
 	public function preflight($type, $parent)

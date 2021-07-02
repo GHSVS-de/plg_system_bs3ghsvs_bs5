@@ -188,32 +188,6 @@ abstract class JHtmlBs3ghsvs
 	}
 
 	/**
-	 * bs3ghsvs.slideinpanel
-	 */
-	public static function slideinpanel()
-	{
-		if (!empty(static::$loaded[__METHOD__]))
-		{
-			return;
-		}
-
-		$attribs = array();
-		$min = JDEBUG ? '' : '.min';
-		$suf = $min ? 'Min' : '';
-		$version = JDEBUG ? time() : 'auto';
-		HTMLHelper::_('jquery.framework');
-		$file = static::$basepath . '/slide-in-panel/js/main' . $min . '.js';
-
-		HTMLHelper::_('script', $file,
-			array('version' => $version, 'relative' => true),
-			$attribs
-		);
-
-		static::$loaded[__METHOD__] = 1;
-		return;
-	}
-
-	/**
 	 * Eigener Bootstrap-Spoiler.
 	 * See https://getbootstrap.com/docs/3.4/javascript/#collapse-usage
 	 * $in = false => closed
