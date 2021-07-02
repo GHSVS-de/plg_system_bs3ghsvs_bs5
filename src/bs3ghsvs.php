@@ -123,44 +123,6 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 
 		$this->sd_robotsStateOk = $this->params->get('sd_robots', 1) === 0
 			|| ($this->params->get('sd_robots', 1) === 1 && $this->app->client->robot);
-
-		### VORSICHT BEI DEM GANZEN. Das Plugin plg_system_lessghsvs lädt ggf. lessc ebenfalls.
-		### Darf also nicht verwundern, wenn class_exists hier ein true zurückliefert!
-		### Je nach Reihenfolge der Plugins.
-
-		// Lade Wunsch-lessc bevor Joomla ungeeignete Version laden kann!
-		if (class_exists('lessc', $autoload = false))
-		{
-			if (self::$log)
-			{
-				$add = __METHOD__ . ': Class lessc is already loaded. Skipped loading.';
-				Log::add($add, Log::INFO, 'bs3ghsvs');
-			}
-		}
-		else if ($this->params->get('loadLessClass', 0) === 1)
-		{
-			$lessPluginParams = Bs3ghsvsTemplate::getLessPluginParams();
-
-			if ($lessPluginParams->get('lesscPathAbs'))
-			{
-				require_once $lessPluginParams->get('lesscPathAbs');
-
-				if (self::$log)
-				{
-					$add = __METHOD__ . ': Loaded class lessc. File: '
-						. str_replace(JPATH_SITE, 'JROOT', $lessPluginParams->get('lesscPathAbs')) ;
-					Log::add($add, Log::INFO, 'bs3ghsvs');
-				}
-			}
-		}
-		else
-		{
-			if (self::$log)
-			{
-				$add = __METHOD__ . ': lessc not loaded. Probably deactivated in plugin bs3ghsvs.';
-				Log::add($add, Log::INFO, 'bs3ghsvs');
-			}
-		}
 	}
 
 	public function onAfterRoute()
