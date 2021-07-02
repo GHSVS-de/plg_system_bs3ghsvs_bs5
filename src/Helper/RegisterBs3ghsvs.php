@@ -27,9 +27,6 @@ class Bs3GhsvsRegisterBs3ghsvs
 			'footable', //V3
 			'moment', // Date parsing. E.g. in Footables sorting
 		),
-		'lessghsvs' => array(
-			'addLessCss',
-		),
 	);
 
 	public static function register()

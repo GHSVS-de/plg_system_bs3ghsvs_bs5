@@ -189,7 +189,6 @@ abstract class JHtmlBs3ghsvs
 
 	/**
 	 * bs3ghsvs.slideinpanel
-	 * CSS ist in LESS.
 	 */
 	public static function slideinpanel()
 	{

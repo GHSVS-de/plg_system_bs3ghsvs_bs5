@@ -21,13 +21,11 @@ class plgSystemBs3ghsvsFormFieldEnabledChecker extends FormField
 		$needPlugins = array(
 			array('venoboxghsvs' => 'system'),
 			array('scsscompiler' => 'system'),
-			//array('lessghsvs' => 'system'),
 			array('redirecttrashto404ghsvs' => 'system'),
 			// 'joomla' => 'osmap',
 		);
 
 		$recommendedPlugins = array(
-			array('lessghsvs' => 'system'),
 			array('importfontsghsvs' => 'system'),
 			array('syntaxhighlighterghsvs' => 'content'),
 			array('syntaxhighlighterghsvs' => 'editors-xtd'),
