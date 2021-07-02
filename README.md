@@ -9,6 +9,11 @@
 - Internally it has the same name like the older
 - Code changes, new features etc. will only be backported to the old plugin when I think it makes sense.
 
+# Changelog
+- https://updates.ghsvs.de/changelog.php?file=plg_system_bs3ghsvs_bs5
+
+# My personal build procedure
+
 ## npm/composer. Create new Joomla extension installation package
 - Clone repository into your server environment (WSL or whatever).
 
