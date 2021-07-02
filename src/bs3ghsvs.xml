@@ -7,18 +7,15 @@
 	<license>{{licenseLong}}</license>
 	<authorUrl>{{authorUrl}}</authorUrl>
 	<version>{{version}}</version>
-	<versionHistory>
-	https://updates.ghsvs.de/changelog.php?file=bs3ghsvs2020
-	</versionHistory>
 	<description>{{nameUpper}}_DESC</description>
 
-	<updateservers><server type="extension" priority="1" name="{{nameUpper}}">https://raw.githubusercontent.com/GHSVS-de/upadateservers/master/bs3ghsvs2020-update.xml</server></updateservers>
+	<updateservers><server type="extension" priority="1" name="{{nameUpper}}">https://raw.githubusercontent.com/GHSVS-de/upadateservers/master/plg_system_bs3ghsvs_bs5-update.xml</server></updateservers>
 
 	<changelogurl>
-		https://raw.githubusercontent.com/GHSVS-de/upadateservers/master/bs3ghsvs2020-changelog.xml
+		https://raw.githubusercontent.com/GHSVS-de/upadateservers/master/plg_system_bs3ghsvs_bs5-changelog.xml
 	</changelogurl>
 
-	<infourl>https://updates.ghsvs.de/changelog.php?file=bs3ghsvs2020</infourl>
+	<infourl>https://updates.ghsvs.de/changelog.php?file=plg_system_bs3ghsvs_bs5</infourl>
 
 	<scriptfile>installerScript.php</scriptfile>
 	<minimumPhp>{{minimumPhp}}</minimumPhp>
