@@ -9,13 +9,13 @@
 	<version>{{version}}</version>
 	<description>{{nameUpper}}_DESC</description>
 
-	<updateservers><server type="extension" priority="1" name="{{nameUpper}}">https://raw.githubusercontent.com/GHSVS-de/upadateservers/master/plg_system_bs3ghsvs_bs5-update.xml</server></updateservers>
+	<updateservers><server type="extension" priority="1" name="{{nameUpper}}">https://raw.githubusercontent.com/GHSVS-de/upadateservers/master/{{name}}-update.xml</server></updateservers>
 
 	<changelogurl>
-		https://raw.githubusercontent.com/GHSVS-de/upadateservers/master/plg_system_bs3ghsvs_bs5-changelog.xml
+		https://raw.githubusercontent.com/GHSVS-de/upadateservers/master/{{name}}-changelog.xml
 	</changelogurl>
 
-	<infourl>https://updates.ghsvs.de/changelog.php?file=plg_system_bs3ghsvs_bs5</infourl>
+	<infourl>https://updates.ghsvs.de/changelog.php?file={{name}}</infourl>
 
 	<scriptfile>installerScript.php</scriptfile>
 	<minimumPhp>{{minimumPhp}}</minimumPhp>
