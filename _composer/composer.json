@@ -1,6 +1,5 @@
 {
     "require": {
-			"intervention/image": "^2.5",
-			"spatie/schema-org": "^3.0"
+			"intervention/image": "^2.5"
     }
 }

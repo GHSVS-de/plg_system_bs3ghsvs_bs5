@@ -1,7 +1,7 @@
 <?php
 defined('_JEXEC') or die;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once JPATH_LIBRARIES . '/structuredataghsvs/vendor/autoload.php';
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;

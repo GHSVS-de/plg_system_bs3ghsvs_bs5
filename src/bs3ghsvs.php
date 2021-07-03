@@ -866,6 +866,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			$this->sd_robotsStateOk
 			&& $this->params->get('structureddataActive', 1) === 1
 			&& Factory::getDocument()->getType() === 'html'
+			&& is_file(JPATH_LIBRARIES . '/structuredataghsvs/vendor/autoload.php')
 		){
 			JLoader::register('Bs3ghsvsStructuredData', __DIR__ . '/Helper/StructuredData.php');
 			$doc = Factory::getDocument();

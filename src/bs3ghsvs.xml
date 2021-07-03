@@ -693,6 +693,10 @@
 				label="PLG_SYSTEM_BS3GHSVS_FIELDSET_STRUCTUREDDATA"
 				description="PLG_SYSTEM_BS3GHSVS_FIELDSET_STRUCTUREDDATA_DESC">
 
+				<field type="plgSystemBs3ghsvs.structuredataghsvsinstalled"
+					name="structuredataghsvsinstalled"
+					hiddenLabel="true"/>
+
 				<field name="structureddataActive" type="list" default="1"
 					label="PLG_SYSTEM_BS3GHSVS_STRUCTUREDDATAACTIVE"
 					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"
