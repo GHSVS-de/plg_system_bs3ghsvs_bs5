@@ -206,7 +206,8 @@ async function cleanOut (cleanOuts) {
 	}
 
 	let xml = await fse.readFile(Manifest, { encoding: "utf8" });
-	xml = xml.replace(/{{name}}/g, nameReal);
+	xml = xml.replace(/{{name}}/g, name);
+	xml = xml.replace(/{{nameReal}}/g, nameReal);
 	xml = xml.replace(/{{nameUpper}}/g, nameReal.toUpperCase());
 	xml = xml.replace(/{{authorName}}/g, author.name);
 	xml = xml.replace(/{{creationDate}}/g, creationDate);

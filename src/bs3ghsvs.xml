@@ -40,7 +40,7 @@
 		<filename>LICENSE.txt</filename>
 	</files>
 
-	<media folder="media" destination="{{name}}">
+	<media folder="media" destination="{{nameReal}}">
 		<folder>css</folder>
 		<folder>fonts</folder>
 		<folder>glyphicons</folder>
