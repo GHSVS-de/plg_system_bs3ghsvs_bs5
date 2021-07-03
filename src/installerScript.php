@@ -83,7 +83,7 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/media/plg_system_bs3ghsvs/scss/bootstrap/utilities/_stretched-link.scss',
 		'/media/plg_system_bs3ghsvs/scss/bootstrap/utilities/_text.scss',
 		'/media/plg_system_bs3ghsvs/scss/bootstrap/utilities/_visibility.scss',
-		'/media/plg_system_bs3ghsvs/html/animsitionghsvs.php',
+		'/plugins/system/bs3ghsvs/html/animsitionghsvs.php',
 		'/media/plg_system_bs3ghsvs/jquery-migrate/.eslintrc.json',
 		'/media/plg_system_bs3ghsvs/jquery-migrate/jquery-migrate-1.4.1.js',
 		'/media/plg_system_bs3ghsvs/jquery-migrate/jquery-migrate-1.4.1.min.js',
@@ -91,7 +91,7 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/media/plg_system_bs3ghsvs/jquery-migrate/jquery-migrate-3.1.0.minjs',
 		'/media/plg_system_bs3ghsvs/jquery-migrate/jquery-migrate-3.3.0.js',
 		'/media/plg_system_bs3ghsvs/jquery-migrate/jquery-migrate-3.3.0.min.js',
-		'/media/plg_system_bs3ghsvs/html/slicknavghsvs.php',
+		'/plugins/system/bs3ghsvs/html/slicknavghsvs.php',
 		'/media/plg_system_bs3ghsvs/fontawesome-free/attribution.js',
 		'/plugins/system/bs3ghsvs/language/de-DE/de-DE.plg_system_bs3ghsvs-copy.ini',
 		'/plugins/system/bs3ghsvs/language/en-GB/en-GB.plg_system_bs3ghsvs-copy.ini',
@@ -132,6 +132,7 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/media/plg_system_bs3ghsvs/fontawesome-free/sprites',
 		'/media/plg_system_bs3ghsvs/fontawesome-free/svgs',
 		'/media/plg_system_bs3ghsvs/js/slide-in-panel',
+		'/plugins/system/bs3ghsvs/vendor/spatie',
 	);
 
 	public function preflight($type, $parent)
