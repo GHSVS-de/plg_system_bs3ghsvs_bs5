@@ -3,11 +3,12 @@
 - Plugin for ghsvs.de templates.
 - **Don't use it if you don't need it.**
 
-# Beware
+# Be aware
 - It replaces, respectively updates, the Bootstrap 4 plugin https://github.com/GHSVS-de/plg_system_bs3ghsvs if already installed on your site!
 - This one here uses the same folders and deletes outdated files and folders from the old installation.
 - Internally it has the same name like the older
 - Code changes, new features etc. will only be backported to the old plugin when I think it makes sense.
+- If you want to use the Structured Data feature of the plugin you have to install [GHSVS-de/pkg_lib_structuredataghsvs](https://github.com/GHSVS-de/pkg_lib_structuredataghsvs) .
 
 # Changelog
 - https://updates.ghsvs.de/changelog.php?file=plg_system_bs3ghsvs_bs5
