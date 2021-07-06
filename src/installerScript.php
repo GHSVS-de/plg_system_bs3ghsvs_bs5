@@ -230,6 +230,8 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 				->where($db->qn('location') . ' = '
 					. $db->q('https://raw.githubusercontent.com/GHSVS-de/upadateservers/master/bs3ghsvs2020-update.xml'), 'OR')
 				->where($db->qn('location') . ' = '
+					. $db->q('https://raw.githubusercontent.com/GHSVS-de/upadateservers/master/plg_system_bs3ghsvs-update.xml'), 'OR')
+				->where($db->qn('location') . ' = '
 					. $db->q('https://raw.githubusercontent.com/GHSVS-de/upadateservers/master/bs3ghsvs-update.xml'));
 
 			$ids = $db->setQuery($query)->loadAssocList('update_site_id');
