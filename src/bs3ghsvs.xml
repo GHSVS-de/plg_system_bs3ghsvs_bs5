@@ -67,18 +67,11 @@
 	<config>
 		<fields name="params" addfieldpath="plugins/system/bs3ghsvs/Field">
 
-			<fieldset name="fieldsetEnabledchecker"
-				label="PLG_SYSTEM_BS3GHSVS_FIELDSET_ENABLEDCHECKER">
+			<fieldset name="fieldsetInfos"
+				label="PLG_SYSTEM_BS3GHSVS_FIELDSET_INFOS">
 
-				<field type="plgSystemBs3ghsvs.enabledchecker"
-					name="enabledcheckerBasic" hidden="true"
-					label=""
-					description="" />
-
-				<!--<field name="ArticlesWithExtrafieldsInfo" type="ArticlesWithExtrafieldsInfo"
-					description="" hiddenLabel="true" />-->
-
-				<field name="templatesJsonConfigurationInfo" type="templatesJsonConfigurationInfo"
+				<field name="templatesJsonConfigurationInfo"
+					type="templatesJsonConfigurationInfo"
 					description="" hiddenLabel="true" />
 
 			</fieldset>
