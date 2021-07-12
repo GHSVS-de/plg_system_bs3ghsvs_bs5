@@ -12,7 +12,6 @@
 
 			<field name="bs3ghsvs_various_active" type="list" default="0"
 				label="PLG_SYSTEM_BS3GHSVS_ACTIVE"
-				description="PLG_SYSTEM_BS3GHSV_EMPTY_DESC"
 				filter="integer">
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
@@ -33,7 +32,7 @@
 				<option value="-1">PLG_SYSTEM_BS3GHSVS_ARTICLESTATUS_-1</option>
 				<option value="-2">PLG_SYSTEM_BS3GHSVS_ARTICLESTATUS_-2</option>
 			</field>
-			
+
 		</fieldset>
 	</fields><!--/attribs-->
 </form>
