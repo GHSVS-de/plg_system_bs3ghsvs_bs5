@@ -8,8 +8,9 @@
 - This one here uses the same folders and deletes outdated files and folders from the old installation.
 - Internally it has the same name like the older
 - Code changes, new features etc. will only be backported to the old plugin when I think it makes sense.
-- @since V2021.07.04: If you want to use the "Structured Data" feature of the plugin you have to install [GHSVS-de/pkg_lib_structuredataghsvs](https://github.com/GHSVS-de/pkg_lib_structuredataghsvs/releases) separately in your Joomla.
-- @since V2021.07.12: If you want to use the "Image Resize" feature of the plugin you have to install [GHSVS-de/pkg_lib_imgresizeghsvs](https://github.com/GHSVS-de/pkg_lib_imgresizeghsvs/releases) separately in your Joomla
+- Composer/Vendor actions completely removed since V2021.07.04/12
+- - @since V2021.07.04: If you want to use the "Structured Data" feature of the plugin you have to install [GHSVS-de/pkg_lib_structuredataghsvs](https://github.com/GHSVS-de/pkg_lib_structuredataghsvs/releases) separately in your Joomla.
+- - @since V2021.07.12: If you want to use the "Image Resize" feature of the plugin you have to install [GHSVS-de/pkg_lib_imgresizeghsvs](https://github.com/GHSVS-de/pkg_lib_imgresizeghsvs/releases) separately in your Joomla.
 
 # Changelog
 - https://updates.ghsvs.de/changelog.php?file=plg_system_bs3ghsvs_bs5
