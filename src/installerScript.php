@@ -97,6 +97,8 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/plugins/system/bs3ghsvs/language/en-GB/en-GB.plg_system_bs3ghsvs-copy.ini',
 		'/plugins/system/bs3ghsvs/Field/lessenabled.php',
 		'/plugins/system/bs3ghsvs/html/lessghsvs.php',
+		'/plugins/system/bs3ghsvs/Field/articleswithextrafieldsinfo.php',
+		'/plugins/system/bs3ghsvs/Field/enabledchecker.php',
 	);
 
 	/**
