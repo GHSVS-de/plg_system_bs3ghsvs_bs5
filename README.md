@@ -8,7 +8,8 @@
 - This one here uses the same folders and deletes outdated files and folders from the old installation.
 - Internally it has the same name like the older
 - Code changes, new features etc. will only be backported to the old plugin when I think it makes sense.
-- If you want to use the Structured Data feature of the plugin you have to install [GHSVS-de/pkg_lib_structuredataghsvs](https://github.com/GHSVS-de/pkg_lib_structuredataghsvs) .
+- @since V2021.07.04: If you want to use the "Structured Data" feature of the plugin you have to install [GHSVS-de/pkg_lib_structuredataghsvs](https://github.com/GHSVS-de/pkg_lib_structuredataghsvs) separatelx.
+- @since V2021.07.12: If you want to use the "Image Resize" feature of the plugin you have to install [GHSVS-de/pkg_lib_structuredataghsvs](https://github.com/GHSVS-de/pkg_lib_imgresizeghsvs) separatelx.
 
 # Changelog
 - https://updates.ghsvs.de/changelog.php?file=plg_system_bs3ghsvs_bs5
@@ -17,10 +18,7 @@
 
 ## npm. Create new Joomla extension installation package
 
-### Note: Composer/Vendor actions removed since V2021.07.12 in favor of the pkg_lib_imgresizeghsvs and pkg_lib_structuredataghsvs libraries.
-- Install them separately:
-- - https://github.com/GHSVS-de/pkg_lib_structuredataghsvs (if you want to use plugin feature "Structured Data").
-- - https://github.com/GHSVS-de/pkg_lib_imgresizeghsvs (if you want to use plugin feature "Image Resize").
+### Note: Composer/Vendor actions completely removed since V2021.07.12 in favor of the pkg_lib_imgresizeghsvs and pkg_lib_structuredataghsvs libraries.
 
 ###
 - Clone repository into your server environment (WSL or whatever).
