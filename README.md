@@ -15,7 +15,14 @@
 
 # My personal build procedure
 
-## npm/composer. Create new Joomla extension installation package
+## npm. Create new Joomla extension installation package
+
+### Note: Composer/Vendor actions removed since V2021.07.12 in favor of the pkg_lib_imgresizeghsvs and pkg_lib_structuredataghsvs libraries.
+- Install them separately:
+- - https://github.com/GHSVS-de/pkg_lib_structuredataghsvs (if you want to use plugin feature "Structured Data").
+- - https://github.com/GHSVS-de/pkg_lib_imgresizeghsvs (if you want to use plugin feature "Image Resize").
+
+###
 - Clone repository into your server environment (WSL or whatever).
 
 - `cd /mnt/z/git-kram/plg_system_bs3ghsvs_bs5`
@@ -23,41 +30,12 @@
 - Check/edit `/package.json` and add plugin `version` and further settings like `minimumPhp` and so on. Will be copied during build process into manifest XML.
 - **Do not overlook the new parameter `nameReal`!**
 - Check also versions of dependencies, devDependencies. `npm run g-npm-update-check` and `npm run g-ncu-override-json`
-- Check/adapt versions in `/_composer/composer.json`. Something to bump in `vendor/`?
-
-```
-cd _composer/
-
-composer outdated
-
-OR
-
-composer show -l
-```
-- both commands accept the parameter `--direct` to show only direct dependencies in the listing
-
-### "Download" PHP packages into `_composer/vendor/`
-
-```
-cd _composer/
-composer install
-```
-
-OR
-(whenever libraries in vendor/ shall be updated)
-
-```
-cd _composer/
-composer update
-```
 
 ### "Download" JS/CSS packages into `/node_modules`
 
 - I you want to check first: `npm run g-npm-update-check`
 - If you want to adapt package.json automatically first: `npm run g-ncu-override-json`
 
-
-- `cd ..`
 - `npm install`
 
 OR
