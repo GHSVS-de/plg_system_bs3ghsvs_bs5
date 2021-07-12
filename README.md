@@ -19,8 +19,6 @@
 
 ## npm. Create new Joomla extension installation package
 
-### Note: Composer/Vendor actions completely removed since V2021.07.12 in favor of the pkg_lib_imgresizeghsvs and pkg_lib_structuredataghsvs libraries.
-
 ###
 - Clone repository into your server environment (WSL or whatever).
 
