@@ -37,10 +37,6 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/media/plg_system_bs3ghsvs/fontawesome-free/5/_V5.11.2/index.html',
 		'/media/plg_system_bs3ghsvs/fontawesome-free/5/_V5.13.0/index.html',
 		'/media/plg_system_bs3ghsvs/fontawesome-free/5/svgs/solid/haykal.svg',
-		'/plugins/system/bs3ghsvs/vendor/spatie/schema-org/src/Contracts/LockerDeliveryContract.php',
-		'/plugins/system/bs3ghsvs/vendor/spatie/schema-org/src/LockerDelivery.php',
-		'/plugins/system/bs3ghsvs/vendor/spatie/schema-org/src/ParcelService.php',
-		'/plugins/system/bs3ghsvs/vendor/spatie/schema-org/src/Contracts/ParcelServiceContract.php',
 		'/media/plg_system_bs3ghsvs/svgs/bi/patch-check-fll.svg',
 		'/media/plg_system_bs3ghsvs/svgs/bi/patch-exclamation-fll.svg',
 		'/media/plg_system_bs3ghsvs/svgs/bi/patch-minus-fll.svg',
@@ -99,6 +95,7 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/plugins/system/bs3ghsvs/html/lessghsvs.php',
 		'/plugins/system/bs3ghsvs/Field/articleswithextrafieldsinfo.php',
 		'/plugins/system/bs3ghsvs/Field/enabledchecker.php',
+		'/plugins/system/bs3ghsvs/versions-installed/composer_installed.json',
 	);
 
 	/**
@@ -115,9 +112,7 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/media/plg_system_bs3ghsvs/css/bootstrap/4',
 		'/plugins/system/bs3ghsvs/Helper/schema-org',
 		'/media/plg_system_bs3ghsvs/js/skipto',
-		'/plugins/system/bs3ghsvs/vendor/scssphp/scssphp/bin',
-		'/plugins/system/bs3ghsvs/vendor/bin',
-		'/plugins/system/bs3ghsvs/vendor/scssphp',
+		'/plugins/system/bs3ghsvs/vendor',
 		'/media/plg_system_bs3ghsvs/less',
 		'/media/plg_system_bs3ghsvs/js/bootstrap/3',
 		'/media/plg_system_bs3ghsvs/js/bootstrap/3.4.1',
@@ -134,7 +129,6 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/media/plg_system_bs3ghsvs/fontawesome-free/sprites',
 		'/media/plg_system_bs3ghsvs/fontawesome-free/svgs',
 		'/media/plg_system_bs3ghsvs/js/slide-in-panel',
-		'/plugins/system/bs3ghsvs/vendor/spatie',
 	);
 
 	public function preflight($type, $parent)
