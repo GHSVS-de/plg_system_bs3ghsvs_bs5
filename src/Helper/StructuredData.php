@@ -1,7 +1,17 @@
 <?php
 defined('_JEXEC') or die;
 
-require_once JPATH_LIBRARIES . '/structuredataghsvs/vendor/autoload.php';
+$file = JPATH_LIBRARIES . '/structuredataghsvs/vendor/autoload.php';
+
+if (!is_file($file))
+{
+	error_log(str_replace(JPATH_SITE, '', __FILE__) . ' was called but '
+		. str_replace(JPATH_SITE, '', $file) . ' not found. Check your code!'
+		. ' Normally there shouldn\'t be a call like that.');
+	return;
+}
+
+require_once $file;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
@@ -27,19 +37,19 @@ use Joomla\CMS\Language\Text;
 class Bs3ghsvsStructuredData
 {
 	protected static $loaded = array();
-	
+
 	// Array (width, height, img) for 'logosmall' plugin parameter.
 	protected static $logosmall;
 	protected static $schemaOrganizationBase;
-	
+
 	/**
-	 * Creates a Schema object for an article and returns it. 
+	 * Creates a Schema object for an article and returns it.
 	*/
-	public static function sd_article($article)
+	public static function sd_article($article, $allImgSrc)
 	{
 		$plgParams = PlgSystemBS3Ghsvs::getPluginParams();
 		$app = Factory::getApplication();
-		
+
 		// Contains logos too.
 		$organization = new Registry($plgParams->get('sd_organization'));
 
@@ -52,7 +62,7 @@ class Bs3ghsvsStructuredData
 			'Bs3ghsvsItem',
 			__DIR__ . '/ItemHelper.php'
 		);
-		
+
 		### Logo for publisher > Organization.
 		// Height 60px.
 		if (self::$logosmall['img'] = $organization->get('logosmall', ''))
@@ -69,7 +79,7 @@ class Bs3ghsvsStructuredData
 		$various  = new Registry(Bs3ghsvsArticle::getVariousData($article->id));
 		$headline = $article->title . ($various->get('articlesubtitle', '')
 			? ' (' . $various->get('articlesubtitle') . ')' : '');
-		
+
 		### articleBody. Used several times for other things even if not used in the end.
 		if (!$article->params->get('show_intro'))
 		{
@@ -79,12 +89,12 @@ class Bs3ghsvsStructuredData
 		{
 			$articleBody = Bs3ghsvsItem::strip_tags($article->text);
 		}
-		
+
 		if (!($description = trim($article->metadesc)))
 		{
 			$description = StringHelper::substr($articleBody, 0, 300);
 		}
-		
+
 		if (!((int) $article->modified))
 		{
 			$article->modified = $article->created;
@@ -95,7 +105,7 @@ class Bs3ghsvsStructuredData
 		{
 			$article->publish_up = $article->modified;
 		}
-		
+
 		### Genre and other stuff like about and keywords.
 		$genre = array();
 
@@ -108,7 +118,7 @@ class Bs3ghsvsStructuredData
 		{
 			$genre[] = $article->category_title;
 		}
-		
+
 		$tags = array();
 
 		foreach ($article->tags->itemTags as $tag)
@@ -118,7 +128,7 @@ class Bs3ghsvsStructuredData
 				$tags[] = $tag->title;
 			}
 		}
-		
+
 		$schema = Schema::article()
 			->url(Uri::current())
 			->mainEntityOfPage(array('@type' => 'WebPage', '@id' => Uri::current()))
@@ -156,7 +166,7 @@ class Bs3ghsvsStructuredData
 		{
 			$schema->description($description);
 		};
-		
+
 		if($plgParams->get('sd_articleBody'))
 		{
 			$schema->articleBody($articleBody);
@@ -164,15 +174,15 @@ class Bs3ghsvsStructuredData
 
 		#### Collect the images - STSRT
 		Bs3ghsvsItem::getItemImagesghsvs($article);
-		
+
 		$findImageIn = array(
 			'image_fulltext',
 			'image_intro',
 		);
-		
+
 		$minWidth = $organization->get('minWidth', 696);
 		$imageObjects = array();
-		
+
 		foreach ($findImageIn as $key)
 		{
 			// Passes $image as string (=path)
@@ -205,14 +215,19 @@ class Bs3ghsvsStructuredData
 			}
 		}
 		// Puuuh. The hard way.
-		elseif ($imagesInArticle = Bs3ghsvsItem::getAllImgSrc($article->text))
+		else
 		{
-			foreach ($imagesInArticle['src'] as $image)
+			// Otherwise we remove already created <figure> tags. E.g. when resizer is disabled.
+			if ($allImgSrc === null)
+			{
+				$allImgSrc = Bs3ghsvsItem::getAllImgSrc($article->text);
+			}
+
+			foreach ($allImgSrc['src'] as $image)
 			{
 				// Passes $image as string (=path).
-				if (
-					($imageObject = self::buildImageObject($image, $minWidth))
-				){
+				if (($imageObject = self::buildImageObject($image, $minWidth)))
+				{
 					$imageObjects[] = $imageObject;
 				}
 			}
@@ -226,29 +241,29 @@ class Bs3ghsvsStructuredData
 		){
 			$imageObjects[] = $imageObject;
 		}
-		
+
 		if ($imageObjects)
 		{
 			$schema->image($imageObjects);
 		}
-		
+
 		if ($genre)
 		{
 			$schema->genre($genre);
 		}
-		
+
 		if ($tags)
 		{
 			$schema->keywords($tags);
 			$schema->about($tags);
 		}
 		#### Collect the images - END
-		
+
 		return $schema;
 	}
 
 	/**
-	 * Creates a Schema object for an Organization and returns it. 
+	 * Creates a Schema object for an Organization and returns it.
 	*/
 	public static function sd_organization(bool $onlyBase = false)
 	{
@@ -256,17 +271,17 @@ class Bs3ghsvsStructuredData
 
 		// Contains logos too.
 		$organization = new Registry($plgParams->get('sd_organization'));
-		
+
 		$schema = Schema::Organization()
 		->url(Uri::root())
 		->name($organization->get('name'))
 		->logo(Bs3ghsvsItem::addUriRoot($organization->get('logo')));
-		
+
 		if ($onlyBase === true)
 		{
 			return $schema;
 		}
-		
+
 		$schema->email($organization->get('email'))
 		->telephone($organization->get('telephone'))
 		->faxNumber($organization->get('faxNumber'))
@@ -275,22 +290,22 @@ class Bs3ghsvsStructuredData
 		->foundingLocation($organization->get('foundingLocation'))
 		->founder(Schema::Person()->name($organization->get('founder')))
 		;
-		
+
 		return $schema;
 	}
 
 	/**
-	 * Creates a Schema object for an Organization and returns it. 
+	 * Creates a Schema object for an Organization and returns it.
 	*/
 	public static function sd_contactPoint(object $contact)
 	{
 		$schema = self::sd_organization();
-		
+
 		// Cloaked Email?
 		if (!MailHelper::isEmailAddress($contact->email_to))
 		{
 			$db = Factory::getDbo();
-			
+
 			$query = $db->getQuery(true)
 			->select($db->qn('email_to'))
 			->from($db->qn('#__contact_details'))
@@ -303,7 +318,7 @@ class Bs3ghsvsStructuredData
 		{
 			$email = $item->email_to;
 		}
-		
+
 		$schema->contactPoint(
 			Schema::contactPoint()
 			->contactType('customer service')
@@ -317,7 +332,7 @@ class Bs3ghsvsStructuredData
 	}
 
 	/**
-	 * Creates a Schema object for an BreadcrumbList and returns it. 
+	 * Creates a Schema object for an BreadcrumbList and returns it.
 	*/
 	public static function sd_breadcrumbList($app, $article = null)
 	{
@@ -341,14 +356,14 @@ class Bs3ghsvsStructuredData
 		for ($i = 0; $i < $count; $i++)
 		{
 			if (!trim($items[$i]->link)) continue;
-			
+
 			$uri = Uri::getInstance($items[$i]->link);
 			$option = $uri->getVar('option');
-			
+
 			if (($Itemid = (int) $uri->getVar('Itemid')) && $item = $menu->getItem($Itemid))
 			{
 				$params = new Registry($item->params);
-				
+
 				if (!(
 					($name = trim($params->get('page_title')))
 					|| ($name = trim($params->get('page_heading')))
@@ -376,7 +391,7 @@ class Bs3ghsvsStructuredData
 				$crumbs[$i]->link = $uri->toString();
 			}
 		}
-		
+
 		// Add first (Home link).
 		$item = new \stdClass;
 		$item->name = Text::_('PLG_SYSTEM_BS3GHSVS_BREADCRUMBS_HOMETEXT');
@@ -392,7 +407,7 @@ class Bs3ghsvsStructuredData
 				unset($crumbs[$i]);
 			}
 		}
-		
+
 		if (
 			is_object($article)
 			&& $menu
@@ -454,28 +469,28 @@ class Bs3ghsvsStructuredData
 
 			$image = $image['img-1'];
 		}
-		
+
 		if ($size['width'] < $minSize)
 		{
 			return false;
 		}
-		
+
 		$image = Bs3ghsvsItem::addUriRoot($image);
-		
+
 		return Schema::ImageObject()
 			->url($image)
 			->contentUrl($image)
 			->width($size['width'])
 			->height($size['height']);
 	}
-	
+
 	public static function buildScriptTag(object $schema, int $prettyPrint = 0) : string
 	{
 		if ($prettyPrint === 0)
 		{
 			return $schema->toScript();
 		}
-		
+
 		// $schema->toArray() adds an additional empty property "toArray" to the $schema. Thus:
 		return '<script type="application/ld+json">' . json_encode($schema, $prettyPrint | JSON_UNESCAPED_UNICODE) . '</script>';
 	}
