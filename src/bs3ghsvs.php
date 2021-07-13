@@ -72,6 +72,15 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 
 	protected $sd_robotsStateOk = false;
 
+	// Is library installed?
+	protected $imgresizeghsvsinstalled = false;
+
+	// Is library installed?
+	protected $structuredataghsvsinstalled = false;
+
+	// We need a cache. Otherwise already set <figure> tags will be removed in second run of getAllImgSrc(). E.g. when resizer is disabled.
+	protected $allImgSrc = null;
+
 	function __construct(&$subject, $config = array())
 	{
 		// NEIN!!!!!!!!!!!!!!!! Das darfst nicht in __construct!!!!
@@ -79,8 +88,16 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 
 		parent::__construct($subject, $config);
 
-		if ($this->params->get('resizeGlobalActive', 1) === 0)
-		{
+		$this->imgresizeghsvsinstalled =
+			is_file(JPATH_LIBRARIES . '/imgresizeghsvs/vendor/autoload.php');
+
+		$this->structuredataghsvsinstalled =
+			is_file(JPATH_LIBRARIES . '/structuredataghsvs/vendor/autoload.php');
+
+		if (
+			$this->params->get('resizeGlobalActive', 1) === 0
+			|| $this->imgresizeghsvsinstalled === false
+		){
 			$this->params->set('resizeForce', 0);
 			$this->params->set('imageoptimizer_intro_full', 0);
 			$this->params->set('imageoptimizer_articletext', 0);
@@ -92,7 +109,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		if (self::$log || (self::$log = $this->params->get('log', 0)))
 		{
 			Log::addLogger(
-				array('text_file' => self::$basepath . '-log.php'), Log::ALL, array('bs3ghsvs')
+				['text_file' => self::$basepath . '-log.php'], Log::ALL, ['bs3ghsvs']
 			);
 		}
 
@@ -222,9 +239,11 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		// Hint for user in back-end that image resizer doesn't cache.
 		if (
 			$this->app->isClient('administrator')
-			&& ($this->params->get('resizeForce') + $this->params->get('resizeForceMessage') === 2)
+			&& ($this->params->get('resizeForce')
+				+ $this->params->get('resizeForceMessage') === 2)
 		){
-			$this->app->enqueueMessage(Text::_('PLG_SYSTEM_BS3GHSVS_FORCE_MESSAGE'), 'info');
+			$this->app->enqueueMessage(Text::_('PLG_SYSTEM_BS3GHSVS_FORCE_MESSAGE'),
+				'info');
 		}
 
 		if ($this->executeFe === true || $this->params->get('initTemplateAlways', 0) === 1)
@@ -691,7 +710,8 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				($IMAGE = $article->Imagesghsvs->get('image_fulltext'))
 				&& file_exists(JPATH_SITE . '/' . $IMAGE)
 			){
-				$collect_images = Bs3ghsvsItem::getImageResizeImages('image_fulltext', $IMAGE);
+				$collect_images = Bs3ghsvsItem::getImageResizeImages('image_fulltext',
+					$IMAGE);
 			} // end if ($IMAGE = $article->Imagesghsvs->get('image_fulltext'))
 
 			$article->Imagesghsvs->set('fulltext_imagesghsvs', $collect_images);
@@ -702,79 +722,85 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		// START image resize Article Images in editor text in article view.
 		if (
 			$iAmAnArticle
-			// && $this->params->get('imageoptimizer_articletext') === 1
 			&& in_array($context, array('com_content.article'))
 			&& $view === 'article'
 			// Collection already done? If true leave!
 			&& strpos($article->images, '"articletext_imagesghsvs":') === false
-			// All images found in article text.
-			&& ($imagesInArticle = Bs3ghsvsItem::getAllImgSrc($article->text))
 		){
-			// Build *basic* $article->Imagesghsvs based upon $article->images and more.
-			Bs3ghsvsItem::getItemImagesghsvs($article);
-			$collect_images = array();
-
-			// First resize found images and collect results.
-			if ($imagesInArticle['src'])
+			if ($this->allImgSrc === null )
 			{
-				if ($this->params->get('imageoptimizer_articletext') === 1)
-				{
-					$collect_images = Bs3ghsvsItem::getImageResizeImages(
-						'image_articletext',
-						$imagesInArticle['src']
-					);
-				}
-
-				// Möglichkeit in einem com_content/article/xyz.php ein eigenes 'jlayout_articletext_print' unterzujubeln.
-				// Anlass war gs-wesendorf, wo im Ausdruck die Bilder full sein müssen.
-				// Derzeit existiert die Einstellung nur im Blog-Layout blogghsvs-standard.xml.
-				if (
-					$jlayout_articletext_print = trim($article->params->get('jlayout_articletext_print', ''))
-				){
-					$this->params->set('jlayout_articletext', $jlayout_articletext_print);
-				}
-
-				// Kann man also im Plugin einstellen.
-				if (($jlayout_articletext = trim($this->params->get('jlayout_articletext', 'ghsvs.article_image'))))
-				{
-					// The array indices are the same for $imgTags and $collect_images.
-					// Egal welcher Index, aber 'quote' hat kleinsten String. Deshalb den.
-					// Wir brauchen zum "Zählen" nur die $key.
-					foreach($imagesInArticle['quote'] as $key => $dummy)
-					{
-						$imgs = array();
-
-						if ($this->params->get('imageoptimizer_articletext') === 1)
-						{
-							// Todo: maybe I find the time to avoid this "Krücke".
-							$imgs[0] = $collect_images[$key];
-							$imgs['order'] = $collect_images['order'];
-						}
-
-						$displayData = [
-							'attributes' => $imagesInArticle['attributes'][$key],
-							'imgs' => $imgs,
-							'image' => $imagesInArticle['src'][$key],
-						];
-
-						$figure = HTMLHelper::_('bs3ghsvs.layout', $jlayout_articletext,
-							$displayData);
-
-						// Originalbild gegen figure/source Konstrukt austauschen.
-						$article->text = str_replace(
-							array(
-								'<p>' . $imagesInArticle['all'][$key] . '</p>',
-								$imagesInArticle['all'][$key],
-							),
-							$figure,
-							$article->text
-						);
-					}
-				}
+				$this->allImgSrc = Bs3ghsvsItem::getAllImgSrc($article->text);
 			}
 
-			$article->Imagesghsvs->set('articletext_imagesghsvs', $collect_images);
-			$article->images = $article->Imagesghsvs->toString();
+			// <img src=...> found in article text?
+			if ($this->allImgSrc)
+			{
+				// Build *basic* $article->Imagesghsvs based upon $article->images and more.
+				Bs3ghsvsItem::getItemImagesghsvs($article);
+				$collect_images = array();
+
+				// First resize found images and collect results.
+				if ($this->allImgSrc['src'])
+				{
+					if ($this->params->get('imageoptimizer_articletext') === 1)
+					{
+						$collect_images = Bs3ghsvsItem::getImageResizeImages(
+							'image_articletext',
+							$this->allImgSrc['src']
+						);
+					}
+
+					// Möglichkeit in einem com_content/article/xyz.php ein eigenes 'jlayout_articletext_print' unterzujubeln.
+					// Anlass war gs-wesendorf, wo im Ausdruck die Bilder full sein müssen.
+					// Derzeit existiert die Einstellung nur im Blog-Layout blogghsvs-standard.xml.
+					if (
+						$jlayout_articletext_print = trim($article->params->get('jlayout_articletext_print', ''))
+					){
+						$this->params->set('jlayout_articletext', $jlayout_articletext_print);
+					}
+
+					// Kann man also im Plugin einstellen.
+					if (($jlayout_articletext = trim($this->params->get('jlayout_articletext', 'ghsvs.article_image'))))
+					{
+						// The array indices are the same for $imgTags and $collect_images.
+						// Egal welcher Index, aber 'quote' hat kleinsten String. Deshalb den.
+						// Wir brauchen zum "Zählen" nur die $key.
+						foreach($this->allImgSrc['quote'] as $key => $dummy)
+						{
+							$imgs = array();
+
+							if ($this->params->get('imageoptimizer_articletext') === 1)
+							{
+								// Todo: maybe I find the time to avoid this "Krücke".
+								$imgs[0] = $collect_images[$key];
+								$imgs['order'] = $collect_images['order'];
+							}
+
+							$displayData = [
+								'attributes' => $this->allImgSrc['attributes'][$key],
+								'imgs' => $imgs,
+								'image' => $this->allImgSrc['src'][$key],
+							];
+
+							$figure = HTMLHelper::_('bs3ghsvs.layout', $jlayout_articletext,
+								$displayData);
+
+							// Originalbild gegen figure/source Konstrukt austauschen.
+							$article->text = str_replace(
+								array(
+									'<p>' . $this->allImgSrc['all'][$key] . '</p>',
+									$this->allImgSrc['all'][$key],
+								),
+								$figure,
+								$article->text
+							);
+						}
+					}
+				}
+
+				$article->Imagesghsvs->set('articletext_imagesghsvs', $collect_images);
+				$article->images = $article->Imagesghsvs->toString();
+			}
 		}
 		###### image resize - END
 
@@ -850,11 +876,16 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			// Nothing found? Get all images by yourself from articletext.
 			else
 			{
-				if ($ogImages = Bs3ghsvsItem::getAllImgSrc($article->text))
+				if ($this->allImgSrc === null)
+				{
+					$this->allImgSrc = Bs3ghsvsItem::getAllImgSrc($article->text);
+				}
+
+				if ($this->allImgSrc)
 				{
 					$this->ogCollection['com_content.article'] = \array_merge(
 						$this->ogCollection['com_content.article'],
-						$ogImages['src']
+						$this->allImgSrc['src']
 					);
 				}
 			}
@@ -866,11 +897,13 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			$this->sd_robotsStateOk
 			&& $this->params->get('structureddataActive', 1) === 1
 			&& Factory::getDocument()->getType() === 'html'
-			&& is_file(JPATH_LIBRARIES . '/structuredataghsvs/vendor/autoload.php')
+			&& $this->structuredataghsvsinstalled === true
 		){
-			JLoader::register('Bs3ghsvsStructuredData', __DIR__ . '/Helper/StructuredData.php');
+			JLoader::register('Bs3ghsvsStructuredData',
+				__DIR__ . '/Helper/StructuredData.php');
 			$doc = Factory::getDocument();
-			$prettyPrint = JDEBUG || $this->params->get('sd_prettyPrint', 0) ? JSON_PRETTY_PRINT : 0;
+			$prettyPrint = JDEBUG || $this->params->get('sd_prettyPrint', 0)
+				? JSON_PRETTY_PRINT : 0;
 
 			// start Schema BreadcrumbList
 			if (!isset(static::$loaded[__METHOD__]['sd_breadcrumbList']))
@@ -928,8 +961,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				&& in_array($context, array('com_content.article'))
 				&& $view === 'article'
 			){
-				$schema = Bs3ghsvsStructuredData::sd_article($article);
-
+				$schema = Bs3ghsvsStructuredData::sd_article($article, $this->allImgSrc);
 				// Don't use addScriptDeclaration in Joomla 3! Maybe in Joomla 4 possible.
 				// https://github.com/joomla/joomla-cms/pull/25117#issuecomment-518005517
 				// https://github.com/joomla/joomla-cms/pull/25357
