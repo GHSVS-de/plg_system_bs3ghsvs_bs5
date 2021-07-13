@@ -34,7 +34,6 @@
 		<folder>language</folder>
 		<folder>myforms</folder>
 		<folder>sql</folder>
-		<folder>vendor</folder>
 		<folder>versions-installed</folder>
 		<filename>installerScript.php</filename>
 		<filename>LICENSE.txt</filename>
