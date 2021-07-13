@@ -23,8 +23,8 @@
 			"url": "https://www.ghsvs.de"
 		}
 	],
-	"bugs": "https://github.com/GHSVS-de/plg_system_bs3ghsvs/issues",
-	"homepage": "https://github.com/GHSVS-de/plg_system_bs3ghsvs#readme",
+	"bugs": "https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/issues",
+	"homepage": "https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5#readme",
 	"keywords": [
 		"joomla",
 		"system plugin"
@@ -34,7 +34,7 @@
 	"license": "GPL-3.0",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/GHSVS-de/plg_system_bs3ghsvs.git"
+		"url": "https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5.git"
 	},
 	"scripts": {
 		"g-build": "node build.js",
@@ -50,7 +50,7 @@
 		"bootstrap-icons": "^1.5.0",
 		"jquery": "^3",
 		"jquery-migrate": "^3",
-		"npm-check-updates": "^11.8.1",
+		"npm-check-updates": "^11.8.2",
 		"skipto": "^4"
 	},
 	"devDependencies": {
