@@ -273,6 +273,9 @@
 				label="PLG_SYSTEM_BS3GHSVS_FIELDSET_IMAGERESIZE"
 				description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC">
 
+				<field type="plgSystemBs3ghsvs.ImgResizeGhsvsInstalled"
+					name="ImgResizeGhsvsInstalled"
+					hiddenLabel="true"/>
 
 				<field name="resizeGlobalActive" type="list" default="1" filter="integer"
 					label="Resizer global aktivieren"
