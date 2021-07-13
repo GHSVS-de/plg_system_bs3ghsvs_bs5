@@ -6,7 +6,17 @@
 
 defined('JPATH_BASE') or die;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+$file = JPATH_LIBRARIES . '/imgresizeghsvs/vendor/autoload.php';
+
+if (!is_file($file))
+{
+	error_log(str_replace(JPATH_SITE, '', __FILE__) . ' was called but '
+		. str_replace(JPATH_SITE, '', $file) . ' not found. Check your code!'
+		. ' Normally there shouldn\'t be a call like that.');
+	return;
+}
+
+require_once $file;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Filesystem\File;
@@ -31,22 +41,22 @@ class ImgResizeCache
 
 	// Wie übergeben, aber Path::clean mit /
 	protected $origBildRel;
-	
+
 	// getimagesize() of original image.
 	protected $origImageInfos;
-	
+
 	// ImageManager. Only set if WEBP support.
 	protected $driver = '';
-	
+
 	protected $scaleMethods = array();
-	
+
 	// Can be extended. See below.
 	protected $supportedFormats = array(
 		IMAGETYPE_JPEG,
 		IMAGETYPE_PNG,
 		IMAGETYPE_GIF
 	);
- 
+
 	public function __construct(Registry $plgParams)
 	{
 		$this->cache_folder    = Factory::getApplication()->get('cache_path', JPATH_CACHE);
@@ -91,13 +101,13 @@ class ImgResizeCache
 
 				//4 Not supported yet
 				#'CROP' => Image::CROP,
-				
+
 				//5 Not supported yet
 				#'CROP_RESIZE' => Image::CROP_RESIZE,
 
 				//6 Not supported yet bzw. unsinnig, da w und h jedesmal ratiokonform berechnet werden.
 				//w und h werden ggf. mit schwarzem Hintergrund gefüllt.
-				#'SCALE_FIT' => Image::SCALE_FIT, 
+				#'SCALE_FIT' => Image::SCALE_FIT,
 			);
 		}
 		if ($this->driver === '')
@@ -119,7 +129,7 @@ class ImgResizeCache
 		{
 			return array('img-1' => $imagePath, 'count' => 1, 'resized' => 0);
 		}
-		
+
 		if (!$this->_checkImage($imagePath))
 		{
 			// Egal. Hauptsache falschen Pfad zurück, damit man im FE recherchieren kann.
@@ -134,7 +144,7 @@ class ImgResizeCache
 			(!$force ? $this->force : 1)
 		);
 	}
- 
+
  /**
   * @param array $opts  (w(pixels), h(pixels), crop(boolean), scale(boolean), thumbnail(boolean), maxOnly(boolean), canvas-color(#abcabc), output-filename(string), cache_http_minutes(int))
   * @return new URL for resized image.
@@ -152,7 +162,7 @@ class ImgResizeCache
 			// 'thumbnail' => false,
 			// 'bestfit' => true,
 			// 'fill' => true,
-			
+
 			// false bedeutet upscale, also Bild ggf. auf w bzw. h vergrößern.
 			'maxOnly' => false,
 			'cacheFolder' => $this->cache_folder,
@@ -164,7 +174,7 @@ class ImgResizeCache
 		);
 
 		$opts = array_merge($defaults, $opts);
-		
+
 		$is_u = $opts['size'] === '_u';
 
 		// Don't upscale.
@@ -193,10 +203,10 @@ Array $origPathInfos
 */
 		// B\C break somehow.
 		$origPathInfos['extension'] = \strtolower($origPathInfos['extension']);
-		
+
 		$targetWidth = $targetHeight = false;
 		$neuBildPfad = $origPathInfos['dirname'];
-		
+
 		// Build cache filename stepwise.
 		$neuBildName = array($origPathInfos['filename']);
 
@@ -224,15 +234,15 @@ Array $origPathInfos
 				$neuBildName[] = 'h' . $targetHeight;
 			}
 		}
-		
+
 		$imgCollector = array();
-		
+
 		// Without extension.
 		$neuBildName = str_replace(
 			'__', '_',
 			implode('_', $neuBildName)
 		);
-  
+
 		$neuBild     = $neuBildPfad . '/' . $neuBildName;
 		$neuBildPfad = $this->cache_folder . '/' . $neuBildPfad;
 		$neuBildAbs  = $this->cache_folder . '/' . $neuBild;
@@ -257,7 +267,7 @@ Array $origPathInfos
 			){
 				$imgCollector['img-1'] = $neuBild . '.' . $origPathInfos['extension'];
 				$imgCollector['count'] = 1;
-				
+
 				if ($origPathInfos['extension'] !== 'webp')
 				{
 					$imgCollector['img-2'] = $neuBild . '.webp';
@@ -271,7 +281,7 @@ Array $origPathInfos
 				$imgCollector['count'] = 1;
 				$do = 1;
 			}
-			
+
 			if ($do === 1)
 			{
 				list(
@@ -328,7 +338,7 @@ Array $origPathInfos
 		}
 
 		$quality = $opts['quality'];
-		
+
 		$targetWidth = round($targetWidth);
 		$targetHeight = round($targetHeight);
 
@@ -356,7 +366,7 @@ Array $origPathInfos
 				}
 
 				$resizedImage->toFile($neuBildAbs . '.' . $origPathInfos['extension'], $this->origImageInfos[2], array('quality' => $quality));
-				
+
 				$imgCollector['img-1'] = $neuBild . '.' . $origPathInfos['extension'];
 			}
 
@@ -373,7 +383,7 @@ Array $origPathInfos
 				$imgCollector['width'] = $targetWidth;
 				$imgCollector['height'] = $targetHeight;
 			}
-			
+
 			$imgCollector['count'] = 1;
 		}
 		else
@@ -395,7 +405,7 @@ Array $origPathInfos
 			if ($is_u)
 			{
 				$imgCollector['img-1'] = $this->origBildRel;
-				
+
 				switch ($this->webpSupport)
 				{
 					case 0:
@@ -428,7 +438,7 @@ Array $origPathInfos
 							$imgCollector['img-1'] = $neuBild . '.webp';
 							$count = 1;
 						}
-						
+
 					break;
 				}
 			}
@@ -443,11 +453,11 @@ Array $origPathInfos
 					$count++;
 					$imgCollector['img-' . $count] = $neuBild . '.' . $origPathInfos['extension'];
 				}
-	
+
 				if ($this->webpSupport && !$originalIsWebP)
 				{
 					$image->encode('webp');
-				
+
 					$image->save(
 						$neuBildAbs . '.webp',
 						$quality
@@ -457,7 +467,7 @@ Array $origPathInfos
 				}
 			}
 			$imgCollector['count'] = $count;
-			
+
 			// Weil's das Runden spart.
 			$imgCollector['width'] = $image->width();
 			$imgCollector['height'] = $image->height();
@@ -465,7 +475,7 @@ Array $origPathInfos
 
 		return $imgCollector;
 	}
- 
+
  /**
   * Avoid errors if image corrupted
   * @param string $image_path
@@ -488,7 +498,7 @@ Array $origPathInfos
 		}
 
 		$this->origBildAbs = Path::clean(JPATH_SITE . '/' . $this->origBildRel, '/');
-		
+
 		if (!\is_file($this->origBildAbs))
 		{
 			return false;
@@ -502,13 +512,13 @@ Array $origPathInfos
 			{
 				return false;
 			}
-			
+
 			// e.g. supportedFormats[IMAGETYPE_PNG].
 			if (!\in_array($this->origImageInfos[2], $this->supportedFormats))
 			{
 				return;
 			}
-			
+
 			if (!$this->checkMemoryLimit($this->origImageInfos, $this->origBildAbs))
 			{
 				return false;
@@ -525,7 +535,7 @@ Array $origPathInfos
 	/**
 	 * Check memory boundaries
 	 *
-	 * @param array  $properties   the Image properties array from 
+	 * @param array  $properties   the Image properties array from
 	 * @param string  $imagePath    the image path
 	 *
 	 * @return boolean
@@ -552,14 +562,14 @@ Array $origPathInfos
 		{
 			$properties['bits'] = 16;
 		}
-		
+
 		$properties['bits'] = ($properties['bits'] / 8) * $properties['channels'];
-		
+
 		// width x height x bits
 		$memorycheck      = $properties[0] * $properties[1] * $properties['bits'];
 		$memorycheck_text = $memorycheck; # / (1024 * 1024);
 		$memory_limit     = ini_get('memory_limit');
-	
+
 		if (preg_match('/^(\d+)(.)$/', $memory_limit, $matches))
 		{
 			if ($matches[2] === 'M')
@@ -571,7 +581,7 @@ Array $origPathInfos
 				$memory_limit_value = $matches[1] * 1024;
 			}
 		}
-	
+
 		if (isset($memory_limit_value) && $memorycheck > $memory_limit_value)
 		{
 			/*$app = Factory::getApplication();
@@ -580,10 +590,10 @@ Array $origPathInfos
 				. 'Image ' . $imagePath . ' seems to be too big to be processed.<br>Calculated memory usage: '
 				. $memorycheck_text
 				. ', memory_limit: ' . $memory_limit, 'warning');*/
-	
+
 			return false;
 		}
-	
+
 		return true;
 	}
 }
