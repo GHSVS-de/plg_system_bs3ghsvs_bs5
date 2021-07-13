@@ -589,9 +589,15 @@ Array
         )
 )
 	*/
-	public static function getSources(array $imgs, array $mediaQueries, string $origImage): array
+	public static function getSources($imgs, array $mediaQueries, string $origImage): array
 	{
-		$returnArray = array();
+		$returnArray = [];
+
+		// Otherwise I have to rewrite all JLayouts when resizer is disabled.
+		if (!is_array($imgs))
+		{
+			$imgs = [];
+		}
 
 /*
 $mediaQueries. Ungeprüft. Wie vom JLayout übergeben.
