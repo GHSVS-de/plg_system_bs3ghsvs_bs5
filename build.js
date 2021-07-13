@@ -145,12 +145,14 @@ async function cleanOut (cleanOuts) {
 		answer => console.log(chalk.yellowBright(`Copied ./package-lock.json.`))
 	);
 
-	await fse.copy(
+	/* Removed in favor of the pkg_lib_imgresizeghsvs and
+		pkg_lib_structuredataghsvs libraries. */
+	/* await fse.copy(
 		"./_composer/vendor/composer/installed.json",
 		"./package/versions-installed/composer_installed.json"
 		// ,
 		// {overwrite:false, errorOnExist:true}
-	);
+	); */
 
 	if (Program.svg === true)
 	{
@@ -189,12 +191,14 @@ async function cleanOut (cleanOuts) {
 		answer => console.log(chalk.yellowBright(`Copied ./src to ./package.`))
 	);
 
-	await console.log(chalk.redBright(`Be patient! Composer copy actions!`));
+	/* Removed in favor of the pkg_lib_imgresizeghsvs and
+		pkg_lib_structuredataghsvs libraries. */
+	/* await console.log(chalk.redBright(`Be patient! Composer copy actions!`));
 	// Copy and create new work dir.
 	await fse.copy("./_composer/vendor", "./package/vendor"
 	).then(
 		answer => console.log(chalk.yellowBright(`Copied _composer/vendor to ./package.`))
-	);
+	); */
 
 	// Create new dist dir.
 	if (!(await fse.exists("./dist")))
