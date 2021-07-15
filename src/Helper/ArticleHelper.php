@@ -34,7 +34,7 @@ abstract class Bs3ghsvsArticle
 	 * E.g. for blog <> list view with footables.
 	 */
 	//public static function getList(&$params){
-		// Removed with commit
+		// Removed with commit https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/commit/695d17afe23c1fd137235c5abac0ccc5d0329b49
 	//}
 
 	/**
