@@ -223,12 +223,15 @@ class Bs3ghsvsStructuredData
 				$allImgSrc = Bs3ghsvsItem::getAllImgSrc($article->text);
 			}
 
+			if (isset($allImgSrc['src']))
+			{
 			foreach ($allImgSrc['src'] as $image)
 			{
 				// Passes $image as string (=path).
 				if (($imageObject = self::buildImageObject($image, $minWidth)))
 				{
 					$imageObjects[] = $imageObject;
+					}
 				}
 			}
 		}
