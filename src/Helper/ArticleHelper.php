@@ -119,6 +119,85 @@ abstract class Bs3ghsvsArticle
 		return $result;
 	}
 
+	/** Load articles that have an entry in table #__bs3ghsvs_article with
+	 *	provided $key.
+	 */
+	public static function getArticlesWithExtraFieldType(string $key)
+	{
+		$dataField = 'fieldData';
+
+		$db = Factory::getDbo();
+		$query = $db->getQuery(true);
+		$query->select($db->qn(['a.id', 'a.title', 'introtext', 'catid', 'created',
+			'a.modified', 'images', 'a.metadesc', 'a.access', 'a.language', 'ordering',
+			'a.created_by', 'a.created_by_alias', 'a.metadata']))
+
+			->select($db->qn('b.value', $dataField))
+			->from($db->qn('#__bs3ghsvs_article', 'b'))
+			->where($db->qn('key') . '=' . $db->q($key))
+
+			// INNER: Nur Artikel mit Extrafeldern, (keine leeren Artikel/Extrafelder)
+			->join('INNER', $db->qn('#__content', 'a') . ' ON '
+				. $db->qn('b.article_id') . ' = ' . $db->qn('a.id')
+			)
+
+			->select($db->qn('c.access', 'category_access'))
+			->join('LEFT', '#__categories AS c ON c.id = catid')
+
+			->select($db->qn('ua.name', 'author'))
+			->join('LEFT', $db->qn('#__users', 'ua') . ' ON '
+				. $db->qn('ua.id') . ' = ' . $db->qn('a.created_by')
+			)
+
+			->order($db->qn('a.modified') . ' DESC')
+			->where($db->qn('a.state') . '= 1');
+#echo ' 4654sd48sa7d98sD81s8d71dsa <pre>' . print_r((string) $query, true) . '</pre>';#exit;
+		$result = $db->setQuery($query)->loadObjectList();
+
+		if ($result)
+		{
+			JLoader::register('ContentHelperRoute',
+				JPATH_SITE . '/components/com_content/helpers/route.php');
+			$groups = Factory::getUser()->getAuthorisedViewLevels();
+
+			foreach ($result as $i => $item)
+			{
+				$item->$dataField = new Registry($item->$dataField);
+
+				if (
+					!$item->$dataField->get('bs3ghsvs_' . $key . '_active')
+					|| ! (in_array($item->access, $groups)
+						&& in_array($item->category_access, $groups))
+				){
+					unset($result[$i]);
+					continue;
+				}
+
+				$item->link = Route::_(ContentHelperRoute::getArticleRoute(
+					$item->id, $item->catid, $item->language));
+
+				if (strpos($item->metadata, '"author":""') === false)
+				{
+					$item->metadata = json_decode($item->metadata);
+
+					if (!empty($item->metadata->author))
+					{
+						$item->author = $item->metadata->author;
+					}
+				}
+
+				//$item->tags = new JHelperTags;
+				//$item->tags->getItemTags('com_content.article', $item->id);
+			}
+
+			return $result;
+		}
+
+		return [];
+	}
+
+	/** Extract/Return 'extension' data from #__bs3ghsvs_article of aingle article.
+	*/
 	public static function getExtensionData(int $articleId)
 	{
 		$extensionData = self::getExtraFields($articleId, array('extension'));
