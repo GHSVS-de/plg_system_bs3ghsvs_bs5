@@ -225,12 +225,12 @@ class Bs3ghsvsStructuredData
 
 			if (isset($allImgSrc['src']))
 			{
-			foreach ($allImgSrc['src'] as $image)
-			{
-				// Passes $image as string (=path).
-				if (($imageObject = self::buildImageObject($image, $minWidth)))
+				foreach ($allImgSrc['src'] as $image)
 				{
-					$imageObjects[] = $imageObject;
+					// Passes $image as string (=path).
+					if (($imageObject = self::buildImageObject($image, $minWidth)))
+					{
+						$imageObjects[] = $imageObject;
 					}
 				}
 			}
