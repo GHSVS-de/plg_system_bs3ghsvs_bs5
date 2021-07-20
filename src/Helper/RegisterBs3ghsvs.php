@@ -22,10 +22,6 @@ class Bs3GhsvsRegisterBs3ghsvs
 			'bloglisttoggle',
 			'toTop',
 		),
-		'footableghsvs' => array(
-			'footable', //V3
-			'moment', // Date parsing. E.g. in Footables sorting
-		),
 	);
 
 	public static function register()
