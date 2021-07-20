@@ -15,7 +15,6 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Installer\Installer;
 use Joomla\CMS\Installer\InstallerScript;
 use Joomla\CMS\Log\Log;
-use Joomla\CMS\Language\Text;
 
 class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 {
@@ -96,6 +95,7 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/plugins/system/bs3ghsvs/Field/articleswithextrafieldsinfo.php',
 		'/plugins/system/bs3ghsvs/Field/enabledchecker.php',
 		'/plugins/system/bs3ghsvs/versions-installed/composer_installed.json',
+		'/plg_system_bs3ghsvs_bs5/html/footableghsvs.php'
 	);
 
 	/**
@@ -129,6 +129,9 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/media/plg_system_bs3ghsvs/fontawesome-free/sprites',
 		'/media/plg_system_bs3ghsvs/fontawesome-free/svgs',
 		'/media/plg_system_bs3ghsvs/js/slide-in-panel',
+		'/media/plg_system_bs3ghsvs/js/footable',
+		'/media/plg_system_bs3ghsvs/js/moment',
+		'/media/plg_system_bs3ghsvs/css/footable',
 	);
 
 	public function preflight($type, $parent)
