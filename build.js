@@ -145,15 +145,6 @@ async function cleanOut (cleanOuts) {
 		answer => console.log(chalk.yellowBright(`Copied ./package-lock.json.`))
 	);
 
-	/* Removed in favor of the pkg_lib_imgresizeghsvs and
-		pkg_lib_structuredataghsvs libraries. */
-	/* await fse.copy(
-		"./_composer/vendor/composer/installed.json",
-		"./package/versions-installed/composer_installed.json"
-		// ,
-		// {overwrite:false, errorOnExist:true}
-	); */
-
 	if (Program.svg === true)
 	{
 		console.log(chalk.greenBright(`Program.svg: YES`));
