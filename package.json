@@ -3,6 +3,25 @@
 	"nameReal": "plg_system_bs3ghsvs",
 	"filename": "bs3ghsvs",
 	"version": "2021.07.21",
+	"versionCompare": "2021.07.18",
+		"update" : {
+		"type": "plugin",
+		"folder": "system",
+		"client": "site",
+		"tag": "stable",
+		"targetplatform": ".*"
+	},
+	"changelog": {
+		"projecturl": "",
+		"infosDE": "",
+		"infosEN": "",
+		"docsDE": "",
+		"docsEN": "",
+		"lastTests": [
+		"J3.9.28",
+		"PHP8"
+		]
+	},
 	"minimumPhp": "7.3.0",
 	"maximumPhp": "8.99999.99999",
 	"minimumJoomla": "3.9.8",
@@ -30,7 +49,7 @@
 		"system plugin"
 	],
 	"private": false,
-	"description": "Joomla system plugin to register and override JHtml helpers. And more!",
+	"description": "Joomla system plugin. Register and override JHtml helpers. And much more. BS5 variant.",
 	"license": "GPL-3.0",
 	"repository": {
 		"type": "git",

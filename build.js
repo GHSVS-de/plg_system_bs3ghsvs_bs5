@@ -4,31 +4,21 @@ const rimRaf = util.promisify(require("rimraf"));
 const chalk = require('chalk');
 const exec = util.promisify(require('child_process').exec);
 const path = require('path');
-
-const Manifest = "./package/bs3ghsvs.xml";
+const replaceXml = require('./build/replaceXml.js');
 
 const {
-	author,
-	creationDate,
-	copyright,
 	filename,
 	name,
-	nameReal,
 	version,
-	licenseLong,
-	minimumPhp,
-	maximumPhp,
-	minimumJoomla,
-	maximumJoomla,
-	allowDowngrades,
 } = require("./package.json");
+
+const manifestFileName = `${filename}.xml`;
+const Manifest = `${__dirname}/package/${manifestFileName}`;
 
 // Joomla media folder (target workdir) inside this project. For copy-to actions.
 const pathMedia = `./media`;
 
 const program = require('commander');
-
-const RootPath = process.cwd();
 
 program
   .version(version)
@@ -41,8 +31,6 @@ program
   .parse(process.argv);
 
 const Program = program.opts();
-//console.log(Program.svg);
-//process.exit(0);
 
 async function buildOverview()
 {
@@ -79,7 +67,6 @@ async function cleanOut (cleanOuts) {
 
 	await cleanOut(cleanOuts);
 
-//process.exit(0);
 // ### Prepare /media/.
 
 	let copyThis = [
@@ -182,15 +169,6 @@ async function cleanOut (cleanOuts) {
 		answer => console.log(chalk.yellowBright(`Copied ./src to ./package.`))
 	);
 
-	/* Removed in favor of the pkg_lib_imgresizeghsvs and
-		pkg_lib_structuredataghsvs libraries. */
-	/* await console.log(chalk.redBright(`Be patient! Composer copy actions!`));
-	// Copy and create new work dir.
-	await fse.copy("./_composer/vendor", "./package/vendor"
-	).then(
-		answer => console.log(chalk.yellowBright(`Copied _composer/vendor to ./package.`))
-	); */
-
 	// Create new dist dir.
 	if (!(await fse.exists("./dist")))
 	{
@@ -200,33 +178,32 @@ async function cleanOut (cleanOuts) {
 		);
 	}
 
-	let xml = await fse.readFile(Manifest, { encoding: "utf8" });
-	xml = xml.replace(/{{name}}/g, name);
-	xml = xml.replace(/{{nameReal}}/g, nameReal);
-	xml = xml.replace(/{{nameUpper}}/g, nameReal.toUpperCase());
-	xml = xml.replace(/{{authorName}}/g, author.name);
-	xml = xml.replace(/{{creationDate}}/g, creationDate);
-	xml = xml.replace(/{{copyright}}/g, copyright);
-	xml = xml.replace(/{{licenseLong}}/g, licenseLong);
-	xml = xml.replace(/{{authorUrl}}/g, author.url);
-	xml = xml.replace(/{{version}}/g, version);
-	xml = xml.replace(/{{minimumPhp}}/g, minimumPhp);
-	xml = xml.replace(/{{maximumPhp}}/g, maximumPhp);
-	xml = xml.replace(/{{minimumJoomla}}/g, minimumJoomla);
-	xml = xml.replace(/{{maximumJoomla}}/g, maximumJoomla);
-	xml = xml.replace(/{{allowDowngrades}}/g, allowDowngrades);
-	xml = xml.replace(/{{filename}}/g, filename);
+	const zipFilename = `${name}-${version}_${sourceInfos.version}.zip`;
 
-	await fse.writeFile(Manifest, xml, { encoding: "utf8" }
-	).then(
-		answer => console.log(chalk.yellowBright(`Replaced entries in ${Manifest}.`))
+	await replaceXml.main(Manifest, zipFilename);
+	await fse.copy(`${Manifest}`, `./dist/${manifestFileName}`).then(
+		answer => console.log(chalk.yellowBright(
+			`Copied ${manifestFileName} to ./dist.`))
 	);
+
+	let xmlFile = 'update.xml';
+	await fse.copy(`./${xmlFile}`, `./dist/${xmlFile}`).then(
+		answer => console.log(chalk.yellowBright(
+			`Copied ${xmlFile} to ./dist.`))
+	);
+	await replaceXml.main(`${__dirname}/dist/${xmlFile}`, zipFilename);
+
+	xmlFile = 'changelog.xml';
+	await fse.copy(`./${xmlFile}`, `./dist/${xmlFile}`).then(
+		answer => console.log(chalk.yellowBright(
+			`Copied ${xmlFile} to ./dist.`))
+	);
+	await replaceXml.main(`${__dirname}/dist/${xmlFile}`, zipFilename);
 
 	// Pack it.
 	const zip = new (require("adm-zip"))();
-	const zipFilename = `dist/${name}-${version}_${sourceInfos.version}.zip`;
 	zip.addLocalFolder("package", false);
-	zip.writeZip(`${zipFilename}`);
+	zip.writeZip(`./dist/${zipFilename}`);
 	console.log(chalk.greenBright(`./dist/${zipFilename} written.`));
 
 	await buildOverview();
