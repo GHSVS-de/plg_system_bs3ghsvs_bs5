@@ -15,9 +15,7 @@
 
 	<updateservers><server type="extension" priority="1" name="PLG_SYSTEM_BS3GHSVS">https://raw.githubusercontent.com/GHSVS-de/upadateservers/master/plg_system_bs3ghsvs_bs5-update.xml</server></updateservers>
 
-	<changelogurl>
-		https://raw.githubusercontent.com/GHSVS-de/upadateservers/master/plg_system_bs3ghsvs_bs5-changelog.xml
-	</changelogurl>
+	<changelogurl>https://raw.githubusercontent.com/GHSVS-de/upadateservers/master/plg_system_bs3ghsvs_bs5-changelog.xml</changelogurl>
 
 	<infourl>https://updates.ghsvs.de/changelog.php?file=plg_system_bs3ghsvs_bs5</infourl>
 
