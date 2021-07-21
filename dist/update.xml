@@ -1,7 +1,7 @@
 <!--PLG_SYSTEM_BS3GHSVS Version 2021.07.21-->
 	<update>
 		<name>PLG_SYSTEM_BS3GHSVS</name>
-		<description>Joomla system plugin. Register and override JHtml helpers. And much more.</description>
+		<description>Joomla system plugin. Register and override JHtml helpers. And much more. BS5 variant.</description>
 		<element>bs3ghsvs</element>
 		<type>plugin</type>
 		<folder>system</folder>
