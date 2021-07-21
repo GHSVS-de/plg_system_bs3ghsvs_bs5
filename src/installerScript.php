@@ -95,7 +95,7 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/plugins/system/bs3ghsvs/Field/articleswithextrafieldsinfo.php',
 		'/plugins/system/bs3ghsvs/Field/enabledchecker.php',
 		'/plugins/system/bs3ghsvs/versions-installed/composer_installed.json',
-		'/plg_system_bs3ghsvs_bs5/html/footableghsvs.php'
+		'/plugins/system/bs3ghsvs/html/footableghsvs.php'
 	);
 
 	/**
