@@ -50,8 +50,11 @@ class Bs3ghsvsPagebreak
 
 		// JCE removes <p> around SHORTCODEs if setting in JCE yes. Therefore new regex since 2020-09.
 		# Old: $regex = '#<p[^>]*>\s*{pagebreakghsvs-slider\s+(.+?)}\s*</p>#i';
-		$regex = '#(<p[^>]*>\s*){0,1}{pagebreakghsvs-slider\s+([^}]+?)}(\s*</p>){0,1}#i';
-		$regexEnd = '#(<p[^>]*>\s*){0,1}{pagebreakghsvs-slider[^}]*slidersEnd[^}]*}(\s*</p>){0,1}#iU';
+		$not = '[^}\n\r\t]';
+		$regex = '#(<p[^>]*>\s*){0,1}{pagebreakghsvs-slider\s+(' . $not
+			. '+?)}(\s*</p>){0,1}#i';
+		$regexEnd = '#(<p[^>]*>\s*){0,1}{pagebreakghsvs-slider' . $not
+			. '+slidersEnd' . $not . '*}(\s*</p>){0,1}#iU';
 		$toggleContainer = $params->get('toggleContainer', 'div');
 		$headingTagGhsvs = $params->get('headingTagGhsvs', 'h4');
 		$collector = $endedTextBlocks = [];
