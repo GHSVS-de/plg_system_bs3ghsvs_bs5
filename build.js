@@ -54,6 +54,10 @@ async function cleanOut (cleanOuts) {
 
 (async function exec()
 {
+	const versionSub = await JSON.parse(fse.readFileSync(
+	`./node_modules/bootstrap/package.json`).toString()).version;
+	console.log(chalk.yellowBright(`Using Bootstrap version ${versionSub}`));
+
 	let cleanOuts = [
 		`./package`,
 		`./dist`,
@@ -153,8 +157,6 @@ async function cleanOut (cleanOuts) {
 		await buildSvgs.main();
 	}
 
-	const sourceInfos = JSON.parse(fse.readFileSync(`${__dirname}/node_modules/bootstrap/package.json`).toString());
-
 	await console.log(chalk.redBright(`Be patient! Copy actions!`));
 
 	// Copy and create new work dir.
@@ -178,7 +180,7 @@ async function cleanOut (cleanOuts) {
 		);
 	}
 
-	const zipFilename = `${name}-${version}_${sourceInfos.version}.zip`;
+	const zipFilename = `${name}-${version}_${versionSub}.zip`;
 
 	await replaceXml.main(Manifest, zipFilename);
 	await fse.copy(`${Manifest}`, `./dist/${manifestFileName}`).then(
@@ -204,7 +206,8 @@ async function cleanOut (cleanOuts) {
 	const zip = new (require("adm-zip"))();
 	zip.addLocalFolder("package", false);
 	zip.writeZip(`./dist/${zipFilename}`);
-	console.log(chalk.greenBright(`./dist/${zipFilename} written.`));
+	console.log(chalk.cyanBright(chalk.bgRed(
+		`./dist/${zipFilename} written.`)));
 
 	await buildOverview();
 
