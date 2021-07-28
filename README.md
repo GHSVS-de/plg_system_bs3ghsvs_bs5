@@ -17,6 +17,9 @@
 
 # My personal build procedure
 
+## Don't forget this step when new Bootstrap JS!
+- https://github.com/GHSVS-de/tpl_bs4ghsvs#readme
+
 ## npm. Create new Joomla extension installation package
 
 ###
