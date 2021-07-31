@@ -2,9 +2,9 @@
 	"name": "plg_system_bs3ghsvs_bs5",
 	"nameReal": "plg_system_bs3ghsvs",
 	"filename": "bs3ghsvs",
-	"version": "2021.07.21",
-	"versionCompare": "2021.07.18",
-		"update" : {
+	"version": "2021.07.31",
+	"versionCompare": "2021.07.21",
+	"update": {
 		"type": "plugin",
 		"folder": "system",
 		"client": "site",
@@ -18,8 +18,8 @@
 		"docsDE": "",
 		"docsEN": "",
 		"lastTests": [
-		"J3.9.28",
-		"PHP8"
+			"J3.9.28",
+			"PHP8"
 		]
 	},
 	"minimumPhp": "7.3.0",
@@ -74,9 +74,9 @@
 	},
 	"devDependencies": {
 		"adm-zip": "0.5.5",
-		"chalk": "^4.1.1",
+		"chalk": "^4.1.2",
 		"cheerio": "^1.0.0-rc.10",
-		"commander": "^8.0.0",
+		"commander": "^8.1.0",
 		"fs-extra": "10.0.0",
 		"js-yaml": "^4.1.0",
 		"klaw-sync": "^6.0.0",
