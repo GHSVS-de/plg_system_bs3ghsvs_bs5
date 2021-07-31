@@ -6,7 +6,7 @@
 	<copyright>(C) 2015, G@HService Berlin Neukölln, Volkmar Volli Schlothauer.</copyright>
 	<license>GNU General Public License version 3 or later; see LICENSE.txt.</license>
 	<authorUrl>https://www.ghsvs.de</authorUrl>
-	<version>2021.07.21</version>
+	<version>2021.07.31</version>
 	<description>PLG_SYSTEM_BS3GHSVS_DESC</description>
 
 	<versionHistory>
@@ -20,11 +20,11 @@
 	<infourl>https://updates.ghsvs.de/changelog.php?file=plg_system_bs3ghsvs_bs5</infourl>
 
 	<downloadUrl>
-	https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/raw/2021.07.21/dist/plg_system_bs3ghsvs_bs5-2021.07.21_5.0.2.zip
+	https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/raw/2021.07.31/dist/plg_system_bs3ghsvs_bs5-2021.07.31_5.0.2.zip
 	</downloadUrl>
 
 	<versionCompare>
-	https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/compare/2021.07.18...2021.07.21
+	https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/compare/2021.07.21...2021.07.31
 	</versionCompare>
 
 	<scriptfile>installerScript.php</scriptfile>
