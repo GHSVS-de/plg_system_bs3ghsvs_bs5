@@ -25,25 +25,19 @@ class Bs3ghsvsPagebreak
 	*/
 	public static function buildSliders(&$theText, $id = null, $params = null)
 	{
-		if (is_null($params))
-		{
-			$params = PlgSystemBS3Ghsvs::getPluginParams();
-		}
-		elseif (is_array($params))
+		$pluginParams = clone PlgSystemBS3Ghsvs::getPluginParams();
+
+		if (is_array($params))
 		{
 			$params = new Registry($params);
+			$pluginParams->merge($params);
 		}
-		// something strange.
-		else
-		{
-			$params = new Registry;
-		}
-		
+
 		if (is_null($id))
 		{
 			$id = uniqid();
 		}
-		
+
 		$app = Factory::getApplication();
  		$print = $app->input->getBool('print');
 		$isRobot = (int) $app->client->robot;
@@ -55,14 +49,14 @@ class Bs3ghsvsPagebreak
 			. '+?)}(\s*</p>){0,1}#i';
 		$regexEnd = '#(<p[^>]*>\s*){0,1}{pagebreakghsvs-slider' . $not
 			. '+slidersEnd' . $not . '*}(\s*</p>){0,1}#iU';
-		$toggleContainer = $params->get('toggleContainer', 'div');
-		$headingTagGhsvs = $params->get('headingTagGhsvs', 'h4');
+		$toggleContainer = $pluginParams->get('toggleContainer', 'div');
+		$headingTagGhsvs = $pluginParams->get('headingTagGhsvs', 'h4');
 		$collector = $endedTextBlocks = [];
 
 		/* Array mit mindestens 1 Text-Element, egal, ob slidersEnd gefunden oder
 		nicht. */
 		$endedTextBlocks = preg_split($regexEnd, $theText);
-		
+
 		// Finde falsch platzierte Eingaben von slidersEnd.
 		foreach ($endedTextBlocks as $i => $endedText)
 		{
@@ -81,12 +75,12 @@ class Bs3ghsvsPagebreak
 			/* Teil vor erstem slide, der aber ggf. auch leer sein kann,
 			falls erstes regex ganz am Anfang im Beitrag. */
 			$collector[] = $text[0];
-			
+
 			// Es wurden weitere Panel-Regexe gefunden. Dann Accordion aufbauen
 			if (count($text) > 1)
 			{
 				$selector = $dataParent = 'pagebreakghsvs' . $id . '_' . $i;
-				
+
 				if (!$print && !$isRobot)
 				{
 					$collector[] = HTMLHelper::_('bootstrap.startAccordion',
@@ -94,7 +88,7 @@ class Bs3ghsvsPagebreak
 							array(
 							/* Damit nur 1 Slide geöffnet werden kann, wird ein parent gesetzt!
 							Wenn multiSelectable=0 => parent=TRUE */
-							'parent' => !$params->get('multiSelectable', 0),
+							'parent' => !$pluginParams->get('multiSelectable', 0),
 							)
 						);
 				}
@@ -114,7 +108,7 @@ class Bs3ghsvsPagebreak
 						$title2 = htmlspecialchars($title2, ENT_COMPAT, 'utf-8');
 
 						$href = $selector . '_' . $key;
-						
+
 						if (!$print && !$isRobot)
 						{
 							$collector[] = HTMLHelper::_('bootstrap.addSlide',
@@ -133,7 +127,7 @@ class Bs3ghsvsPagebreak
 							. '</' . $headingTagGhsvs . '>';
 
 						$collector[] = $subtext;
-						
+
 						if (!$print && !$isRobot)
 						{
 							$collector[] = HTMLHelper::_('bootstrap.endSlide');
@@ -145,18 +139,18 @@ class Bs3ghsvsPagebreak
 				if (!$print && !$isRobot)
 				{
 					$collector[] = HTMLHelper::_('bootstrap.endAccordion');
-					
+
 					// Aktive IDs in Session schreiben mit Ajax-Plugin.
-					if ($params->get('activeToSession', 0) === 1)
+					if ($pluginParams->get('activeToSession', 0) === 1)
 					{
 						$collector[] = HTMLHelper::_('bs3ghsvs.activeToSession', $dataParent);
 					}
 				}
-				
+
 				$collector[] = "\n<!--endAccordion-->\n";
 			}
 		}
-		
+
 		if ($collector)
 		{
 			$theText = implode('', $collector);
