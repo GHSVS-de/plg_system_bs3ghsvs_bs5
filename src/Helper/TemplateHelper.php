@@ -38,11 +38,10 @@ class Bs3ghsvsTemplate
 		return self::$templates;
 	}
 
-	/**
+	/*
 	 * Read options from json file plgSystemBs3GhsvsActive.json.
 	 * Expects a $templateFolder (template name) that is already checked by getActiveInTemplates().
 	 * Returns json_decoded result.
-*
 Array
 (
     [comment] => See https://hash.online-convert.com/sha384-generator
@@ -67,7 +66,6 @@ Array
         )
 
 )
-*
 	*/
 	public static function getTemplateOptionsFromJson($templateFolder)
 	{
@@ -258,7 +256,7 @@ Array
 			//Bugfix removed isset($menu->params). Always false.
 			if ($menu)
 			{
-				$menuParams = $menu->params;
+				$menuParams = $menu->getParams();
 				$menuParams->set('query', new Registry($menu->query));
 				static::$loaded[__METHOD__] = $menuParams;
 			}
