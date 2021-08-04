@@ -12,9 +12,7 @@ use Joomla\String\StringHelper;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Application\ApplicationHelper;
-
-$com_path = JPATH_SITE . '/components/com_content/';
-require_once $com_path . 'helpers/route.php';
+use Joomla\Component\Content\Site\Helper\RouteHelper;
 
 JModelLegacy::addIncludePath($com_path . '/models', 'ContentModel');
 
@@ -151,13 +149,11 @@ abstract class Bs3ghsvsArticle
 
 			->order($db->qn('a.modified') . ' DESC')
 			->where($db->qn('a.state') . '= 1');
-#echo ' 4654sd48sa7d98sD81s8d71dsa <pre>' . print_r((string) $query, true) . '</pre>';#exit;
+
 		$result = $db->setQuery($query)->loadObjectList();
 
 		if ($result)
 		{
-			JLoader::register('ContentHelperRoute',
-				JPATH_SITE . '/components/com_content/helpers/route.php');
 			$groups = Factory::getUser()->getAuthorisedViewLevels();
 
 			foreach ($result as $i => $item)
