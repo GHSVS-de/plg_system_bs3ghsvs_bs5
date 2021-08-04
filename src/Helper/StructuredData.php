@@ -365,7 +365,7 @@ class Bs3ghsvsStructuredData
 
 			if (($Itemid = (int) $uri->getVar('Itemid')) && $item = $menu->getItem($Itemid))
 			{
-				$params = new Registry($item->params);
+				$params = $item->getParams();
 
 				if (!(
 					($name = trim($params->get('page_title')))
