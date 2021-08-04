@@ -1,5 +1,5 @@
 <?php
-/**
+/*
 2015-08-30: GHSVS
 */
 \defined('JPATH_BASE') or die;
@@ -660,13 +660,28 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			&& !$params->get('iAmAModuleGhsvs', 0)
 			&& isset($article->text);
 
+		// J4 bug? https://github.com/joomla/joomla-cms/issues/35044
+		// Fix for me: Split the following lines.
 		$iAmAContactView =
 			$this->app->isClient('site')
 			&& $context === 'com_contact.contact'
 			&& $view === 'contact'
 			&& !empty($article->id) && !empty($article->name)
-			&& !empty($article->params) && isset($article->misc)
-			&& !$params->get('iAmAModuleGhsvs', 0);
+			&& !empty($article->params) && isset($article->misc);
+
+		if ($iAmAContactView)
+		{
+			if (!($params instanceof Registry))
+			{
+				$params = $article->params;
+			}
+
+			if ($params->get('iAmAModuleGhsvs', 0))
+			{
+				$iAmAContactView = false;
+			}
+		}
+		// End J4 bug.
 
 		$print = $this->app->input->getBool('print');
 
