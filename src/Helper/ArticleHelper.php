@@ -14,8 +14,6 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\Component\Content\Site\Helper\RouteHelper;
 
-JModelLegacy::addIncludePath($com_path . '/models', 'ContentModel');
-
 abstract class Bs3ghsvsArticle
 {
 	protected static $loaded = array();
