@@ -11,6 +11,9 @@
 		"tag": "stable",
 		"targetplatform": ".*"
 	},
+	"releaseTxt": {
+		"title": "Joomla system plugin Bs3Ghsvsvs (Bootstrap 5 variant)"
+	},
 	"changelog": {
 		"projecturl": "https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5",
 		"infosDE": "",

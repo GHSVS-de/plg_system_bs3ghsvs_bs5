@@ -5,6 +5,8 @@ const chalk = require('chalk');
 const exec = util.promisify(require('child_process').exec);
 const path = require('path');
 const replaceXml = require('./build/replaceXml.js');
+const crypto = require('crypto');
+const program = require('commander');
 
 const {
 	filename,
@@ -14,23 +16,37 @@ const {
 
 const manifestFileName = `${filename}.xml`;
 const Manifest = `${__dirname}/package/${manifestFileName}`;
-
-// Joomla media folder (target workdir) inside this project. For copy-to actions.
 const pathMedia = `./media`;
 
-const program = require('commander');
+async function cleanOut (cleanOuts) {
+	for (const file of cleanOuts)
+	{
+		await rimRaf(file).then(
+			answer => console.log(chalk.redBright(`rimrafed: ${file}.`))
+		).catch(error => console.error('Error ' + error));
+	}
+}
 
-program
-  .version(version)
-  .option('--svg', 'Additionally prepare svgs in /svg-icons/ for Joomla usage')
-  .on('--help', () => {
-    // eslint-disable-next-line no-console
-    console.log(`Version: ${version}`);
-    process.exit(0);
-  })
-  .parse(process.argv);
+// Digest sha256, sha384 or sha512.
+async function getChecksum(path, Digest)
+{
+  return new Promise(function (resolve, reject)
+	{
+    const hash = crypto.createHash(Digest);
+    const input = fse.createReadStream(path);
 
-const Program = program.opts();
+    input.on('error', reject);
+    input.on('data', function (chunk)
+		{
+      hash.update(chunk);
+    });
+
+    input.on('close', function ()
+		{
+      resolve(hash.digest('hex'));
+    });
+  });
+}
 
 async function buildOverview()
 {
@@ -43,14 +59,17 @@ async function buildOverview()
 	console.log(`${stdout}`);
 }
 
-async function cleanOut (cleanOuts) {
-	for (const file of cleanOuts)
-	{
-		await rimRaf(file).then(
-			answer => console.log(chalk.redBright(`rimrafed: ${file}.`))
-		);
-	}
-}
+program
+  .version(version)
+  .option('--svg', 'Additionally prepare svgs in /svg-icons/ for Joomla usage')
+  .on('--help', () => {
+    // eslint-disable-next-line no-console
+    console.log(`Version: ${version}`);
+    process.exit(0);
+  })
+  .parse(process.argv);
+
+const Program = program.opts();
 
 (async function exec()
 {
@@ -68,8 +87,8 @@ async function cleanOut (cleanOuts) {
 		`${pathMedia}/js/jquery`,
 		`${pathMedia}/js/jquery-migrate`,
 	];
-
 	await cleanOut(cleanOuts);
+	console.log(chalk.cyanBright(`Be patient! Some copy actions!`));
 
 // ### Prepare /media/.
 
@@ -188,26 +207,50 @@ async function cleanOut (cleanOuts) {
 			`Copied ${manifestFileName} to ./dist.`))
 	);
 
+	// Create zip file and detect checksum then.
+	const zipFilePath = `./dist/${zipFilename}`;
+
+	const zip = new (require('adm-zip'))();
+	zip.addLocalFolder("package", false);
+	await zip.writeZip(`${zipFilePath}`);
+	console.log(chalk.cyanBright(chalk.bgRed(
+		`./dist/${zipFilename} written.`)));
+
+	const Digest = 'sha256'; //sha384, sha512
+	const checksum = await getChecksum(zipFilePath, Digest)
+  .then(
+		hash => {
+			const tag = `<${Digest}>${hash}</${Digest}>`;
+			console.log(chalk.greenBright(`Checksum tag is: ${tag}`));
+			return tag;
+		}
+	)
+	.catch(error => {
+		console.log(error);
+		console.log(chalk.redBright(`Error while checksum creation. I won't set one!`));
+		return '';
+	});
+
 	let xmlFile = 'update.xml';
 	await fse.copy(`./${xmlFile}`, `./dist/${xmlFile}`).then(
 		answer => console.log(chalk.yellowBright(
 			`Copied ${xmlFile} to ./dist.`))
 	);
-	await replaceXml.main(`${__dirname}/dist/${xmlFile}`, zipFilename);
+	await replaceXml.main(`${__dirname}/dist/${xmlFile}`, zipFilename, checksum);
 
 	xmlFile = 'changelog.xml';
 	await fse.copy(`./${xmlFile}`, `./dist/${xmlFile}`).then(
 		answer => console.log(chalk.yellowBright(
 			`Copied ${xmlFile} to ./dist.`))
 	);
-	await replaceXml.main(`${__dirname}/dist/${xmlFile}`, zipFilename);
+	await replaceXml.main(`${__dirname}/dist/${xmlFile}`, zipFilename, checksum);
 
-	// Pack it.
-	const zip = new (require("adm-zip"))();
-	zip.addLocalFolder("package", false);
-	zip.writeZip(`./dist/${zipFilename}`);
-	console.log(chalk.cyanBright(chalk.bgRed(
-		`./dist/${zipFilename} written.`)));
+	xmlFile = 'release.txt';
+	await fse.copy(`./${xmlFile}`, `./dist/${xmlFile}`).then(
+		answer => console.log(chalk.yellowBright(
+			`Copied ${xmlFile} to ./dist.`))
+	);
+	await replaceXml.main(`${__dirname}/dist/${xmlFile}`, zipFilename, checksum);
 
 	await buildOverview();
 
@@ -220,8 +263,8 @@ async function cleanOut (cleanOuts) {
 		`${pathMedia}/js/jquery-migrate`,
 		`./package`,
 	];
-
 	await cleanOut(cleanOuts).then(
-		answer => console.log(chalk.yellowBright(`Finish.`))
+		answer => console.log(chalk.cyanBright(chalk.bgRed(
+			`Finished. Good bye!`)))
 	);
 })();
