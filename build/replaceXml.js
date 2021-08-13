@@ -14,6 +14,7 @@ const {
 	creationDate,
 	description,
 	name,
+	nameReal,
 	filename,
 	version,
 	versionCompare,
