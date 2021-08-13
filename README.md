@@ -46,8 +46,6 @@ OR
 
 ### Build new Joomla package ZIP.
 
-- <strike>`nvm use 12` or `nvm use 13` to get rid of f'ing messages of NodeJs 14 that nobody understands but the creators and JS professors. Only `node build.js --svg` has still problems.</strike>
-
 #### Whenever Bootstrap/icons or fontawesome/icons have been updated while `npm update`
 - `node build.js --svg` (to create embeddable icons in `media/svgs/`)
 
@@ -62,6 +60,7 @@ OR
 #####
 - New ZIP is in `/dist/`
 - FYI: Packed files for this ZIP can be seen in `/package/`. **But only if you disable deletion of this folder at the end of build.js**.
+- Created `/dist/icons-overview.html` (an overview with all icons).
 
 #### For Joomla update server
 - Create new release with new tag.
