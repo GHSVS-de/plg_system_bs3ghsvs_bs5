@@ -44,7 +44,7 @@ HTMLHelper::_('bs3ghsvs.smoothscroll', array(
 		aria-hidden="true"
 	>
 
-		<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<p class="modal-title h3" id="<?php echo $id; ?>Title">

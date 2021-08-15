@@ -18,7 +18,7 @@ use Joomla\CMS\Component\ComponentHelper;
 	role="dialog"
 	aria-labelledby="PasswordHintModalTitle"
 >
-  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
 				<p class="modal-title h3" id="PasswordHintModalTitle">
