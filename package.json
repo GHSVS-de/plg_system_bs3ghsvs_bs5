@@ -2,8 +2,8 @@
 	"name": "plg_system_bs3ghsvs_bs5",
 	"nameReal": "plg_system_bs3ghsvs",
 	"filename": "bs3ghsvs",
-	"version": "2021.08.13",
-	"versionCompare": "2021.07.31",
+	"version": "2021.09.04",
+	"versionCompare": "2021.08.13",
 	"update": {
 		"type": "plugin",
 		"folder": "system",
@@ -21,8 +21,10 @@
 		"docsDE": "",
 		"docsEN": "",
 		"lastTests": [
-			"J3.9.28",
-			"PHP8"
+			"PHP 8",
+			"PHP 7.4",
+			"Joomla 3.10",
+			"Joomla 4.0"
 		]
 	},
 	"minimumPhp": "7.3.0",
@@ -67,12 +69,12 @@
 	},
 	"dependencies": {
 		"@fortawesome/fontawesome-free": "^5",
-		"@popperjs/core": "^2.9.3",
+		"@popperjs/core": "^2.10.1",
 		"bootstrap": "^5.1.0",
 		"bootstrap-icons": "^1.5.0",
 		"jquery": "^3",
 		"jquery-migrate": "^3",
-		"npm-check-updates": "^11.8.3",
+		"npm-check-updates": "^11.8.5",
 		"skipto": "^4"
 	},
 	"devDependencies": {
@@ -86,7 +88,7 @@
 		"path": "^0.12.7",
 		"recursive-readdir": "^2.2.2",
 		"rimraf": "3.0.2",
-		"svgo": "^2.4.0"
+		"svgo": "^2.5.0"
 	},
 	"browserslist": []
 }
