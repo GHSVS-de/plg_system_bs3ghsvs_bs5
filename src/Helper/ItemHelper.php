@@ -10,6 +10,7 @@ use Joomla\CMS\Image\Image;
 use Joomla\CMS\Utility\Utility;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Utilities\ArrayHelper;
+use Joomla\CMS\Plugin\PluginHelper;
 
 class Bs3ghsvsItem
 {
@@ -339,16 +340,33 @@ class Bs3ghsvsItem
 		if (stripos($txt, '<img ') !== false)
 		{
 			self::replaceFigureImg($txt, $filter);
-			#/<img(\s+[^>]*)src=("|'|)([^>]+?\.(png|jpg|jpeg|gif))("|'|)([^>]*>)/i
+
+			// Quotes. HTML5 allows also unquoted src attribute.
+			$imgSrcDetection = '("|\'|)';
+
+			/*
+			 there are stupid image names for which the detection fails and
+			 images are not displayed. E.g. <code>image.JPG51.jpg</code>.
+			 Then user can switch detection to HTML4 in plugin settings.
+			*/
+			if (PluginHelper::isEnabled('system', 'bs3ghsvs'))
+			{
+				if (PlgSystemBS3Ghsvs::getPluginParams()->get('imgSrcDetection')
+					=== 'html4')
+				{
+					// Quotes. HTML4. Only quoted src attributes.
+					$imgSrcDetection = '("|\')';
+				}
+			}
+
 			$muster = array();
 			$muster[] = '<img';
 			$muster[] = '(\s+[^>]*)'; // key 1
 			$muster[] = 'src=';
-
-			// Quotes. HTML5 allows also unquoted ones
-			$muster[] = '("|\'|)';
+			$muster[] = $imgSrcDetection;
 			$muster[] = '([^>]+?\.(' . $filter . '))';
-			$muster[] = '("|\'|)';
+			$muster[] = $imgSrcDetection;
+
 			$muster[] = '([^>]*>)';
 
 			if (preg_match_all('/' . implode('', $muster) . '/i', $txt, $matches))

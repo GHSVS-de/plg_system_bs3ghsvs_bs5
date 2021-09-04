@@ -279,6 +279,17 @@
 			<fieldset name="FieldsetImageResize"
 				label="PLG_SYSTEM_BS3GHSVS_FIELDSET_IMAGERESIZE">
 
+				<field name="imgSrcDetection" type="list" default="html5"
+					label="PLG_SYSTEM_BS3GHSVS_IMGSRCDETECTION">
+					<option value="html5">HTML5</option>
+					<option value="html4">HTML4</option>
+				</field>
+
+				<field name="imgSrcDetectionSpacer" type="note"
+					class="alert alert-info"
+					label="PLG_SYSTEM_BS3GHSVS_IMGSRCDETECTION"
+					description="PLG_SYSTEM_BS3GHSVS_IMGSRCDETECTION_DESC"/>
+
 				<field type="plgSystemBs3ghsvs.ImgResizeGhsvsInstalled"
 					name="ImgResizeGhsvsInstalled"
 					hiddenLabel="true"/>
