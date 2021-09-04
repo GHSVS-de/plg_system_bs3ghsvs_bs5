@@ -277,8 +277,7 @@
 
 
 			<fieldset name="FieldsetImageResize"
-				label="PLG_SYSTEM_BS3GHSVS_FIELDSET_IMAGERESIZE"
-				description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC">
+				label="PLG_SYSTEM_BS3GHSVS_FIELDSET_IMAGERESIZE">
 
 				<field type="plgSystemBs3ghsvs.ImgResizeGhsvsInstalled"
 					name="ImgResizeGhsvsInstalled"
