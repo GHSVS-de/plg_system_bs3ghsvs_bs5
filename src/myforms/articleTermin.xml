@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="bs3ghsvs_termin">
+		<fieldset name="bs3ghsvsTerminFieldset"
+		label="PLG_SYSTEM_BS3GHSVS_FIELDSET_BS3GHSVSTERMIN">
+
+			<field name="terminSpacer" type="note"
+				class="alert alert-warning"
+				label="PLG_SYSTEM_BS3GHSVS_TERMIN_ACTIVE"
+				description="PLG_SYSTEM_BS3GHSVS_TERMIN_ACTIVE_DESC"/>
+
+			<field name="bs3ghsvs_termin_active" type="list" default="0"
+				filter="integer"
+				label="PLG_SYSTEM_BS3GHSVS_TERMIN_ACTIVE">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+
+			<field name="start" type="calendar" format="%Y-%m-%d"
+				showon="bs3ghsvs_termin_active:1"
+				label="PLG_SYSTEM_BS3GHSVS_TERMIN_START"
+				size="10" maxlength="10"/>
+
+			<field name="end" type="calendar" format="%Y-%m-%d"
+				showon="bs3ghsvs_termin_active:1"
+				label="PLG_SYSTEM_BS3GHSVS_TERMIN_END"
+				size="10" maxlength="10"/>
+
+		</fieldset>
+	</fields><!--/bs3ghsvs_termin-->
+</form>

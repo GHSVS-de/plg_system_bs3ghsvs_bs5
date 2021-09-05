@@ -181,6 +181,14 @@
 							<option value="1">JYES</option>
 							<option value="0">JNO</option>
 					</field>
+
+					<field name="xml_articleTermin" type="list" default="0"
+						filter="integer"
+						label="articleTermin.xml">
+							<option value="1">JYES</option>
+							<option value="0">JNO</option>
+					</field>
+
 				</fields><!--/XmlActiveArticle-->
 
 				<fields name="XmlActiveModule">
