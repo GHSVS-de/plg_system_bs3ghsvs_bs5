@@ -146,45 +146,39 @@
 				<fields name="XmlActiveArticle">
 
 					<field name="XmlActiveArticleSpacer" type="spacer"
-						label="PLG_SYSTEM_BS3GHSVS_XMLACTIVE_ARTICLE"
-						description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"/>
+						label="PLG_SYSTEM_BS3GHSVS_XMLACTIVE_ARTICLE"/>
 
 					<field name="xml_base" type="list" default="0"
 						filter="integer"
-						label="base.xml (System)"
-						description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC">
+						label="base.xml (System)">
 							<option value="2">JYES</option>
 							<option value="0">JNO</option>
 					</field>
 
 					<field name="xml_articleVarious" type="list" default="0"
 						filter="integer"
-						label="articleVarious.xml"
-						description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC">
+						label="articleVarious.xml">
 							<option value="1">JYES</option>
 							<option value="0">JNO</option>
 					</field>
 
 					<field name="xml_articleExtension" type="list" default="0"
 						filter="integer"
-						label="articleExtension.xml"
-						description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC">
+						label="articleExtension.xml">
 							<option value="1">JYES</option>
 							<option value="0">JNO</option>
 					</field>
 
 					<field name="xml_articleImages" type="list" default="0"
 						filter="integer"
-						label="articleImages.xml"
-						description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC">
+						label="articleImages.xml">
 							<option value="1">JYES</option>
 							<option value="0">JNO</option>
 					</field>
 
 					<field name="xml_articleSettings" type="list" default="0"
 						filter="integer"
-						label="articleSettings.xml"
-						description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC">
+						label="articleSettings.xml">
 							<option value="1">JYES</option>
 							<option value="0">JNO</option>
 					</field>
@@ -193,8 +187,7 @@
 				<fields name="XmlActiveModule">
 
 					<field name="XmlActiveModuleSpacer" type="spacer"
-						label="PLG_SYSTEM_BS3GHSVS_XMLACTIVE_MODULE"
-						description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"/>
+						label="PLG_SYSTEM_BS3GHSVS_XMLACTIVE_MODULE"/>
 
 					<field name="xml_base" type="list" default="2"
 						filter="integer"
