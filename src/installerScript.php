@@ -94,7 +94,6 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/plugins/system/bs3ghsvs/html/lessghsvs.php',
 		'/plugins/system/bs3ghsvs/Field/articleswithextrafieldsinfo.php',
 		'/plugins/system/bs3ghsvs/Field/enabledchecker.php',
-		'/plugins/system/bs3ghsvs/versions-installed/composer_installed.json',
 		'/plugins/system/bs3ghsvs/html/footableghsvs.php'
 	);
 
@@ -132,6 +131,7 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/media/plg_system_bs3ghsvs/js/footable',
 		'/media/plg_system_bs3ghsvs/js/moment',
 		'/media/plg_system_bs3ghsvs/css/footable',
+		'/plugins/system/bs3ghsvs/versions-installed',
 	);
 
 	public function preflight($type, $parent)

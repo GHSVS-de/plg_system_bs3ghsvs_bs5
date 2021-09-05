@@ -148,13 +148,6 @@ const Program = program.opts();
 		// {overwrite:false, errorOnExist:true}
 	);
 
-	await fse.copy(
-		"./package-lock.json",
-		"./package/versions-installed/npm_package-lock.json"
-	).then(
-		answer => console.log(chalk.yellowBright(`Copied ./package-lock.json.`))
-	);
-
 	if (Program.svg === true)
 	{
 		console.log(chalk.greenBright(`Program.svg: YES`));
