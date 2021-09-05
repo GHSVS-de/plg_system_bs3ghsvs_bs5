@@ -109,7 +109,7 @@ abstract class Bs3ghsvsArticle
 	}
 
 	/** Load articles that have an entry in table #__bs3ghsvs_article with
-	 *	provided $key.
+	 *	provided $key. E.g. 'termin' or 'various.'
 	 */
 	public static function getArticlesWithExtraFieldType(string $key)
 	{
@@ -183,11 +183,11 @@ abstract class Bs3ghsvsArticle
 		return [];
 	}
 
-	/** Extract/Return 'extension' data from #__bs3ghsvs_article of aingle article.
+	/** Pick data of a aingle article from #__bs3ghsvs_article where key='extension'.
 	*/
 	public static function getExtensionData(int $articleId)
 	{
-		$extensionData = self::getExtraFields($articleId, array('extension'));
+		$extensionData = self::getExtraFields($articleId, ['extension']);
 
 		if (
 			!($extensionData instanceof Registry)
@@ -201,7 +201,7 @@ abstract class Bs3ghsvsArticle
 
 	public static function getVariousData(int $articleId)
 	{
-		$data = self::getExtraFields($articleId, array('various'));
+		$data = self::getExtraFields($articleId, ['various']);
 
 		if (
 			!($data instanceof Registry)
