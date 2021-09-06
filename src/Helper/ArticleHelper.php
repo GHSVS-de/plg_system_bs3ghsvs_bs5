@@ -332,7 +332,8 @@ abstract class Bs3ghsvsArticle
 				}
 			}
 		}
-		return true;
+
+		return false;
 	}
 
 	/**
