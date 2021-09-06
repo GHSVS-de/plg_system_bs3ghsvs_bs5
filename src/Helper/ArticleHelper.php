@@ -214,6 +214,7 @@ abstract class Bs3ghsvsArticle
 
 	/** Pick data of a aingle article from #__bs3ghsvs_article where key='extension'.
 	 * Shortcut for getBs3ghsvsArticleData($articleId, 'extension', ['name', 'description', 'url']);
+	 *
 	 * @param integer $articleId Field 'article_id'. Table '#__bs3ghsvs_article'.
 	 * @return stdClass|boolean false
 	*/
