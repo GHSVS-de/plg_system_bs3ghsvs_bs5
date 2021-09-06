@@ -314,9 +314,9 @@ abstract class Bs3ghsvsArticle
 
 		if ($required)
 		{
-			foreach ($required as $key)
+			foreach ($required as $checkKey)
 			{
-				if (empty($extensionData->$key))
+				if (empty($data->$checkKey))
 				{
 					return true;
 				}
