@@ -25,7 +25,7 @@ abstract class Bs3ghsvsArticle
 	 * @param array $keys Values for db column key. If empty request all.
 	 * @return array of arrays | boolean false
 	*/
-	public static function getExtraFields(int $articleId, array $keys = array(), bool $asArray = false)
+	public static function getExtraFields(int $articleId, array $keys = [], bool $asArray = false)
 	{
 		if (!$articleId)
 		{
@@ -108,7 +108,7 @@ abstract class Bs3ghsvsArticle
 		return $result;
 	}
 
-	/** Load articles that have an entry in table #__bs3ghsvs_article with
+	/** Get list of articles that have an entry in table #__bs3ghsvs_article with
 	 *	provided $key. E.g. 'termin' or 'various.'
 	 */
 	public static function getArticlesWithExtraFieldType(string $key)
@@ -183,34 +183,74 @@ abstract class Bs3ghsvsArticle
 		return [];
 	}
 
-	/** Pick data of a aingle article from #__bs3ghsvs_article where key='extension'.
+	/** Get data of a aingle article from #__bs3ghsvs_article.
+	 *
+	 * @param integer $articleId Field 'article_id'. Table '#__bs3ghsvs_article'.
+	 * @param string $key Field 'key' in table '#__bs3ghsvs_article'.
+	 * @param array $required If provided, will check if none of these properties are empty.
+	 * @return object|boolean false
 	*/
-	public static function getExtensionData(int $articleId)
-	{
-		$extensionData = self::getExtraFields($articleId, ['extension']);
+	public static function getBs3ghsvsArticleData(int $articleId, string $key,
+		array $required = []
+	){
+		$data = self::getExtraFields($articleId, (array) $key);
 
-		if (
-			!($extensionData instanceof Registry)
-			|| self::isExtensionEmpty($extensionData->get('extension'))
-		){
-			return false;
-		}
-
-		return $extensionData->get('extension', new stdClass, 'OBJECT');
-	}
-
-	public static function getVariousData(int $articleId)
-	{
-		$data = self::getExtraFields($articleId, ['various']);
-
-		if (
-			!($data instanceof Registry)
-			|| self::isVariousEmpty($data->get('various')))
+		if (!($data instanceof Registry))
 		{
 			return false;
 		}
 
-		return $data->get('various', new stdClass, 'OBJECT');
+		if (self::isDataEmpty(
+				($data = $data->get($key)),
+				$key,
+				$required
+			)
+		){
+			return false;
+		}
+
+		return $data;
+	}
+
+	/** Pick data of a aingle article from #__bs3ghsvs_article where key='extension'.
+	 * Shortcut for getBs3ghsvsArticleData($articleId, 'extension', ['name', 'description', 'url']);
+	 * @param integer $articleId Field 'article_id'. Table '#__bs3ghsvs_article'.
+	 * @return stdClass|boolean false
+	*/
+	public static function getExtensionData(int $articleId)
+	{
+		$key = 'extension';
+
+		return self::getBs3ghsvsArticleData($articleId, $key,
+			['name', 'description', 'url']);
+	}
+
+	/** Pick data of a aingle article from #__bs3ghsvs_article where key='various'.
+	 * Because of B\C reasons.
+	 * Shortcut for getBs3ghsvsArticleData($articleId, 'various');
+	 *
+	 * @param integer $articleId Field 'article_id'. Table '#__bs3ghsvs_article'.
+	 * @return stdClass|boolean false
+	*/
+	public static function getVariousData(int $articleId)
+	{
+		$key = 'various';
+
+		return self::getBs3ghsvsArticleData($articleId, $key);
+	}
+
+	/** Pick data of a aingle article from #__bs3ghsvs_article where key='termin'.
+	 *
+	 * Shortcut for getBs3ghsvsArticleData($articleId, 'termin');
+	 *
+	 * @param integer $articleId Field 'article_id'. Table '#__bs3ghsvs_article'.
+	 * @return stdClass|boolean false
+	*/
+	public static function getTerminData(int $articleId)
+	{
+		$key = 'termin';
+
+		return self::getBs3ghsvsArticleData($articleId, $key);
 	}
 
 	public static function getJcfieldsAsRegistry($item) : Registry
@@ -250,48 +290,45 @@ abstract class Bs3ghsvsArticle
 	}
 
 	/**
-	 * Check if it's worth to go on with 'extension' datas on display actions.
+	 * Check if it's worth to go on with #__bs3ghsvs_article datas on display actions.
+	 * Return true if all object properties are empty
+	 * OR if $required provided, will check if none of these properties are empty.
+	 *
+	 * @param object $data
+	 * @param string $key Field 'key'. Table '#__bs3ghsvs_article'.
+	 * @param array $required
+	 * @return boolean True if empty.
 	 */
-	public static function isExtensionEmpty(
-		$extensionData,
-		array $required = array('name', 'description', 'url')
-	){
-		if (!is_object($extensionData))
-		{
+	private static function isDataEmpty($data, $key, $required = [])
+	{
+		if (
+			!is_object($data) || !count(get_object_vars($data))
+
+			// Nearly impossible that this property exists AND is set to 0 or empty.
+			// If it exists it should be alwys 1.
+			|| empty($data->{'bs3ghsvs_' . $key . '_active'})
+		){
 			return true;
 		}
 
-		foreach ($required as $key)
+		if ($required)
 		{
-			if (empty($extensionData->$key))
+			foreach ($required as $key)
 			{
-				return true;
+				if (empty($extensionData->$key))
+				{
+					return true;
+				}
 			}
 		}
-		return false;
-	}
-	/**
-	 *
-	 */
-	public static function isVariousEmpty($various)
-	{
-		if (!is_object($various))
+		else
 		{
-			return true;
-		}
-
-		// Nearly impossible that this property exists AND is set to 0.
-		// If it exists it should be alwys 1.
-		if (empty($various->bs3ghsvs_various_active))
-		{
-			return true;
-		}
-
-		foreach ($various as $key => $value)
-		{
-			if (!empty($value))
+			foreach ($data as $value)
 			{
-				return false;
+				if (!empty($value))
+				{
+					return false;
+				}
 			}
 		}
 		return true;
