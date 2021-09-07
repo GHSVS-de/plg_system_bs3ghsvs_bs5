@@ -2,8 +2,8 @@
 	"name": "plg_system_bs3ghsvs_bs5",
 	"nameReal": "plg_system_bs3ghsvs",
 	"filename": "bs3ghsvs",
-	"version": "2021.09.07",
-	"versionCompare": "2021.09.04",
+	"version": "2021.09.08",
+	"versionCompare": "2021.09.07",
 	"update": {
 		"type": "plugin",
 		"folder": "system",
@@ -12,7 +12,7 @@
 		"targetplatform": ".*"
 	},
 	"releaseTxt": {
-		"title": "Joomla system plugin Bs3Ghsvsvs (Bootstrap 5 variant)"
+		"title": "Joomla system plugin Bs3Ghsvsvs (Bootstrap 5.1 variant)"
 	},
 	"changelog": {
 		"projecturl": "https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5",
@@ -30,7 +30,7 @@
 	"minimumPhp": "7.3.0",
 	"maximumPhp": "8.99999.99999",
 	"minimumJoomla": "3.9.8",
-	"maximumJoomla": "",
+	"maximumJoomla": "4.9999.9999",
 	"allowDowngrades": "1",
 	"creationDate": "2015-08-30",
 	"licenseLong": "GNU General Public License version 3 or later; see LICENSE.txt.",
@@ -70,7 +70,7 @@
 	"dependencies": {
 		"@fortawesome/fontawesome-free": "^5",
 		"@popperjs/core": "^2.10.1",
-		"bootstrap": "^5.1.0",
+		"bootstrap": "^5.1.1",
 		"bootstrap-icons": "^1.5.0",
 		"jquery": "^3",
 		"jquery-migrate": "^3",
