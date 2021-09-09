@@ -8,38 +8,46 @@ use Joomla\Registry\Registry;
 class Bs3GhsvsFormHelper
 {
 	protected static $loaded = array();
-	
+
 	public static function getActiveXml($key, $paras, $status = array(1, 2))
 	{
-		$params = clone $paras;
-
 		$key = 'XmlActive' . ucfirst($key);
-		$XmlActive = $params->get($key);
+		$sig = $key . '_' . serialize($status);
 
-		if (!is_object($XmlActive) || !count(get_object_vars($XmlActive)))
+		if (!isset(self::$loaded[$sig]))
 		{
-			return array();
-		}
+			$params = clone $paras;
+			$XmlActive = $params->get($key);
 
-		foreach ($XmlActive as $file => $active)
-		{
-			if (!in_array($active, $status) || strpos($file, 'xml_') !== 0)
+			if (!is_object($XmlActive) || !count(get_object_vars($XmlActive)))
 			{
-				unset($XmlActive->$file);
-				continue;
+				self::$loaded[$sig] = [];
+				return [];
 			}
-		}
-		$XmlActive = (array) $XmlActive;
 
-		foreach ($XmlActive as $file => $active)
-		{
-			unset($XmlActive[$file]);
-			$file = substr($file, 4);
-			$XmlActive[$file] = $active;
+			foreach ($XmlActive as $file => $active)
+			{
+				if (!in_array($active, $status) || strpos($file, 'xml_') !== 0)
+				{
+					unset($XmlActive->$file);
+					continue;
+				}
+			}
+			$XmlActive = (array) $XmlActive;
+
+			foreach ($XmlActive as $file => $active)
+			{
+				unset($XmlActive[$file]);
+				$file = substr($file, 4);
+				$XmlActive[$file] = $active;
+			}
+
+			self::$loaded[$sig] = $XmlActive;
 		}
-		return $XmlActive;
+
+		return self::$loaded[$sig];
 	}
-	
+
 	/**
 	 * Placeholder einsetzen statt Labels. Labels erhalten sr-only, damit Validierung noch klappt.
 	 * Klasse form-control einsetzen für BS 3.
@@ -63,14 +71,14 @@ class Bs3GhsvsFormHelper
 		 'spacer',
 		 'captcha',
 		);
-		
+
 		foreach ($fields as $field)
 		{
 			if (in_array($field->getAttribute('type'), $excludeTypes))
 			{
 				continue;
 			}
-			
+
 			if (!\in_array('form-control', $ignore))
 			{
 				$class = $field->getAttribute('class');
@@ -104,7 +112,7 @@ class Bs3GhsvsFormHelper
 			if ($hint)
 			{
 				$hint = Text::_($hint);
-				
+
 				if (!$field->required)
 				{
 					$hint .= ' ' . Text::_('PLG_SYSTEM_BS3GHSVS_OPTIONAL');
@@ -113,7 +121,7 @@ class Bs3GhsvsFormHelper
 				{
 					$hint .= ' *';
 				}
-		
+
 				$form->setFieldAttribute($field->fieldname, 'hint', $hint, $field->group);
 				$form->setFieldAttribute($field->fieldname, 'translateHint', true, $field->group);
 
