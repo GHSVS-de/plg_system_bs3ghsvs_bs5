@@ -1008,6 +1008,24 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		###### pagebreakghsvs-slider - END
 	}
 
+	/*
+	$this->item->event->beforeDisplayContent;
+	Termine
+	*/
+	public function onContentBeforeDisplay($context, $article, $params, $limitstart = 0)
+	{
+		if (
+			!empty($article->id)
+			&& Bs3GhsvsFormHelper::getActiveXml('Article', $this->params, [1])['articleTermin'])
+		{
+			// Termine eingegeben?
+			return trim(LayoutHelper::render(
+				$this->params->get('XmlActiveArticle')->articleTerminJLayout,
+				['articleId' => $article->id]
+			));
+		}
+	}
+
 	public function onSubmitContact(&$contact, &$data)
 	{
 		if (!empty($data['contact_phoneghsvs']))
