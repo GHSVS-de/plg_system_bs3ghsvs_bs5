@@ -280,7 +280,6 @@
 
 			</fieldset><!--/FieldsetXmlActive-->
 
-
 			<fieldset name="FieldsetImageResize"
 				label="PLG_SYSTEM_BS3GHSVS_FIELDSET_IMAGERESIZE">
 
@@ -308,7 +307,7 @@
 
 				<field type="note" name="resizeGlobalActiveSpacer"
 					class="alert alert-block"
-					label="Resizer global aktivieren: Wenn NEIN, sind alle folgenden Einstellungen wirkungslos. Es wird nichts getan." />
+					label="Resizer global aktivieren: Wenn NEIN, sind alle folgenden Einstellungen wirkungslos. Es wird nichts getan während Sie hier Einstellungen machen können." />
 
 				<field name="webpSupport" type="list" default="0" filter="integer"
 					label="WEBP-Support"
@@ -323,8 +322,7 @@
 					label="PLG_SYSTEM_BS3GHSVS_WEBPSUPPORT_DESC" />
 
 				<field name="resizeForce" type="list" default="0" filter="integer"
-					label="PLG_SYSTEM_BS3GHSVS_FORCE"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC">
+					label="PLG_SYSTEM_BS3GHSVS_FORCE">
 						<option value="0">JNO</option>
 						<option value="1">JYES</option>
 				</field>
@@ -335,304 +333,305 @@
 
 				<field name="resizeForceMessage" type="list" default="1" filter="integer"
 					label="PLG_SYSTEM_BS3GHSVS_FORCEMESSAGE"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"
 					showon="resizeForce:1">
 						<option value="0">JNO</option>
 						<option value="1">JYES</option>
 				</field>
 
 <field type="spacer" name="spacer156" hr="true" />
-<field type="spacer" name="spacer1561" hr="true" />
 
-				<field type="spacer" name="introfullimagespacer"
-					label="PLG_SYSTEM_BS3GHSVS_INTROFULLIMAGES" />
+				<field type="note" name="introfullimagespacer"
+					label="PLG_SYSTEM_BS3GHSVS_INTROFULLIMAGES"
+					class="alert alert-danger alert-headline"/>
 
 				<field name="imageoptimizer_intro_full" type="list" default="0" filter="integer"
-					label="Bildoptimierer für Intro- und Beitrags-Bilder aktiv"
-					description="">
+					label="Bildoptimierer für Intro- und Beitrags-Bilder aktiv">
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
 
-<!--x = x-large-->
 				<field type="spacer" name="spacerx" hr="true" />
 
 <fields name="image_intro">
 
-				<field name="attribs_x" type="text"
-				 default="w=700,quality=80,maxOnly=TRUE"
-				 label="PLG_SYSTEM_BS3GHSVS_FIELD_INTRO_X_LBL"
-				 description="" class="extended-width"
-				 showon="active_x:1"/>
 
-				<field name="active_x" type="list" default="0"
-				 label="x-large aktiv"
-				 description=""
-				 filter="integer">
-				 <option value="0">JNO</option>
-				 <option value="1">JYES</option>
+				<field type="note" name="image_intro_x_Spacer"
+					label="Einleitungsbild (image_intro) X-LARGE (xl)"
+					class="alert-success"/>
+
+				<field name="active_x" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
-				<field type="spacer" name="spacerl" hr="true" />
+				<field name="attribs_x" type="text" filter="trim"
+					default="w=700,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_x:1"/>
 
-				<field name="attribs_l" type="text"
-				 default="w=480,quality=80,maxOnly=TRUE"
-				 label="PLG_SYSTEM_BS3GHSVS_FIELD_INTRO_L_LBL"
-				 description="" class="extended-width"
-				 showon="active_l:1"/>
 
-				<field name="active_l" type="list"
-				 label="large aktiv"
-				 description=""
-				 filter="integer"
-				 default="1"
-				 readonly="true">
-				 <option value="0">JNO</option>
-				 <option value="1">JYES</option>
+				<field type="note" name="image_intro_l_Spacer"
+					label="Einleitungsbild (image_intro) LARGE (l)"
+					class="alert-success"/>
+
+				<field name="active_l" type="list" default="1" filter="integer"
+					readonly="true"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
-		<!--m = medium-->
+				<field name="attribs_l" type="text" filter="trim"
+					default="w=480,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_l:1"/>
 
-				<field type="spacer" name="spacerm" hr="true" />
 
-				<field name="attribs_m" type="text"
-				 default="w=360,quality=80,maxOnly=TRUE"
-				 label="PLG_SYSTEM_BS3GHSVS_FIELD_INTRO_M_LBL"
-				 description="" class="extended-width"
-				 showon="active_m:1"/>
+				<field type="note" name="image_intro_m_Spacer"
+					label="Einleitungsbild (image_intro) MEDIUM (m)"
+					class="alert-success"/>
 
-				<field name="active_m" type="list" default="0"
-				 label="medium aktiv"
-				 description=""
-				 filter="integer">
-				 <option value="0">JNO</option>
-				 <option value="1">JYES</option>
+				<field name="active_m" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
-		<!--s = small-->
+				<field name="attribs_m" type="text" filter="trim"
+					default="w=360,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_m:1"/>
 
-				<field type="spacer" name="spacers" hr="true" />
 
-				<field name="attribs_s" type="text"
-				 default="w=320,quality=80,maxOnly=TRUE"
-				 label="PLG_SYSTEM_BS3GHSVS_FIELD_INTRO_S_LBL"
-				 description="" class="extended-width"
-				 showon="active_s:1"/>
+				<field type="note" name="image_intro_s_Spacer"
+					label="Einleitungsbild (image_intro) SMALL (s)"
+					class="alert-success"/>
 
-				<field name="active_s" type="list" default="0"
-				 label="small aktiv"
-				 description=""
-				 filter="integer">
-				 <option value="0">JNO</option>
-				 <option value="1">JYES</option>
+				<field name="active_s" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
-		<!--og = opengraph-->
+				<field name="attribs_s" type="text" filter="trim"
+					default="w=320,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_s:1"/>
 
-				<field type="spacer" name="spacerog" hr="true" />
 
-				<field name="attribs_og" type="text"
-				 default="w=310,h=310,quality=80,maxOnly=TRUE"
-				 label="PLG_SYSTEM_BS3GHSVS_FIELD_INTRO_OG_LBL"
-				 description="" class="extended-width"
-				 showon="active_og:1"/>
+				<field type="note" name="image_intro_og_Spacer"
+					label="Einleitungsbild (image_intro) OPEN GRAPH (og)"
+					class="alert-success"/>
 
-				<field name="active_og" type="list" default="0"
-				 label="open graph aktiv"
-				 description=""
-				 filter="integer">
-				 <option value="0">JNO</option>
-				 <option value="1">JYES</option>
+				<field name="active_og" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
+
+				<field name="attribs_og" type="text" filter="trim"
+					default="w=310,h=310,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_og:1"/>
 
 </fields><!--/image_intro-->
 
+<field type="spacer" name="spacerx2" hr="true" />
+
 <fields name="image_fulltext">
-		<!--x = x-large-->
 
-				<field type="spacer" name="spacerx2" hr="true" />
 
-				<field name="attribs_x" type="text"
-				 default="w=700,quality=80,maxOnly=TRUE"
-				 label="PLG_SYSTEM_BS3GHSVS_FIELD_FULL_X_LBL"
-				 description="" class="extended-width"
-				 showon="active_x:1"/>
+				<field type="note" name="image_fulltext_x_Spacer"
+					label="Beitragsbild (image_fulltext) X-LARGE (xl)"
+					class="alert-info"/>
 
-				<field name="active_x" type="list" default="0"
-				 label="x-large aktiv"
-				 description=""
-				 filter="integer">
-				 <option value="0">JNO</option>
-				 <option value="1">JYES</option>
+				<field name="active_x" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
-		<!--l = large-->
-				<field name="attribs_l" type="text"
-				 default="w=480,quality=80,maxOnly=TRUE"
-				 label="PLG_SYSTEM_BS3GHSVS_FIELD_FULL_L_LBL"
-				 description="" class="extended-width"
-				 showon="active_l:1"/>
+				<field name="attribs_x" type="text" filter="trim"
+					default="w=700,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_x:1"/>
 
-				<field name="active_l" type="list"
-				 label="large aktiv"
-				 description=""
-				 filter="integer"
-				 default="1"
-				 readonly="true">
-				 <option value="0">JNO</option>
-				 <option value="1">JYES</option>
+
+				<field type="note" name="image_fulltext_l_Spacer"
+					label="Beitragsbild (image_fulltext) LARGE (l)"
+					class="alert-info"/>
+
+				<field name="active_l" type="list" default="1" filter="integer"
+					readonly="true"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
-		<!--m = medium-->
-				<field name="attribs_m" type="text"
-				 default="w=400,quality=80,maxOnly=TRUE"
-				 label="PLG_SYSTEM_BS3GHSVS_FIELD_FULL_M_LBL"
-				 description="" class="extended-width"
-				 showon="active_m:1"/>
+				<field name="attribs_l" type="text" filter="trim"
+					default="w=480,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_l:1"/>
 
-				<field name="active_m" type="list" default="0"
-				 label="medium aktiv"
-				 description=""
-				 filter="integer">
-				 <option value="0">JNO</option>
-				 <option value="1">JYES</option>
+
+				<field type="note" name="image_fulltext_m_Spacer"
+					label="Beitragsbild (image_fulltext) MEDIUM (m)"
+					class="alert-info"/>
+
+				<field name="active_m" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
-		<!--s = small-->
-				<field name="attribs_s" type="text"
-				 default="w=320,quality=80,maxOnly=TRUE"
-				 label="PLG_SYSTEM_BS3GHSVS_FIELD_FULL_S_LBL"
-				 description="" class="extended-width"
-				 showon="active_s:1"/>
+				<field name="attribs_m" type="text" filter="trim"
+					default="w=400,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_m:1"/>
 
-				<field name="active_s" type="list" default="0"
-				 label="small aktiv"
-				 description=""
-				 filter="integer">
-				 <option value="0">JNO</option>
-				 <option value="1">JYES</option>
+
+				<field type="note" name="image_fulltext_s_Spacer"
+					label="Beitragsbild (image_fulltext) SMALL (s)"
+					class="alert-info"/>
+
+				<field name="active_s" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
-		<!--og = opengraph-->
-				<field name="attribs_og" type="text"
-				 default="w=310,h=310,quality=80,maxOnly=TRUE"
-				 label="PLG_SYSTEM_BS3GHSVS_FIELD_FULL_OG_LBL"
-				 description="" class="extended-width"
-				 showon="active_og:1"/>
+				<field name="attribs_s" type="text" filter="trim"
+					default="w=320,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_s:1"/>
 
-				<field name="active_og" type="list" default="0"
-				 label="open graph aktiv"
-				 description=""
-				 filter="integer">
-				 <option value="0">JNO</option>
-				 <option value="1">JYES</option>
+
+				<field type="note" name="image_fulltext_og_Spacer"
+					label="Beitragsbild (image_fulltext) OPEN GRAPH (og)"
+					class="alert-info"/>
+
+				<field name="active_og" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
+
+				<field name="attribs_og" type="text" filter="trim"
+					default="w=310,h=310,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_og:1"/>
 
 </fields><!--/image_fulltext-->
 
-
 <field type="spacer" name="spacer15612" hr="true" />
-<field type="spacer" name="spacer156123" hr="true" />
 
-		<field type="spacer" name="articleimagespacer" label="PLG_SYSTEM_BS3GHSVS_ARTICLEIMAGES" />
+				<field type="note" name="articleimagespacer"
+					label="PLG_SYSTEM_BS3GHSVS_ARTICLEIMAGES"
+					class="alert alert-danger alert-headline"/>
 
 				<field name="imageoptimizer_articletext" type="list" default="0"
-				 label="Bildoptimierer für Bilder im Beitragstext aktiv"
-				 description=""
-				 filter="integer">
-				 <option value="0">JNO</option>
-				 <option value="1">JYES</option>
+					filter="integer"
+					label="Bildoptimierer für Bilder im Beitragstext aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
-				<field name="jlayout_articletextSpacer" type="spacer"
-					label="PLG_SYSTEM_BS3GHSVS_LAYOUT_ARTICLETEXTSPACER"
-					description="">
+				<field name="jlayout_articletext" type="text" filter="trim"
+					default="ghsvs.article_image"
+					label="JLayout">
 				</field>
 
-				<field name="jlayout_articletext" type="text" default="ghsvs.article_image"
-					filter="string"
-					label="JLayout"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC">
+				<field name="jlayout_articletextSpacer" type="note"
+					label="JLayout [jlayout_articletext]"
+					description="PLG_SYSTEM_BS3GHSVS_LAYOUT_ARTICLETEXTSPACER"
+					class="alert alert-info">
 				</field>
+
+				<field type="spacer" name="spacerx321453" hr="true" />
 
 <fields name="image_articletext">
 
-		<!--x = x-large-->
-				<field name="attribs_x" type="text"
-				 default="w=1000,quality=80,maxOnly=TRUE"
-				 label="PLG_SYSTEM_BS3GHSVS_FIELD_ARTICLETEXT_X_LBL"
-				 description="" class="extended-width"
-				 showon="active_x:1"/>
 
-				<field name="active_x" type="list" default="0"
-				 label="x-large aktiv"
-				 description=""
-				 filter="integer">
-				 <option value="0">JNO</option>
-				 <option value="1">JYES</option>
+				<field type="note" name="image_articletext_x_Spacer"
+					label="Bild in Beitragstext X-LARGE (xl)"
+					class="alert-success"/>
+
+				<field name="active_x" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
-		<!--l = large-->
-				<field name="attribs_l" type="text"
-				 default="w=480,quality=80,maxOnly=TRUE"
-				 label="PLG_SYSTEM_BS3GHSVS_FIELD_ARTICLETEXT_L_LBL"
-				 description="" class="extended-width"
-				 showon="active_l:1"/>
+				<field name="attribs_x" type="text" filter="trim"
+					default="w=1000,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_x:1"/>
 
-				<field name="active_l" type="list"
-				 label="large aktiv"
-				 description=""
-						 filter="integer"
-				 default="1"
-				 readonly="true">
-				 <option value="0">JNO</option>
-				 <option value="1">JYES</option>
+
+				<field type="note" name="image_articletext_l_Spacer"
+					label="Bild in Beitragstext LARGE (l)"
+					class="alert-success"/>
+
+				<field name="active_l" type="list" default="1" filter="integer"
+					readonly="true"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
-		<!--m = medium-->
-				<field name="attribs_m" type="text"
-				 default="w=400,quality=80,maxOnly=TRUE"
-				 label="PLG_SYSTEM_BS3GHSVS_FIELD_ARTICLETEXT_M_LBL"
-				 description="" class="extended-width"
-				 showon="active_m:1"/>
+				<field name="attribs_l" type="text" filter="trim"
+					default="w=480,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_l:1"/>
 
-				<field name="active_m" type="list" default="0"
-				 label="medium aktiv"
-				 description=""
-				 filter="integer">
-				 <option value="0">JNO</option>
-				 <option value="1">JYES</option>
+
+				<field type="note" name="image_articletext_m_Spacer"
+					label="Bild in Beitragstext MEDIUM (m)"
+					class="alert-success"/>
+
+				<field name="active_m" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
-		<!--s = small-->
-				<field name="attribs_s" type="text"
-				 default="w=320,quality=80,maxOnly=TRUE"
-				 label="PLG_SYSTEM_BS3GHSVS_FIELD_ARTICLETEXT_S_LBL"
-				 description="" class="extended-width"
-				 showon="active_s:1"/>
+				<field name="attribs_m" type="text" filter="trim"
+					default="w=400,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_m:1"/>
 
-				<field name="active_s" type="list" default="0"
-				 label="small aktiv"
-				 description=""
-				 filter="integer">
-				 <option value="0">JNO</option>
-				 <option value="1">JYES</option>
+
+				<field type="note" name="image_articletext_s_Spacer"
+					label="Bild in Beitragstext SMALL (s)"
+					class="alert-success"/>
+
+				<field name="active_s" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
-		<!--og = opengrah-->
-				<field name="attribs_og" type="text"
-				 default="w=310,h=310,quality=80,maxOnly=TRUE"
-				 label="PLG_SYSTEM_BS3GHSVS_FIELD_ARTICLETEXT_OG_LBL"
-				 description="" class="extended-width"
-				 showon="active_og:1"/>
+				<field name="attribs_s" type="text" filter="trim"
+					default="w=320,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_s:1"/>
 
-				<field name="active_og" type="list" default="0"
-				 label="open graph aktiv"
-				 description=""
-				 filter="integer">
-				 <option value="0">JNO</option>
-				 <option value="1">JYES</option>
+
+				<field type="note" name="image_articletext_og_Spacer"
+					label="Bild in Beitragstext OPEN GRAPH (og)"
+					class="alert-success"/>
+
+				<field name="active_og" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
+
+				<field name="attribs_og" type="text" filter="trim"
+					default="w=310,h=310,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_og:1"/>
 
 </fields><!--/image_articletext-->
 

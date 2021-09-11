@@ -3,7 +3,7 @@
 Loads assets for backend settings of extension.
 
 Usage:
-<field name="assetsbe" type="plgSystemVenoboxGhsvs.assetsbe" hidden="true"
+<field name="assetsbe" type="plgSystemBs3Ghsvs.assetsbe" hidden="true"
 	loadjs="false" loadJQuery="false" loadcss="true" />
 
 If attributs loadjs or loadcss or loadJQuery are missing their default value is TRUE => Assets will be loaded. Use explicit "false" to not load!
