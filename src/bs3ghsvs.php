@@ -24,6 +24,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 JLoader::register('Bs3ghsvsTemplate', __DIR__ . '/Helper/TemplateHelper.php');
 JLoader::register('Bs3GhsvsFormHelper', __DIR__ . '/Helper/FormHelper.php');
 JLoader::register('Bs3ghsvsItem', __DIR__ . '/Helper/ItemHelper.php');
+JLoader::register('Bs3ghsvsArticle', __DIR__ . '/Helper/ArticleHelper.php');
 
 class PlgSystemBS3Ghsvs extends CMSPlugin
 {
@@ -1006,6 +1007,14 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			Bs3ghsvsPagebreak::buildSliders($article->text, $article->id);
 		}
 		###### pagebreakghsvs-slider - END
+
+		###### Extra fields from #__bs3ghsvs_article - START
+		if ($iAmAnArticle && Factory::getDocument()->getType() === 'html')
+		{
+			$article->bs3ghsvsFields = Bs3ghsvsArticle::getExtraFields(
+				$article->id, [], true);
+		}
+		###### Extra fields from #__bs3ghsvs_article - EnD
 	}
 
 	/*
