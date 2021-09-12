@@ -384,8 +384,7 @@
 
 				<field name="attribs_l" type="text" filter="trim"
 					default="w=480,quality=80,maxOnly=TRUE"
-					label="Optionen" class="extended-width"
-					showon="active_l:1"/>
+					label="Optionen" class="extended-width"/>
 
 
 				<field type="note" name="image_intro_m_Spacer"
@@ -471,8 +470,7 @@
 
 				<field name="attribs_l" type="text" filter="trim"
 					default="w=480,quality=80,maxOnly=TRUE"
-					label="Optionen" class="extended-width"
-					showon="active_l:1"/>
+					label="Optionen" class="extended-width"/>
 
 
 				<field type="note" name="image_fulltext_m_Spacer"
@@ -582,8 +580,7 @@
 
 				<field name="attribs_l" type="text" filter="trim"
 					default="w=480,quality=80,maxOnly=TRUE"
-					label="Optionen" class="extended-width"
-					showon="active_l:1"/>
+					label="Optionen" class="extended-width"/>
 
 
 				<field type="note" name="image_articletext_m_Spacer"
