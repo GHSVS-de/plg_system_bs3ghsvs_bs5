@@ -1016,7 +1016,8 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 	{
 		if (
 			!empty($article->id)
-			&& Bs3GhsvsFormHelper::getActiveXml('Article', $this->params, [1])['articleTermin'])
+			&& isset(Bs3GhsvsFormHelper::getActiveXml('Article',
+				$this->params, [1])['articleTermin']))
 		{
 			// Termine eingegeben?
 			return trim(LayoutHelper::render(
