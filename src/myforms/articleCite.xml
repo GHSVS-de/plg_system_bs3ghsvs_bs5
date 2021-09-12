@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="bs3ghsvs_cite">
+		<fieldset name="bs3ghsvsCiteFieldset"
+		label="PLG_SYSTEM_BS3GHSVS_FIELDSET_BS3GHSVSCITE">
+
+			<field name="citeSpacer" type="note"
+				class="alert alert-warning"
+				label="PLG_SYSTEM_BS3GHSVS_CITE_ACTIVE"
+				description="PLG_SYSTEM_BS3GHSVS_CITE_ACTIVE_DESC"/>
+
+			<field name="bs3ghsvs_cite_active" type="list" default="0"
+				filter="integer"
+				label="PLG_SYSTEM_BS3GHSVS_CITE_ACTIVE">
+				<option value="0">JNO</option>
+				<option value="1">JYES</option>
+			</field>
+
+			<field name="text" type="textarea" filter="safehtml"
+				showon="bs3ghsvs_cite_active:1"
+				label="PLG_SYSTEM_BS3GHSVS_CITE_TEXT"
+				class="extended-width"/>
+
+			<field name="source" type="textarea" filter="safehtml"
+				showon="bs3ghsvs_cite_active:1"
+				label="PLG_SYSTEM_BS3GHSVS_CITE_SOURCE"
+				class="extended-width"/>
+
+		</fieldset>
+	</fields><!--/bs3ghsvs_termin-->
+</form>

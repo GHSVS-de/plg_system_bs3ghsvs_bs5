@@ -194,6 +194,13 @@
 						showon="xml_articleTermin:1"
 						label="JLayout für Terminanzeige"/>
 
+					<field name="xml_articleCite" type="list" default="0"
+						filter="integer"
+						label="articleCite.xml">
+							<option value="1">JYES</option>
+							<option value="0">JNO</option>
+					</field>
+
 				</fields><!--/XmlActiveArticle-->
 
 				<fields name="XmlActiveModule">
