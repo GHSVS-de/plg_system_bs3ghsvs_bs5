@@ -588,7 +588,7 @@ class Bs3ghsvsItem
 	}
 
 	/*
-	 * Build and return array with sources block and infos for fallback <img>.
+	 * Build and return array with sources HTML block and infos for fallback <img>.
 	 * Returns something like. Example for just one intro_image:
 Array
 (
@@ -611,66 +611,63 @@ Array
 	{
 		$returnArray = [];
 
-		// Otherwise I have to rewrite all JLayouts when resizer is disabled.
-		if (!is_array($imgs))
-		{
-			$imgs = [];
-		}
-
-/*
-$mediaQueries. Ungeprüft. Wie vom JLayout übergeben.
-Array
-(
+		/*
+		$mediaQueries. Ungeprüft. Wie vom JLayout übergeben.
+		Array
+		(
     [(max-width: 575px)] => _s
     [(max-width: 767px)] => _m
     [(max-width: 1199px)] => _l
     [(min-width: 1200px)] => _x
 		[srcSetKey] =>
-)
-*/
+		)
+		*/
 
-		// $imgs contains resized images. If resizer deactivated no $imgs.
-		if ($imgs && $mediaQueries)
+		/*
+		Setze nicht existierende Größen-Keys auf '_l'.
+		Leeres Array, wenn eh nix zu tun. Bspw. $imgs Schrott ist.
+		*/
+		$mediaQueries = self::cleanMediaQueries($mediaQueries, $imgs);
+
+		if ($mediaQueries)
 		{
-			$sources  = array();
-/*
-$ordering Im einfachsten Fall:
-Array
-(
+			$sources  = [];
+			/*
+			$mediaQueries['srcSetKey'] kann z.B. im JLayout übergeben werden.
+			Z.B. '_l'.
+			Diese Größe wird dann für das Bild im <source> ohne mediaQuery verwendet,
+			aber auch für das <img>.
+			Siehe auch unten cleanMediaQueries(), wo 'srcSetKey' ggf. korrigiert wird.
+			*/
+			$srcSetKey = $mediaQueries['srcSetKey'];
+			unset($mediaQueries['srcSetKey']);
+
+			/* 'order' ist ein blödes Ding, wenn z.B. eine webp-Version
+			UND eine jpg-Version der selben Bild-Größe in die <sources>/<img>
+			einzubauen ist.
+			Das 'order' entscheidet darüber, welches zuerst kommt.
+			'order' wird in dieser Klasse hart-kodiert gesetzt.
+
+			Unterscheide vom 'count', das jedes einzelne Bild zusätzlich hat. Da ist
+			es ein Integer, das dem 'order' folgt. Siehe unten foreach($ordering)
+
+			$ordering Im einfachsten und bisher häufigsten  Fall:
+			Array
+			(
     [0] => 1
-)
-*/
+			)
+			*/
 			$ordering = \explode(',', $imgs['order']);
 			unset($imgs['order']);
 
-/*
-$srcSetKeys falls keiner erxplizit übergeben
-Array
-(
-    [0] => 1612722753
-    [1] => _x
-    [2] => _u
-)
-*/
-			$srcSetKeys = array(
-				empty($mediaQueries['srcSetKey']) ? time() : $mediaQueries['srcSetKey'],
-				'_x',
-				'_u',
-			);
-			unset($mediaQueries['srcSetKey']);
+			/* Folgendes foreach:
+			$sizedImageKey ist numerischer Index aus übergebenenem $imgs.
+			Bei intro_image gibts bspw. nur einen (0).
+			Bei article_images können es aber mehrere $sizedImageKey sein.
 
-			$count = count($mediaQueries);
-
-//echo ' 4654sd48sa7d98sD81s8d71dsa <pre>' . print_r($imgs, true) . '</pre>';exit;
-/*
-$sizedImageKey ist numerischer Index. Bei intro_image gibts bspw. nur einen (0).
-Bei article_images können es aber mehrere sein.
-*/
-
-/*
-$sizedImages
-Array
-(
+			$sizedImages ist das zum $sizedImageKey gehörige Array aus $imgs.
+			Array
+			(
     [_x] => Array
         (
             [img-1] => cache/images/Plakat_DJLP-2020_Paul_quer_i_x.jpg
@@ -707,69 +704,62 @@ Array
             [size] => _u
         )
 
-)
-*/
+			)
+			*/
 			foreach ($imgs as $sizedImageKey => $sizedImages)
 			{
 				foreach ($ordering as $order)
 				{
-					$i      = 1;
+					/*
+					Ein Zähler, der für jedes eingesetzte <source>-Tag hochzählt, um
+					das letzte+1 zu ermitteln. Ein nachgereichtes <source> ohne Query.
+					*/
+					$i = 1;
+
+					// img-1, img-2. Wobei zweiteres eher Exot ist. Siehe oben.
 					$imgKey = 'img-' . $order;
 
+					/*
+					$mediaQuery z.B. '(max-width: 370px)'.
+					$sizeIndex z.B. '_s'.
+					*/
 					foreach ($mediaQueries as $mediaQuery => $sizeIndex)
 					{
-/*
-Ein _m fehlt z.B. oben.
-*/
-						if (!isset($sizedImages[$sizeIndex]))
-						{
-							// Reduce amount of mediaQueries.
-							$count--;
-							continue;
-						}
-/*
-$image z.B. für $sizeIndex _s
-Array
-(
+						/*
+						$image ist z.B. für $sizeIndex _s
+						Array
+						(
     [img-1] => cache/images/Plakat_DJLP-2020_Paul_quer_i_s.jpg
     [count] => 1
     [width] => 320
     [height] => 100
     [size] => _s
-)
-*/
+						)
+						*/
 						$image = $sizedImages[$sizeIndex];
 
-						// Fall back to first image.
+						// Fall back to first image. Warum auch immer nötig.
 						if ($image['count'] < $order)
 						{
 							$imgKey = 'img-1';
 						}
 
-						// Übernimmt also den numerischen Key des imgs-Arrays.
-						$sources[$sizedImageKey][] = '<source srcset="' . $image[$imgKey] . '" media="' . $mediaQuery . '">';
+						/*
+						Übernimmt also den numerischen Key des imgs-Arrays.
+						Da, wie gesagt, auch 2 Varianten (webp, jpg) für selbes Query
+						existieren kann, ist $sources[$sizedImageKey] ein Array.
+						*/
+						$sources[$sizedImageKey][] = '<source srcset="' . $image[$imgKey]
+							. '" media="' . $mediaQuery . '">';
 						$i++;
 
-						// $count ist die übergebene Anzahl an mediaQueries.
-						if ($i > $count)
-						{
-							foreach ($srcSetKeys as $srcSetKey)
-							{
-								if (isset($sizedImages[$srcSetKey]))
+						// Die Logik mit dem > bleibt mir momentan verborgen.
+						// Jedenfalls ist das das Bild für den <src>-Tag ohne Query.
+						if ($i > count($mediaQueries))
 								{
 									$srcSetImage    = $sizedImages[$srcSetKey][$imgKey];
 									$srcSetKeySaved = $srcSetKey;
 									$imgKeySaved    = $sizedImageKey;
-									break;
-								}
-							}
-
-							// Paranoia:
-							if (!isset($srcSetImage))
-							{
-								$srcSetImage = $origImage;
-							}
-
 							$sources[$sizedImageKey][] = '<source srcset="' . $srcSetImage . '">';
 						} // if ($i > $count)
 					} // foreach ($mediaQueries as $mediaQuery => $sizeIndex)
@@ -794,16 +784,84 @@ Array
 					'height' => $imgs[$imgKeySaved][$srcSetKeySaved]['height'],
 				);
 			} // foreach ($imgs as $sizedImageKey => $sizedImages)
-		} // if ($imgs && $mediaQueries)
+		} // if ($mediaQueries)
 
 		// Resizer disabled.
 		if (!$returnArray && $origImage)
 		{
 			$returnArray[0]['sources']       = '<source srcset="' . $origImage . '">';
 			$returnArray[0]['assets']['img'] = $origImage;
-			$returnArray[0]['assets']        = \array_merge($returnArray[0]['assets'], self::getImageSize($origImage));
+			$returnArray[0]['assets']        = \array_merge($returnArray[0]['assets'],
+				self::getImageSize($origImage));
 
 		}
 		return $returnArray;
+	}
+
+	/**
+	* Räumt $mediaQueries auf. Wenn eine Größe, z.B. '_s' gar nicht im Bilder-Array
+	* 	dann setze das $mediaQuery plump auf '_l'.
+	* Ermittelt weiters das 'srcSetKey'.
+	*/
+	protected static function cleanMediaQueries(array $mediaQueries, $imgs) : array
+	{
+		$sig = md5(serialize($mediaQueries) . serialize($imgs));
+
+		if (!isset(self::$loaded['mediaQueries'][$sig]))
+		{
+			if (!is_array($imgs) || empty($imgs[0]['_l']) || empty($mediaQueries))
+			{
+				self::$loaded['mediaQueries'][$sig] = [];
+			}
+			else
+			{
+				foreach ($mediaQueries as $mediaQuery => $sizeIndex)
+				{
+					if ($mediaQuery !== 'srcSetKey' && !isset($imgs[0][$sizeIndex]))
+					{
+						$mediaQueries[$mediaQuery] = '_l';
+					}
+				}
+
+				/*
+				$srcSetKeys, falls kein $mediaQueries['srcSetKey'] erxplizit übergeben.
+				Dass in diesem Array mehrere enthalten sind, liegt daran, dass je nach
+				Resizer-Einstellungen der eine oder andere Key auch fehlen könnte in der
+				$imgs-Sammlung.
+				Jedenfalls gibt es immer ein Fallback auf _u (= Originalbild).
+				Array
+				(
+						[0] => z.B. _l oder NULL.
+						[1] => _x
+				)
+				*/
+
+				$srcSetKeys = [
+					empty($mediaQueries['srcSetKey']) ? null : $mediaQueries['srcSetKey'],
+					'_x',
+				];
+
+				// Fall back.
+				$mediaQueries['srcSetKey'] = '_u';
+
+				foreach ($srcSetKeys as $srcSetKey)
+				{
+					if ($srcSetKey !== null && isset($imgs[0][$srcSetKey]))
+					{
+						$mediaQueries['srcSetKey'] = $srcSetKey;
+						break;
+					}
+				}
+
+				if (count($mediaQueries) < 2)
+				{
+					$mediaQueries = [];
+				}
+
+				self::$loaded['mediaQueries'][$sig] = $mediaQueries;
+			}
+		}
+
+		return self::$loaded['mediaQueries'][$sig];
 	}
 }
