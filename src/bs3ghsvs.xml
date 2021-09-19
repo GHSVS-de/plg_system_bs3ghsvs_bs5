@@ -352,6 +352,15 @@
 					<option value="1">JYES</option>
 				</field>
 
+				<field type="note" name="FallbackimageSpacer"
+					label="PLG_SYSTEM_BS3GHSVS_FALLBACKIMAGE"
+					description="PLG_SYSTEM_BS3GHSVS_FALLBACKIMAGE_DESC"
+					class="alert alert-info" showon="imageoptimizer_intro_full:1"/>
+
+				<field type="media" name="Fallbackimage"
+					label="PLG_SYSTEM_BS3GHSVS_FALLBACKIMAGE"
+					class="extended-width" showon="imageoptimizer_intro_full:1"/>
+
 				<field type="spacer" name="spacerx" hr="true" />
 
 <fields name="image_intro">

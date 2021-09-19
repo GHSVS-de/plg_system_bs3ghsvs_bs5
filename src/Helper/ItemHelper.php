@@ -82,10 +82,34 @@ class Bs3ghsvsItem
 			){
 				$item->Imagesghsvs = null;
 
+				$fallbackImage = '';
+
+				if (PluginHelper::isEnabled('system', 'bs3ghsvs'))
+				{
+					$plgParams = PlgSystemBS3Ghsvs::getPluginParams();
+
+					if ($plgParams->get('imageoptimizer_intro_full') === 1)
+					{
+						$fallbackImage = $plgParams->get('Fallbackimage', '');
+					}
+				}
+
 				// Something somewhere adds stupidly $item->images = '{}' to e.g. category.
-				if ($context !== 'category' && !empty($item->images) && $item->images !== '{}')
+				if ($context !== 'category' && !empty($item->images)
+					&& $item->images !== '{}')
 				{
 					$item->Imagesghsvs = new Registry($item->images);
+
+					if ($fallbackImage !== '')
+					{
+						foreach (['image_intro', 'image_fulltext'] as $type)
+						{
+							if (empty($item->Imagesghsvs->get($type)))
+							{
+								$item->Imagesghsvs->set($type, $fallbackImage);
+							}
+						}
+					}
 
 					// Since Joomla 4 necessary
 					$item->Imagesghsvs->set('image_intro',
@@ -123,7 +147,7 @@ class Bs3ghsvsItem
 				{
 					$item->Imagesghsvs = new Registry;
 
-					if ($image = $item->params->get('image'))
+					if ($image = $item->params->get('image', $fallbackImage))
 					{
 						$alt = $item->params->get('image_alt');
 						$float = $item->params->get('float_intro_categories', 'none');
@@ -444,7 +468,7 @@ class Bs3ghsvsItem
 		}
 	}
 
-	/**
+	/** Beispiel: {svg{bi/x-circle-fill}class="text-danger"}
 	 * $txt Search in for $muster and repalce $muster with SVG or SPAN/SVG.
 	 * $options array:
 	 * addSpan Surround SVG with SPAN.

@@ -1162,6 +1162,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 					$html[1], $done);
 			}
 
+			// Beispiel: {svg{bi/x-circle-fill}class="text-danger"}
 			if ($svgSupport && strpos($html[1], '{svg{') !== false)
 			{
 				$html[1] = Bs3ghsvsItem::replaceSvgPlaceholders(
