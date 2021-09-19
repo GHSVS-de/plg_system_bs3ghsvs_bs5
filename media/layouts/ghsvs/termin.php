@@ -12,7 +12,18 @@ use Joomla\CMS\Factory;
 
 extract($displayData);
 
-if (empty($articleId))
+if (empty($item->bs3ghsvsFields['termin']['bs3ghsvs_termin_active']))
+{
+	return;
+}
+
+$nullDate = Factory::getDbo()->getNullDate();
+$dates = (object) $item->bs3ghsvsFields['termin'];
+$dates->start = ($dates->start && $dates->start !== $nullDate) ? $dates->start
+	: null;
+$dates->end = ($dates->end && $dates->end !== $nullDate) ? $dates->end : null;
+
+if (!$dates->start && !dates->$end)
 {
 	return;
 }
@@ -21,35 +32,15 @@ if (!isset($dateFormat))
 {
 	$dateFormat = Text::_('DATE_FORMAT_LC4');
 }
-
-JLoader::register(
-	'Bs3ghsvsArticle',
-	JPATH_PLUGINS . '/system/bs3ghsvs/Helper/ArticleHelper.php'
-);
-
-if (($dates = Bs3ghsvsArticle::getTerminData($articleId)) !== false)
-{
-	$nullDate = Factory::getDbo()->getNullDate();
-	$start = ($dates->start && $dates->start !== $nullDate) ? $dates->start : null;
-	$end = ($dates->end && $dates->end !== $nullDate) ? $dates->end : null;
-
-	if (!$start && !$end)
+?>
+<p class="terminGhsvs alert alert-info"><?php echo Text::_('GHSVS_DATUM'); ?>
+	<?php if ($dates->start)
 	{
-		return;
+		echo HTMLHelper::_('date', $dates->start, $dateFormat, false);
+	}
+
+	if ($dates->end)
+	{
+		echo ' bis ' . HTMLHelper::_('date', $dates->end, $dateFormat, false);
 	} ?>
-	<p class="terminGhsvs alert alert-info"><?php echo Text::_('GHSVS_DATUM'); ?>
-
-	<?php
-	if ($start)
-	{
-		echo HTMLHelper::_('date', $start, $dateFormat, false);
-	}
-
-	if ($end)
-	{
-		echo ' bis ' . HTMLHelper::_('date', $end, $dateFormat, false);
-	}
-	?>
-	</p>
-<?php
-}
+</p>
