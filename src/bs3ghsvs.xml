@@ -189,11 +189,6 @@
 							<option value="0">JNO</option>
 					</field>
 
-					<field name="articleTerminJLayout" type="text" default=""
-						hint="z.B. joomla.content.termin" filter="trim"
-						showon="xml_articleTermin:1"
-						label="JLayout für Terminanzeige"/>
-
 					<field name="xml_articleCite" type="list" default="0"
 						filter="integer"
 						label="articleCite.xml">
