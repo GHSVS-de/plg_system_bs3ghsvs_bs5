@@ -2,8 +2,8 @@
 	"name": "plg_system_bs3ghsvs_bs5",
 	"nameReal": "plg_system_bs3ghsvs",
 	"filename": "bs3ghsvs",
-	"version": "2021.09.13",
-	"versionCompare": "2021.09.12",
+	"version": "2021.09.18-dev",
+	"versionCompare": "2021.09.13",
 	"update": {
 		"type": "plugin",
 		"folder": "system",
@@ -88,7 +88,7 @@
 		"path": "^0.12.7",
 		"recursive-readdir": "^2.2.2",
 		"rimraf": "3.0.2",
-		"svgo": "^2.5.0"
+		"svgo": "^2.6.1"
 	},
 	"browserslist": []
 }
