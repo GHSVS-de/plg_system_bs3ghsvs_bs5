@@ -56,6 +56,13 @@
 					maxlength="1000"
 					showon="bs3ghsvs_extension_active:1"/>
 
+				<field name="tergetplatform" type="list" default="" multiple="true"
+					label="PLG_SYSTEM_BS3GHSVS_EXTENSION_TERGETPLATFORM"
+					showon="bs3ghsvs_extension_active:1">
+						<option value="J3">PLG_SYSTEM_BS3GHSVS_EXTENSION_TERGETPLATFORM_J3</option>
+						<option value="J4">PLG_SYSTEM_BS3GHSVS_EXTENSION_TERGETPLATFORM_J4</option>
+				</field>
+
 				<field name="languages" type="filelist" directory="media/mod_languages/images/"
 					stripext="1" hide_none="1" hide_default="1" filter="\.gif$"
 					multiple="true"
