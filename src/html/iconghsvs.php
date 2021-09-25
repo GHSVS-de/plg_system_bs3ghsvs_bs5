@@ -1,5 +1,5 @@
 <?php
-/**
+/*
 "Overrides" for HTMLHelper methods of com_content/helpers/icon.php.
 See "Redirects" in system plugin bs3ghsvs.
 */
