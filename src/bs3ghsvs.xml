@@ -346,7 +346,8 @@
 					label="PLG_SYSTEM_BS3GHSVS_INTROFULLIMAGES"
 					class="alert alert-danger alert-headline"/>
 
-				<field name="imageoptimizer_intro_full" type="list" default="0" filter="integer"
+				<field name="imageoptimizer_intro_full" type="list" default="0"
+					filter="integer"
 					label="Bildoptimierer für Intro- und Beitrags-Bilder aktiv">
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
@@ -360,6 +361,19 @@
 				<field type="media" name="Fallbackimage"
 					label="PLG_SYSTEM_BS3GHSVS_FALLBACKIMAGE"
 					class="extended-width" showon="imageoptimizer_intro_full:1"/>
+
+				<field type="note" name="replaceIntroFullReplaceSpacer"
+					label="PLG_SYSTEM_BS3GHSVS_REPLACEINTROFULL"
+					description="PLG_SYSTEM_BS3GHSVS_REPLACEINTROFULL_DESC"
+					class="alert alert-info"
+					showon="imageoptimizer_intro_full:1"/>
+
+				<field name="replaceIntroFull" type="list" default="0" filter="integer"
+					label="PLG_SYSTEM_BS3GHSVS_REPLACEINTROFULL"
+					showon="imageoptimizer_intro_full:1">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
 
 				<field type="spacer" name="spacerx" hr="true" />
 

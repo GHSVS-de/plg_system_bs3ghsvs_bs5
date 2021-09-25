@@ -83,6 +83,7 @@ class Bs3ghsvsItem
 				$item->Imagesghsvs = null;
 
 				$fallbackImage = '';
+				$replaceIntroFull = 0;
 
 				if (PluginHelper::isEnabled('system', 'bs3ghsvs'))
 				{
@@ -92,6 +93,8 @@ class Bs3ghsvsItem
 					{
 						$fallbackImage = $plgParams->get('Fallbackimage', '');
 					}
+
+					$replaceIntroFull = $plgParams->get('replaceIntroFull', 0);
 				}
 
 				// Something somewhere adds stupidly $item->images = '{}' to e.g. category.
@@ -99,6 +102,33 @@ class Bs3ghsvsItem
 					&& $item->images !== '{}')
 				{
 					$item->Imagesghsvs = new Registry($item->images);
+
+					if ($replaceIntroFull === 1)
+					{
+						if (
+							empty($item->Imagesghsvs->get('image_fulltext'))
+							&& !empty($item->Imagesghsvs->get('image_intro'))
+						){
+							$item->Imagesghsvs->set('image_fulltext',
+								$item->Imagesghsvs->get('image_intro'));
+							$item->Imagesghsvs->set('image_fulltext_caption',
+								$item->Imagesghsvs->get('image_intro_caption'));
+							$item->Imagesghsvs->set('image_fulltext_alt',
+								$item->Imagesghsvs->get('image_intro_alt'));
+						}
+
+						if (
+							empty($item->Imagesghsvs->get('image_intro'))
+							&& !empty($item->Imagesghsvs->get('image_fulltext'))
+						){
+							$item->Imagesghsvs->set('image_intro',
+								$item->Imagesghsvs->get('image_fulltext'));
+							$item->Imagesghsvs->set('image_intro_caption',
+								$item->Imagesghsvs->get('image_fulltext_caption'));
+							$item->Imagesghsvs->set('image_intro_alt',
+								$item->Imagesghsvs->get('image_fulltext_alt'));
+						}
+					}
 
 					if ($fallbackImage !== '')
 					{
@@ -137,7 +167,8 @@ class Bs3ghsvsItem
 
 					if (!$item->Imagesghsvs->get('float_intro', ''))
 					{
-						$item->Imagesghsvs->set('float_intro', $item->params->get('float_intro'));
+						$item->Imagesghsvs->set('float_intro',
+							$item->params->get('float_intro'));
 					}
 
 					// 2016-07: Sonst sind Unterarrays alle stdObjects.
