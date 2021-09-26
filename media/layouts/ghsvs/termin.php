@@ -23,7 +23,7 @@ $dates->start = ($dates->start && $dates->start !== $nullDate) ? $dates->start
 	: null;
 $dates->end = ($dates->end && $dates->end !== $nullDate) ? $dates->end : null;
 
-if (!$dates->start && !dates->$end)
+if (!$dates->start && !$dates->end)
 {
 	return;
 }
