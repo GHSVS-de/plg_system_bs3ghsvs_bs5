@@ -94,7 +94,7 @@ class Bs3ghsvsItem
 						$fallbackImage = $plgParams->get('Fallbackimage', '');
 					}
 
-					$replaceIntroFull = $plgParams->get('replaceIntroFull', 0);
+					$replaceIntroFull = (int) $plgParams->get('replaceIntroFull', 0);
 				}
 
 				// Something somewhere adds stupidly $item->images = '{}' to e.g. category.
@@ -103,11 +103,15 @@ class Bs3ghsvsItem
 				{
 					$item->Imagesghsvs = new Registry($item->images);
 
-					if ($replaceIntroFull === 1)
+					// JA: 1. Nur Komplettes > Intro: -1. Nur Intro > Komlettes: -2.
+					if ($replaceIntroFull !== 0)
 					{
+						$emptyIntro = empty($item->Imagesghsvs->get('image_intro'));
+						$emptyFull = empty($item->Imagesghsvs->get('image_fulltext'));
+
 						if (
-							empty($item->Imagesghsvs->get('image_fulltext'))
-							&& !empty($item->Imagesghsvs->get('image_intro'))
+							($replaceIntroFull === 1 || $replaceIntroFull === -2)
+							&& $emptyIntro === false && $emptyFull === true
 						){
 							$item->Imagesghsvs->set('image_fulltext',
 								$item->Imagesghsvs->get('image_intro'));
@@ -118,8 +122,8 @@ class Bs3ghsvsItem
 						}
 
 						if (
-							empty($item->Imagesghsvs->get('image_intro'))
-							&& !empty($item->Imagesghsvs->get('image_fulltext'))
+							($replaceIntroFull === 1 || $replaceIntroFull === -1)
+							&& $emptyIntro === true && $emptyFull === false
 						){
 							$item->Imagesghsvs->set('image_intro',
 								$item->Imagesghsvs->get('image_fulltext'));
@@ -767,7 +771,7 @@ Array
 				{
 					/*
 					Ein Zähler, der für jedes eingesetzte <source>-Tag hochzählt, um
-					das letzte+1 zu ermitteln. Ein nachgereichtes <source> ohne Query.
+					das letzte+1 zu ermitteln: Ein nachgereichtes <source> ohne Query.
 					*/
 					$i = 1;
 

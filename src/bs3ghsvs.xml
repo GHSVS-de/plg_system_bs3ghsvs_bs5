@@ -373,6 +373,8 @@
 					showon="imageoptimizer_intro_full:1">
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
+					<option value="-1">PLG_SYSTEM_BS3GHSVS_REPLACEINTROFULL_ONLY_FULL_TO_INTRO</option>
+					<option value="-2">PLG_SYSTEM_BS3GHSVS_REPLACEINTROFULL_ONLY_INTRO_TO_FULL</option>
 				</field>
 
 				<field type="spacer" name="spacerx" hr="true" />
