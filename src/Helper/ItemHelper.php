@@ -331,6 +331,20 @@ class Bs3ghsvsItem
 
 			$IMAGEorig = $IMAGE;
 
+			/*
+				Some older images can contain german umlauts, spaces and things.
+				The editor urlencodes them sometimes.
+				Therefore we have to kill encoding for the resizer.
+				All Images will be urlencoded later in cleanIMAGEPath() if necessary.
+			*/
+			if (strpos($IMAGEorig, '%') !== false)
+			{
+				$IMAGEorig = Path::clean($IMAGEorig, '/');
+				$IMAGEorig = implode('/', array_map('rawurldecode',
+					explode('/', $IMAGEorig)));
+			}
+
+
 			foreach ($sizePostfixes as $sizePostfix => $opts)
 			{
 				if ($sizePostfix === '_og')
