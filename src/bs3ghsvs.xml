@@ -383,7 +383,7 @@
 
 
 				<field type="note" name="image_intro_x_Spacer"
-					label="Einleitungsbild (image_intro) X-LARGE (xl)"
+					label="Einleitungsbild (image_intro) X-LARGE (x)"
 					class="alert-success"/>
 
 				<field name="active_x" type="list" default="0" filter="integer"
@@ -469,7 +469,7 @@
 
 
 				<field type="note" name="image_fulltext_x_Spacer"
-					label="Beitragsbild (image_fulltext) X-LARGE (xl)"
+					label="Beitragsbild (image_fulltext) X-LARGE (x)"
 					class="alert-info"/>
 
 				<field name="active_x" type="list" default="0" filter="integer"
@@ -579,7 +579,7 @@
 
 
 				<field type="note" name="image_articletext_x_Spacer"
-					label="Bild in Beitragstext X-LARGE (xl)"
+					label="Bild in Beitragstext X-LARGE (x)"
 					class="alert-success"/>
 
 				<field name="active_x" type="list" default="0" filter="integer"
