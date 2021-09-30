@@ -7,6 +7,7 @@ use Joomla\Registry\Registry;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Image\Image;
+use Joomla\CMS\Filesystem\Path;;
 use Joomla\CMS\Utility\Utility;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Utilities\ArrayHelper;
@@ -349,7 +350,7 @@ class Bs3ghsvsItem
 					$groupPrefix . $sizePostfix
 				);
 
-				$collect_images[$key][$sizePostfix]         = $IMAGE;
+				$collect_images[$key][$sizePostfix] = self::cleanIMAGEPath($IMAGE);
 				$collect_images[$key][$sizePostfix]['size'] = $sizePostfix;
 			} // end foreach ($sizePostfixes
 		} // end foreach ($IMAGES as $key => $IMAGE)
@@ -615,8 +616,7 @@ class Bs3ghsvsItem
 	 * If getimagesize fails return array('width' => 0, 'height' => 0).
 	 * Even if PHP manual says "BEFORE PHP 7.1.0, list() only worked on numerical arrays and assumes the numerical indices start at 0." PHP 7.3 doesn't care and still throws Notices like "Undefined offset: 0 in /ItemHelper.php on line 242" if you don't convert indices to numerical ones and then use list(). => $numericalIndices established that returns array(0 => $w, 0 => $h)
 	 */
-	public static function getImageSize(
-		string $image,
+	public static function getImageSize(string $image,
 		bool $numericalIndices = false
 	) : array {
 		$w = $h = 0;
@@ -922,5 +922,42 @@ Array
 		}
 
 		return self::$loaded['mediaQueries'][$sig];
+	}
+
+	/**
+	* rawurlencoded Pfade. Leider gibt es immer noch Pfade mit Leerzeichen.
+	* Und das SEF-Plugin erzeugt dann komplettes Chaos für srcset. Z.B. so was.
+	* srcset="/prof. /peter /fuchs /zum /abschlus_f_m.jpg".
+	*/
+	protected static function cleanIMAGEPath(array $IMAGE) : array
+	{
+		if ($IMAGE)
+		{
+			if (!isset($IMAGE['count']))
+			{
+				$IMAGE['count'] = 1;
+			}
+
+			for ($i = 1; $i <= $IMAGE['count']; $i++)
+			{
+				$IMAGE['img-' . $i] = self::cleanPath($IMAGE['img-' . $i]);
+			}
+		}
+
+		return $IMAGE;
+	}
+
+	/**
+	* rawurlencoded Pfade.
+	*/
+	public static function cleanPath(string $path) : string
+	{
+		if ($path)
+		{
+			$path = Path::clean($path, '/');
+			$path = implode('/', array_map('rawurlencode', explode('/', $path)));
+		}
+
+		return $path;
 	}
 }
