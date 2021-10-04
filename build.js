@@ -5,7 +5,7 @@ const chalk = require('chalk');
 const exec = util.promisify(require('child_process').exec);
 const path = require('path');
 const replaceXml = require('./build/replaceXml.js');
-const crypto = require('crypto');
+const helper = require('./build/helper.js');
 const program = require('commander');
 
 const {
@@ -17,36 +17,7 @@ const {
 const manifestFileName = `${filename}.xml`;
 const Manifest = `${__dirname}/package/${manifestFileName}`;
 const pathMedia = `./media`;
-
-async function cleanOut (cleanOuts) {
-	for (const file of cleanOuts)
-	{
-		await rimRaf(file).then(
-			answer => console.log(chalk.redBright(`rimrafed: ${file}.`))
-		).catch(error => console.error('Error ' + error));
-	}
-}
-
-// Digest sha256, sha384 or sha512.
-async function getChecksum(path, Digest)
-{
-  return new Promise(function (resolve, reject)
-	{
-    const hash = crypto.createHash(Digest);
-    const input = fse.createReadStream(path);
-
-    input.on('error', reject);
-    input.on('data', function (chunk)
-		{
-      hash.update(chunk);
-    });
-
-    input.on('close', function ()
-		{
-      resolve(hash.digest('hex'));
-    });
-  });
-}
+let versionSub = '';
 
 async function buildOverview()
 {
@@ -73,10 +44,6 @@ const Program = program.opts();
 
 (async function exec()
 {
-	const versionSub = await JSON.parse(fse.readFileSync(
-	`./node_modules/bootstrap/package.json`).toString()).version;
-	console.log(chalk.yellowBright(`Using Bootstrap version ${versionSub}`));
-
 	let cleanOuts = [
 		`./package`,
 		`./dist`,
@@ -87,8 +54,13 @@ const Program = program.opts();
 		`${pathMedia}/js/jquery`,
 		`${pathMedia}/js/jquery-migrate`,
 	];
-	await cleanOut(cleanOuts);
-	console.log(chalk.cyanBright(`Be patient! Some copy actions!`));
+	await helper.cleanOut(cleanOuts);
+
+	versionSub = await helper.findVersionSub (
+		path.join(`${__dirname}`, `node_modules`, `bootstrap`, `package.json`),
+		'Bootstrap');
+
+	console.log(chalk.magentaBright(`versionSub identified as: "${versionSub}"`));
 
 // ### Prepare /media/.
 
@@ -135,14 +107,14 @@ const Program = program.opts();
 	);
 
 	await fse.copy(
-		"./node_modules/jquery/dist",
+		`./node_modules/jquery/dist`,
 		`${pathMedia}/js/jquery`
 		// ,
 		// {overwrite:false, errorOnExist:true}
 	);
 
 	await fse.copy(
-		"./node_modules/jquery-migrate/dist",
+		`./node_modules/jquery-migrate/dist`,
 		`${pathMedia}/js/jquery-migrate`
 		// ,
 		// {overwrite:false, errorOnExist:true}
@@ -183,21 +155,20 @@ const Program = program.opts();
 		answer => console.log(chalk.yellowBright(`Copied ./src to ./package.`))
 	);
 
-	// Create new dist dir.
 	if (!(await fse.exists("./dist")))
 	{
     	await fse.mkdir("./dist"
 		).then(
-			answer => console.log(chalk.yellowBright(`Created ./dist.`))
+			answer => console.log(chalk.yellowBright(`Created "./dist".`))
 		);
-	}
+  }
 
 	const zipFilename = `${name}-${version}_${versionSub}.zip`;
 
 	await replaceXml.main(Manifest, zipFilename);
 	await fse.copy(`${Manifest}`, `./dist/${manifestFileName}`).then(
 		answer => console.log(chalk.yellowBright(
-			`Copied ${manifestFileName} to ./dist.`))
+			`Copied "${manifestFileName}" to "./dist".`))
 	);
 
 	// Create zip file and detect checksum then.
@@ -210,7 +181,7 @@ const Program = program.opts();
 		`./dist/${zipFilename} written.`)));
 
 	const Digest = 'sha256'; //sha384, sha512
-	const checksum = await getChecksum(zipFilePath, Digest)
+	const checksum = await helper.getChecksum(zipFilePath, Digest)
   .then(
 		hash => {
 			const tag = `<${Digest}>${hash}</${Digest}>`;
@@ -227,7 +198,7 @@ const Program = program.opts();
 	let xmlFile = 'update.xml';
 	await fse.copy(`./${xmlFile}`, `./dist/${xmlFile}`).then(
 		answer => console.log(chalk.yellowBright(
-			`Copied ${xmlFile} to ./dist.`))
+			`Copied "${xmlFile}" to ./dist.`))
 	);
 	await replaceXml.main(`${__dirname}/dist/${xmlFile}`, zipFilename, checksum);
 
@@ -256,7 +227,7 @@ const Program = program.opts();
 		`${pathMedia}/js/jquery-migrate`,
 		`./package`,
 	];
-	await cleanOut(cleanOuts).then(
+	await helper.cleanOut(cleanOuts).then(
 		answer => console.log(chalk.cyanBright(chalk.bgRed(
 			`Finished. Good bye!`)))
 	);
