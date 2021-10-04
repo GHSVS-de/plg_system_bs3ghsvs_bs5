@@ -85,6 +85,7 @@
 		"fs-extra": "10.0.0",
 		"js-yaml": "^4.1.0",
 		"klaw-sync": "^6.0.0",
+		"nth-check": ">=2.0.1",
 		"path": "^0.12.7",
 		"recursive-readdir": "^2.2.2",
 		"rimraf": "3.0.2",
