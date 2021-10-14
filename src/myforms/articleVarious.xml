@@ -31,6 +31,7 @@
 				<option value="1">PLG_SYSTEM_BS3GHSVS_ARTICLESTATUS_1</option>
 				<option value="-1">PLG_SYSTEM_BS3GHSVS_ARTICLESTATUS_-1</option>
 				<option value="-2">PLG_SYSTEM_BS3GHSVS_ARTICLESTATUS_-2</option>
+				<option value="-3">PLG_SYSTEM_BS3GHSVS_ARTICLESTATUS_-3</option>
 			</field>
 
 		</fieldset>
