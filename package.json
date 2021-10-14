@@ -2,8 +2,8 @@
 	"name": "plg_system_bs3ghsvs_bs5",
 	"nameReal": "plg_system_bs3ghsvs",
 	"filename": "bs3ghsvs",
-	"version": "2021.10.04",
-	"versionCompare": "2021.09.13",
+	"version": "2021.10.14",
+	"versionCompare": "2021.10.04",
 	"update": {
 		"type": "plugin",
 		"folder": "system",
@@ -70,15 +70,15 @@
 	"dependencies": {
 		"@fortawesome/fontawesome-free": "^5",
 		"@popperjs/core": "^2.10.2",
-		"bootstrap": "^5.1.1",
-		"bootstrap-icons": "^1.5.0",
+		"bootstrap": "^5.1.3",
+		"bootstrap-icons": "^1.6.0",
 		"jquery": "^3",
 		"jquery-migrate": "^3",
 		"npm-check-updates": "^11.8.5",
 		"skipto": "^4"
 	},
 	"devDependencies": {
-		"adm-zip": "0.5.7",
+		"adm-zip": "0.5.9",
 		"chalk": "^4.1.2",
 		"cheerio": "^1.0.0-rc.10",
 		"commander": "^8.2.0",
