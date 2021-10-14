@@ -43,7 +43,7 @@
 					<option value="color-black-important">color-black-important</option>
 					<option value="color-white-important">color-white-important</option>
 				</field>-->
-				<field name="spoiler" type="list" default="1" filter="integer"
+				<field name="spoiler" type="list" default="0" filter="integer"
 					label="GHSVS_MODULES_SPOILER_LBL"
 					description="GHSVS_MODULES_SPOILER_DESC">
 					<option value="0">JNO</option>
