@@ -12,7 +12,7 @@ class Bs3GhsvsRegisterIcon
 	protected static $icon = array(
 		'create',
 		'email', // Blocked.
-		// 'edit', // Erst mal lassen.
+		'edit', // Erst mal lassen. 2021: Dann doch nicht, weils zu Absturz führen kann.
 		'print_popup',
 		'print_screen',
 	);
@@ -71,5 +71,9 @@ class Bs3GhsvsRegisterIcon
 	public static function print_screen($article, $params, $attribs = array(), $legacy = false)
 	{
 		return HTMLHelper::_('iconghsvs.print_screen', $article, $params, $attribs, $legacy);
+	}
+	public static function edit($article, $params, $attribs = array(), $legacy = false)
+	{
+		return '';
 	}
 }
