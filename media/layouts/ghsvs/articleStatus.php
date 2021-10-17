@@ -2,6 +2,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Factory;
 
 /**
  * $item: article
@@ -9,14 +10,18 @@ use Joomla\CMS\Language\Text;
 
 extract($displayData);
 
-if (
-	empty($item->bs3ghsvsFields['various']['bs3ghsvs_various_active'])
-	|| empty($item->bs3ghsvsFields['various']['articleStatus'])
-){
+if (empty($item->bs3ghsvsFields['various']['articleStatus']))
+{
 	return;
 }
 
 $articleStatus = $item->bs3ghsvsFields['various']['articleStatus'];
+
+if ($articleStatus > 0 && Factory::getApplication()->input->get('view')
+	=== 'article')
+{
+	Factory::getDocument()->setMetadata('robots', 'noindex, follow');
+}
 ?>
 <p class="articleStatus articleStatus_<?php echo $articleStatus; ?>
 	alert alert-warning mb-0">
