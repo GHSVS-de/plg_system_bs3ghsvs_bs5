@@ -44,6 +44,9 @@ const Program = program.opts();
 
 (async function exec()
 {
+	// This is for SCSS compilation for tpl_bs4ghsvs.
+	const externalScssFolder = path.join(__dirname, '../', 'media/plg_system_bs3ghsvs/scss/bootstrap');
+
 	let cleanOuts = [
 		`./package`,
 		`./dist`,
@@ -53,6 +56,7 @@ const Program = program.opts();
 		`${pathMedia}/js/bootstrap`,
 		`${pathMedia}/js/jquery`,
 		`${pathMedia}/js/jquery-migrate`,
+		externalScssFolder,
 	];
 	await helper.cleanOut(cleanOuts);
 
@@ -103,7 +107,14 @@ const Program = program.opts();
 
 	await fse.copy(source, target
 	).then(
-		answer => console.log(chalk.yellowBright(`Copied ${source} to ${target}.`))
+		answer => console.log(chalk.yellowBright(`Copied "${source}" to "${target}".`))
+	);
+
+	// This is for SCSS compilation for tpl_bs4ghsvs.
+	await fse.copy(target, externalScssFolder
+	).then(
+		answer => console.log(chalk.yellowBright(`Copied "${target}" to
+			"${externalScssFolder}".`))
 	);
 
 	await fse.copy(
