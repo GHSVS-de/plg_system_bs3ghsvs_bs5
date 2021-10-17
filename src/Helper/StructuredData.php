@@ -54,11 +54,6 @@ class Bs3ghsvsStructuredData
 		$organization = new Registry($plgParams->get('sd_organization'));
 
 		JLoader::register(
-			'Bs3ghsvsArticle',
-			__DIR__ . '/ArticleHelper.php'
-		);
-
-		JLoader::register(
 			'Bs3ghsvsItem',
 			__DIR__ . '/ItemHelper.php'
 		);
@@ -76,9 +71,13 @@ class Bs3ghsvsStructuredData
 		}
 
 		### headline.
-		$various  = new Registry(Bs3ghsvsArticle::getVariousData($article->id));
-		$headline = $article->title . ($various->get('articlesubtitle', '')
-			? ' (' . $various->get('articlesubtitle') . ')' : '');
+		$headline = $article->title;
+
+		if (!empty($article->bs3ghsvsFields['various']['articlesubtitle']))
+		{
+			$headline .= ' (' . $article->bs3ghsvsFields['various']['articlesubtitle']
+				. ')';
+		}
 
 		### articleBody. Used several times for other things even if not used in the end.
 		if (!$article->params->get('show_intro'))
