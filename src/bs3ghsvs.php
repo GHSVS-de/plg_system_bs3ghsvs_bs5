@@ -686,6 +686,14 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 
 		$print = $this->app->input->getBool('print');
 
+		###### Extra fields from #__bs3ghsvs_article - START
+		if ($iAmAnArticle && Factory::getDocument()->getType() === 'html')
+		{
+			$article->bs3ghsvsFields = Bs3ghsvsArticle::getExtraFields(
+				$article->id, [], true);
+		}
+		###### Extra fields from #__bs3ghsvs_article - EnD
+
 		###### image resize - START
 
 		// START image resize Article-Intro-Images in catgeory/featured view.
@@ -1007,14 +1015,6 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			Bs3ghsvsPagebreak::buildSliders($article->text, $article->id);
 		}
 		###### pagebreakghsvs-slider - END
-
-		###### Extra fields from #__bs3ghsvs_article - START
-		if ($iAmAnArticle && Factory::getDocument()->getType() === 'html')
-		{
-			$article->bs3ghsvsFields = Bs3ghsvsArticle::getExtraFields(
-				$article->id, [], true);
-		}
-		###### Extra fields from #__bs3ghsvs_article - EnD
 	}
 
 	public function onSubmitContact(&$contact, &$data)
