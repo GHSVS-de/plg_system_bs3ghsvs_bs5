@@ -137,7 +137,7 @@ abstract class JHtmlIconghsvs
 
 		$attribs['target'] = '_blank';
 		$attribs = ArrayHelper::toString($attribs);
-		$text = '<span class="sr-only">' . trim($text) . '</span>';
+		$text = '<span class="visually-hidden">' . trim($text) . '</span>';
 
 		if ($iconClass)
 		{
