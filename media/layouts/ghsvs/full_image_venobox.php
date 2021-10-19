@@ -12,7 +12,7 @@ if ($image = $images->get('image_fulltext'))
 {
 	$venobox = 0;
 	$aTitle = 'GHSVS_HIGHER_RESOLUTION_1';
-	
+
 	if (PluginHelper::isEnabled('system', 'venoboxghsvs'))
 	{
 		$venobox = 1;
@@ -22,12 +22,12 @@ if ($image = $images->get('image_fulltext'))
 
 	$alt = $images->get('image_fulltext_alt');
 	$caption = $images->get('image_fulltext_caption');
-	
+
 	if (!($imagepopupDescr = $images->get('image_popupghsvs_caption')))
 	{
 		$imagepopupDescr = $caption;
 	}
-	
+
 	// Explizit gesetzt?
 	if (!($imagepopup = $images->get('image_fulltext_popupghsvs')))
 	{
@@ -89,9 +89,9 @@ _og min 310
 		. ' src="' . $image . '"'
 		. ' alt="' . $alt . '"'
 		. '>';
-	
+
 	$picture[] = '</picture>';
-	
+
 	$picture = implode('', $picture);
 
 	// 2017-10-03. B\C.
@@ -105,7 +105,7 @@ _og min 310
 		<?php echo $picture; ?>
 		<div class="iconGhsvs text-right">
 			<div class="btn btn-default btn-sm">
-				<span class="sr-only"><?php echo Text::_($aTitle); ?></span>
+				<span class="visually-hidden"><?php echo Text::_($aTitle); ?></span>
 				{svg{bi/zoom-in}}
 			</div>
 		</div>

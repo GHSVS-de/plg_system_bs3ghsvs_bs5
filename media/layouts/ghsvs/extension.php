@@ -49,7 +49,7 @@ if (($out = trim($extensionData->get('inspiredby'))))
 <h4 class="h6"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_EXTENSION_URL'); ?></h4>
 <p>
 	<a href="<?php echo $extensionData->get('url'); ?>" class="btn btn-catcolor">
-		<span class="sr-only"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_EXTENSION_URL_DESC')?></span>
+		<span class="visually-hidden"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_EXTENSION_URL_DESC')?></span>
 		{svg{bi/download}}
 	</a>
 </p>
@@ -102,7 +102,7 @@ if (($out = trim($extensionData->get('project'))))
 <h4 class="h6"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_EXTENSION_PROJECT'); ?></h4>
 <p>
 	<a href="<?php echo $out; ?>" class="btn btn-catcolor">
-		<span class="sr-only"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_EXTENSION_PROJECT_OPEN'); ?></span>
+		<span class="visually-hidden"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_EXTENSION_PROJECT_OPEN'); ?></span>
 		{svg{bi/link-45deg}}
 	</a>
 </p>
@@ -125,7 +125,7 @@ if (($out = trim($extensionData->get('history'))))
 <h4 class="h6"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_EXTENSION_HISTORY'); ?></h4>
 <p>
 	<a href="<?php echo $out; ?>" class="btn btn-catcolor">
-		<span class="sr-only"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_EXTENSION_HISTORY_OPEN'); ?></span>
+		<span class="visually-hidden"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_EXTENSION_HISTORY_OPEN'); ?></span>
 		{svg{bi/link-45deg}}
 	</a>
 </p>

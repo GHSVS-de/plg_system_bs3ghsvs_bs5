@@ -91,7 +91,7 @@ if (!$title)
 		<?php echo $picture; ?>
 		<div class="iconGhsvs text-right">
 			<div class="btn btn-default btn-sm">
-				<span class="sr-only"><?php echo $aTitle; ?></span>
+				<span class="visually-hidden"><?php echo $aTitle; ?></span>
 				{svg{bi/zoom-in}}
 			</div>
 		</div>

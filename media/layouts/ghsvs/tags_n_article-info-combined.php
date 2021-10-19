@@ -17,7 +17,7 @@ use Joomla\CMS\Language\Text;
  * $useDefList
 */
 extract($displayData);
-		
+
 $tagsBlock = '';
 $infoBlock = '';
 
@@ -54,11 +54,11 @@ if ($useDefList)
 <?php if ($tagsBlock || $infoBlock)
 { ?>
 <div class="div4article-info">
-	<h3 class="sr-only"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_ARTICLE_INFO'); ?></h3>
+	<h3 class="visually-hidden"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_ARTICLE_INFO'); ?></h3>
 	<?php echo $tagsBlock; ?>
 	<?php if ($infoBlock)
 	{ ?>
-		<h4 class="sr-only"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_ARTICLE_INFO_PUBLISHING'); ?></h4>
+		<h4 class="visually-hidden"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_ARTICLE_INFO_PUBLISHING'); ?></h4>
 		<?php echo $infoBlock; ?>
 	<?php
 	} ?>

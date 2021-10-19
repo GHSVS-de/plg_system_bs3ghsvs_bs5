@@ -30,7 +30,7 @@ $showDate = $displayData['params']->get('show_publish_date')
 	?>
 		<?php if ($show_parent_category || $show_category)
 		{ ?>
-			<dt class="sr-only"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_CATEGORIES'); ?></dt>
+			<dt class="visually-hidden"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_CATEGORIES'); ?></dt>
 		<?php
 		} ?>
 
@@ -48,7 +48,7 @@ $showDate = $displayData['params']->get('show_publish_date')
 	else
 	{
 	?>
-		<dt class="sr-only"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_CATEGORIES'); ?></dt>
+		<dt class="visually-hidden"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_CATEGORIES'); ?></dt>
 		<?php
 		$displayData['item']->params->set('ghsvs_combine_categories', 0);
 		echo HTMLHelper::_('bs3ghsvs.layout', 'ghsvs.combine_categories', $displayData);
@@ -57,7 +57,7 @@ $showDate = $displayData['params']->get('show_publish_date')
 
 		<?php if ($showDate)
 		{ ?>
-			<dt class="sr-only"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_DATE_INFO'); ?></dt>
+			<dt class="visually-hidden"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_DATE_INFO'); ?></dt>
 		<?php
 		} ?>
 

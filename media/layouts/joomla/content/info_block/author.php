@@ -4,7 +4,7 @@
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 ?>
-<dt class="sr-only">
+<dt class="visually-hidden">
 	<?php echo Text::_('PLG_SYSTEM_BS3GHSVS_AUTHOR'); ?>
 </dt>
 <dd class="createdby">

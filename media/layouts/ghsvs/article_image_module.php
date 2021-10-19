@@ -39,7 +39,7 @@ $venobox = 0;
 if (PluginHelper::isEnabled('system', 'venoboxghsvs'))
 {
 	$imgClasses = explode(' ', $attributes->get('class', ''));
-	$imgClasses = array_map('trim', $imgClasses);	
+	$imgClasses = array_map('trim', $imgClasses);
 
 	if (!in_array('EXCLUDEVENOBOX', $imgClasses) && !in_array('excludevenobox', $imgClasses))
 	{
@@ -86,7 +86,7 @@ if (!$title)
 		<?php echo $picture; ?>
 		<div class="iconGhsvs text-right">
 			<div class="btn btn-default btn-sm">
-				<span class="sr-only"><?php echo $aTitle; ?></span>
+				<span class="visually-hidden"><?php echo $aTitle; ?></span>
 				{svg{bi/zoom-in}}
 			</div>
 		</div>

@@ -41,7 +41,7 @@ $attrArray    = $attributes->toArray();
 if (PluginHelper::isEnabled('system', 'venoboxghsvs'))
 {
 	$imgClasses = explode(' ', $attributes->get('class', ''));
-	$imgClasses = array_map('trim', $imgClasses);	
+	$imgClasses = array_map('trim', $imgClasses);
 
 	if (!in_array('EXCLUDEVENOBOX', $imgClasses) && !in_array('excludevenobox', $imgClasses))
 	{
@@ -64,7 +64,7 @@ if (!empty($imgs[0]) && is_array($imgs[0]))
 		'(max-width: 340px)' => '_s',
 		'(max-width: 420px)' => '_m',
 		'(min-width: 421px)' => '_l',
-		
+
 		// Largest <source> without mediaQuery. Also for fallback <img> src, width and height calculation.
 		// Value only if you want to force one. Otherwise _x or fallback _u is used.
 		'srcSetKey' => '',
@@ -104,7 +104,7 @@ $picture   = implode('', $picture);
 		<?php echo $picture; ?>
 		<div class="iconGhsvs text-right">
 			<div class="btn btn-default btn-sm">
-				<span class="sr-only"><?php echo $aTitle; ?></span>
+				<span class="visually-hidden"><?php echo $aTitle; ?></span>
 				{svg{bi/zoom-in}}
 			</div>
 		</div>
