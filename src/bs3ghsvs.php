@@ -699,7 +699,6 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		// START image resize Article-Intro-Images in catgeory/featured view.
 		if (
 			$iAmAnArticle
-			&& $this->params->get('imageoptimizer_intro_full') === 1
 			&& in_array($context, array('com_content.category', 'com_content.featured'))
 			&& strpos($article->images, '"introtext_imagesghsvs":') === false
 		){
@@ -707,8 +706,8 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			Bs3ghsvsItem::getItemImagesghsvs($article);
 			$collect_images = array();
 
-			if (
-				($IMAGE = $article->Imagesghsvs->get('image_intro'))
+			if ($this->params->get('imageoptimizer_intro_full') === 1
+				&& ($IMAGE = $article->Imagesghsvs->get('image_intro'))
 				&& file_exists(JPATH_SITE . '/' . $IMAGE)
 			){
 				$collect_images = Bs3ghsvsItem::getImageResizeImages('image_intro', $IMAGE);
@@ -722,7 +721,6 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		// START image resize Article-fulltext-Images in article view.
 		if (
 			$iAmAnArticle
-			&& $this->params->get('imageoptimizer_intro_full') === 1
 			&& in_array($context, array('com_content.article'))
 			&& strpos($article->images, '"fulltext_imagesghsvs":') === false
 		){
@@ -730,8 +728,8 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			Bs3ghsvsItem::getItemImagesghsvs($article);
 			$collect_images = array();
 
-			if (
-				($IMAGE = $article->Imagesghsvs->get('image_fulltext'))
+			if ($this->params->get('imageoptimizer_intro_full') === 1
+				&& ($IMAGE = $article->Imagesghsvs->get('image_fulltext'))
 				&& file_exists(JPATH_SITE . '/' . $IMAGE)
 			){
 				$collect_images = Bs3ghsvsItem::getImageResizeImages('image_fulltext',
