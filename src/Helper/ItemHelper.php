@@ -89,7 +89,7 @@ class Bs3ghsvsItem
 				if (PluginHelper::isEnabled('system', 'bs3ghsvs'))
 				{
 					$plgParams = PlgSystemBS3Ghsvs::getPluginParams();
-						$fallbackImage = $plgParams->get('Fallbackimage', '');
+					$fallbackImage = $plgParams->get('Fallbackimage', '');
 					$replaceIntroFull = (int) $plgParams->get('replaceIntroFull', 0);
 				}
 
