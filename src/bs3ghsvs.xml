@@ -736,7 +736,7 @@
 					name="structuredataghsvsinstalled"
 					hiddenLabel="true"/>
 
-				<field name="structureddataActive" type="list" default="1"
+				<field name="structureddataActive" type="list" default="0"
 					label="PLG_SYSTEM_BS3GHSVS_STRUCTUREDDATAACTIVE"
 					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"
 					filter="integer">
