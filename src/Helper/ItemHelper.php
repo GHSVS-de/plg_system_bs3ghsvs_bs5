@@ -564,6 +564,12 @@ class Bs3ghsvsItem
 
 							$svg   = '<span aria-hidden="true"' . ($class ? ' class="' . $class . '"' : '') . '>'
 								. $svg . '</span>';
+
+							if (!empty($passedAttributes['href']))
+							{
+								$svg = '<a href="' . $passedAttributes['href'] . '">' . $svg
+									. '</a>';
+							}
 						}
 						$results['replaceWith'][$key] = $svg;
 					}
