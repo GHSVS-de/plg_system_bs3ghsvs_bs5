@@ -1,4 +1,3 @@
-
 'use strict'
 
 module.exports = {
@@ -15,14 +14,14 @@ module.exports = {
           removeUnknownsAndDefaults: {
             keepRoleAttr: true
           },
-          removeViewBox: false
+          removeViewBox: false,
+          sortAttrs: true
         }
       }
     },
-    // The next plugins are included in svgo but are not part of preset-default,
-    // so we need to enable them separately
+    // cleanupListOfValues and removeAttrs plugins are included in svgo
+    // but are not part of the preset-default, so we need to enable them separately
     'cleanupListOfValues',
-    'sortAttrs',
     {
       name: 'removeAttrs',
       params: {
