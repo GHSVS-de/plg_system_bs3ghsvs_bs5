@@ -2,7 +2,7 @@
 <?php
 require_once('defines.php');
 
-$folder = JPATH_MAIN . 'package/media/svgs';
+$folder = JPATH_MAIN . 'media/svgs';
 
 $file = $folder . '/prepped-icons.txt';
 
@@ -39,7 +39,7 @@ foreach ($collector as $svgFolder => $files)
 	foreach ($files as $file)
 	{
 		$saveFile = $file;
-		$html[] = '<div class=iconcontainer style="width:200px;height:200px;display:inline-block;margin:2px;background-color:#eee;text-align:center;padding-top:1rem;color:black">';
+		$html[] = '<div class=iconcontainer style="width:200px;min-height:200px;display:inline-block;margin:2px;background-color:#eee;text-align:center;padding-top:1rem;color:black">';
 		$class = 'icon-' . $svgFolder . '-' . $file;
 		$file = $folder . '/' . $svgFolder . '/' . $file . '.svg';
 		$fileRel = mkShortPath($file);
@@ -57,9 +57,16 @@ foreach ($collector as $svgFolder => $files)
 
 			. '</span></div>
 			<p><b>' . $fileRel . '</b></p>
-			<p style="font-family:monospace">{svg{'
+			<p style="font-family:monospace;font-weight:bold">{svg{'
 			. $svgFolder . '/' . $saveFile
-			. '}}</p></div></div>';
+			. '}}</p>';
+			if ($svgFolder === 'bi')
+			{
+				$html[] = '<!-- Hugo shortcode: -->
+				<p style="font-family:monospace;font-weight:bold">{{&lt; bi "' . $saveFile . '" >}}</p>';
+			}
+
+			$html[] =  '</div></div>';
 	}
 }
 
