@@ -367,8 +367,8 @@ class Bs3ghsvsStructuredData
 				$params = $item->getParams();
 
 				if (!(
-					($name = trim($params->get('page_title')))
-					|| ($name = trim($params->get('page_heading')))
+					($name = trim($params->get('page_title', '')))
+					|| ($name = trim($params->get('page_heading', '')))
 					)
 				){
 					$name = stripslashes(htmlspecialchars($items[$i]->name, ENT_COMPAT, 'UTF-8'));
