@@ -59,10 +59,17 @@ var addClassToFirstCharacter = function (myStr)
 	return myStr;
 };
 
+(function()
+{
+	const html = document.documentElement;
+	// Opera mini doesn't accept both classes in one remove().
+	html.classList.remove('no-js');
+	html.classList.remove('jsNotActive');
+	html.classList.add('jsActive');
+})();
+
 ;(function($)
 {
-	$("html").removeClass("jsNotActive no-js").addClass("jsActive");
-
  // Hide elements without text.
  $.fn.emptytaghideghsvs = function(mainSelectors){
   if (typeof mainSelectors === "undefined" || mainSelectors === null)
