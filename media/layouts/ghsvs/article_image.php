@@ -120,7 +120,7 @@ if (PluginHelper::isEnabled('system', 'venoboxghsvs'))
 	if (!in_array('EXCLUDEVENOBOX', $imgClasses)
 		&& !in_array('excludevenobox', $imgClasses)
 	){
-		HTMLHelper::_('plgvenoboxghsvs.venobox', '.venobox');
+		HTMLHelper::_('plgvenoboxghsvs.venobox', ['selector' => '.venobox']);
 		$venobox = 'venobox';
 		$aTitle = 'GHSVS_HIGHER_RESOLUTION_0';
 		/* Beachte, dass Seite dann scrollt, wenn man zu anderem Bild blättert. */
