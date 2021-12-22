@@ -160,68 +160,6 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			$this->app->set('gzip', 0);
 		}
 
-		// Vorschaltseite START.
-		$vorschaltseite = (int) $this->params->get('vorschaltseite', '');
-
-		if ($vorschaltseite && $vorschaltseite !== 1)
-		{
-			$isVorschaltseite = ((int) $this->app->input->get('Itemid') === $vorschaltseite);
-			$isRobot = (int) $this->app->client->robot;
-
-			if ($isVorschaltseite && $isRobot)
-			{
-				$this->app->redirect(Uri::root());
-				return;
-			}
-
-			// Force Vorschaltseite OFF by query parameter &vsoff=1.
-			$vsoff = (1 === (int) Uri::getInstance()->getVar('vsoff'));
-
-			$node = 'VorschaltseiteOff';
-
-			// Weiß nicht, ob Sinn macht. Idee ist, wenigstens für eine Session Ruhe.
-			$session = Factory::getSession();
-			$sessionData = (int) $session->get($node);
-			$cookie = $this->app->input->cookie;
-			$cookieData = (int) $cookie->get($node);
-
-			// Write Session and Cookie always
-			$session->set($node, 1);
-
-			// 14 days 60 * 60 * 24 * 14
-			$cookie_time = 60 * 60 * 24 * 365;
-
-			$cookie->set($node,
-				1,
-				time() + $cookie_time
-				,
-				// Wichtig! Damit Cookie sowohl unter /de/ als auch /en/ verfügbar.
-				'/',
-				'',
-				false,
-				true
-			);
-
-			$redirectCase = (
-				$vsoff === false
-				&& !(
-					$cookieData === 1
-					||
-					$sessionData === 1
-				)
-			);
-
-			if (
-				$redirectCase
-				&& !$isRobot
-				&& Bs3ghsvsTemplate::getIsFrontpage() === true
-			){
-				$this->app->redirect(Route::_('index.php?Itemid=' . $vorschaltseite));
-				return;
-			}
-		}
-		// Vorschaltseite END.
-
 		$this->template = Bs3ghsvsTemplate::getTemplateNameEarly($this->app, $this->db);
 		$this->executeFe = in_array($this->template, $this->templates);
 

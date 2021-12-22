@@ -863,22 +863,6 @@ class="extended-width" />
 
 			</fieldset><!--/FieldsetStructuredData-->
 
-			<fieldset name="FieldsetVorschaltseite"
-				label="Vorschaltseite"
-				description="Sie benötigen 1 Menü mit Menütyp: 'vorschaltmenue' ! Darin der Menüeintrag, der die Vorschaltseite ist. Zum Aktivieren der Vorschaltseite können Sie sie dann hier wählen.">
-
-				<field name="spacerVorschaltseite" type="spacer"
-					label="PLG_SYSTEM_BS3GHSVS_VORSCHALTSEITE" />
-
-				<field name="vorschaltseite" type="menuitem" default=""
-					label="Vorschaltseite (Menüeintrag)"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"
-					menu_type="vorschaltmenue">
-					<option value="">JNONE</option>
-				</field>
-
-			</fieldset><!--/FieldsetVorschaltseite-->
-
 			<fieldset name="FieldsetPagebreak"
 				label="Pagebreakghsvs-Slider"
 				description="Im Zusammenspiel mit Editor-Plugin 'pagebreakghsvs' (Button for Editors (insert slide markers) by GHSVS.de)">
