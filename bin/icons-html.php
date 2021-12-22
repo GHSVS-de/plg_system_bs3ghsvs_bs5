@@ -63,7 +63,7 @@ foreach ($collector as $svgFolder => $files)
 			if ($svgFolder === 'bi')
 			{
 				$html[] = '<!-- Hugo shortcode: -->
-				<p style="font-family:monospace;font-weight:bold">{{&lt; bi "' . $saveFile . '" >}}</p>';
+				<p style="font-family:monospace;font-weight:bold">{{&lt; ghsvs/bi "' . $saveFile . '" >}}</p>';
 			}
 
 			$html[] =  '</div></div>';
