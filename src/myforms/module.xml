@@ -31,10 +31,8 @@
 					description="Setzt Modul-Override voraus der Feld/Parameter 'lederBG' verwendet."
 					class="alertsss alert-info" />
 
-				<field name="lederBG" type="mediajce" default=""
-					addfieldpath="plugins/system/jce/fields"
-					label="Bild oder Hintergrundbild oder ..."
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC" />
+				<field name="lederBG" type="media" default=""
+					label="Bild oder Hintergrundbild oder ..." />
 
 				<!--<field name="lederCOLOR" type="list" default="color-black-important"
 					label="Nur für Leder-Hofmann Breadcrump-Schriftfarben-Klasse, falls Hintergrundbild."
