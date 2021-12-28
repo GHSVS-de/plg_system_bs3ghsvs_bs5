@@ -63,8 +63,8 @@
 				</field>
 
 
-<field name="frontendEditingOnSpacer" type="note" class="alertsss alert-info"
-	label="Frontend-Editing-Feature für dieses Modul aktivieren?"
+<field name="frontendEditingOnSpacer" type="note" class="alert alert-info"
+	label="[frontendEditingOn] Frontend-Editing-Feature für dieses Modul aktivieren?"
 	description="PLG_SYSTEM_BS3GHSVS_MODULE_FRONTENDEDITING" />
 				<field name="frontendEditingOn" type="list" filter="integer" default="0"
 					label="Front-End-Bearbeitung für dieses Modul erlauben? (Button wird abhängig von Nuterrechten angezeigt)"
