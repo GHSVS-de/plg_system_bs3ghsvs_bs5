@@ -106,21 +106,21 @@
 
 				<field name="deleteCanonicals" type="list" default="1" filter="integer"
 					label="PLG_SYSTEM_BS3GHSVS_DELETE_CANONICALS"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC">
+					>
 						<option value="0">JNO</option>
 						<option value="1">JYES</option>
 				</field>
 
 				<field name="gzipOffFacebook" type="list" default="1" filter="integer"
 					label="PLG_SYSTEM_BS3GHSVS_GZIPOFFFACEBOOK"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC">
+					>
 						<option value="0">JNO</option>
 						<option value="1">JYES</option>
 				</field>
 
 				<field name="initTemplateAlways" type="list" default="0" filter="integer"
 					label="PLG_SYSTEM_BS3GHSVS_INITTEMPLATEALWAYS"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC">
+					>
 						<option value="0">JNO</option>
 						<option value="1">JYES</option>
 				</field>
@@ -131,7 +131,7 @@
 
 				<field name="frontendEditingOn" type="list" default="0" filter="integer"
 					label="Plugin-eigene Module-Frontend-Bearbeitung generell nutzbar machen? [frontendEditingOn]"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"
+
 					>
 						<option value="0">JNO</option>
 						<option value="1">JYES</option>
@@ -225,7 +225,7 @@
 
 					<field name="XmlActiveContactForm" type="spacer"
 						label="PLG_SYSTEM_BS3GHSVS_XMLACTIVE_CONTACTFORM"
-						description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"/>
+						/>
 
 					<field name="XmlActiveContactFormNote" type="note"
 						class="alert aler-info"
@@ -241,7 +241,7 @@
 
 					<field name="contact_phoneghsvs_required" type="list" default="0" filter="integer"
 						label="PLG_SYSTEM_BS3GHSVS_PHONE_REQUIRED"
-						description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"
+
 						showon="xml_contactform:1">
 							<option value="0">JNO</option>
 							<option value="1">JYES</option>
@@ -249,7 +249,7 @@
 
 					<field name="contact_name_required" type="list" default="0" filter="integer"
 						label="PLG_SYSTEM_BS3GHSVS_NAME_REQUIRED"
-						description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"
+
 						showon="xml_contactform:1">
 							<option value="0">JNO</option>
 							<option value="1">JYES</option>
@@ -260,7 +260,7 @@
 
 					<field name="XmlActiveMenuitemSpacer" type="spacer"
 						label="PLG_SYSTEM_BS3GHSVS_XMLACTIVE_MENUITEM"
-						description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"/>
+						/>
 
 					<field name="xml_base" type="list" default="2"
 						readonly="true" filter="integer"
@@ -302,7 +302,7 @@
 
 				<field name="resizeGlobalActive" type="list" default="1" filter="integer"
 					label="Resizer global aktivieren"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC">
+					>
 						<option value="0">JNO</option>
 						<option value="1">JYES</option>
 					</field>
@@ -313,7 +313,7 @@
 
 				<field name="webpSupport" type="list" default="0" filter="integer"
 					label="WEBP-Support"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC">
+					>
 						<option value="0">JNO</option>
 						<option value="1">JYES</option>
 						<option value="2">ONLY</option>
@@ -665,7 +665,7 @@
 
 				<field name="opengraphActive" type="list" default="1"
 					label="PLG_SYSTEM_BS3GHSVS_OPENGRAPHACTIVE"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"
+
 					filter="integer">
 						<option value="0">JNO</option>
 						<option value="1">JYES</option>
@@ -678,7 +678,7 @@
 					default="images/fb_default_images"
 					readonly="true"
 					label="PLG_CONTENT_FACEBOOKOPENGRAPHGHSVS_DEFAULT_IMAGE"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC" />
+					 />
 
 			</fieldset><!--/FieldsetOpenGraph-->
 
@@ -688,7 +688,7 @@
 
 				<field name="svgSupport" type="list" default="1"
 					label="SVG support"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"
+
 					filter="integer">
 						<option value="0">JNO</option>
 						<option value="1">JYES</option>
@@ -696,7 +696,7 @@
 
 				<field name="svgSpan" type="list" default="1" filter="integer"
 					label="SPAN um's SVG legen"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"
+
 					showon="svgSupport:1">
 						<option value="0">JNO</option>
 						<option value="1">JYES</option>
@@ -705,13 +705,13 @@
 				<field name="svgSpanClass" type="text" filter="string"
 					default="svgSpan svg-lg"
 					label="CSS-Klasse(n) des umschließenden SPAN (Nicht svg-icon, da bereits anderweitig reserviert!). Leerzeichen für keine."
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"
+
 					showon="svgSupport:1[AND]svgSpan:1"
 					/>
 
 				<field name="svgRemoveSpaces" type="list" default="0"
 					label="Remove spaces and newlines around SVG."
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"
+
 					filter="integer"
 					showon="svgSupport:1">
 						<option value="0">JNO</option>
@@ -720,7 +720,7 @@
 
 				<field name="removeTagIfNoSvg" type="list" default="1"
 					label="Remove tag if no matching *.svg found (Select NO for debug purposes)"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"
+
 					filter="integer"
 					showon="svgSupport:1">
 						<option value="0">JNO</option>
@@ -738,7 +738,7 @@
 
 				<field name="structureddataActive" type="list" default="0"
 					label="PLG_SYSTEM_BS3GHSVS_STRUCTUREDDATAACTIVE"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"
+
 					filter="integer">
 						<option value="0">JNO</option>
 						<option value="1">JYES</option>
@@ -746,7 +746,7 @@
 
 				<field name="sd_killmicrodata" type="list" default="1" filter="integer"
 					label="Remove Joomlas Microdatas"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"
+
 					showon="structureddataActive:1">
 						<option value="0">JNO</option>
 						<option value="1">always (all pages)</option>
@@ -835,7 +835,7 @@ label="Google verlangt bspw. für Beitragsbilder minimal 696 Pixel. Setze auf 0 
 
 <field name="minWidth" type="number" default="696" min="0" filter="integer"
 label="Minimum Image Width"
-description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC" />
+ />
 
 <field name="logo" type="media" default=""
 label="PLG_STRUCTUREDDATAGHSVS_ORGANIZATIONLOGO_LBL"
@@ -869,22 +869,22 @@ class="extended-width" />
 
 				<field name="toggleContainer" type="text" default="div" filter="string"
 					label="HTML-Container für Slide-Toggler [toggleContainer]"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"/>
+					/>
 
 				<field name="headingTagGhsvs" type="text" default="h4" filter="string"
 					label="Headline-Tag für Slider-Überschrift [headingTagGhsvs]"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC"/>
+					/>
 
 				<field name="activeToSession" type="list" default="1" filter="integer"
 					label="Aktive IDs in Session schreiben mit Ajax-Plugin [activeToSession]"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC">
+					>
 						<option value="1">JYES</option>
 						<option value="0">JNO</option>
 				</field>
 
 				<field name="multiSelectable" type="list" default="0" filter="integer"
 					label="Mehrere Slides können gleichzeitig geöffnet sein?"
-					description="PLG_SYSTEM_BS3GHSVS_EMPTY_DESC">
+					>
 						<option value="1">JYES</option>
 						<option value="0">JNO</option>
 				</field>
