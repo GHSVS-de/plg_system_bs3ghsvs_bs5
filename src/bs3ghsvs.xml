@@ -125,17 +125,6 @@
 						<option value="1">JYES</option>
 				</field>
 
-				<field name="frontendEditingOnSpacer" type="note" class="alert alert-info"
-					label="Frontend-Bearbeitung für Module aktivieren?"
-					description="PLG_SYSTEM_BS3GHSVS_MODULE_FRONTENDEDITING2" />
-
-				<field name="frontendEditingOn" type="list" default="0" filter="integer"
-					label="Plugin-eigene Module-Frontend-Bearbeitung generell nutzbar machen? [frontendEditingOn]"
-
-					>
-						<option value="0">JNO</option>
-						<option value="1">JYES</option>
-				</field>
 			</fieldset><!--/basic-->
 
 			<fieldset name="FieldsetXmlActive"
