@@ -1,6 +1,6 @@
 <!--{{nameUpper}} Version {{version}} Target platform: {{targetplatform}}-->
 	<update>
-		<name>{{nameUpper}}</name>
+		<name>{{nameRealUpper}}</name>
 		<description>{{description}}</description>
 		<element>{{element}}</element>
 		<type>{{type}}</type>
