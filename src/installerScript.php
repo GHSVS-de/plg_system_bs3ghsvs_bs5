@@ -36,11 +36,6 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/media/plg_system_bs3ghsvs/fontawesome-free/5/_V5.11.2/index.html',
 		'/media/plg_system_bs3ghsvs/fontawesome-free/5/_V5.13.0/index.html',
 		'/media/plg_system_bs3ghsvs/fontawesome-free/5/svgs/solid/haykal.svg',
-		'/media/plg_system_bs3ghsvs/svgs/bi/patch-check-fll.svg',
-		'/media/plg_system_bs3ghsvs/svgs/bi/patch-exclamation-fll.svg',
-		'/media/plg_system_bs3ghsvs/svgs/bi/patch-minus-fll.svg',
-		'/media/plg_system_bs3ghsvs/svgs/bi/patch-plus-fll.svg',
-		'/media/plg_system_bs3ghsvs/svgs/bi/patch-question-fll.svg',
 		'/media/plg_system_bs3ghsvs/scss/bootstrap/_code.scss',
 		'/media/plg_system_bs3ghsvs/scss/bootstrap/_custom-forms.scss',
 		'/media/plg_system_bs3ghsvs/scss/bootstrap/_input-group.scss',
@@ -133,6 +128,7 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/media/plg_system_bs3ghsvs/js/moment',
 		'/media/plg_system_bs3ghsvs/css/footable',
 		'/plugins/system/bs3ghsvs/versions-installed',
+		'/media/plg_system_bs3ghsvs/svgs',
 	);
 
 	public function preflight($type, $parent)

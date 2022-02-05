@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="plugin" group="system" method="upgrade">
-	<name>{{nameUpper}}</name>
+<extension type="{{type}}" group="{{folder}}" method="upgrade">
+	<name>{{nameRealUpper}}</name>
 	<author>{{authorName}}</author>
 	<creationDate>{{creationDate}}</creationDate>
 	<copyright>{{copyright}}</copyright>
 	<license>{{licenseLong}}</license>
 	<authorUrl>{{authorUrl}}</authorUrl>
 	<version>{{version}}</version>
-	<description>{{nameUpper}}_DESC</description>
+	<description>{{nameRealUpper}}_DESC</description>
 
 	<versionHistory>
 		https://updates.ghsvs.de/changelog.php?file={{name}}
@@ -55,7 +55,6 @@
 		<folder>js</folder>
 		<folder>layouts</folder>
 		<folder>scss</folder>
-		<folder>svgs</folder>
 	</media>
 
 	<install>
@@ -63,15 +62,9 @@
 			<file driver="mysql" charset="utf8">sql/mysql/bs3ghsvs.sql</file>
 		</sql>
 	</install>
-
-	<!--<uninstall>
-			<sql>
-					<file driver="mysql" charset="utf8">sql/example.uninstall.sql</file>
-			</sql>
-	</uninstall>-->
-
+	{{namespace}}
 	<config>
-		<fields name="params" addfieldpath="plugins/system/bs3ghsvs/Field">
+		<fields name="params" addfieldpath="plugins/system/{{filename}}/Field">
 
 			<fieldset name="fieldsetInfos"
 				label="PLG_SYSTEM_BS3GHSVS_FIELDSET_INFOS">
@@ -675,9 +668,12 @@
 				label="PLG_SYSTEM_BS3GHSVS_FIELDSET_SVG"
 				description="PLG_SYSTEM_BS3GHSVS_FIELDSET_SVG_DESC">
 
-				<field name="svgSupport" type="list" default="1"
-					label="SVG support"
+				<field type="plgSystemBs3ghsvs.iconsGhsvsInstalled"
+					name="iconsGhsvsInstalled"
+					hiddenLabel="true"/>
 
+				<field name="svgSupport" type="list" default="0"
+					label="SVG support"
 					filter="integer">
 						<option value="0">JNO</option>
 						<option value="1">JYES</option>
@@ -685,7 +681,6 @@
 
 				<field name="svgSpan" type="list" default="1" filter="integer"
 					label="SPAN um's SVG legen"
-
 					showon="svgSupport:1">
 						<option value="0">JNO</option>
 						<option value="1">JYES</option>

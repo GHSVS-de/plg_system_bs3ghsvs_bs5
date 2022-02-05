@@ -546,7 +546,7 @@ class Bs3ghsvsItem
 				foreach ($matches as $key => $match)
 				{
 					$results['replaceWhat'][$key] = $match[0];
-					$svg = JPATH_SITE . '/media/plg_system_bs3ghsvs/svgs/' . $match[1] . '.svg';
+					$svg = JPATH_SITE . '/media/iconsghsvs/svgs/' . $match[1] . '.svg';
 
 					if (file_exists($svg))
 					{
