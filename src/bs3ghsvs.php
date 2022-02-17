@@ -412,8 +412,14 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		}
 
 		// Module edit in backend UND in Frontend.
+
+		// advanced module manager has changed the form name since Joomla 4.
+		// com_advancedmodules
+
 		if (
 			($this->app->isClient('administrator') && $context === 'com_modules.module')
+			|| ($this->app->isClient('administrator')
+				&& $context === 'com_advancedmodules.module')
 			// Load form:
 			|| ($this->app->isClient('site') && $context === 'com_config.modules')
 			// Save form (how stupid is that?):
