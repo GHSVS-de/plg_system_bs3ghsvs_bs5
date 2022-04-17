@@ -1,13 +1,11 @@
 <?php
 defined('JPATH_PLATFORM') or die;
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\Registry\Registry;
-use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Image\Image;
-use Joomla\CMS\Filesystem\Path;;
+use Joomla\CMS\Filesystem\Path;
 use Joomla\CMS\Utility\Utility;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Utilities\ArrayHelper;
@@ -15,7 +13,8 @@ use Joomla\CMS\Plugin\PluginHelper;
 
 class Bs3ghsvsItem
 {
-	protected static $loaded = array();
+	protected static $loaded = [];
+
 	protected static $imageResizer = null;
 
 	/**
@@ -29,7 +28,7 @@ class Bs3ghsvsItem
 		&$item,
 		$typeAlias = 'com_content.category',
 		$catKey = 'catid'
-	){
+	) {
 		if (!empty($item->tagsCatGhsvs) || empty($item->$catKey))
 		{
 			return;
@@ -39,8 +38,8 @@ class Bs3ghsvsItem
 		$item->tagsCatGhsvs = new TagsHelper;
 
 		// ehemals $item->concatedCatTagsGhsvs. implode(...) it yourself whereever you need it.
-		$item->tagsCatGhsvs->texts = array();
-		$item->tagsCatGhsvs->titles = array();
+		$item->tagsCatGhsvs->texts = [];
+		$item->tagsCatGhsvs->titles = [];
 
 		/* Adds array [itemTags] of stdClass Objects */
 		$item->tagsCatGhsvs->getItemTags($typeAlias, $item->$catKey);
@@ -54,7 +53,7 @@ class Bs3ghsvsItem
 		// Warum nicht einfach title nehmen? Weil es auch verschachtelte Tags geben kann. text bildet das ab: "obertag/untertag".
 		$item->tagsCatGhsvs->convertPathsToNames($item->tagsCatGhsvs->itemTags);
 
-		foreach ($item->tagsCatGhsvs->itemTags AS $tag)
+		foreach ($item->tagsCatGhsvs->itemTags as $tag)
 		{
 			$item->tagsCatGhsvs->texts[] = $tag->text;
 			$item->tagsCatGhsvs->titles[] = $tag->title;
@@ -62,6 +61,7 @@ class Bs3ghsvsItem
 
 		sort($item->tagsCatGhsvs->texts);
 		sort($item->tagsCatGhsvs->titles);
+
 		return true;
 	}
 
@@ -73,14 +73,14 @@ class Bs3ghsvsItem
 	 */
 	public static function getItemImagesghsvs(&$item, $context = null)
 	{
-		$sig = md5(serialize(array($item, $context)));
+		$sig = md5(serialize([$item, $context]));
 
 		if (empty(self::$loaded[__METHOD__][$sig]))
 		{
 			if (
 				!isset($item->Imagesghsvs)
 				|| !($item->Imagesghsvs instanceof Registry)
-			){
+			) {
 				$item->Imagesghsvs = null;
 
 				$fallbackImage = '';
@@ -108,25 +108,37 @@ class Bs3ghsvsItem
 						if (
 							($replaceIntroFull === 1 || $replaceIntroFull === -2)
 							&& $emptyIntro === false && $emptyFull === true
-						){
-							$item->Imagesghsvs->set('image_fulltext',
-								$item->Imagesghsvs->get('image_intro'));
-							$item->Imagesghsvs->set('image_fulltext_caption',
-								$item->Imagesghsvs->get('image_intro_caption'));
-							$item->Imagesghsvs->set('image_fulltext_alt',
-								$item->Imagesghsvs->get('image_intro_alt'));
+						) {
+							$item->Imagesghsvs->set(
+								'image_fulltext',
+								$item->Imagesghsvs->get('image_intro')
+							);
+							$item->Imagesghsvs->set(
+								'image_fulltext_caption',
+								$item->Imagesghsvs->get('image_intro_caption')
+							);
+							$item->Imagesghsvs->set(
+								'image_fulltext_alt',
+								$item->Imagesghsvs->get('image_intro_alt')
+							);
 						}
 
 						if (
 							($replaceIntroFull === 1 || $replaceIntroFull === -1)
 							&& $emptyIntro === true && $emptyFull === false
-						){
-							$item->Imagesghsvs->set('image_intro',
-								$item->Imagesghsvs->get('image_fulltext'));
-							$item->Imagesghsvs->set('image_intro_caption',
-								$item->Imagesghsvs->get('image_fulltext_caption'));
-							$item->Imagesghsvs->set('image_intro_alt',
-								$item->Imagesghsvs->get('image_fulltext_alt'));
+						) {
+							$item->Imagesghsvs->set(
+								'image_intro',
+								$item->Imagesghsvs->get('image_fulltext')
+							);
+							$item->Imagesghsvs->set(
+								'image_intro_caption',
+								$item->Imagesghsvs->get('image_fulltext_caption')
+							);
+							$item->Imagesghsvs->set(
+								'image_intro_alt',
+								$item->Imagesghsvs->get('image_fulltext_alt')
+							);
 						}
 					}
 
@@ -142,20 +154,27 @@ class Bs3ghsvsItem
 					}
 
 					// Since Joomla 4 necessary
-					$item->Imagesghsvs->set('image_intro',
-						self::extractImagePath($item->Imagesghsvs->get('image_intro')));
-					$item->Imagesghsvs->set('image_fulltext',
-						self::extractImagePath($item->Imagesghsvs->get('image_fulltext')));
+					$item->Imagesghsvs->set(
+						'image_intro',
+						self::extractImagePath($item->Imagesghsvs->get('image_intro'))
+					);
+					$item->Imagesghsvs->set(
+						'image_fulltext',
+						self::extractImagePath($item->Imagesghsvs->get('image_fulltext'))
+					);
 
 					if (!$item->Imagesghsvs->get('image_intro_popupghsvs', ''))
 					{
-						$item->Imagesghsvs->set('image_intro_popupghsvs',
-							$item->Imagesghsvs->get('image_intro'));
+						$item->Imagesghsvs->set(
+							'image_intro_popupghsvs',
+							$item->Imagesghsvs->get('image_intro')
+						);
 					}
 
 					if (!$item->Imagesghsvs->get('image_fulltext_popupghsvs', ''))
 					{
-						$item->Imagesghsvs->set('image_fulltext_popupghsvs',
+						$item->Imagesghsvs->set(
+							'image_fulltext_popupghsvs',
 							$item->Imagesghsvs->get('image_fulltext')
 						);
 					}
@@ -167,8 +186,10 @@ class Bs3ghsvsItem
 
 					if (!$item->Imagesghsvs->get('float_intro', ''))
 					{
-						$item->Imagesghsvs->set('float_intro',
-							$item->params->get('float_intro'));
+						$item->Imagesghsvs->set(
+							'float_intro',
+							$item->params->get('float_intro')
+						);
 					}
 
 					// 2016-07: Sonst sind Unterarrays alle stdObjects.
@@ -202,6 +223,7 @@ class Bs3ghsvsItem
 			}
 			self::$loaded[__METHOD__][$sig] = 1;
 		}
+
 		return $item->Imagesghsvs;
 	}
 
@@ -224,7 +246,7 @@ class Bs3ghsvsItem
 	 */
 	public static function getImageResizeAttribs(string $what)
 	{
-		$sizePostfixes = array();
+		$sizePostfixes = [];
 		$what = PlgSystemBS3Ghsvs::getPluginParams()->get($what);
 
 		if (is_object($what))
@@ -239,13 +261,14 @@ class Bs3ghsvsItem
 				}
 			}
 		}
+
 		return $sizePostfixes;
 	}
 
 	public static function parseImageResizeOptions(string $str)
 	{
-		$opts = array();
-		$str = str_replace(array(' ', '"', "'"), '', $str);
+		$opts = [];
+		$str = str_replace([' ', '"', "'"], '', $str);
 
 		if (!$str || strpos($str, '=') === false)
 		{
@@ -260,7 +283,8 @@ class Bs3ghsvsItem
 
 			if (count($parts) == 2 && !empty($parts[0]))
 			{
-				if (strtoupper($parts[1]) == 'TRUE'){
+				if (strtoupper($parts[1]) == 'TRUE')
+				{
 					$parts[1] = true;
 				}
 				elseif (strtoupper($parts[1]) == 'FAlSE')
@@ -270,6 +294,7 @@ class Bs3ghsvsItem
 				$opts[$parts[0]] = $parts[1];
 			}
 		}
+
 		return $opts;
 	}
 
@@ -283,9 +308,10 @@ class Bs3ghsvsItem
 	public static function getImageResizeImages(
 		string $what,
 		$IMAGES,
-		string $useSizePostfixes = ''): array
+		string $useSizePostfixes = ''
+	): array
 	{
-		$collect_images = array();
+		$collect_images = [];
 		$key = 0;
 
 		$IMAGES = (array) $IMAGES;
@@ -335,10 +361,11 @@ class Bs3ghsvsItem
 			if (strpos($IMAGEorig, '%') !== false)
 			{
 				$IMAGEorig = Path::clean($IMAGEorig, '/');
-				$IMAGEorig = implode('/', array_map('rawurldecode',
-					explode('/', $IMAGEorig)));
+				$IMAGEorig = implode('/', array_map(
+					'rawurldecode',
+					explode('/', $IMAGEorig)
+				));
 			}
-
 
 			foreach ($sizePostfixes as $sizePostfix => $opts)
 			{
@@ -353,7 +380,8 @@ class Bs3ghsvsItem
 
 				// Verkleinertes Bild erstellen und u.a. relative Pfade abholen.
 				// Enthält aber auch weitere Infos wie width, 2. Bild  etc.
-				$IMAGE = self::$imageResizer->resize($IMAGEorig,
+				$IMAGE = self::$imageResizer->resize(
+					$IMAGEorig,
 					$opts,
 					$scaleMethod,
 					$groupPrefix . $sizePostfix
@@ -405,7 +433,7 @@ class Bs3ghsvsItem
 		// Reference. If we have to handle <figcaption>.
 		&$txt,
 		$filter = 'png|jpg|jpeg|gif|webp'
-	){
+	) {
 		if (stripos($txt, '<img ') !== false)
 		{
 			self::replaceFigureImg($txt, $filter);
@@ -428,7 +456,7 @@ class Bs3ghsvsItem
 				}
 			}
 
-			$muster = array();
+			$muster = [];
 			$muster[] = '<img';
 			$muster[] = '(\s+[^>]*)'; // key 1
 			$muster[] = 'src=';
@@ -440,7 +468,7 @@ class Bs3ghsvsItem
 
 			if (preg_match_all('/' . implode('', $muster) . '/i', $txt, $matches))
 			{
-				$results = array();
+				$results = [];
 				$results['all'] = $matches[0];
 				$results['pre'] = $matches[1];
 				$results['quote'] = $matches[2];
@@ -452,10 +480,12 @@ class Bs3ghsvsItem
 					$str = str_replace("'", '"', $pre . $results['post'][$key]);
 					$results['attributes'][$key] = new Registry(Utility::parseAttributes($str));
 				}
+
 				return $results;
 			}
 		}
-		return array();
+
+		return [];
 	}
 
 	/**
@@ -476,9 +506,9 @@ class Bs3ghsvsItem
 
 		$muster = '/<figure [^>]*?>.*?'
 		. '(<img [^>]*>)'
-		.'(.*?)'
+		. '(.*?)'
 		. '<\/figure>'
-		.'/is';
+		. '/is';
 
 		if (preg_match_all($muster, $txt, $matches, PREG_SET_ORDER))
 		{
@@ -494,12 +524,12 @@ class Bs3ghsvsItem
 				if (
 					isset($attributes['title'])
 					&& !trim($attributes['title'])
-				){
+				) {
 					unset($attributes['title']);
 				}
 
 				// Should be the <figcaption> if no markup error.
-				if($match[2] = self::strip_tags($match[2]))
+				if ($match[2] = self::strip_tags($match[2]))
 				{
 					// Muss im JLayout o.ä extrahiert werden.
 					$attributes['data-caption-from-replaceFigureImg']
@@ -523,8 +553,8 @@ class Bs3ghsvsItem
 	*/
 	public static function replaceSvgPlaceholders(
 		string $txt,
-		$options = array()
-	){
+		$options = []
+	) {
 		$matches = [];
 		$options = new Registry($options);
 
@@ -541,7 +571,7 @@ class Bs3ghsvsItem
 
 			$results = [];
 
-			if (preg_match_all('/' . $muster . '/m', $txt, $matches, PREG_SET_ORDER ))
+			if (preg_match_all('/' . $muster . '/m', $txt, $matches, PREG_SET_ORDER))
 			{
 				foreach ($matches as $key => $match)
 				{
@@ -589,6 +619,7 @@ class Bs3ghsvsItem
 				}
 			}
 		}
+
 		return $txt;
 	}
 
@@ -609,6 +640,7 @@ class Bs3ghsvsItem
 		$content = preg_replace("'<(br[^/>]*?/|hr[^/>]*?/|/(div|h[1-6]|li|p|td))>'si", ' ', $content);
 		$content = trim(strip_tags($content));
 		$content = preg_replace('/(\n|\r|\t|\s)+/', ' ', $content);
+
 		return $content;
 	}
 
@@ -623,6 +655,7 @@ class Bs3ghsvsItem
 		{
 			$path = Uri::root() . ltrim($path, '/\\');
 		}
+
 		return $path;
 	}
 
@@ -631,7 +664,8 @@ class Bs3ghsvsItem
 	 * If getimagesize fails return array('width' => 0, 'height' => 0).
 	 * Even if PHP manual says "BEFORE PHP 7.1.0, list() only worked on numerical arrays and assumes the numerical indices start at 0." PHP 7.3 doesn't care and still throws Notices like "Undefined offset: 0 in /ItemHelper.php on line 242" if you don't convert indices to numerical ones and then use list(). => $numericalIndices established that returns array(0 => $w, 0 => $h)
 	 */
-	public static function getImageSize(string $image,
+	public static function getImageSize(
+		string $image,
 		bool $numericalIndices = false
 	) : array {
 		$w = $h = 0;
@@ -643,10 +677,10 @@ class Bs3ghsvsItem
 
 		/* A smmll fall back for urlencoded images (space replaced with %20
 		and other shit). */
-		if (!\is_file($image))
-			{
-				$image = urldecode($image);
-			}
+		if (!is_file($image))
+		{
+			$image = urldecode($image);
+		}
 
 		if (is_file($image))
 		{
@@ -656,9 +690,10 @@ class Bs3ghsvsItem
 
 		if ($numericalIndices === true)
 		{
-			return array(0 => $w, 1 => $h);
+			return [0 => $w, 1 => $h];
 		}
-		return array('width' => $w, 'height' => $h);
+
+		return ['width' => $w, 'height' => $h];
 	}
 
 	/*
@@ -731,7 +766,7 @@ Array
     [0] => 1
 			)
 			*/
-			$ordering = \explode(',', $imgs['order']);
+			$ordering = explode(',', $imgs['order']);
 			unset($imgs['order']);
 
 			/* Folgendes foreach:
@@ -830,10 +865,10 @@ Array
 						// Die Logik mit dem > bleibt mir momentan verborgen.
 						// Jedenfalls ist das das Bild für den <src>-Tag ohne Query.
 						if ($i > count($mediaQueries))
-								{
-									$srcSetImage    = $sizedImages[$srcSetKey][$imgKey];
-									$srcSetKeySaved = $srcSetKey;
-									$imgKeySaved    = $sizedImageKey;
+						{
+							$srcSetImage    = $sizedImages[$srcSetKey][$imgKey];
+							$srcSetKeySaved = $srcSetKey;
+							$imgKeySaved    = $sizedImageKey;
 							$sources[$sizedImageKey][] = '<source srcset="' . $srcSetImage . '">';
 						} // if ($i > $count)
 					} // foreach ($mediaQueries as $mediaQuery => $sizeIndex)
@@ -852,11 +887,11 @@ Array
 					$imgs[$imgKeySaved][$srcSetKeySaved]['height'] = $size['height'];
 				}
 
-				$returnArray[$sizedImageKey]['assets']  = array(
+				$returnArray[$sizedImageKey]['assets']  = [
 					'img'    => $imgs[$imgKeySaved][$srcSetKeySaved]['img-1'],
 					'width'  => $imgs[$imgKeySaved][$srcSetKeySaved]['width'],
 					'height' => $imgs[$imgKeySaved][$srcSetKeySaved]['height'],
-				);
+				];
 			} // foreach ($imgs as $sizedImageKey => $sizedImages)
 		} // if ($mediaQueries)
 
@@ -865,10 +900,12 @@ Array
 		{
 			$returnArray[0]['sources']       = '<source srcset="' . $origImage . '">';
 			$returnArray[0]['assets']['img'] = $origImage;
-			$returnArray[0]['assets']        = \array_merge($returnArray[0]['assets'],
-				self::getImageSize($origImage));
-
+			$returnArray[0]['assets']        = array_merge(
+				$returnArray[0]['assets'],
+				self::getImageSize($origImage)
+			);
 		}
+
 		return $returnArray;
 	}
 

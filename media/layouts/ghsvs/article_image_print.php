@@ -5,7 +5,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Language\Text;
 
-echo '<!--' . basename(__DIR__) . '/' . basename(__FIlE__) . '-->';
+echo '<!--' . basename(__DIR__) . '/' . basename(__FILE__) . '-->';
 
 /*
 $attributes: Registry. All found attributes like class, alt ... of img tag.
@@ -16,7 +16,7 @@ $images: Array of arrays. Collected resized images with size keys like _u, _l, _
 extract($displayData);
 
 $aClass = $figcaption = $venobox = '';
-$sources = array();
+$sources = [];
 
 $aTitle = 'GHSVS_HIGHER_RESOLUTION_1';
 
@@ -51,7 +51,7 @@ if (PluginHelper::isEnabled('system', 'venoboxghsvs'))
 	}
 }
 
-$picture = array('<picture>');
+$picture = ['<picture>'];
 
 // Wir sind auf einer Seite, die explizit angefordert hat, dass Bilder für Print nicht verkleinert werden.
 /*$sources = array(
@@ -64,7 +64,10 @@ $image = !empty($images['_x']['img']) ? $images['_x']['img'] : $imagepopup;
 
 foreach ($sources as $media => $srcset)
 {
-	if (!$srcset) continue;
+	if (!$srcset)
+	{
+		continue;
+	}
 	$picture[] = '<source srcset="' . $srcset . '" media="' . $media . '">';
 }
 
@@ -87,7 +90,7 @@ if (!$title)
 ?>
 <figure class="item-image-in-article mw-100 clearfix">
 	<a data-gall="myGallery" href="<?php echo $imagepopup; ?>" title="<?php echo $title; ?>"
-		data-title="<?php echo $data_title; ?>" class="<?php echo ($venobox ? 'venobox' : ''); ?>">
+		data-title="<?php echo $data_title; ?>" class="<?php echo($venobox ? 'venobox' : ''); ?>">
 		<?php echo $picture; ?>
 		<div class="iconGhsvs text-right">
 			<div class="btn btn-default btn-sm">
@@ -99,7 +102,7 @@ if (!$title)
 	<?php #if ($caption)
 	{ ?>
 	<figcaption>
-		<?php echo ($caption ? $caption . '<br />' : ''); ?>
+		<?php echo($caption ? $caption . '<br />' : ''); ?>
 		<a href="<?php echo $imagepopup; ?>" download class="noprint">Download "<?php echo basename($imagepopup); ?>"</a>
 	</figcaption>
 	<?php

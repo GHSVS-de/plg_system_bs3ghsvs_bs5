@@ -5,7 +5,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Language\Text;
 
-echo '<!--' . basename(__DIR__) . '/' . basename(__FIlE__) . '-->';
+echo '<!--' . basename(__DIR__) . '/' . basename(__FILE__) . '-->';
 
 /**
 $attributes: Registry. All found attributes like class, alt ... of img tag.
@@ -16,7 +16,7 @@ $images: Array of arrays. Collected resized images with size keys like _u, _l, _
 extract($displayData);
 
 $aClass = $figcaption = $venobox = '';
-$srcsets = array();
+$srcsets = [];
 
 $aTitle = 'GHSVS_HIGHER_RESOLUTION_1';
 
@@ -49,17 +49,20 @@ if (PluginHelper::isEnabled('system', 'venoboxghsvs'))
 	}
 }
 
-$picture = array('<picture>');
+$picture = ['<picture>'];
 
-$sources = array(
+$sources = [
 	'(max-width: 340px)' => !empty($images['_s']['img']) ? $images['_s']['img'] : null,
 	'(max-width: 420px)' => !empty($images['_m']['img']) ? $images['_m'] ['img']: null,
 	'(min-width: 421px)' => !empty($images['_l']['img']) ? $images['_l']['img'] : null,
-);
+];
 
 foreach ($sources as $media => $srcset)
 {
-	if (!$srcset) continue;
+	if (!$srcset)
+	{
+		continue;
+	}
 	$picture[] = '<source srcset="' . $srcset . '" media="' . $media . '">';
 }
 
@@ -82,7 +85,7 @@ if (!$title)
 ?>
 <figure class="item-image-in-article">
 	<a href="<?php echo $imagepopup; ?>" title="<?php echo $title; ?>"
-		data-title="<?php echo $data_title; ?>" class="<?php echo ($venobox ? 'venobox' : ''); ?>">
+		data-title="<?php echo $data_title; ?>" class="<?php echo($venobox ? 'venobox' : ''); ?>">
 		<?php echo $picture; ?>
 		<div class="iconGhsvs text-right">
 			<div class="btn btn-default btn-sm">

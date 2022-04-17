@@ -24,13 +24,13 @@ $time = str_replace('.', '', uniqid('', true));
 if ($displayData['params']->get('show_print_icon'))
 { ?>
 				<li class="print-icon"> <?php echo JHtml::_('icon.print_popup', $displayData['item'], $displayData['params']); ?></li>
-<?php 
+<?php
 } ?>
 <?php
 if ($displayData['params']->get('show_email_icon'))
 { ?>
 				<li class="email-icon"> <?php echo JHtml::_('icon.email', $displayData['item'], $displayData['params']); ?> </li>
-<?php 
+<?php
 } ?>
 <?php if ($canEdit)
 { ?>

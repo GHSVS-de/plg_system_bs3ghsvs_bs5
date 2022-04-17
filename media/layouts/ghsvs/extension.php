@@ -2,7 +2,6 @@
 defined('JPATH_BASE') or die;
 
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\Registry\Registry;
 
 /**
@@ -37,8 +36,7 @@ if (($out = trim($extensionData->get('inspiredby'))))
 	if (strpos($out, ' ') === false && Bs3ghsvsItem::hasScheme($out))
 	{
 		$out = '<a href="' . $out . '">' . $out . '</a>';
-	}
-?>
+	} ?>
 	<h4 class="h6"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_EXTENSION_INSPIREDBY'); ?></h4>
 	<p>
 		<?php echo $out; ?>
@@ -86,15 +84,14 @@ if ($extensionData->get('updateserver'))
 
 <?php
 if ($extensionData->get('languages'))
-{
-	$flags = Bs3ghsvsArticle::buildFlagImages($extensionData->get('languages'));
-?>
+		{
+			$flags = Bs3ghsvsArticle::buildFlagImages($extensionData->get('languages')); ?>
 <h4 class="h6"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_EXTENSION_LANGUAGES'); ?></h4>
 <p>
 	<?php echo implode(' ', $flags); ?>:
 </p>
 <?php
-} ?>
+		} ?>
 
 <?php
 if (($out = trim($extensionData->get('project'))))

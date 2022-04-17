@@ -1,21 +1,19 @@
 <?php
 defined('_JEXEC') or die;
 
-use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Log\Log;
 
 abstract class JHtmlFormbehaviorghsvs
 {
-	
-	protected static $loaded = array();
-	
+	protected static $loaded = [];
+
 	// media-Ordner:
 	protected static $basepath = 'plg_system_bs3ghsvs';
 
 	/**
 	 * formbehavior.chosen -> Bs3GhsvsRegisterFormbehavior::chosen -> formbehaviorghsvs.chosen
 	 */
-	public static function chosen($selector = '.advancedSelect', $debug = null, $options = array())
+	public static function chosen($selector = '.advancedSelect', $debug = null, $options = [])
 	{
 		if (isset(static::$loaded[__METHOD__]))
 		{

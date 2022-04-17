@@ -12,10 +12,7 @@ Sollte sowohl in Blog, Featured und Article-View funktionieren.
 defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\Registry\Registry;
 use Joomla\CMS\Router\Route;
-use Joomla\CMS\Language\Text;
-use Joomla\CMS\Factory;
 use Joomla\CMS\Layout\LayoutHelper;
 
 $params = $displayData['item']->params;
@@ -33,7 +30,7 @@ $maskHClass = ($params->get('mask_pageheaderclass_ghsvs', 0) ? 'Masked' : '');
 
 if ($linkHeadline && empty($displayData->linkGhsvs))
 {
- switch($typeAlias){
+	switch ($typeAlias){
   case 'com_content.article':
   $displayData->linkGhsvs = Route::_(ContentHelperRoute::getArticleRoute($displayData->slug, $displayData->catid));
   break;
@@ -45,13 +42,16 @@ if ($linkHeadline && empty($displayData->linkGhsvs))
  }
 }
 ?>
-<?php echo HTMLHelper::_('bs3ghsvs.layout', 'ghsvs.icons',
- array(
+<?php echo HTMLHelper::_(
+	'bs3ghsvs.layout',
+	'ghsvs.icons',
+	[
   'params' => $params,
   'item' => $displayData,
   'print' => $print,
-  'position' => 'above'
- ));
+  'position' => 'above',
+ ]
+);
 ?>
 
 <?php if ($params->get('show_title'))
@@ -85,11 +85,14 @@ if ($linkHeadline && empty($displayData->linkGhsvs))
 
 <?php
 } ?>
-<?php echo HTMLHelper::_('bs3ghsvs.layout', 'ghsvs.icons',
- array(
+<?php echo HTMLHelper::_(
+		'bs3ghsvs.layout',
+		'ghsvs.icons',
+		[
   'params' => $params,
   'item' => $displayData,
   'print' => $print,
-  'position' => 'below'
- ));
+  'position' => 'below',
+ ]
+	);
 ?>

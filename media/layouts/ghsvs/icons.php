@@ -7,9 +7,9 @@ HTMLHelper::_('bootstrap.framework');
 
 $canEdit = $displayData['params']->get('access-edit');
 
-$position = (!isset($displayData['position']) ? '' : ' '.$displayData['position']);
+$position = (!isset($displayData['position']) ? '' : ' ' . $displayData['position']);
 ?>
-<?php 
+<?php
 if (empty($displayData['print']))
 { ?>
 	<?php if ($canEdit) : ?>
@@ -21,7 +21,7 @@ if (empty($displayData['print']))
 	<?php endif; ?>
 <?php
 }
-elseif($position != ' below')
+elseif ($position != ' below')
 { ?>
 	<div class="printButton pull-right btn" style="margin-left:10px;">
 		<?php echo JHtml::_('icon.print_screen', $displayData['item'], $displayData['params']); ?>

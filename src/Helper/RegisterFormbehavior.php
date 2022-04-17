@@ -9,14 +9,14 @@ use Joomla\CMS\Log\Log;
 
 class Bs3GhsvsRegisterFormbehavior
 {
-	protected static $formbehavior = array(
+	protected static $formbehavior = [
 		'chosen',
 		'ajaxchosen',
-  );
+  ];
 
 	public static function register()
 	{
-		require_once(__DIR__ . '/formbehaviorblocker.php');
+		require_once __DIR__ . '/formbehaviorblocker.php';
 		$formbehaviorblocker = new formbehaviorblocker;
 
 		if (!$formbehaviorblocker->checkChosenLoaded())
@@ -26,6 +26,7 @@ class Bs3GhsvsRegisterFormbehavior
 				$add = __METHOD__ . ': Core "formbehavior.chosen" or "formbehavior.chosenajax" is already loaded. I can\'t suppress it.';
 				Log::add($add, Log::CRITICAL, 'bs3ghsvs');
 			}
+
 			return false;
 		}
 		elseif (PlgSystemBS3Ghsvs::$log)
@@ -38,15 +39,17 @@ class Bs3GhsvsRegisterFormbehavior
 		{
 			HTMLHelper::register('formbehavior.' . $method, 'Bs3GhsvsRegisterFormbehavior::' . $method);
 		}
+
 		return true;
 	}
 
 	/**
 	 * formbehavior.chosen
 	 */
-	public static function chosen($selector = '.advancedSelect', $debug = null, $options = array())
+	public static function chosen($selector = '.advancedSelect', $debug = null, $options = [])
 	{
 		HTMLHelper::_('formbehaviorghsvs.chosen');
+
 		return;
 	}
 
@@ -56,6 +59,7 @@ class Bs3GhsvsRegisterFormbehavior
 	public static function ajaxchosen($options, $debug = null)
 	{
 		HTMLHelper::_('formbehaviorghsvs.chosenajax');
+
 		return;
 	}
 }

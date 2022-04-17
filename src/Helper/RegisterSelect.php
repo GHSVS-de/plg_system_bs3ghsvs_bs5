@@ -5,13 +5,12 @@ J3.8.9
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Log\Log;
 
 class Bs3GhsvsRegisterSelect
 {
-	protected static $select = array(
+	protected static $select = [
 		'radiolist',
-	);
+	];
 
 	public static function register()
 	{
@@ -19,6 +18,7 @@ class Bs3GhsvsRegisterSelect
 		{
 			HTMLHelper::register('select.' . $method, 'Bs3GhsvsRegisterSelect::' . $method);
 		}
+
 		return true;
 	}
 
@@ -34,8 +34,9 @@ class Bs3GhsvsRegisterSelect
 		$selected = null,
 		$idtag = false,
 		$translate = false
-	){
-		return HTMLHelper::_('selectghsvs.radiolist',
+	) {
+		return HTMLHelper::_(
+			'selectghsvs.radiolist',
 			$data,
 			$name,
 			$attribs,

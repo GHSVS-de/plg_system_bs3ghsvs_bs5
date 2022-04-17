@@ -32,17 +32,17 @@ if ($image = $images->get('image_intro'))
 	}
 
 	$pre = Uri::root(true) . '/';
-	
+
 	if (empty($displayData['link']))
 	{
 		$displayData['link'] = Route::_(ContentHelperRoute::getArticleRoute($item->slug, $item->catid, $item->language));
 	}
-	
+
 	if ($caption = $images->get('image_intro_caption'))
 	{
 		$caption = htmlspecialchars($caption, ENT_QUOTES, 'utf-8');
 	}
- 
+
 	// Entweder explizit gesetzt oder (vielleicht) vom resizer-Plugin gesetzt.
 	// Oder durch Bs3ghsvsItem::getItemImagesghsvs (weiß noch nicht, ob das OK ist.
 	if ($tmp = $images->get('image_intro_popupghsvs'))
@@ -54,7 +54,7 @@ if ($image = $images->get('image_intro'))
 		$imagepopup = false;
 	}
 
-	if($imagepopup && ($tmp = $images->get('image_intro_popupghsvs_caption')))
+	if ($imagepopup && ($tmp = $images->get('image_intro_popupghsvs_caption')))
 	{
 		$imagepopupDescr = $tmp;
 	}
@@ -62,23 +62,23 @@ if ($image = $images->get('image_intro'))
 	{
 		$imagepopupDescr = $caption;
 	}
-	
+
 	$alt = htmlspecialchars($images->get('image_intro_alt'), ENT_QUOTES, 'UTF-8');
 	$imagepopupDescr = htmlspecialchars($imagepopupDescr, ENT_QUOTES, 'UTF-8');
 
-	$picture = array();
-	$sources = array();
-	
+	$picture = [];
+	$sources = [];
+
 	$picture[] = '<picture>';
 
 	// From plg_system_resizerghsvs.
 	$imgs = $images->get('introtext_imagesghsvs');
-	
+
 	if (!empty($imgs[0]) && is_array($imgs[0]))
 	{
 		$imgs = ArrayHelper::getColumn($imgs[0], 'img', 'size');
-	
-		$sources = array(
+
+		$sources = [
 			'(max-width: 320px)' => !empty($imgs['_s']) ? $imgs['_s'] : null,
 			'(max-width: 360px)' => !empty($imgs['_m']) ? $imgs['_m'] : null,
 			'(max-width: 480px)' => !empty($imgs['_l']) ? $imgs['_l'] : null,
@@ -88,12 +88,15 @@ if ($image = $images->get('image_intro'))
 			'(max-width: 1380px)' => !empty($imgs['_s']) ? $imgs['_s'] : null,
 			'(max-width: 1540px)' => !empty($imgs['_m']) ? $imgs['_m'] : null,
 			'(min-width: 1541px)' => !empty($imgs['_l']) ? $imgs['_l'] : null,
-		);
+		];
 	}
 
 	foreach ($sources as $media => $srcset)
 	{
-		if (!$srcset) continue;
+		if (!$srcset)
+		{
+			continue;
+		}
 		$picture[] = '<source srcset="' . $pre . $srcset . '" media="' . $media . '">';
 	}
 
@@ -108,28 +111,28 @@ if ($image = $images->get('image_intro'))
 	$picture[] = $img;
 
 	$picture[] = '</picture>';
-	
-	$picture = implode('', $picture);
-?>
+
+	$picture = implode('', $picture); ?>
 <figure class="item-image image_intro">
 	<div class="btnGroupGhsvs">
 <?php
 if ($imagepopup)
-{
-?>
+	{
+		?>
 		<a class="linkWithIconGhsvs venobox" href="<?php echo $imagepopup?>" data-title="<?php echo $imagepopupDescr; ?>" title="Popup. Größere Auflösung.">{svg{bi/zoom-in}}</a>
-	<?php } ?>
-		<a class="linkWithIconGhsvs" href="<?php echo $displayData['link']; ?>" title="<?php echo Text::_('COM_CONTENT_READ_MORE');?>">
+	<?php
+	} ?>
+		<a class="linkWithIconGhsvs" href="<?php echo $displayData['link']; ?>" title="<?php echo Text::_('COM_CONTENT_READ_MORE'); ?>">
 			{svg{bi/link-45deg}}
 		</a>
 	</div>
 	
-<?php echo ($caption ? '<div class="img_caption">':''); ?>
+<?php echo($caption ? '<div class="img_caption">':''); ?>
  
 	<?php echo $picture; ?>
   
  <?php if ($caption){ ?><figcaption><?php echo $caption; ?></figcaption><?php } ?>
-<?php echo ($caption ? '</div>' : ''); ?>
+<?php echo($caption ? '</div>' : ''); ?>
 </figure>
 
 <?php

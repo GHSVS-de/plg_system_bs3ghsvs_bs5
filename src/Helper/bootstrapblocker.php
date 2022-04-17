@@ -8,6 +8,7 @@ class bootstrapblocker extends JHtmlBootstrap
 			return false;
 		}
 		parent::$loaded['JHtmlBootstrap::framework'] = 13;
+
 		return true;
 	}
 }

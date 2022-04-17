@@ -8,6 +8,7 @@ if (!is_file($file))
 	error_log(str_replace(JPATH_SITE, '', __FILE__) . ' was called but '
 		. str_replace(JPATH_SITE, '', $file) . ' not found. Check your code!'
 		. ' Normally there shouldn\'t be a call like that.');
+
 	return;
 }
 
@@ -36,10 +37,11 @@ use Joomla\CMS\Language\Text;
 
 class Bs3ghsvsStructuredData
 {
-	protected static $loaded = array();
+	protected static $loaded = [];
 
 	// Array (width, height, img) for 'logosmall' plugin parameter.
 	protected static $logosmall;
+
 	protected static $schemaOrganizationBase;
 
 	/**
@@ -106,7 +108,7 @@ class Bs3ghsvsStructuredData
 		}
 
 		### Genre and other stuff like about and keywords.
-		$genre = array();
+		$genre = [];
 
 		if (!empty($article->parent_slug))
 		{
@@ -118,7 +120,7 @@ class Bs3ghsvsStructuredData
 			$genre[] = $article->category_title;
 		}
 
-		$tags = array();
+		$tags = [];
 
 		foreach ($article->tags->itemTags as $tag)
 		{
@@ -130,7 +132,7 @@ class Bs3ghsvsStructuredData
 
 		$schema = Schema::article()
 			->url(Uri::current())
-			->mainEntityOfPage(array('@type' => 'WebPage', '@id' => Uri::current()))
+			->mainEntityOfPage(['@type' => 'WebPage', '@id' => Uri::current()])
 			->name($article->title)
 			// Google wants 100 chars max.
 			->headline(StringHelper::substr($headline, 0, 110))
@@ -140,8 +142,7 @@ class Bs3ghsvsStructuredData
 			)
 			->publisher(
 				Schema::Organization()->name($organization->get('name'))
-					->if(self::$logosmall['img'], function(Organization $schema)
-					{
+					->if(self::$logosmall['img'], function(Organization $schema) {
 						$schema->logo(
 							Schema::ImageObject()
 							->url(self::$logosmall['img'])
@@ -150,7 +151,7 @@ class Bs3ghsvsStructuredData
 							->height(self::$logosmall['height'])
 						);
 					})
-				)
+			)
 			->creator($article->author)
 			->datePublished(HTMLHelper::_('date', $article->publish_up, 'c'))
 			->dateCreated(HTMLHelper::_('date', $article->created, 'c'))
@@ -161,33 +162,33 @@ class Bs3ghsvsStructuredData
 			->inLanguage(($article->language === '*') ? $app->get('language') : $article->language)
 		;
 
-		if($description)
+		if ($description)
 		{
 			$schema->description($description);
-		};
+		}
 
-		if($plgParams->get('sd_articleBody'))
+		if ($plgParams->get('sd_articleBody'))
 		{
 			$schema->articleBody($articleBody);
-		};
+		}
 
 		#### Collect the images - STSRT
 		Bs3ghsvsItem::getItemImagesghsvs($article);
 
-		$findImageIn = array(
+		$findImageIn = [
 			'image_fulltext',
 			'image_intro',
-		);
+		];
 
 		$minWidth = $organization->get('minWidth', 696);
-		$imageObjects = array();
+		$imageObjects = [];
 
 		foreach ($findImageIn as $key)
 		{
 			// Passes $image as string (=path)
 			if (
 				($imageObject = self::buildImageObject($article->Imagesghsvs->get($key, ''), $minWidth))
-			){
+			) {
 				$imageObjects[] = $imageObject;
 				break;
 			}
@@ -208,7 +209,7 @@ class Bs3ghsvsStructuredData
 				// Passes $image as array ('img-1', width, height)
 				if (
 					($imageObject = self::buildImageObject($image, $minWidth))
-				){
+				) {
 					$imageObjects[] = $imageObject;
 				}
 			}
@@ -240,7 +241,7 @@ class Bs3ghsvsStructuredData
 		if (
 			!$imageObjects
 			&& ($imageObject = self::buildImageObject($organization->get('fallbackimage', ''), 0))
-		){
+		) {
 			$imageObjects[] = $imageObject;
 		}
 
@@ -311,7 +312,7 @@ class Bs3ghsvsStructuredData
 			$query = $db->getQuery(true)
 			->select($db->qn('email_to'))
 			->from($db->qn('#__contact_details'))
-			->where($db->qn('id') .'='. (int) $contact->id)
+			->where($db->qn('id') . '=' . (int) $contact->id)
 			;
 			$db->setQuery($query);
 			$email = $db->loadResult();
@@ -327,9 +328,10 @@ class Bs3ghsvsStructuredData
 			->telephone($contact->telephone)
 			->email($email)
 			->faxNumber($contact->fax)
-			->availableLanguage(['German','English'])
+			->availableLanguage(['German', 'English'])
 			->areaServed('Worldwide')
 		);
+
 		return $schema;
 	}
 
@@ -352,12 +354,15 @@ class Bs3ghsvsStructuredData
 			$home  = $menu->getDefault();
 		}
 
-		$crumbs = array();
+		$crumbs = [];
 		$count = count($items);
 
 		for ($i = 0; $i < $count; $i++)
 		{
-			if (!trim($items[$i]->link)) continue;
+			if (!trim($items[$i]->link))
+			{
+				continue;
+			}
 
 			$uri = Uri::getInstance($items[$i]->link);
 			$option = $uri->getVar('option');
@@ -369,8 +374,8 @@ class Bs3ghsvsStructuredData
 				if (!(
 					($name = trim($params->get('page_title', '')))
 					|| ($name = trim($params->get('page_heading', '')))
-					)
-				){
+				)
+				) {
 					$name = stripslashes(htmlspecialchars($items[$i]->name, ENT_COMPAT, 'UTF-8'));
 				}
 			}
@@ -415,7 +420,7 @@ class Bs3ghsvsStructuredData
 			&& $menu
 			#&& isset($article->query['view'])
 			#&& $article->query['view'] === 'category'
-		){
+		) {
 			$active = $menu->getActive();
 
 			if (
@@ -423,14 +428,14 @@ class Bs3ghsvsStructuredData
 				&& $active->query['view'] === 'category'
 				&& ($count = count($crumbs)) > 1
 				&& $crumbs[$count - 1]->link !== $article->readmore_link
-			){
+			) {
 				$crumbs[$count] = new stdClass;
 				$crumbs[$count]->name = $article->title;
 				$crumbs[$count]->link = $article->readmore_link;
 			}
 		}
 
-		$itemListElements = array();
+		$itemListElements = [];
 		$i = 0;
 
 		foreach ($crumbs as $crumb)
@@ -439,6 +444,7 @@ class Bs3ghsvsStructuredData
 				['@id' => Bs3ghsvsItem::addUriRoot($crumb->link), 'name' => $crumb->name]
 			);
 		}
+
 		return Schema::BreadcrumbList()->itemListElement($itemListElements);
 	}
 
@@ -465,8 +471,8 @@ class Bs3ghsvsStructuredData
 			}
 			else
 			{
-			$size['width'] = $image['width'];
-			$size['height'] = $image['height'];
+				$size['width'] = $image['width'];
+				$size['height'] = $image['height'];
 			}
 
 			$image = $image['img-1'];

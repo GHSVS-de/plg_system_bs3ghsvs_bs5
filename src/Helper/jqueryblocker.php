@@ -8,6 +8,7 @@ class jqueryblocker extends JHtmlJquery
 			return false;
 		}
 		parent::$loaded['JHtmlJquery::framework'] = 13;
+
 		return true;
 	}
 }

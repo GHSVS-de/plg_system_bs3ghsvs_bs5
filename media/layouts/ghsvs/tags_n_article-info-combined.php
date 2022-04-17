@@ -23,7 +23,7 @@ $infoBlock = '';
 
 $isCategoryView = in_array(
 	Factory::getApplication()->input->get('view'),
-	array('category', 'featured', 'categories')
+	['category', 'featured', 'categories']
 );
 
 if ($isCategoryView && $params->get('show_tags_in_article_in_blog_view', 0) === 0)
@@ -33,21 +33,23 @@ if ($isCategoryView && $params->get('show_tags_in_article_in_blog_view', 0) === 
 
 if ($params->get('show_tags', 1))
 {
-	$tagsBlock = trim(HTMLHelper::_('bs3ghsvs.layout',
+	$tagsBlock = trim(HTMLHelper::_(
+		'bs3ghsvs.layout',
 		'ghsvs.tags_n_tagscat',
-		array('item' => $item,)
+		['item' => $item]
 	));
 }
 
 if ($useDefList)
 {
-	$infoBlock = trim(HTMLHelper::_('bs3ghsvs.layout',
+	$infoBlock = trim(HTMLHelper::_(
+		'bs3ghsvs.layout',
 		'joomla.content.info_block.block',
-		array(
+		[
 			'item' => $item,
 			'params' => $params,
-			'position' => $position
-		)
+			'position' => $position,
+		]
 	));
 }
 ?>

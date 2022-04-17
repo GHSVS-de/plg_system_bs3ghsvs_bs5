@@ -2,7 +2,7 @@
 /*
 2015-08-30: GHSVS
 */
-\defined('JPATH_BASE') or die;
+defined('JPATH_BASE') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
@@ -10,16 +10,11 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Log\Log;
 use Joomla\CMS\Plugin\CMSPlugin;
-use Joomla\CMS\Plugin\PluginHelper;
-use Joomla\CMS\Utility\Utility;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
 use Joomla\CMS\Filesystem\Folder;
 use Joomla\CMS\Uri\Uri;
 use Spatie\SchemaOrg\Schema;
-use Joomla\CMS\Filter\InputFilter;
-use Joomla\CMS\Router\Route;
-use Joomla\CMS\Layout\LayoutHelper;
 
 JLoader::register('Bs3ghsvsTemplate', __DIR__ . '/Helper/TemplateHelper.php');
 JLoader::register('Bs3GhsvsFormHelper', __DIR__ . '/Helper/FormHelper.php');
@@ -29,6 +24,7 @@ JLoader::register('Bs3ghsvsArticle', __DIR__ . '/Helper/ArticleHelper.php');
 class PlgSystemBS3Ghsvs extends CMSPlugin
 {
 	protected $app;
+
 	protected $db;
 
 	// Da ich language "missbrauche" für andere Komponenten, Template etc.
@@ -38,12 +34,12 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 	 * Array von Template-Namen, die html/plgSystemBs3GhsvsActive.json enthalten.
 	 * Bspw. zum Ausschluss von HTMLHelper-Registreirung in nicht relevanten Templates.
 	 */
-	protected $templates = array();
+	protected $templates = [];
 
 	// A switch for some features that shall only run in $this->templates templates.
 	private $executeFe = false;
 
-	protected static $loaded = array();
+	protected static $loaded = [];
 
 	// Path inside /media/
 	protected static $basepath = 'plg_system_bs3ghsvs';
@@ -69,7 +65,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 	protected static $plgParams;
 
 	// Collect og images for later output.
-	protected $ogCollection = array();
+	protected $ogCollection = [];
 
 	protected $sd_robotsStateOk = false;
 
@@ -85,7 +81,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 	// We need a cache. Otherwise already set <figure> tags will be removed in second run of getAllImgSrc(). E.g. when resizer is disabled.
 	protected $allImgSrc = null;
 
-	function __construct(&$subject, $config = array())
+	function __construct(&$subject, $config = [])
 	{
 		// NEIN!!!!!!!!!!!!!!!! Das darfst nicht in __construct!!!!
 		#if (Factory::getDocument()->getType() !== 'html')
@@ -104,7 +100,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		if (
 			$this->params->get('resizeGlobalActive', 1) === 0
 			|| $this->imgresizeghsvsinstalled === false
-		){
+		) {
 			$this->params->set('resizeForce', 0);
 			$this->params->set('imageoptimizer_intro_full', 0);
 			$this->params->set('imageoptimizer_articletext', 0);
@@ -121,7 +117,9 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		if (self::$log || (self::$log = $this->params->get('log', 0)))
 		{
 			Log::addLogger(
-				['text_file' => self::$basepath . '-log.php'], Log::ALL, ['bs3ghsvs']
+				['text_file' => self::$basepath . '-log.php'],
+				Log::ALL,
+				['bs3ghsvs']
 			);
 		}
 
@@ -129,9 +127,9 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		// Create arrays early to avoid PHP Notices later on.
 		if ($this->params->get('opengraphActive') === 1 && $this->app->isClient('site'))
 		{
-			$this->ogCollection['com_content.article'] = array();
-			$this->ogCollection['mod_custom.content'] = array();
-			$this->ogCollection['default_images'] = array();
+			$this->ogCollection['com_content.article'] = [];
+			$this->ogCollection['mod_custom.content'] = [];
+			$this->ogCollection['default_images'] = [];
 		}
 
 		// Order this plugin as first running one in #__extensions
@@ -147,6 +145,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		if (!$this->templates || !$this->app->isClient('site'))
 		{
 			$this->executeFe = false;
+
 			return;
 		}
 
@@ -159,6 +158,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		if (!$this->app->isClient('site'))
 		{
 			$this->executeFe = false;
+
 			return;
 		}
 
@@ -167,7 +167,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			$this->params->get('gzipOffFacebook', 1) === 1
 			&& $this->app->get('gzip', 0)
 			&& preg_match('/facebookexternalHit|LinkedInBot/i', $this->app->client->userAgent)
-		){
+		) {
 			$this->app->set('gzip', 0);
 		}
 
@@ -191,9 +191,11 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			$this->app->isClient('administrator')
 			&& ($this->params->get('resizeForce')
 				+ $this->params->get('resizeForceMessage') === 2)
-		){
-			$this->app->enqueueMessage(Text::_('PLG_SYSTEM_BS3GHSVS_FORCE_MESSAGE'),
-				'info');
+		) {
+			$this->app->enqueueMessage(
+				Text::_('PLG_SYSTEM_BS3GHSVS_FORCE_MESSAGE'),
+				'info'
+			);
 		}
 
 		if ($this->executeFe === true || $this->params->get('initTemplateAlways', 0) === 1)
@@ -208,7 +210,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		}
 	}
 
-	public function onContentBeforeSave($context, $article, $isNew, $data = array())
+	public function onContentBeforeSave($context, $article, $isNew, $data = [])
 	{
 		// articleconnect is deprecated as far as I remember.
 		// A: depends on articleconnect plugin. Following code seems to be just for clean out.
@@ -216,7 +218,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			$context === 'com_content.article'
 			&& !empty($article->attribs)
 			&& is_string($article->attribs)
-		){
+		) {
 			$attribs = json_decode($article->attribs);
 			$registry = new Registry($attribs);
 
@@ -238,7 +240,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 	/**
 	 * Save/renew bs3ghsvs extra fields in database table #__bs3ghsvs_article.
 	 */
-	public function onContentAfterSave($context, $article, $isNew, $data = array())
+	public function onContentAfterSave($context, $article, $isNew, $data = [])
 	{
 		if ($context === 'com_content.article')
 		{
@@ -261,7 +263,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			}
 
 			$prefix = 'article';
-			$activeXml = Bs3GhsvsFormHelper::getActiveXml($prefix, $this->params, array(1));
+			$activeXml = Bs3GhsvsFormHelper::getActiveXml($prefix, $this->params, [1]);
 
 			// Delete all old rows in db table.
 			$query = $this->db->getQuery(true)
@@ -277,7 +279,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			}
 
 			$prefix = 'bs3ghsvs_';
-			$tuples = array();
+			$tuples = [];
 
 			foreach ($activeXml as $column)
 			{
@@ -308,12 +310,13 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			{
 				$query = $this->db->getQuery(true)
 					->insert($this->db->quoteName('#__bs3ghsvs_article'))
-					->columns($this->db->quoteName(array('article_id', 'key', 'value')))
+					->columns($this->db->quoteName(['article_id', 'key', 'value']))
 					->values($tuples);
 				$this->db->setQuery($query);
 				$this->db->execute();
 			}
 		}
+
 		return true;
 	}
 
@@ -330,6 +333,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			$this->db->setQuery($query);
 			$this->db->execute();
 		}
+
 		return true;
 	}
 
@@ -352,7 +356,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 					return true;
 				}
 
-				$activeXml = Bs3GhsvsFormHelper::getActiveXml($prefix, $this->params, array(1));
+				$activeXml = Bs3GhsvsFormHelper::getActiveXml($prefix, $this->params, [1]);
 
 				if (!$activeXml)
 				{
@@ -367,7 +371,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 
 				// Load the article extra fields from the database.
 				$query = $this->db->getQuery(true);
-				$query->select($this->db->qn(array('key', 'value')))
+				$query->select($this->db->qn(['key', 'value']))
 				->from($this->db->qn('#__bs3ghsvs_article'))
 				->where($this->db->qn('article_id') . ' = ' . $articleId)
 				->where($this->db->qn('key') . ' IN('
@@ -393,6 +397,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				}
 			} // is_object($data)
 		} // end $context === 'com_content.article'
+
 		return true;
 	}
 
@@ -406,7 +411,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			&& $context === 'com_templates.style'
 			&& ($template = Bs3ghsvsTemplate::getTemplateByStyleId($this->app->input->get('id')))
 			&& in_array($template, $this->templates)
-		){
+		) {
 			$form->loadFile($this->formPath . '/base.xml', $reset = false, $path = false);
 			$form->loadFile($this->formPath . '/template.xml', $reset = false, $path = false);
 		}
@@ -424,7 +429,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			|| ($this->app->isClient('site') && $context === 'com_config.modules')
 			// Save form (how stupid is that?):
 			|| ($this->app->isClient('site') && $context === 'com_modules.module')
-		){
+		) {
 			$key = 'Module';
 
 			foreach (Bs3GhsvsFormHelper::getActiveXml($key, $this->params) as $file => $x)
@@ -437,7 +442,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		if (
 			$this->app->isClient('administrator')
 			&& $context === 'com_content.article'
-		){
+		) {
 			$key = 'Article';
 
 			foreach (Bs3GhsvsFormHelper::getActiveXml($key, $this->params) as $file => $x)
@@ -450,7 +455,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		if (
 			$this->app->isClient('administrator')
 			&& $context === 'com_menus.item'
-		){
+		) {
 			$key = 'Menuitem';
 
 			foreach (Bs3GhsvsFormHelper::getActiveXml($key, $this->params) as $file => $x)
@@ -465,7 +470,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			&& $this->app->input->get('view', '') === 'contact'
 			&& $this->app->input->get('option', '') === 'com_contact'
 			&& $context === 'com_contact.contact'
-		){
+		) {
 			$key = 'ContactForm';
 
 			foreach (Bs3GhsvsFormHelper::getActiveXml($key, $this->params) as $file => $x)
@@ -476,15 +481,19 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				$form->removeField('spacer');
 
 				$paras = new Registry($this->params->get('XmlActive' . $key));
-				$setRequired = array('contact_phoneghsvs', 'contact_name');
+				$setRequired = ['contact_phoneghsvs', 'contact_name'];
 
 				foreach ($setRequired as $field)
 				{
-					$form->setFieldAttribute($field, 'required',
-						$paras->get($field . '_required', 0) ? 'true' : 'false');
+					$form->setFieldAttribute(
+						$field,
+						'required',
+						$paras->get($field . '_required', 0) ? 'true' : 'false'
+					);
 				}
 			}
 		}
+
 		return true;
 	}
 
@@ -508,7 +517,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			$registry->set('iAmAModuleGhsvs', 1);
 
 			###### Bootstrap-Size-Parameters and others from bs3ghsvsModule.xml - START
-			$colClass = array();
+			$colClass = [];
 			$freeColClasses = '';
 
 			// Is module.xml active?
@@ -516,7 +525,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			$activeXml = Bs3GhsvsFormHelper::getActiveXml(
 				$prefix,
 				$this->params,
-				array(1) // stati
+				[1] // stati
 			);
 
 			if ($activeXml)
@@ -527,7 +536,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				if (
 					is_object($bs3ghsvsModule)
 					&& count(get_object_vars($bs3ghsvsModule))
-				){
+				) {
 					if (!empty($bs3ghsvsModule->bootstrap_size_new))
 					{
 						foreach ($bs3ghsvsModule->bootstrap_size_new as $size)
@@ -608,7 +617,10 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		if ($iAmAnArticle && Factory::getDocument()->getType() === 'html')
 		{
 			$article->bs3ghsvsFields = Bs3ghsvsArticle::getExtraFields(
-				$article->id, [], true);
+				$article->id,
+				[],
+				true
+			);
 		}
 		###### Extra fields from #__bs3ghsvs_article - EnD
 
@@ -617,17 +629,17 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		// START image resize Article-Intro-Images in catgeory/featured view.
 		if (
 			$iAmAnArticle
-			&& in_array($context, array('com_content.category', 'com_content.featured'))
+			&& in_array($context, ['com_content.category', 'com_content.featured'])
 			&& strpos($article->images, '"introtext_imagesghsvs":') === false
-		){
+		) {
 			// Build basic $article->Imagesghsvs based upon $article->images and more.
 			Bs3ghsvsItem::getItemImagesghsvs($article);
-			$collect_images = array();
+			$collect_images = [];
 
 			if ($this->params->get('imageoptimizer_intro_full') === 1
 				&& ($IMAGE = $article->Imagesghsvs->get('image_intro'))
 				&& file_exists(JPATH_SITE . '/' . $IMAGE)
-			){
+			) {
 				$collect_images = Bs3ghsvsItem::getImageResizeImages('image_intro', $IMAGE);
 			} // end if ($IMAGE = $article->Imagesghsvs->get('image_intro'))
 
@@ -639,19 +651,21 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		// START image resize Article-fulltext-Images in article view.
 		if (
 			$iAmAnArticle
-			&& in_array($context, array('com_content.article'))
+			&& in_array($context, ['com_content.article'])
 			&& strpos($article->images, '"fulltext_imagesghsvs":') === false
-		){
+		) {
 			// Build basic $article->Imagesghsvs based upon $article->images and more.
 			Bs3ghsvsItem::getItemImagesghsvs($article);
-			$collect_images = array();
+			$collect_images = [];
 
 			if ($this->params->get('imageoptimizer_intro_full') === 1
 				&& ($IMAGE = $article->Imagesghsvs->get('image_fulltext'))
 				&& file_exists(JPATH_SITE . '/' . $IMAGE)
-			){
-				$collect_images = Bs3ghsvsItem::getImageResizeImages('image_fulltext',
-					$IMAGE);
+			) {
+				$collect_images = Bs3ghsvsItem::getImageResizeImages(
+					'image_fulltext',
+					$IMAGE
+				);
 			} // end if ($IMAGE = $article->Imagesghsvs->get('image_fulltext'))
 
 			$article->Imagesghsvs->set('fulltext_imagesghsvs', $collect_images);
@@ -662,12 +676,12 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		// START image resize Article Images in editor text in article view.
 		if (
 			$iAmAnArticle
-			&& in_array($context, array('com_content.article'))
+			&& in_array($context, ['com_content.article'])
 			&& $view === 'article'
 			// Collection already done? If true leave!
 			&& strpos($article->images, '"articletext_imagesghsvs":') === false
-		){
-			if ($this->allImgSrc === null )
+		) {
+			if ($this->allImgSrc === null)
 			{
 				$this->allImgSrc = Bs3ghsvsItem::getAllImgSrc($article->text);
 			}
@@ -677,7 +691,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			{
 				// Build *basic* $article->Imagesghsvs based upon $article->images and more.
 				Bs3ghsvsItem::getItemImagesghsvs($article);
-				$collect_images = array();
+				$collect_images = [];
 
 				// First resize found images and collect results.
 				if ($this->allImgSrc['src'])
@@ -695,7 +709,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 					// Derzeit existiert die Einstellung nur im Blog-Layout blogghsvs-standard.xml.
 					if (
 						$jlayout_articletext_print = trim($article->params->get('jlayout_articletext_print', ''))
-					){
+					) {
 						$this->params->set('jlayout_articletext', $jlayout_articletext_print);
 					}
 
@@ -705,9 +719,9 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 						// The array indices are the same for $imgTags and $collect_images.
 						// Egal welcher Index, aber 'quote' hat kleinsten String. Deshalb den.
 						// Wir brauchen zum "Zählen" nur die $key.
-						foreach($this->allImgSrc['quote'] as $key => $dummy)
+						foreach ($this->allImgSrc['quote'] as $key => $dummy)
 						{
-							$imgs = array();
+							$imgs = [];
 
 							if ($this->params->get('imageoptimizer_articletext') === 1)
 							{
@@ -722,15 +736,18 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 								'image' => $this->allImgSrc['src'][$key],
 							];
 
-							$figure = HTMLHelper::_('bs3ghsvs.layout', $jlayout_articletext,
-								$displayData);
+							$figure = HTMLHelper::_(
+								'bs3ghsvs.layout',
+								$jlayout_articletext,
+								$displayData
+							);
 
 							// Originalbild gegen figure/source Konstrukt austauschen.
 							$article->text = str_replace(
-								array(
+								[
 									'<p>' . $this->allImgSrc['all'][$key] . '</p>',
 									$this->allImgSrc['all'][$key],
-								),
+								],
 								$figure,
 								$article->text
 							);
@@ -751,7 +768,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			&& $context === 'com_content.article'
 			&& $view === 'article'
 			&& Factory::getDocument()->getType() === 'html'
-		){
+		) {
 			// Build basic $article->Imagesghsvs based upon $article->images and more.
 			Bs3ghsvsItem::getItemImagesghsvs($article);
 
@@ -759,7 +776,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				$this->params->get('imageoptimizer_intro_full') === 1
 				&& $article->Imagesghsvs->get('fulltext_imagesghsvs')
 				&& $this->params->get('image_fulltext')->active_og
-			){
+			) {
 				// Do we have a _og fulltext image?
 				$ogImages = ArrayHelper::getColumn(
 					(array) $article->Imagesghsvs->get('fulltext_imagesghsvs'),
@@ -775,12 +792,12 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			// Nothing found? Try standard images.
 			if (!$this->ogCollection['com_content.article'])
 			{
-				$imgFields = array(
+				$imgFields = [
 					'image_fulltext',
 					'image_fulltext_popupghsvs',
 					'image_intro',
 					'image_intro_popupghsvs',
-				);
+				];
 
 				foreach ($imgFields as $field)
 				{
@@ -796,7 +813,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				$this->params->get('imageoptimizer_articletext') === 1
 				&& $article->Imagesghsvs->get('articletext_imagesghsvs')
 				&& $this->params->get('image_articletext')->active_og
-			){
+			) {
 				// Do we have _og articletext images?
 				if ($ogImages = ArrayHelper::getColumn(
 					(array) $article->Imagesghsvs->get('articletext_imagesghsvs'),
@@ -806,7 +823,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 					// Reduce to only image paths.
 					if ($ogImages = ArrayHelper::getColumn($ogImages, 'img-1'))
 					{
-						$this->ogCollection['com_content.article'] = \array_merge(
+						$this->ogCollection['com_content.article'] = array_merge(
 							$this->ogCollection['com_content.article'],
 							$ogImages
 						);
@@ -823,7 +840,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 
 				if ($this->allImgSrc)
 				{
-					$this->ogCollection['com_content.article'] = \array_merge(
+					$this->ogCollection['com_content.article'] = array_merge(
 						$this->ogCollection['com_content.article'],
 						$this->allImgSrc['src']
 					);
@@ -838,9 +855,11 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			&& $this->params->get('structureddataActive', 0) === 1
 			&& Factory::getDocument()->getType() === 'html'
 			&& $this->structuredataghsvsinstalled === true
-		){
-			JLoader::register('Bs3ghsvsStructuredData',
-				__DIR__ . '/Helper/StructuredData.php');
+		) {
+			JLoader::register(
+				'Bs3ghsvsStructuredData',
+				__DIR__ . '/Helper/StructuredData.php'
+			);
 			$doc = Factory::getDocument();
 			$prettyPrint = JDEBUG || $this->params->get('sd_prettyPrint', 0)
 				? JSON_PRETTY_PRINT : 0;
@@ -850,11 +869,11 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			{
 				if (
 					$iAmAnArticle
-					&& in_array($context, array('com_content.article'))
+					&& in_array($context, ['com_content.article'])
 					&& $view === 'article'
 					&& !empty($article->readmore_link)
 					&& !empty($article->title)
-				){
+				) {
 					$schema = Bs3ghsvsStructuredData::sd_breadcrumbList($this->app, $article);
 				}
 				else
@@ -898,9 +917,9 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			if (
 				$iAmAnArticle
 				&& !isset(static::$loaded[__METHOD__]['sd_article'])
-				&& in_array($context, array('com_content.article'))
+				&& in_array($context, ['com_content.article'])
 				&& $view === 'article'
-			){
+			) {
 				$schema = Bs3ghsvsStructuredData::sd_article($article, $this->allImgSrc);
 				// Don't use addScriptDeclaration in Joomla 3! Maybe in Joomla 4 possible.
 				// https://github.com/joomla/joomla-cms/pull/25117#issuecomment-518005517
@@ -918,9 +937,11 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			$this->app->isClient('site')
 			&& $context === 'com_content.article'
 			&& strpos($article->text, '{pagebreakghsvs-slider ') !== false
-		){
-			JLoader::register('Bs3ghsvsPagebreak',
-				JPATH_PLUGINS . '/system/bs3ghsvs/Helper/PagebreakHelper.php');
+		) {
+			JLoader::register(
+				'Bs3ghsvsPagebreak',
+				JPATH_PLUGINS . '/system/bs3ghsvs/Helper/PagebreakHelper.php'
+			);
 
 			// E.g. call via 'content.prepare'
 			if (!isset($article->id))
@@ -941,6 +962,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			$data['contact_message'] .= Text::_('COM_CONTACT_CONTACT_VIEW_GHSVS_TELEPHONE');
 			$data['contact_message'] .= ': ' . $data['contact_phoneghsvs'];
 		}
+
 		return true;
 	}
 
@@ -981,7 +1003,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		if (
 			$this->app->isClient('site')
 			&& $this->params->get('opengraphActive') === 1
-		){
+		) {
 			$doc = Factory::getDocument();
 			$doc->addCustomTag('<meta property="og:title" content="' . htmlentities($doc->getTitle(), ENT_QUOTES, 'utf-8') . '">');
 			$doc->addCustomTag('<meta property="og:url" content="' . Uri::current() . '">');
@@ -1013,13 +1035,13 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				}
 			}
 
-			$this->ogCollection = \array_merge(
+			$this->ogCollection = array_merge(
 				$this->ogCollection['com_content.article'],
 				$this->ogCollection['mod_custom.content'],
 				$this->ogCollection['default_images']
 			);
 
-			$this->ogCollection = \array_unique($this->ogCollection);
+			$this->ogCollection = array_unique($this->ogCollection);
 
 			foreach ($this->ogCollection as $imagePath)
 			{
@@ -1029,6 +1051,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		#### Open Graph tags END
 		return;
 	}
+
 	/**
 	 * Structureddata. Kill microdata attributes if activated.
 	 */
@@ -1074,9 +1097,11 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			if ($sd_killmicrodata && strpos($html[1], 'itemscope') !== false)
 			{
 				$html[1] = str_replace(
-					array(' itemscope ', ' itemtype=', ' itemprop='),
-					array(' data-itemscopeOff ', ' data-itemtypeOff=', ' data-itempropOff='),
-					$html[1], $done);
+					[' itemscope ', ' itemtype=', ' itemprop='],
+					[' data-itemscopeOff ', ' data-itemtypeOff=', ' data-itempropOff='],
+					$html[1],
+					$done
+				);
 			}
 
 			// Beispiel: {svg{bi/x-circle-fill}class="text-danger" href="//ghsvs.de"}
@@ -1111,7 +1136,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		JLoader::register('Bs3GhsvsRegisterIcon', __DIR__ . '/Helper/RegisterIcon.php');
 		JLoader::register('Bs3GhsvsRegisterSelect', __DIR__ . '/Helper/RegisterSelect.php');
 
-		$error = array();
+		$error = [];
 
 		if (false === Bs3GhsvsRegisterJQuery::register())
 		{
@@ -1176,7 +1201,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 	*/
 	protected function order()
 	{
- 		$ordering = $this->db->qn('ordering');
+		$ordering = $this->db->qn('ordering');
 		$table = $this->db->qn('#__extensions');
 		$type = $this->db->qn('type') . ' = ' . $this->db->q('plugin');
 		$folder = $this->db->qn('folder') . '=' . $this->db->q('system');
@@ -1208,14 +1233,15 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				$add = __METHOD__ . ': DB-Sortierung konnte nicht geprüft/gesetzt werden.';
 				Log::add($add, Log::CRITICAL, 'bs3ghsvs');
 			}
+
 			return false;
 		}
+
 		return true;
 	}
 
 	/**
 	 * Getter for parameters of this plugin via PlgSystemBS3Ghsvs::getPluginParams()
-	 *
 	 */
 	public static function getPluginParams()
 	{
@@ -1235,7 +1261,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		$cmd = $input->get('cmd', '', 'ALNUM');
 		$key = trim($input->get('key', '', 'STRING'));
 
-		if (!$key || !in_array($cmd, array('add', 'get', 'destroy')))
+		if (!$key || !in_array($cmd, ['add', 'get', 'destroy']))
 		{
 			return;
 		}
@@ -1246,11 +1272,12 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		$session = Factory::getSession();
 		$sessionData = $session->get($node);
 
-		switch($cmd)
+		switch ($cmd)
 		{
 			case 'add':
 				$sessionData[$key] = $data;
 				$session->set($node, $sessionData);
+
 				return($sessionData[$key] . ' written.');
 			break;
 			case 'get':
@@ -1259,9 +1286,11 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			case 'destroy':
 				$sessionData = null;
 				$session->set($node, $sessionData);
+
 				return '$sessionData destroyed';
 			break;
 		}
+
 		return;
 	}
 
@@ -1272,8 +1301,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 	public static function moduleImagesResizing(
 		array $imagesToResizeCollect,
 		$moduleParams = false
-	) : array
-	{
+	) : array {
 		$PlgParams = self::getPluginParams();
 
 		// Modules resizing should get an own setting. Too lazy at the moment.
@@ -1288,8 +1316,8 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		// Extract images HTML tags parts via preg_match all.
 		$imagesInModule = Bs3ghsvsItem::getAllImgSrc(implode($imagesToResizeCollect));
 
-		$collect_images = array();
-		$imagesToResizeCollectTemp = array();
+		$collect_images = [];
+		$imagesToResizeCollectTemp = [];
 		$layoutFound = false;
 
 		// First resize found images and collect results.
@@ -1308,8 +1336,10 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			{
 				if (!($jlayout_articletext = trim($moduleParams->get('jlayout_articletext', ''))))
 				{
-					$jlayout_articletext = trim($PlgParams->get('jlayout_articletext',
-						'ghsvs.article_image'));
+					$jlayout_articletext = trim($PlgParams->get(
+						'jlayout_articletext',
+						'ghsvs.article_image'
+					));
 				}
 			}
 
@@ -1319,17 +1349,20 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				// The array indices are the same for $imgTags and $collect_images.
 				// Egal welcher Index, aber 'quote' hat kleinsten String. Deshalb den.
 				// Wir brauchen zum "Zählen" nur die $key.
-				foreach($imagesInModule['quote'] as $key => $dummy)
+				foreach ($imagesInModule['quote'] as $key => $dummy)
 				{
-					$displayData = array(
+					$displayData = [
 						'attributes' => $imagesInModule['attributes'][$key],
 						'pre'  => $imagesInModule['pre'][$key],
 						'post' => $imagesInModule['post'][$key],
-						'images' => $collect_images[$key]
-					);
+						'images' => $collect_images[$key],
+					];
 
-					$figure = HTMLHelper::_('bs3ghsvs.layout',
-						$jlayout_articletext, $displayData);
+					$figure = HTMLHelper::_(
+						'bs3ghsvs.layout',
+						$jlayout_articletext,
+						$displayData
+					);
 
 					if ($figure && !$layoutFound)
 					{

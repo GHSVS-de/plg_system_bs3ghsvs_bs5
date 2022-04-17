@@ -2,7 +2,6 @@
 /**
 Ghsvs 2015-01-24
 Ich will verschachtelte Tags darstellen
-
  */
 
 defined('JPATH_BASE') or die;
@@ -13,8 +12,8 @@ JLoader::register('TagsHelperRoute', JPATH_BASE . '/components/com_tags/helpers/
 
 if (!isset($displayData[0]->text))
 {
- $tags = new JHelperTags;
- $displayData = $tags->convertPathsToNames($displayData);
+	$tags = new JHelperTags;
+	$displayData = $tags->convertPathsToNames($displayData);
 }
 ?>
 	<div class="tags itemtags">

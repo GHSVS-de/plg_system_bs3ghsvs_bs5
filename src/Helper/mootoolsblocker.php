@@ -17,17 +17,18 @@ class mootoolsblocker extends JHtmlBehavior
 		if (
 			!empty(parent::$loaded['JHtmlBehavior::framework'])
 			|| !empty(parent::$loaded['JHtmlBehavior::core'])
-		){
+		) {
 			return false;
 		}
-		
+
 		// Nein! Das ist core.js, nicht Mootools.
 		#parent::$loaded['JHtmlBehavior::core'] = 1;
-		
-		parent::$loaded['JHtmlBehavior::framework'] = array(
+
+		parent::$loaded['JHtmlBehavior::framework'] = [
 			'core' => 1,
-			'more' => 1
-		);
+			'more' => 1,
+		];
+
 		return true;
 	}
 }

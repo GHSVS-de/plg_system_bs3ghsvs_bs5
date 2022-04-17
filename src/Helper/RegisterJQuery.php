@@ -9,14 +9,14 @@ use Joomla\CMS\Log\Log;
 
 class Bs3GhsvsRegisterJQuery
 {
-	protected static $jquery = array(
+	protected static $jquery = [
 		// 'ui',
 		// 'token',
-	);
+	];
 
 	public static function register()
 	{
-		require_once(__DIR__ . '/jqueryblocker.php');
+		require_once __DIR__ . '/jqueryblocker.php';
 		$jqueryblocker = new jqueryblocker;
 
 		if (!$jqueryblocker->blockCoreJquery())
@@ -26,6 +26,7 @@ class Bs3GhsvsRegisterJQuery
 				$add = __METHOD__ . ': Core "jquery.framework" konnte nicht blockiert werden. Joomla lädt Core-JQuery.';
 				Log::add($add, Log::WARNING, 'bs3ghsvs');
 			}
+
 			return false;
 		}
 		elseif (PlgSystemBS3Ghsvs::$log)
@@ -40,6 +41,7 @@ class Bs3GhsvsRegisterJQuery
 		{
 			HTMLHelper::register('jquery.' . $method, 'Bs3GhsvsRegisterJQuery::' . $method);
 		}
+
 		return true;
 	}
 
@@ -49,6 +51,7 @@ class Bs3GhsvsRegisterJQuery
 	public static function framework($noConflict = true, $debug = null, $migrate = true)
 	{
 		HTMLHelper::_('jqueryghsvs.framework');
+
 		return;
 	}
 }

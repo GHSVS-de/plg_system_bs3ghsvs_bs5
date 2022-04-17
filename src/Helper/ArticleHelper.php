@@ -1,22 +1,16 @@
 <?php
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Access\Access;
-use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\Registry\Registry;
-use Joomla\String\StringHelper;
-use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Application\ApplicationHelper;
-use Joomla\Component\Content\Site\Helper\RouteHelper;
 
 abstract class Bs3ghsvsArticle
 {
-	protected static $loaded = array();
+	protected static $loaded = [];
 
 	/**
 	 * Get additional article data from #__bs3ghsvs_article.
@@ -32,10 +26,10 @@ abstract class Bs3ghsvsArticle
 			return false;
 		}
 
-		$keys = \array_flip($keys);
+		$keys = array_flip($keys);
 		ksort($keys);
 
-		$sig = md5(serialize(array($articleId, $keys, $asArray)));
+		$sig = md5(serialize([$articleId, $keys, $asArray]));
 
 		if (isset(static::$loaded[__METHOD__][$sig]))
 		{
@@ -46,7 +40,7 @@ abstract class Bs3ghsvsArticle
 		$activeXml = Bs3GhsvsFormHelper::getActiveXml(
 			$prefix,
 			PlgSystemBS3Ghsvs::getPluginParams(),
-			array(1) // stati
+			[1] // stati
 		);
 
 		if (!$activeXml)
@@ -76,7 +70,7 @@ abstract class Bs3ghsvsArticle
 		// Load the article extra fields from the database.
 		$db = Factory::getDbo();
 		$query = $db->getQuery(true)
-			->select($db->qn(array('key', 'value')))
+			->select($db->qn(['key', 'value']))
 			->from($db->qn('#__bs3ghsvs_article'))
 			->where($db->qn('article_id') . ' = ' . $articleId)
 			->where($db->qn('key') . ' IN('
@@ -119,14 +113,16 @@ abstract class Bs3ghsvsArticle
 		$query = $db->getQuery(true);
 		$query->select($db->qn(['a.id', 'a.title', 'introtext', 'catid', 'created',
 			'a.modified', 'images', 'a.metadesc', 'a.access', 'a.language', 'ordering',
-			'a.created_by', 'a.created_by_alias', 'a.metadata']))
+			'a.created_by', 'a.created_by_alias', 'a.metadata', ]))
 
 			->select($db->qn('b.value', $dataField))
 			->from($db->qn('#__bs3ghsvs_article', 'b'))
 			->where($db->qn('key') . '=' . $db->q($key))
 
 			// INNER: Nur Artikel mit Extrafeldern, (keine leeren Artikel/Extrafelder)
-			->join('INNER', $db->qn('#__content', 'a') . ' ON '
+			->join(
+				'INNER',
+				$db->qn('#__content', 'a') . ' ON '
 				. $db->qn('b.article_id') . ' = ' . $db->qn('a.id')
 			)
 
@@ -134,7 +130,9 @@ abstract class Bs3ghsvsArticle
 			->join('LEFT', '#__categories AS c ON c.id = catid')
 
 			->select($db->qn('ua.name', 'author'))
-			->join('LEFT', $db->qn('#__users', 'ua') . ' ON '
+			->join(
+				'LEFT',
+				$db->qn('#__users', 'ua') . ' ON '
 				. $db->qn('ua.id') . ' = ' . $db->qn('a.created_by')
 			)
 
@@ -155,13 +153,16 @@ abstract class Bs3ghsvsArticle
 					!$item->$dataField->get('bs3ghsvs_' . $key . '_active')
 					|| ! (in_array($item->access, $groups)
 						&& in_array($item->category_access, $groups))
-				){
+				) {
 					unset($result[$i]);
 					continue;
 				}
 
 				$item->link = Route::_(ContentHelperRoute::getArticleRoute(
-					$item->id, $item->catid, $item->language));
+					$item->id,
+					$item->catid,
+					$item->language
+				));
 
 				if (strpos($item->metadata, '"author":""') === false)
 				{
@@ -190,9 +191,11 @@ abstract class Bs3ghsvsArticle
 	 * @param array $required If provided, will check if none of these properties are empty.
 	 * @return object|boolean false
 	*/
-	public static function getBs3ghsvsArticleData(int $articleId, string $key,
+	public static function getBs3ghsvsArticleData(
+		int $articleId,
+		string $key,
 		array $required = []
-	){
+	) {
 		$data = self::getExtraFields($articleId, (array) $key);
 
 		if (!($data instanceof Registry))
@@ -201,11 +204,11 @@ abstract class Bs3ghsvsArticle
 		}
 
 		if (self::isDataEmpty(
-				($data = $data->get($key)),
-				$key,
-				$required
-			)
-		){
+			($data = $data->get($key)),
+			$key,
+			$required
+		)
+		) {
 			return false;
 		}
 
@@ -222,8 +225,11 @@ abstract class Bs3ghsvsArticle
 	{
 		$key = 'extension';
 
-		return self::getBs3ghsvsArticleData($articleId, $key,
-			['name', 'description', 'url']);
+		return self::getBs3ghsvsArticleData(
+			$articleId,
+			$key,
+			['name', 'description', 'url']
+		);
 	}
 
 	/** Pick data of a aingle article from #__bs3ghsvs_article where key='various'.
@@ -274,7 +280,7 @@ abstract class Bs3ghsvsArticle
 
 		if (!empty($item->jcfields) && is_array($item->jcfields))
 		{
-			$jcfields = array();
+			$jcfields = [];
 
 			foreach ($item->jcfields as $jcfield)
 			{
@@ -289,18 +295,20 @@ abstract class Bs3ghsvsArticle
 
 	public static function buildFlagImages(array $languages)
 	{
-		$flags = \array_flip($languages);
+		$flags = array_flip($languages);
 
 		foreach ($flags as $flag => $key)
 		{
 			$alt = Text::sprintf('PLG_SYSTEM_BS3GHSVS_EXTENSION_LANGUAGE_X', str_replace('_', '-', $flag));
-			$flags[$flag] = HTMLHelper::_('image',
+			$flags[$flag] = HTMLHelper::_(
+				'image',
 				'mod_languages/' . $flag . '.gif',
 				$alt,
-				array('class' => 'flag excludevenobox'),
+				['class' => 'flag excludevenobox'],
 				true
 			);
 		}
+
 		return $flags;
 	}
 
@@ -322,7 +330,7 @@ abstract class Bs3ghsvsArticle
 			// Nearly impossible that this property exists AND is set to 0 or empty.
 			// If it exists it should be alwys 1.
 			|| empty($data->{'bs3ghsvs_' . $key . '_active'})
-		){
+		) {
 			return true;
 		}
 
@@ -359,14 +367,14 @@ abstract class Bs3ghsvsArticle
 	{
 		$jinput = Factory::getApplication()->input;
 
-		$getThis = array(
+		$getThis = [
 			'Itemid',
 			'option',
 			'view',
 			'catid',
 			'id',
-			'task'
-		);
+			'task',
+		];
 
 		$id = '';
 
@@ -378,16 +386,17 @@ abstract class Bs3ghsvsArticle
 			if (is_array($idPart))
 			{
 				$idPart = implode('', $idPart);
-		}
+			}
 
 			$id .= '_' . $idPart;
 		}
 
 		$id = $prefix . '_' . md5(ApplicationHelper::stringURLSafe(base64_encode($id)));
+
 		return $id;
 	}
 
-###################################### 	 * NUR FÜR Datenbank-Migration! REMOVE LATER - START
+	###################################### 	 * NUR FÜR Datenbank-Migration! REMOVE LATER - START
 	// if you need it See commit https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/commit/4159c02ccafd489a80062cca9cacb49a6df449f1
 ###################################### REMOVE LATER - END
 }

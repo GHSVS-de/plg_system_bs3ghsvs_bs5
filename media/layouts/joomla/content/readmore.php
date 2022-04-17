@@ -17,7 +17,7 @@ if ($params->get('readmore_inline_ghsvs', false))
 }
 else
 {
- $containerTag = 'p';
+	$containerTag = 'p';
 	$aClass = 'btn';
 }
 ?>

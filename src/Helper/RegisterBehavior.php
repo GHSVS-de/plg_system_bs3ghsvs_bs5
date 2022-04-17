@@ -9,7 +9,7 @@ use Joomla\CMS\Log\Log;
 
 class Bs3GhsvsRegisterBehavior
 {
-	protected static $behavior = array(
+	protected static $behavior = [
 		// 'framework', # Special handling. See register().
 		// 'core', # OK.
 		'caption', # No Mootools but KILL! Is not responsive.
@@ -31,11 +31,11 @@ class Bs3GhsvsRegisterBehavior
 		// 'tabstate', # OK
 		// 'polyfill', # OK
 		// 'calendartranslation', # OK
-	);
+	];
 
 	public static function register()
 	{
-		require_once(__DIR__ . '/mootoolsblocker.php');
+		require_once __DIR__ . '/mootoolsblocker.php';
 		$mootoolsblocker = new mootoolsblocker;
 
 		if (!$mootoolsblocker->blockCoreMootools())
@@ -60,6 +60,7 @@ class Bs3GhsvsRegisterBehavior
 		{
 			HTMLHelper::register('behavior.' . $method, 'Bs3GhsvsRegisterBehavior::' . $method);
 		}
+
 		return true;
 	}
 
@@ -69,6 +70,7 @@ class Bs3GhsvsRegisterBehavior
 	public static function framework()
 	{
 		HTMLHelper::_('behaviorghsvs.framework');
+
 		return;
 	}
 
@@ -78,6 +80,7 @@ class Bs3GhsvsRegisterBehavior
 	public static function caption($selector = 'img.caption')
 	{
 		HTMLHelper::_('behaviorghsvs.caption', $selector);
+
 		return;
 	}
 
@@ -87,33 +90,37 @@ class Bs3GhsvsRegisterBehavior
 	public static function formvalidation()
 	{
 		HTMLHelper::_('behaviorghsvs.formvalidation');
+
 		return;
 	}
 
 	/**
 	 * behavior.tooltip
 	 */
-	public static function tooltip($selector = '.hasTip', $params = array())
+	public static function tooltip($selector = '.hasTip', $params = [])
 	{
 		HTMLHelper::_('behaviorghsvs.tooltip');
+
 		return;
 	}
 
 	/**
 	 * behavior.modal
 	 */
-	public static function modal($selector = 'a.modal', $params = array())
+	public static function modal($selector = 'a.modal', $params = [])
 	{
 		HTMLHelper::_('behaviorghsvs.modal');
+
 		return;
 	}
 
 	/**
 	 * behavior.tree
 	 */
-	public static function tree($id, $params = array(), $root = array())
+	public static function tree($id, $params = [], $root = [])
 	{
 		HTMLHelper::_('behaviorghsvs.tree');
+
 		return;
 	}
 }

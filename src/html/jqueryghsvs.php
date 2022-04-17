@@ -11,9 +11,8 @@ use Joomla\CMS\Log\Log;
  */
 abstract class JHtmlJqueryghsvs
 {
-	
-	protected static $loaded = array();
-	
+	protected static $loaded = [];
+
 	// media-Ordner:
 	protected static $basepath = 'plg_system_bs3ghsvs';
 
@@ -29,10 +28,10 @@ abstract class JHtmlJqueryghsvs
 			return;
 		}
 
-		$attribs = array();
+		$attribs = [];
 		$min = JDEBUG ? '' : '.min';
 		$suf = $min ? 'Min' : '';
-		$version = JDEBUG ? time() : 'auto';;
+		$version = JDEBUG ? time() : 'auto';
 		$options = PlgSystemBS3Ghsvs::$options['jquery'];
 		$Load = $options['Load'];
 
@@ -57,6 +56,7 @@ abstract class JHtmlJqueryghsvs
 		else
 		{
 			self::$loaded[__METHOD__] = 1;
+
 			return;
 		}
 
@@ -66,8 +66,10 @@ abstract class JHtmlJqueryghsvs
 			$migrate = false;
 		}
 
-		HTMLHelper::_('script', $file,
-			array('version' => $version, 'relative' => true),
+		HTMLHelper::_(
+			'script',
+			$file,
+			['version' => $version, 'relative' => true],
 			$attribs
 		);
 
@@ -79,17 +81,20 @@ abstract class JHtmlJqueryghsvs
 
 		if ($noConflict)
 		{
-			HTMLHelper::_('script', 'jui/jquery-noconflict.js',
-				array('version' => $version, 'relative' => true));
+			HTMLHelper::_(
+				'script',
+				'jui/jquery-noconflict.js',
+				['version' => $version, 'relative' => true]
+			);
 		}
-		
-		$attribs = array();
+
+		$attribs = [];
 
 		if ($migrate)
 		{
 			$options = PlgSystemBS3Ghsvs::$options['jquery-migrate'];
 			$Load = $options['Load'];
-	
+
 			if ($Load === 'cdn')
 			{
 				$file = $options['cdn' . $suf];
@@ -104,18 +109,21 @@ abstract class JHtmlJqueryghsvs
 				{
 					$options['otherFileName'] = '';
 				}
-	
+
 				$file = $options['otherFileName'] ? : 'jquery-migrate';
 				$file = ltrim($options['media'] . '/' . $file . $min . '.js', '/');
 			}
 			else
 			{
 				self::$loaded[__METHOD__] = 1;
+
 				return;
 			}
 
-			HTMLHelper::_('script', $file,
-				array('version' => $version, 'relative' => true),
+			HTMLHelper::_(
+				'script',
+				$file,
+				['version' => $version, 'relative' => true],
 				$attribs
 			);
 		}

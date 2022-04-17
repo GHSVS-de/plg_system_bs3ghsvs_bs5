@@ -25,7 +25,7 @@ if (empty($image))
 	return;
 }
 
-echo PHP_EOL . '<!--File: ' . str_replace(JPATH_SITE, '', dirname(__FILE__)) . '/'. basename(__FILE__) . '-->' . PHP_EOL;
+echo PHP_EOL . '<!--File: ' . str_replace(JPATH_SITE, '', dirname(__FILE__)) . '/' . basename(__FILE__) . '-->' . PHP_EOL;
 
 $imgAttributes = $attributes->toArray();
 
@@ -45,7 +45,7 @@ $venobox = '';
 $figureClasses = ['autoLimited article_image item-image-in-article'];
 
 // Siehe Beschreibung in der Datei.
-require(__DIR__ . '/imgClassTranslator.php');
+require __DIR__ . '/imgClassTranslator.php';
 $figureClass = $options->get('float_article_image', 'ghsvs_img-default');
 
 if (!empty($imgClassTranslator[$figureClass]))
@@ -60,7 +60,6 @@ $aTitle = 'GHSVS_HIGHER_RESOLUTION_1';
 
 // Zoom-Button.
 $aClass = ['btn btn-dark btn-sm stretched-link'];
-
 
 /* Das Chaos ist der Tatsache geschuldet, dass ich bisher ALT für die
 Beaschreibung im JCE verwendet habe. Es sollte aber title die Beschreibung sein
@@ -119,7 +118,7 @@ if (PluginHelper::isEnabled('system', 'venoboxghsvs'))
 {
 	if (!in_array('EXCLUDEVENOBOX', $imgClasses)
 		&& !in_array('excludevenobox', $imgClasses)
-	){
+	) {
 		HTMLHelper::_('plgvenoboxghsvs.venobox', ['selector' => '.venobox']);
 		$venobox = 'venobox';
 		$aTitle = 'GHSVS_HIGHER_RESOLUTION_0';
@@ -145,7 +144,7 @@ if (!empty($imgs[0]) && is_array($imgs[0]))
 	/* Derzeit folgende Größen im plg_system_bs3ghsvs
 
 	*/
-	$mediaQueries = array(
+	$mediaQueries = [
 		// figure hat dann max 332px
 		'(max-width: 410px)' => '_s',
 
@@ -161,11 +160,11 @@ if (!empty($imgs[0]) && is_array($imgs[0]))
 		// Largest <source> without mediaQuery. Also for fallback <img> src, width and height calculation.
 		// Value only if you want to force one. Otherwise _x or fallback _u is used.
 		'srcSetKey' => '',
-	);
+	];
 }
 else
 {
-	$imgs  = array();
+	$imgs  = [];
 }
 
 // Use $imgs not $imgs[0] because of ['order'] index.

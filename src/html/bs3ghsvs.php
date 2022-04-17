@@ -14,10 +14,9 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\Registry\Registry;
 use Joomla\CMS\Language\Text;
 
-
 abstract class JHtmlBs3ghsvs
 {
-	protected static $loaded = array();
+	protected static $loaded = [];
 
 	// media-Ordner:
 	protected static $basepath = 'plg_system_bs3ghsvs';
@@ -56,9 +55,9 @@ abstract class JHtmlBs3ghsvs
 	{
 		$isBs3ghsvs = false;
 
-		$newSortIf = array(
-			'ghsvs.'
-		);
+		$newSortIf = [
+			'ghsvs.',
+		];
 
 		foreach ($newSortIf as $folder)
 		{
@@ -78,10 +77,11 @@ abstract class JHtmlBs3ghsvs
 			$includePaths = $layout->getIncludePaths();
 
 			// Mutterpfad raus.
-			$includePaths = array_diff($includePaths, array(JPATH_SITE . '/layouts'));
+			$includePaths = array_diff($includePaths, [JPATH_SITE . '/layouts']);
 
 			// media-basePath und Mutterpfad danach wieder rein.
-			array_push($includePaths,
+			array_push(
+				$includePaths,
 				JPATH_SITE . '/media/' . static::$basepath . '/layouts',
 				JPATH_SITE . '/layouts'
 			);
@@ -95,6 +95,7 @@ abstract class JHtmlBs3ghsvs
 		{
 			$basePath = JPATH_SITE . '/media/' . static::$basepath . '/layouts';
 		}
+
 		return LayoutHelper::render($layoutFile, $displayData, $basePath, $options);
 	}
 
@@ -102,20 +103,21 @@ abstract class JHtmlBs3ghsvs
 	 * bs3ghsvs.rendermodules
 	 * Gruppenrendering von Modulen in einer Ghost-Position.
 	 */
-	public static function rendermodules($position = null, $attribs = array())
+	public static function rendermodules($position = null, $attribs = [])
 	{
 		if (empty($position))
 		{
 			return '';
 		}
 
-		$output = array();
+		$output = [];
 		$modules = ModuleHelper::getModules($position);
 
 		foreach ($modules as $module)
 		{
 			$output[] = ModuleHelper::renderModule($module, $attribs);
 		}
+
 		return implode('', $output);
 	}
 
@@ -135,18 +137,21 @@ abstract class JHtmlBs3ghsvs
 			return;
 		}
 
-		$attribs = array();
+		$attribs = [];
 		$min = JDEBUG ? '' : '.min';
 		$version = JDEBUG ? time() : 'auto';
 
-  	$file = static::$basepath . '/' . $file . $min . '.js';
+		$file = static::$basepath . '/' . $file . $min . '.js';
 
-		HTMLHelper::_('script', $file,
-			array('version' => $version, 'relative' => true),
+		HTMLHelper::_(
+			'script',
+			$file,
+			['version' => $version, 'relative' => true],
 			$attribs
 		);
 
 		static::$loaded[__METHOD__] = 1;
+
 		return;
 	}
 
@@ -163,7 +168,7 @@ abstract class JHtmlBs3ghsvs
 		$selector = trim($selector);
 		$sprungmarke = trim($sprungmarke);
 
-		$sig = md5(serialize(array($selector, $sprungmarke)));
+		$sig = md5(serialize([$selector, $sprungmarke]));
 
 		if (!empty(static::$loaded[__METHOD__][$sig]))
 		{
@@ -184,6 +189,7 @@ abstract class JHtmlBs3ghsvs
 			. '})})(jQuery);'
 		);
 		static::$loaded[__METHOD__][$sig] = 1;
+
 		return;
 	}
 
@@ -194,24 +200,24 @@ abstract class JHtmlBs3ghsvs
 	 */
 	public static function spoiler(
 		$text,
-		$options = array()
-	){
+		$options = []
+	) {
 		if (!trim($text))
 		{
 			return '';
 		}
 
-		$defaultOptions = 		array(
+		$defaultOptions = 		[
 			'buttontext' => 'GHSVS_MODULES_SPOILER_BTN_TEXT_SHOW_HIDE',
 			'in' => 0,
 			'spoilerclass' => '',
 			'buttonclass' => 'btn btn-primary',
-			'role' => ''
-		);
+			'role' => '',
+		];
 
 		$options = array_merge($defaultOptions, $options);
 		HTMLHelper::_('bootstrap.framework');
-		$html = array();
+		$html = [];
 		$id = 'spoiler' . str_replace('.', '', uniqid('', true));
 
 		$buttonclass = trim('accordion-toggle ' . $options['buttonclass']);
@@ -223,11 +229,12 @@ abstract class JHtmlBs3ghsvs
 			. '" aria-expanded="' . ($options['in'] ? 'true' : 'false') . '" aria-controls="' . $id . '">';
 		$html[] = '{svg{solid/plus-square}} ';
 		$html[] = Text::_($options['buttontext']);
-  	$html[] = '</button>';
+		$html[] = '</button>';
 		$html[] = '<div class="collapse spoilerbody' . ($options['in'] ? ' in show' : '') . '" id="' . $id . '">';
 		$html[] = $text;
 		$html[] = '</div><!--/spoilerbody-->';
 		$html[] = '</div><!--/spoilerghsvs-->';
+
 		return implode('', $html);
 	}
 
@@ -236,7 +243,7 @@ abstract class JHtmlBs3ghsvs
 	 * 2020-03-10: Remove smoothScrolling() in favour of CSS "scroll-behavior: smooth".
 	 * We only need smoothscroll() for closing modals now.
 	 */
-	public static function smoothscroll($params = array())
+	public static function smoothscroll($params = [])
 	{
 		// Nur, um bei identischen, aber lediglich anders sortierten $params
 		// nicht doppelt zu laden
@@ -245,7 +252,7 @@ abstract class JHtmlBs3ghsvs
 		$scrollParent = trim($params->get('scrollParent', '.SMOOTHSCROLL'));
 		$isAModal = $params->get('isAModal', false);
 
-		$sig = md5(serialize(array($scrollParent, $params)));
+		$sig = md5(serialize([$scrollParent, $params]));
 
 		if ($isAModal && !isset(static::$loaded[__METHOD__][$sig]))
 		{
@@ -253,13 +260,14 @@ abstract class JHtmlBs3ghsvs
 				'jQuery(function(){'
 				. 'jQuery("' . $scrollParent . ' a[href*=\"#\"]").not("[href=\"#\"]").not("[href=\"#0\"]")'
 				. '.on("click", function(event){'
-				. 	'jQuery("' . $scrollParent . '").modal("hide");'
-				. 	'jQuery("' . $scrollParent . ' .dropdown").removeClass("open");'
+				. 'jQuery("' . $scrollParent . '").modal("hide");'
+				. 'jQuery("' . $scrollParent . ' .dropdown").removeClass("open");'
 				. '});'
 				. '});'
 			);
 			static::$loaded[__METHOD__][$sig] = true;
 		}
+
 		return;
 	}
 
@@ -274,14 +282,14 @@ abstract class JHtmlBs3ghsvs
 		if (!isset(static::$loaded[__METHOD__][$key]))
 		{
 			$sessionData = Factory::getSession()->get(static::$basepath);
-			$IDs = array();
+			$IDs = [];
 
 			if (!empty($sessionData[$key]))
 			{
 				$IDs = explode('|', $sessionData[$key]);
 			}
 
-			$js = array();
+			$js = [];
 			$js[] = '
 (function($)
 {
@@ -352,16 +360,18 @@ abstract class JHtmlBs3ghsvs
 	{
 		if (empty(static::$loaded[__METHOD__]))
 		{
-			$attribs = array();
+			$attribs = [];
 			$min = JDEBUG ? '' : '.min';
 			$version = JDEBUG ? time() : 'auto';
 
-			Factory::getDocument()->addScriptOptions('category-blog-list-toggle',
-				array(
+			Factory::getDocument()->addScriptOptions(
+				'category-blog-list-toggle',
+				[
 					'chevronRight' => '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>',
 					// Spinner:
 					'arrowRepeat' => '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-repeat" fill="currentColor" xmlns="http://www.w3.org/2000/svg">  <path fill-rule="evenodd" d="M2.854 7.146a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L2.5 8.207l1.646 1.647a.5.5 0 0 0 .708-.708l-2-2zm13-1a.5.5 0 0 0-.708 0L13.5 7.793l-1.646-1.647a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z"/>  <path fill-rule="evenodd" d="M8 3a4.995 4.995 0 0 0-4.192 2.273.5.5 0 0 1-.837-.546A6 6 0 0 1 14 8a.5.5 0 0 1-1.001 0 5 5 0 0 0-5-5zM2.5 7.5A.5.5 0 0 1 3 8a5 5 0 0 0 9.192 2.727.5.5 0 1 1 .837.546A6 6 0 0 1 2 8a.5.5 0 0 1 .501-.5z"/></svg>',
-				));
+				]
+			);
 
 			// Wegen Bootstrap-Button
 			HTMLHelper::_('bootstrap.framework');
@@ -371,13 +381,16 @@ abstract class JHtmlBs3ghsvs
 
 			$file = self::$basepath . '/category-blog-list-toggle' . $min . '.js';
 
-			HTMLHelper::_('script', $file,
-				array('version' => $version, 'relative' => true),
+			HTMLHelper::_(
+				'script',
+				$file,
+				['version' => $version, 'relative' => true],
 				$attribs
 			);
 
 			static::$loaded[__METHOD__] = 1;
 		}
+
 		return;
 	}
 
@@ -385,28 +398,33 @@ abstract class JHtmlBs3ghsvs
 	{
 		if (empty(static::$loaded[__METHOD__]))
 		{
-			$attribs = array('defer' => 'defer');
+			$attribs = ['defer' => 'defer'];
 			$min = JDEBUG ? '' : '.min';
 			$version = JDEBUG ? time() : 'auto';
 
 			// JS wird benötigt für Einblenden des Knopfs.
 			$file = self::$basepath . '/toTop' . $min . '.js';
 
-			HTMLHelper::_('script', $file,
-				array('version' => $version, 'relative' => true),
+			HTMLHelper::_(
+				'script',
+				$file,
+				['version' => $version, 'relative' => true],
 				$attribs
 			);
 
 			$file = self::$basepath . '/toTop' . $min . '.css';
 
-			HTMLHelper::_('stylesheet', $file,
-				array('version' => $version, 'relative' => true),
+			HTMLHelper::_(
+				'stylesheet',
+				$file,
+				['version' => $version, 'relative' => true],
 				$attribs
 			);
 			static::$loaded[__METHOD__] = 1;
 		}
 		// Auf mehrseitigen Blogansichten wechselt sonst die Seite.
 		$uri = \Joomla\CMS\Uri\Uri::getInstance()->toString();
+
 		return '<a href="' . $uri . '#TOP" id="toTop" tabindex="-1">
 			<span class="visually-hidden">' . Text::_('PLG_SYSTEM_BS3GHSVS_TO_TOP') . '</span>
 		</a>';

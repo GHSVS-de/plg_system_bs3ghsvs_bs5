@@ -17,7 +17,7 @@ class JFormFieldTemplatesJsonConfigurationInfo extends FormField
 
 	protected function getInput()
 	{
-		$html = array('<h4>' . Text::_('PLG_SYSTEM_BS3GHSVS_TEMPLATES_JSON_CONFIGURATION_INFO') . '</h4>');
+		$html = ['<h4>' . Text::_('PLG_SYSTEM_BS3GHSVS_TEMPLATES_JSON_CONFIGURATION_INFO') . '</h4>'];
 		$templates = Bs3ghsvsTemplate::getActiveInTemplates();
 
 		if (!$templates)
@@ -40,6 +40,7 @@ class JFormFieldTemplatesJsonConfigurationInfo extends FormField
 				}
 			}
 		}
+
 		return implode('', $html);
 	}
 }

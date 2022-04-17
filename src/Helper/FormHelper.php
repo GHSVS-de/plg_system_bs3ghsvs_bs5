@@ -1,15 +1,13 @@
 <?php
 defined('JPATH_PLATFORM') or die;
 
-use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\Registry\Registry;
 
 class Bs3GhsvsFormHelper
 {
-	protected static $loaded = array();
+	protected static $loaded = [];
 
-	public static function getActiveXml($key, $paras, $status = array(1, 2))
+	public static function getActiveXml($key, $paras, $status = [1, 2])
 	{
 		$key = 'XmlActive' . ucfirst($key);
 		$sig = $key . '_' . serialize($status);
@@ -22,6 +20,7 @@ class Bs3GhsvsFormHelper
 			if (!is_object($XmlActive) || !count(get_object_vars($XmlActive)))
 			{
 				self::$loaded[$sig] = [];
+
 				return [];
 			}
 
@@ -57,20 +56,20 @@ class Bs3GhsvsFormHelper
 	public static function prepareFormFields(
 		&$form,
 		$hintSource = 'description',
-		$overrides = array(),
+		$overrides = [],
 		$ignore = []
-	){
+	) {
 		$fields = $form->getGroup('');
 
 		// Für welche Feldtypen keine Placeholder/Hints einsetzen:
-		$excludeTypes  = array(
+		$excludeTypes  = [
 		 'checkbox',
 		 'radio',
 		 'submit',
 		 'radio',
 		 'spacer',
 		 'captcha',
-		);
+		];
 
 		foreach ($fields as $field)
 		{
@@ -79,7 +78,7 @@ class Bs3GhsvsFormHelper
 				continue;
 			}
 
-			if (!\in_array('form-control', $ignore))
+			if (!in_array('form-control', $ignore))
 			{
 				$class = $field->getAttribute('class');
 
@@ -97,7 +96,7 @@ class Bs3GhsvsFormHelper
 			if (
 				!empty($overrides[$field->fieldname])
 				&& $overrides[$field->fieldname]['group'] === $field->group
-			){
+			) {
 				$hint = $overrides[$field->fieldname]['str'];
 			}
 			elseif (!empty($field->getAttribute($hintSource)))
@@ -125,7 +124,7 @@ class Bs3GhsvsFormHelper
 				$form->setFieldAttribute($field->fieldname, 'hint', $hint, $field->group);
 				$form->setFieldAttribute($field->fieldname, 'translateHint', true, $field->group);
 
-				if (!\in_array('sr-only', $ignore))
+				if (!in_array('sr-only', $ignore))
 				{
 					$class = $field->getAttribute('labelclass');
 					if (strpos($class, 'sr-only') === false)

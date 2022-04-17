@@ -13,14 +13,13 @@ use Joomla\CMS\Access\Access;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
-use Joomla\Registry\Registry;
 
 JLoader::register('TagsHelperRoute', JPATH_BASE . '/components/com_tags/helpers/route.php');
 
 $tagsCatGhsvs = $tags = $microdata = false;
 
 // itemprop="keywords"
-$keywords = array();
+$keywords = [];
 
 if (is_array($displayData))
 {
@@ -68,18 +67,16 @@ if (!empty($displayData->tags->itemTags))
 			?>
 <?php
 if ($linkTags)
-{
-	$link_class = 'label label-tag';
-?>
+			{
+				$link_class = 'label label-tag'; ?>
 	<a href="<?php echo Route::_(TagsHelperRoute::getTagRoute($tag->tag_id . '-' . $tag->alias)) ?>" class="<?php echo $link_class; ?>">
 		<?php echo $tagtxt; ?>
 	</a>
 <?php
-}
+			}
 else
 {
-	$link_class = 'label label-default';
-?>
+	$link_class = 'label label-default'; ?>
 	<span class="<?php echo $link_class; ?>"><?php echo $tagtxt; ?></span>
 <?php
 } ?>
@@ -100,7 +97,7 @@ else
 <div aria-label="<?php echo Text::_('GHSVS_TAGS_CATEGORY'); ?>">
 <?php foreach ($tagsCatGhsvs as $i => $tag) :
 
-$collect = array();
+$collect = [];
 $spanClass = 'label label-categorytag categorytag';
 
 if ($linkTags)
@@ -109,7 +106,7 @@ if ($linkTags)
 	. Route::_(TagsHelperRoute::getTagRoute($tag->tag_id . '-' . $tag->alias))
 	. '" class="' . $spanClass . '" title="Kategorien-Schlagwort">';
 	$collect[3] = '</a>';
-	
+
 	$spanClass = '';
 }
 
@@ -130,5 +127,5 @@ if (in_array($tag->access, Access::getAuthorisedViewLevels(Factory::getUser()->g
 <?php
 } // end if ($tagsCatGhsvs) ?>
 </div><!--/tags-->
-<?php endif; 
+<?php endif;
 ?>

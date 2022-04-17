@@ -5,17 +5,16 @@ J3.8.9
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Log\Log;
 
 class Bs3GhsvsRegisterIcon
 {
-	protected static $icon = array(
+	protected static $icon = [
 		'create',
 		'email', // Blocked.
 		'edit', // Erst mal lassen. 2021: Dann doch nicht, weils zu Absturz führen kann.
 		'print_popup',
 		'print_screen',
-	);
+	];
 
 	public static function register()
 	{
@@ -23,24 +22,27 @@ class Bs3GhsvsRegisterIcon
 		{
 			HTMLHelper::register('icon.' . $method, 'Bs3GhsvsRegisterIcon::' . $method);
 		}
+
 		return true;
 	}
 
 	/**
 	 * icon.create
 	 */
-	public static function create($category, $params, $attribs = array(), $legacy = false)
+	public static function create($category, $params, $attribs = [], $legacy = false)
 	{
 		HTMLHelper::_('iconghsvs.create', $category, $params, $attribs, $legacy);
+
 		return;
 	}
 
 	/**
 	 * icon.email
 	 */
-	public static function email($article, $params, $attribs = array(), $legacy = false)
+	public static function email($article, $params, $attribs = [], $legacy = false)
 	{
 		HTMLHelper::_('iconghsvs.email', $category, $params, $attribs, $legacy);
+
 		return;
 	}
 
@@ -50,12 +52,13 @@ class Bs3GhsvsRegisterIcon
 	public static function print_popup(
 		$article,
 		$params,
-		$attribs = array(),
+		$attribs = [],
 		$legacy = false,
 		$tmpl = 'print',
 		$iconClass =''
-	){
-		return HTMLHelper::_('iconghsvs.print_popup',
+	) {
+		return HTMLHelper::_(
+			'iconghsvs.print_popup',
 			$article,
 			$params,
 			$attribs,
@@ -68,11 +71,12 @@ class Bs3GhsvsRegisterIcon
 	/**
 	 * icon.print_screen
 	 */
-	public static function print_screen($article, $params, $attribs = array(), $legacy = false)
+	public static function print_screen($article, $params, $attribs = [], $legacy = false)
 	{
 		return HTMLHelper::_('iconghsvs.print_screen', $article, $params, $attribs, $legacy);
 	}
-	public static function edit($article, $params, $attribs = array(), $legacy = false)
+
+	public static function edit($article, $params, $attribs = [], $legacy = false)
 	{
 		return '';
 	}

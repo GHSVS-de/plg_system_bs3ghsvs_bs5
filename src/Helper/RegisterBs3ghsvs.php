@@ -5,12 +5,11 @@ J3.8.9
 defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Log\Log;
 
 class Bs3GhsvsRegisterBs3ghsvs
 {
-	protected static $toRegister = array(
-		'bs3ghsvs' => array(
+	protected static $toRegister = [
+		'bs3ghsvs' => [
 			'layout',
 			'rendermodules',
 			'templatejs',
@@ -21,8 +20,8 @@ class Bs3GhsvsRegisterBs3ghsvs
 			'activeToSession',
 			'bloglisttoggle',
 			'toTop',
-		),
-	);
+		],
+	];
 
 	public static function register()
 	{
@@ -39,6 +38,7 @@ class Bs3GhsvsRegisterBs3ghsvs
 				HTMLHelper::register('bs3ghsvs.' . $method, $class . '::' . $method);
 			}
 		}
+
 		return true;
 	}
 }

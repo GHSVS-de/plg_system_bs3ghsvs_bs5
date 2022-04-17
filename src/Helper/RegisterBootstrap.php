@@ -9,7 +9,7 @@ use Joomla\CMS\Log\Log;
 
 class Bs3GhsvsRegisterBootstrap
 {
-	protected static $bootstrap = array(
+	protected static $bootstrap = [
 		// 'affix',
 		// 'alert',
 		// 'button',
@@ -35,11 +35,11 @@ class Bs3GhsvsRegisterBootstrap
 		// 'addPanel',
 		// 'endPanel',
 		'loadCss',
-	);
+	];
 
 	public static function register()
 	{
-		require_once(__DIR__ . '/bootstrapblocker.php');
+		require_once __DIR__ . '/bootstrapblocker.php';
 		$bootstrapblocker = new bootstrapblocker;
 
 		if (!$bootstrapblocker->blockCoreBootstrap())
@@ -49,6 +49,7 @@ class Bs3GhsvsRegisterBootstrap
 				$add = __METHOD__ . ': Core "bootstrap.framework" konnte nicht blockiert werden.';
 				Log::add($add, Log::CRITICAL, 'bs3ghsvs');
 			}
+
 			return false;
 		}
 		elseif (PlgSystemBS3Ghsvs::$log)
@@ -63,6 +64,7 @@ class Bs3GhsvsRegisterBootstrap
 		{
 			HTMLHelper::register('bootstrap.' . $method, 'Bs3GhsvsRegisterBootstrap::' . $method);
 		}
+
 		return true;
 	}
 
@@ -72,6 +74,7 @@ class Bs3GhsvsRegisterBootstrap
 	public static function framework()
 	{
 		HTMLHelper::_('bootstrapghsvs.framework');
+
 		return;
 	}
 
@@ -81,18 +84,19 @@ class Bs3GhsvsRegisterBootstrap
 	public static function loadCss(
 		$includeMainCss = true,
 		$direction = 'ltr',
-		$attribs = array()
-	){
+		$attribs = []
+	) {
 		HTMLHelper::_('bootstrapghsvs.loadCss', $includeMainCss, $direction, $attribs);
+
 		return;
 	}
 
 	/**
 	 * bootstrap.startAccordion
 	 */
-	public static function startAccordion($selector = 'myAccordian', $params = array())
+	public static function startAccordion($selector = 'myAccordian', $params = [])
 	{
-  	return HTMLHelper::_('bootstrapghsvs.startAccordion', $selector, $params);
+		return HTMLHelper::_('bootstrapghsvs.startAccordion', $selector, $params);
 	}
 
 	/**
@@ -105,34 +109,40 @@ class Bs3GhsvsRegisterBootstrap
 		$class = '',
 		$headingTagGhsvs = '',
 		$title = ''
-	){
-		return HTMLHelper::_('bootstrapghsvs.addSlide',
-			$selector, $text, $id, $class, $headingTagGhsvs, $title
+	) {
+		return HTMLHelper::_(
+			'bootstrapghsvs.addSlide',
+			$selector,
+			$text,
+			$id,
+			$class,
+			$headingTagGhsvs,
+			$title
 		);
 	}
 
 	/**
 	 * bootstrap.carousel
 	 */
-	public static function carousel($selector = 'carousel', $params = array())
+	public static function carousel($selector = 'carousel', $params = [])
 	{
-  	return HTMLHelper::_('bootstrapghsvs.carousel', $selector, $params);
+		return HTMLHelper::_('bootstrapghsvs.carousel', $selector, $params);
 	}
 
 	/**
 	 * bootstrap.popover
 	 */
-	public static function popover($selector = '.hasPopover', $params = array())
+	public static function popover($selector = '.hasPopover', $params = [])
 	{
-  	return;
+		return;
 	}
 
 	/**
 	 * bootstrap.tooltip
 	 */
-	public static function tooltip($selector = '.hasTooltip', $params = array())
+	public static function tooltip($selector = '.hasTooltip', $params = [])
 	{
-  	return;
+		return;
 	}
 
 	/**
@@ -140,6 +150,6 @@ class Bs3GhsvsRegisterBootstrap
 	 */
 	public static function tooltipExtended($extended = false)
 	{
-  	return;
+		return;
 	}
 }

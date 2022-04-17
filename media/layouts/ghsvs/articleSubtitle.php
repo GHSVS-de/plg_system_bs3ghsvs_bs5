@@ -21,7 +21,10 @@ if (!$params->get('show_title')
 }
 
 $articlesubtitle = htmlspecialchars(
-	$item->bs3ghsvsFields['various']['articlesubtitle'], ENT_COMPAT, 'utf-8');
+	$item->bs3ghsvsFields['various']['articlesubtitle'],
+	ENT_COMPAT,
+	'utf-8'
+);
 ?>
 <small class="articlesubtitle text-muted fst-italic">
 	(<?php echo $articlesubtitle; ?>)

@@ -13,7 +13,10 @@ JHtml::_('bs3ghsvs.addsprungmarke', '.dropdown-articles ul.dropdown-menu');
 $options = new Registry($displayData);
 
 $items = (array) $options->get('items');
-if (!$items) return '';
+if (!$items)
+{
+	return '';
+}
 
 $views = (array) $options->get('views');
 if ($views && ! in_array(JFactory::getApplication()->input->get('view'), $views))
@@ -23,7 +26,7 @@ if ($views && ! in_array(JFactory::getApplication()->input->get('view'), $views)
 
 $module = new Registry($options->get('module', new stdClass));
 
-$class = array();
+$class = [];
 $class[] = 'dropdown-articles makeBackdrop';
 if (!empty($displayData['bootstrapsize']))
 {
@@ -65,18 +68,17 @@ foreach ($items as $item)
 	$cnt++;
 	$link = $item->link;
 	$liclass = $item->active ? ' class="active"' : '';
-	
- // Vorsicht mit $item->title direkt. $items wird referenziert übergeben, also
+
+	// Vorsicht mit $item->title direkt. $items wird referenziert übergeben, also
 	// auch die Blogitem-Überschrift geändert!
- $title = str_replace(array('"', "'", '-', '«', '»'), ' ', $item->title);
-?>
-   <li<?php echo $liclass; ?>><a href="<?php echo $item->link; ?>"><?php echo $title;?></a></li>
+	$title = str_replace(['"', "'", '-', '«', '»'], ' ', $item->title); ?>
+   <li<?php echo $liclass; ?>><a href="<?php echo $item->link; ?>"><?php echo $title; ?></a></li>
 <?php
  if (!($cnt % 10))
-	{
-		echo $close2;
-	}
-}; ?>
+ {
+ 	echo $close2;
+ }
+} ?>
   </ul>
 </div>
 </div>

@@ -4,7 +4,6 @@ defined('JPATH_PLATFORM') or die;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Filesystem\Folder;
-use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\Registry\Registry;
 use Joomla\CMS\Filter\InputFilter;
 use Joomla\CMS\Language\Text;
@@ -12,7 +11,9 @@ use Joomla\CMS\Language\Text;
 class Bs3ghsvsTemplate
 {
 	protected static $templates = null;
+
 	protected static $templateOptionsFile = '/html/plgSystemBs3Ghsvs.json';
+
 	protected static $loaded;
 
 	/**
@@ -35,6 +36,7 @@ class Bs3ghsvsTemplate
 				unset(self::$templates[$i]);
 			}
 		}
+
 		return self::$templates;
 	}
 
@@ -71,6 +73,7 @@ Array
 	{
 		$file = JPATH_SITE . '/templates/' . $templateFolder . self::$templateOptionsFile;
 		$templateOptions = file_get_contents($file);
+
 		return json_decode(trim($templateOptions), true);
 	}
 
@@ -96,6 +99,7 @@ Array
 				return false;
 			}
 		}
+
 		return static::$loaded[__METHOD__];
 	}
 
@@ -114,6 +118,7 @@ Array
 				static::$loaded[__METHOD__] = false;
 			}
 		}
+
 		return static::$loaded[__METHOD__];
 	}
 
@@ -134,7 +139,7 @@ Array
 
 			$template = $app->getTemplate(true);
 			$tplPath = 'templates/' . $template->template;
-			$BodyClasses = array();
+			$BodyClasses = [];
 
 			$template->params->set('isFrontpage', static::getIsFrontpage());
 
@@ -148,7 +153,7 @@ Array
 				$template->params->set('sitetitleHide', -1);
 			}
 
-			if($menuParams = static::getActiveMenuParams())
+			if ($menuParams = static::getActiveMenuParams())
 			{
 				$BodyClasses = static::splitPageClass($menuParams);
 
@@ -171,7 +176,7 @@ Array
 				$BodyClasses[] = 'articleId-' . $app->input->getInt('id', 0);
 				$BodyClasses[] = 'catId-' . $app->input->getInt('catid', 0);
 			}
-			elseif (in_array($view, array('category', 'categories')))
+			elseif (in_array($view, ['category', 'categories']))
 			{
 				$BodyClasses[] = 'catId-' . $app->input->getInt('id', 0);
 			}
@@ -210,7 +215,7 @@ Array
 				$template->params->set('companylogo', $logo);
 				$logoAlt = htmlentities($logoAlt, ENT_QUOTES, 'UTF-8');
 
-				$logo = '<img class="logo" id="SITELOGO" src="' . $logo . '" alt="' .$logoAlt . '"/>';
+				$logo = '<img class="logo" id="SITELOGO" src="' . $logo . '" alt="' . $logoAlt . '"/>';
 				$template->params->set('logoimg', $logo);
 			}
 
@@ -239,8 +244,10 @@ Array
 
 			static::$loaded[__METHOD__] = explode(' ', $classes);
 		}
+
 		return static::$loaded[__METHOD__];
 	}
+
 	/**
 	 * Check 2016-06: Wird verwendet.
 	 * Aktive Menüparameter holen
@@ -265,6 +272,7 @@ Array
 				static::$loaded[__METHOD__] = false;
 			}
 		}
+
 		return static::$loaded[__METHOD__];
 	}
 
@@ -284,8 +292,10 @@ Array
 				static::$loaded[__METHOD__] = false;
 			}
 		}
+
 		return static::$loaded[__METHOD__];
 	}
+
 	/**
 	 * Get template name (without params) e.g. in onAfterRoute.
 	 * From https://github.com/joomla/joomla-cms/blob/4.0.0-alpha10/libraries/src/Application/SiteApplication.php#L397
@@ -407,6 +417,7 @@ Array
 				throw new \InvalidArgumentException(Text::sprintf('JERROR_COULD_NOT_FIND_TEMPLATE', $original_tmpl . ' in __METHOD__'));
 			}
 		}
+
 		return $template->template;
 	}
 }

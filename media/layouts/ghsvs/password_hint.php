@@ -2,6 +2,7 @@
 defined('JPATH_BASE') or die;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Component\ComponentHelper;
+
 ?>
 
 <p><button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -34,7 +35,8 @@ use Joomla\CMS\Component\ComponentHelper;
 					<div class="col-12">
 					<?php
 					$userParams = ComponentHelper::getParams('com_users');
-					echo Text::sprintf('GHSVS_PASSWORD_REQUIREMENTS',
+					echo Text::sprintf(
+						'GHSVS_PASSWORD_REQUIREMENTS',
 						$userParams->get('minimum_length'),
 						$userParams->get('minimum_integers'),
 						$userParams->get('minimum_symbols'),
@@ -50,6 +52,6 @@ use Joomla\CMS\Component\ComponentHelper;
 </div>
 <?php
 if (!empty($displayData['style']))
-{
-	echo '<style>' . $displayData['style'] . '</style>';
-}
+					{
+						echo '<style>' . $displayData['style'] . '</style>';
+					}

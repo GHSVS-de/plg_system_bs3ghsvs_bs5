@@ -6,9 +6,8 @@ use Joomla\CMS\Log\Log;
 
 abstract class JHtmlBehaviorghsvs
 {
-	
-	protected static $loaded = array();
-	
+	protected static $loaded = [];
+
 	// media-Ordner:
 	protected static $basepath = 'plg_system_bs3ghsvs';
 
@@ -23,6 +22,7 @@ abstract class JHtmlBehaviorghsvs
 		}
 
 		static::$loaded[__METHOD__] = 1;
+
 		return;
 	}
 
@@ -71,7 +71,7 @@ abstract class JHtmlBehaviorghsvs
 	/**
 	 * behavior.tooltip -> Bs3GhsvsRegisterBehavior::tooltip -> behaviorghsvs.tooltip
 	 */
-	public static function tooltip($selector = '.hasTip', $params = array())
+	public static function tooltip($selector = '.hasTip', $params = [])
 	{
 		if (isset(static::$loaded[__METHOD__]))
 		{
@@ -93,7 +93,7 @@ abstract class JHtmlBehaviorghsvs
 	/**
 	 * behavior.modal -> Bs3GhsvsRegisterBehavior::modal -> behaviorghsvs.modal
 	 */
-	public static function modal($selector = 'a.modal', $params = array())
+	public static function modal($selector = 'a.modal', $params = [])
 	{
 		if (isset(static::$loaded[__METHOD__]))
 		{
@@ -115,7 +115,7 @@ abstract class JHtmlBehaviorghsvs
 	/**
 	 * behavior.tree -> Bs3GhsvsRegisterBehavior::tree -> behaviorghsvs.tree
 	 */
-	public static function tree($id, $params = array(), $root = array())
+	public static function tree($id, $params = [], $root = [])
 	{
 		if (isset(static::$loaded[__METHOD__]))
 		{

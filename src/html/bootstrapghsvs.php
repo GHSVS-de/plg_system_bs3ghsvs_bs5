@@ -4,12 +4,11 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Log\Log;
-use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
 
 abstract class JHtmlBootstrapghsvs
 {
-	protected static $loaded = array();
+	protected static $loaded = [];
 
 	// media-Ordner:
 	protected static $basepath = 'plg_system_bs3ghsvs';
@@ -28,7 +27,7 @@ abstract class JHtmlBootstrapghsvs
 			return;
 		}
 
-		$attribs = array();
+		$attribs = [];
 		$min = JDEBUG ? '' : '.min';
 		$suf = $min ? 'Min' : '';
 		$version = JDEBUG ? time() : 'auto';
@@ -47,7 +46,10 @@ abstract class JHtmlBootstrapghsvs
 		elseif ($Load === 'media')
 		{
 			// B/C
-			if (!isset($options['otherFileName'])) $options['otherFileName'] = '';
+			if (!isset($options['otherFileName']))
+			{
+				$options['otherFileName'] = '';
+			}
 
 			$file = $options['otherFileName'] ? : 'bootstrap';
 			$file = ltrim($options['media'] . '/' . $file . $min . '.js', '/');
@@ -55,11 +57,14 @@ abstract class JHtmlBootstrapghsvs
 		else
 		{
 			self::$loaded[__METHOD__] = 1;
+
 			return;
 		}
 
-		HTMLHelper::_('script', $file,
-			array('version' => $version, 'relative' => true),
+		HTMLHelper::_(
+			'script',
+			$file,
+			['version' => $version, 'relative' => true],
 			$attribs
 		);
 
@@ -70,6 +75,7 @@ abstract class JHtmlBootstrapghsvs
 		}
 
 		static::$loaded[__METHOD__] = 1;
+
 		return;
 	}
 
@@ -85,24 +91,24 @@ abstract class JHtmlBootstrapghsvs
 	 * @since   3.0
 	 */
 
-/*
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+	/*
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
-*/
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+	*/
 	public static function loadCss(
 		$includeMainCss = true,
 		$direction = 'ltr',
-		$attribs = array()
-	){
+		$attribs = []
+	) {
 		if (!empty(self::$loaded[__METHOD__]))
 		{
 			return;
 		}
 
-		$attribs = array();
+		$attribs = [];
 		$min = JDEBUG ? '' : '.min';
 		$suf = $min ? 'Min' : '';
 		$version = JDEBUG ? time() : 'auto';
@@ -120,7 +126,10 @@ abstract class JHtmlBootstrapghsvs
 		elseif ($Load === 'media')
 		{
 			// B/C
-			if (!isset($options['otherFileName'])) $options['otherFileName'] = '';
+			if (!isset($options['otherFileName']))
+			{
+				$options['otherFileName'] = '';
+			}
 
 			$file = $options['otherFileName'] ? : 'bootstrap';
 			$file = ltrim($options['media'] . '/' . $file . $min . '.css', '/');
@@ -128,11 +137,14 @@ abstract class JHtmlBootstrapghsvs
 		else
 		{
 			self::$loaded[__METHOD__] = 1;
+
 			return;
 		}
 
-		HTMLHelper::_('stylesheet', $file,
-			array('version' => $version, 'relative' => true),
+		HTMLHelper::_(
+			'stylesheet',
+			$file,
+			['version' => $version, 'relative' => true],
 			$attribs
 		);
 
@@ -143,6 +155,7 @@ abstract class JHtmlBootstrapghsvs
 		}
 
 		static::$loaded[__METHOD__] = 1;
+
 		return;
 	}
 
@@ -161,15 +174,15 @@ abstract class JHtmlBootstrapghsvs
 	 *
 	 * @since   3.0
 	 */
-	public static function carousel($selector = 'carousel', $params = array())
+	public static function carousel($selector = 'carousel', $params = [])
 	{
-		$sig = md5(serialize(array($selector, sort($params))));
+		$sig = md5(serialize([$selector, sort($params)]));
 
 		if (!isset(static::$loaded[__METHOD__][$sig]))
 		{
 			HTMLHelper::_('bootstrap.framework');
 
-			$opt = array();
+			$opt = [];
 			$opt['interval'] = isset($params['interval']) ? (int) $params['interval'] : 5000;
 			$opt['pause']    = isset($params['pause']) ? $params['pause'] : 'hover';
 			$opt['wrap']     = isset($params['wrap']) ? (bool) $params['wrap'] : true;
@@ -265,37 +278,37 @@ JS;
 			//$options = HTMLHelper::getJSObject($opt);
 
 			//$opt['active'] = isset($params['active']) ? (string) $params['active'] : '';
-/* #### Soweit ich sehe, braucht man den ganzen Scheiß überhaupt nicht, wenn man
-mit data-Attributen arbeitet. Außerdem ist der Kram eh total veraltet */
-/* 			$script = array();
+			/* #### Soweit ich sehe, braucht man den ganzen Scheiß überhaupt nicht, wenn man
+			mit data-Attributen arbeitet. Außerdem ist der Kram eh total veraltet */
+			/* 			$script = array();
 
-			$script[] = 'jQuery(document).ready(function($){';
+						$script[] = 'jQuery(document).ready(function($){';
 
-			$script[] = "$('#" . $selector . "').collapse(" . $options . ")";
+						$script[] = "$('#" . $selector . "').collapse(" . $options . ")";
 
-			if ($onShow)
-			{
-				$script[] = ".on('show.bs.collapse', " . $onShow . ")";
-			}
+						if ($onShow)
+						{
+							$script[] = ".on('show.bs.collapse', " . $onShow . ")";
+						}
 
-			if ($onShown)
-			{
-				$script[] = ".on('shown.bs.collapse', " . $onShown . ")";
-			}
+						if ($onShown)
+						{
+							$script[] = ".on('shown.bs.collapse', " . $onShown . ")";
+						}
 
-			if ($onHide)
-			{
-				$script[] = ".on('hide.bs.collapse', " . $onHide . ")";
-			}
+						if ($onHide)
+						{
+							$script[] = ".on('hide.bs.collapse', " . $onHide . ")";
+						}
 
-			if ($onHidden)
-			{
-				$script[] = ".on('hidden.bs.collapse', " . $onHidden . ")";
-			}
+						if ($onHidden)
+						{
+							$script[] = ".on('hidden.bs.collapse', " . $onHidden . ")";
+						}
 
-			$script[] = '});';
+						$script[] = '});';
 
-			Factory::getDocument()->addScriptDeclaration(implode('', $script)); */
+						Factory::getDocument()->addScriptDeclaration(implode('', $script)); */
 
 			static::$loaded[__METHOD__][$selector] = $opt;
 
@@ -310,18 +323,23 @@ mit data-Attributen arbeitet. Außerdem ist der Kram eh total veraltet */
 	/**
 	 * bootstrap.addSlide BS5
 	 */
-	public static function addSlide($selector, $text, $id, $class = '',
-		$headingTagGhsvs = '', $title = ''
-	){
+	public static function addSlide(
+		$selector,
+		$text,
+		$id,
+		$class = '',
+		$headingTagGhsvs = '',
+		$title = ''
+	) {
 		// "in" = BS3. "show" = BS4/BS5.
 		//$in = (static::$loaded[__CLASS__ . '::startAccordion'][$selector]['active'] == $id)
-			//? ' in show' : '';
+		//? ' in show' : '';
 		$in = '';
 		$parent = '';
 
 		if (!empty(
 			static::$loaded[__CLASS__ . '::startAccordion'][$selector]['parent'])
-		){
+		) {
 			// Dies Attribut gehört in den Slide, nicht in den Toggler!
 			$parent = ' data-bs-parent="'
 				. static::$loaded[__CLASS__ . '::startAccordion'][$selector]['parent']
@@ -340,7 +358,7 @@ mit data-Attributen arbeitet. Außerdem ist der Kram eh total veraltet */
 			$title = ' <span class="pageBreakSlideTitle">- ' . $title . '</span>';
 		}
 
-		$html = array();
+		$html = [];
 		$html[] = '<div class="card pageBreakGhsvsCard">';
 
 		$html[] = '<div class="card-header" id="heading' . $id . '">';
@@ -358,10 +376,10 @@ mit data-Attributen arbeitet. Außerdem ist der Kram eh total veraltet */
 		$html[] = '</' . $headingTagGhsvs . '>';
 		$html[] = '</div><!--/heading' . $id . '-->';
 
-		$html[] = '<div id="collapse'.$id.'" class="collapse ' . $in .'"'
+		$html[] = '<div id="collapse' . $id . '" class="collapse ' . $in . '"'
 			. ' aria-labelledby="heading' . $id . '"' . $parent . '>';
 		$html[] = '<div class="card-body">';
+
 		return implode("\n", $html);
 	}
-
 }

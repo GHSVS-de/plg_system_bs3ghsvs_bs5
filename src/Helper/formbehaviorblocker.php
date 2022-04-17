@@ -6,9 +6,10 @@ class formbehaviorblocker extends JHtmlFormbehavior
 		if (
 			!empty(parent::$loaded['JHtmlFormbehavior::chosen'])
 			|| !empty(parent::$loaded['JHtmlFormbehavior::ajaxchosen'])
-		){
+		) {
 			return false;
 		}
+
 		return true;
 	}
 }

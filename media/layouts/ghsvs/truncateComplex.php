@@ -21,6 +21,7 @@ $item->textTruncated = null;
 if (empty($text) || !is_string($text) || trim($text) === '')
 {
 	echo '';
+
 	return;
 }
 
@@ -45,8 +46,11 @@ if ($truncated === $text)
 elseif (mb_substr($truncated, -3) === '...')
 {
 	$regex = '#(<\/[a-z0-9]+>)(...)$#';
-	$truncated = preg_replace($regex,
-		' {svg{bi/three-dots}class="text-primary svg-2x"}$1', $truncated);
+	$truncated = preg_replace(
+		$regex,
+		' {svg{bi/three-dots}class="text-primary svg-2x"}$1',
+		$truncated
+	);
 	$item->textTruncated = 1;
 	$item->readmore = true;
 }

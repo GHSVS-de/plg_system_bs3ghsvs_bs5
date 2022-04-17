@@ -2,17 +2,14 @@
 /* intro_image ohne Kokolores wie venobox oder readmore */
 defined('_JEXEC') or die;
 
-use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Router\Route;
-use Joomla\CMS\Uri\Uri;
-use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\Registry\Registry;
 
 JLoader::register('Bs3ghsvsItem', JPATH_PLUGINS
 	. '/system/bs3ghsvs/Helper/ItemHelper.php');
 
-$options = new Registry(isset(
+$options = new Registry(
+	isset(
 	$displayData['options']) ? $displayData['options'] : []
 );
 
@@ -21,12 +18,12 @@ $images = Bs3ghsvsItem::getItemImagesghsvs($item);
 
 if ($image = $images->get('image_intro'))
 {
-	echo PHP_EOL . '<!--File: ' . str_replace(JPATH_SITE, '', dirname(__FILE__)) . '/'. basename(__FILE__) . '-->' . PHP_EOL;
+	echo PHP_EOL . '<!--File: ' . str_replace(JPATH_SITE, '', dirname(__FILE__)) . '/' . basename(__FILE__) . '-->' . PHP_EOL;
 
 	$figureClasses = ['autoLimited item-image image_intro'];
 
 	// Siehe Beschreibung in der Datei.
-	require(__DIR__ . '/imgClassTranslator.php');
+	require __DIR__ . '/imgClassTranslator.php';
 	$figureClass = $images->get('float_intro', 'ghsvs_img-default');
 
 	if (!empty($imgClassTranslator[$figureClass]))
@@ -47,7 +44,7 @@ if ($image = $images->get('image_intro'))
 	$alt = htmlspecialchars(($alt ? $alt : $caption), ENT_QUOTES, 'UTF-8');
 	$caption = htmlspecialchars($caption, ENT_QUOTES, 'UTF-8');
 
-	$picture = array('<picture>');
+	$picture = ['<picture>'];
 
 	// From plg_system_bs3ghsvs. If resizer active.
 	// Returns empty array if nothing.
@@ -59,7 +56,7 @@ if ($image = $images->get('image_intro'))
 		// Leading items have normally col-6 of page full width (currently 1440px).
 		if ($whichItem === 'leadItem')
 		{
-			$mediaQueries = array(
+			$mediaQueries = [
 				// xs-max; Bild ganze Breite, oberhalb Text
 				'(max-width: 575px)' => '_s',
 				// sm-max;  Bild ganze Breite, oberhalb Text
@@ -74,12 +71,12 @@ if ($image = $images->get('image_intro'))
 				// Largest <source> without mediaQuery. Also for fallback <img> src, width and height calculation.
 				// Value only if you want to force one. Otherwise _x or fallback _u is used.
 				'srcSetKey' => '',
-			);
+			];
 		}
 		// ############# INTRO ITEMS!!! START ################
 		else
 		{
-			$mediaQueries = array(
+			$mediaQueries = [
 
 				// figure hat dann max 332px
 				'(max-width: 410px)' => '_s',
@@ -107,7 +104,7 @@ if ($image = $images->get('image_intro'))
 				// Largest <source> without mediaQuery. Also for fallback <img> src, width and height calculation.
 				// Value only if you want to force one. Otherwise _x or fallback _u is used.
 				'srcSetKey' => '',
-			);
+			];
 		}
 		// ############# INTRO ITEMS!!! END ################
 	}
@@ -127,8 +124,7 @@ if ($image = $images->get('image_intro'))
 		. '>';
 	$picture[] = '</picture>';
 	$picture = implode('', $picture);
-	$figureClasses = implode(' ', $figureClasses);
-?>
+	$figureClasses = implode(' ', $figureClasses); ?>
 <div class="<?php echo $classes; ?>">
 	<figure class="<?php echo $figureClasses; ?>">
 		<?php echo $picture; ?>

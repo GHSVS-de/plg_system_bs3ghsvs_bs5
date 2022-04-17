@@ -17,8 +17,7 @@ use Joomla\Utilities\ArrayHelper;
 
 abstract class JHtmlIconghsvs
 {
-
-	protected static $loaded = array();
+	protected static $loaded = [];
 
 	// media-Ordner:
 	protected static $basepath = 'plg_system_bs3ghsvs';
@@ -34,13 +33,13 @@ abstract class JHtmlIconghsvs
 	 *
 	 * @return  string  The HTML markup for the create item link
 	 */
-	public static function create($category, $params, $attribs = array(), $legacy = false)
+	public static function create($category, $params, $attribs = [], $legacy = false)
 	{
 		$uri = Uri::getInstance();
 
 		$url = 'index.php?option=com_content&task=article.add&return=' . base64_encode($uri) . '&a_id=0&catid=' . $category->id;
 
-		$text = LayoutHelper::render('joomla.content.icons.create', array('params' => $params, 'legacy' => $legacy));
+		$text = LayoutHelper::render('joomla.content.icons.create', ['params' => $params, 'legacy' => $legacy]);
 
 		// Add the button classes to the attribs array
 		if (isset($attribs['class']))
@@ -70,7 +69,7 @@ abstract class JHtmlIconghsvs
 	 *
 	 * @return  string  The HTML markup for the email item link
 	 */
-	public static function email($article, $params, $attribs = array(), $legacy = false)
+	public static function email($article, $params, $attribs = [], $legacy = false)
 	{
 		if (isset(static::$loaded[__METHOD__]))
 		{
@@ -84,6 +83,7 @@ abstract class JHtmlIconghsvs
 		}
 
 		static::$loaded[__METHOD__] = 1;
+
 		return '';
 	}
 
@@ -104,11 +104,11 @@ abstract class JHtmlIconghsvs
 	public static function print_popup(
 		$article,
 		$params,
-		$attribs = array(),
+		$attribs = [],
 		$legacy = false,
 		$tmpl = 'print',
 		$iconClass = ''
-	){
+	) {
 		$app = Factory::getApplication();
 		$input = $app->input;
 		$request = $input->request;
@@ -124,9 +124,10 @@ abstract class JHtmlIconghsvs
 
 		$status = 'status=no,toolbar=no,scrollbars=yes,titlebar=no,menubar=no,resizable=yes,width=640,height=480,directories=no,location=yes';
 
-		$text = HTMLHelper::_('bs3ghsvs.layout',
+		$text = HTMLHelper::_(
+			'bs3ghsvs.layout',
 			'joomla.content.icons.print_popup',
-			array('params' => $params, 'legacy' => $legacy)
+			['params' => $params, 'legacy' => $legacy]
 		);
 
 		$attribs['title']   = htmlspecialchars(
@@ -162,18 +163,18 @@ abstract class JHtmlIconghsvs
 	 *
 	 * @return  string  The HTML markup for the popup link
 	 */
-	public static function print_screen($article, $params, $attribs = array(), $legacy = false)
+	public static function print_screen($article, $params, $attribs = [], $legacy = false)
 	{
-
-		$text = HTMLHelper::_('bs3ghsvs.layout',
+		$text = HTMLHelper::_(
+			'bs3ghsvs.layout',
 			'joomla.content.icons.print_screen',
-			array('params' => $params, 'legacy' => $legacy)
+			['params' => $params, 'legacy' => $legacy]
 		);
 
 		return '<a href="#" onclick="window.print();return false;">' . $text . '</a>';
 	}
 
-	public static function edit($article, $params, $attribs = array(), $legacy = false)
+	public static function edit($article, $params, $attribs = [], $legacy = false)
 	{
 		$user = Factory::getUser();
 		$uri  = Uri::getInstance();
@@ -204,7 +205,7 @@ abstract class JHtmlIconghsvs
 			$text = Text::_('JLIB_HTML_CHECKED_OUT');
 
 			$output = '<span class="text-red">{svg{regular/edit}}</span>'
-				. Text::_('COM_CONTENT_EDIT_ITEM') . ' (' .$tooltip . ')</span>';
+				. Text::_('COM_CONTENT_EDIT_ITEM') . ' (' . $tooltip . ')</span>';
 
 			return $output;
 		}

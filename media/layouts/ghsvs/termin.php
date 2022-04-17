@@ -35,9 +35,9 @@ if (!isset($dateFormat))
 ?>
 <p class="terminGhsvs alert alert-info"><?php echo Text::_('GHSVS_DATUM'); ?>
 	<?php if ($dates->start)
-	{
-		echo HTMLHelper::_('date', $dates->start, $dateFormat, false);
-	}
+{
+	echo HTMLHelper::_('date', $dates->start, $dateFormat, false);
+}
 
 	if ($dates->end)
 	{

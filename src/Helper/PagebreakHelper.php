@@ -11,14 +11,11 @@ use Joomla\CMS\Utility\Utility;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 
-use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Image\Image;
-use Joomla\CMS\Uri\Uri;
 
 class Bs3ghsvsPagebreak
 {
-	protected static $loaded = array();
+	protected static $loaded = [];
 
 	/**
 	* @var Registry|array|null null will load bs3ghsvs-Params.
@@ -39,7 +36,7 @@ class Bs3ghsvsPagebreak
 		}
 
 		$app = Factory::getApplication();
- 		$print = $app->input->getBool('print');
+		$print = $app->input->getBool('print');
 		$isRobot = (int) $app->client->robot;
 
 		// JCE removes <p> around SHORTCODEs if setting in JCE yes. Therefore new regex since 2020-09.
@@ -83,14 +80,15 @@ class Bs3ghsvsPagebreak
 
 				if (!$print && !$isRobot)
 				{
-					$collector[] = HTMLHelper::_('bootstrap.startAccordion',
-							$selector,
-							array(
+					$collector[] = HTMLHelper::_(
+						'bootstrap.startAccordion',
+						$selector,
+						[
 							/* Damit nur 1 Slide geöffnet werden kann, wird ein parent gesetzt!
 							Wenn multiSelectable=0 => parent=TRUE */
 							'parent' => !$pluginParams->get('multiSelectable', 0),
-							)
-						);
+							]
+					);
 				}
 
 				// Panels.
@@ -111,14 +109,15 @@ class Bs3ghsvsPagebreak
 
 						if (!$print && !$isRobot)
 						{
-							$collector[] = HTMLHelper::_('bootstrap.addSlide',
-										$selector,
-										$title,
-										$href,
-										$class,
-										$toggleContainer,
-										$title2
-									);
+							$collector[] = HTMLHelper::_(
+								'bootstrap.addSlide',
+								$selector,
+								$title,
+								$href,
+								$class,
+								$toggleContainer,
+								$title2
+							);
 						}
 
 						$collector[] = '<' . $headingTagGhsvs

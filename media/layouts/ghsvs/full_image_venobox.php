@@ -39,7 +39,7 @@ if ($image = $images->get('image_fulltext'))
 	$caption = htmlspecialchars($caption, ENT_QUOTES, 'UTF-8');
 	$imagepopupDescr = htmlspecialchars($imagepopupDescr, ENT_QUOTES, 'UTF-8');
 
-	$picture = array('<picture>');
+	$picture = ['<picture>'];
 
 	/* $imgs is something like
 	Array
@@ -58,15 +58,15 @@ if ($image = $images->get('image_fulltext'))
 	if (!empty($imgs[0]))
 	{
 		$imgs = ArrayHelper::getColumn($imgs[0], 'img', 'size');
-/*
-_u 700
-_l 400
-_m 360
-_s 320
-_og min 310
-*/
+		/*
+		_u 700
+		_l 400
+		_m 360
+		_s 320
+		_og min 310
+		*/
 
-		$sources = array(
+		$sources = [
 		 '(max-width: 320px)' => !empty($imgs['_s']) ? $imgs['_s'] : null,
 		 '(max-width: 360px)' => !empty($imgs['_m']) ? $imgs['_m'] : null,
 		 '(max-width: 480px)' => !empty($imgs['_l']) ? $imgs['_l'] : null,
@@ -74,11 +74,14 @@ _og min 310
 			'(max-width: 640px)' => !empty($imgs['_s']) ? $imgs['_s'] : null,
 			'(max-width: 768px)' => !empty($imgs['_m']) ? $imgs['_m'] : null,
 			'(min-width: 769px)' => !empty($imgs['_l']) ? $imgs['_l'] : null,
-		);
+		];
 
 		foreach ($sources as $media => $srcset)
 		{
-			if (!$srcset) continue;
+			if (!$srcset)
+			{
+				continue;
+			}
 			$picture[] = '<source srcset="' . $srcset . '" media="' . $media . '">';
 		}
 	}
@@ -97,11 +100,10 @@ _og min 310
 	// 2017-10-03. B\C.
 	// Kein Bindestrich! Sonst funktioniert :not() nicht
 	$align = 'imgAlign'
-		. (!empty($displayData['use-float_fulltext']) ? $images->get('float_fulltext') : '');
-?>
+		. (!empty($displayData['use-float_fulltext']) ? $images->get('float_fulltext') : ''); ?>
 <figure class="item-image image_fulltext <?php echo $align?>">
 	<a href="<?php echo $imagepopup; ?>" title="<?php echo $imagepopupDescr; ?>"
-		data-title="<?php echo $imagepopupDescr; ?>" class="<?php echo ($venobox ? 'venobox' : ''); ?>">
+		data-title="<?php echo $imagepopupDescr; ?>" class="<?php echo($venobox ? 'venobox' : ''); ?>">
 		<?php echo $picture; ?>
 		<div class="iconGhsvs text-right">
 			<div class="btn btn-default btn-sm">

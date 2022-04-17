@@ -12,7 +12,6 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\Installer\Installer;
 use Joomla\CMS\Installer\InstallerScript;
 use Joomla\CMS\Log\Log;
 
@@ -24,7 +23,7 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 	 * @var    array
 	 * @since  2.0
 	 */
-	protected $deleteFiles = array(
+	protected $deleteFiles = [
 		'/media/plg_system_bs3ghsvs/css/index.html',
 		'/media/plg_system_bs3ghsvs/js/jquery/version.txt',
 		'/media/plg_system_bs3ghsvs/js/jquery/jquery-3.4.1.js',
@@ -91,7 +90,7 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/plugins/system/bs3ghsvs/Field/enabledchecker.php',
 		'/plugins/system/bs3ghsvs/html/footableghsvs.php',
 		'/media/plg_system_bs3ghsvs/layouts/ghsvs/frontediting_modules_in_article.php',
-	);
+	];
 
 	/**
 	 * A list of folders to be deleted with method removeFiles().
@@ -99,7 +98,7 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 	 * @var    array
 	 * @since  2.0
 	 */
-	protected $deleteFolders = array(
+	protected $deleteFolders = [
 		'/media/plg_system_bs3ghsvs/fontawesome-free/5/_V5.11.2',
 		'/media/plg_system_bs3ghsvs/fontawesome-free/5/_V5.13.0',
 		'/media/plg_system_bs3ghsvs/fontawesome-free/5',
@@ -129,7 +128,7 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/media/plg_system_bs3ghsvs/css/footable',
 		'/plugins/system/bs3ghsvs/versions-installed',
 		'/media/plg_system_bs3ghsvs/svgs',
-	);
+	];
 
 	public function preflight($type, $parent)
 	{
@@ -214,12 +213,12 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 	 *
 	 * @since   version after 2019.05.29
 	 */
-	 protected function removeOldUpdateservers()
- 	{
- 		$db = Factory::getDbo();
- 		try
- 		{
- 			$query = $db->getQuery(true);
+	protected function removeOldUpdateservers()
+	{
+		$db = Factory::getDbo();
+		try
+		{
+			$query = $db->getQuery(true);
 
 			$query->select('update_site_id')
 				->from($db->qn('#__update_sites'))
@@ -237,8 +236,8 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 				return;
 			}
 
-			$ids = \array_keys($ids);
-			$ids =\implode(',', $ids);
+			$ids = array_keys($ids);
+			$ids =implode(',', $ids);
 
 			// Delete from update sites
 			$db->setQuery(
@@ -258,5 +257,5 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		{
 			return;
 		}
- 	}
+	}
 }

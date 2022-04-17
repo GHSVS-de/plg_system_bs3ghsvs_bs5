@@ -28,11 +28,10 @@ if (!$page_heading && !empty($displayData['ifNoPage_heading']))
 
 if ($page_heading || $page_subheading)
 {
-	$position = !empty($displayData['bs3ghsvs.rendermodules-position']) ? 
+	$position = !empty($displayData['bs3ghsvs.rendermodules-position']) ?
 		$displayData['bs3ghsvs.rendermodules-position'] : '';
 
-	$class = $position ? ' rendermodules-position ' . $position : '';
-?>
+	$class = $position ? ' rendermodules-position ' . $position : ''; ?>
 <div class="page-header<?php echo $params->get('pageheader_suffix_ghsvs', ''); ?><?php echo $class ?>">
 	<h1>
 		<?php echo $page_heading; ?>

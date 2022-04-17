@@ -23,7 +23,7 @@ $pageheader_suffix_ghsvs = $params->get('pageheader_suffix_ghsvs', '');
 
 if ($params->get('show_description_image'))
 {
- $catImage = $displayData->get('category')->getParams()->get('image');
+	$catImage = $displayData->get('category')->getParams()->get('image');
 	if ($catImage)
 	{
 		HTMLHelper::_('plgvenoboxghsvs.venobox');
@@ -36,8 +36,8 @@ if ($params->get('show_description_image'))
 		}
 		$parts = explode('.', $catImage);
 		$ext = array_pop($parts);
-		$thmb = implode('.', $parts).'-thumb.'.$ext;
-		if (!JFile::exists(JPATH_SITE.'/'.$thmb))
+		$thmb = implode('.', $parts) . '-thumb.' . $ext;
+		if (!JFile::exists(JPATH_SITE . '/' . $thmb))
 		{
 			$thmb = $catImage;
 		}
@@ -45,22 +45,24 @@ if ($params->get('show_description_image'))
 }
 ?>
 <?php
- echo HTMLHelper::_('bs3ghsvs.layout', 'ghsvs.page_heading',
-		array('params' => $params)
-	); ?>
-<?php if($params->get('show_category_title', 1)) : ?>
+ echo HTMLHelper::_(
+	'bs3ghsvs.layout',
+	'ghsvs.page_heading',
+	['params' => $params]
+); ?>
+<?php if ($params->get('show_category_title', 1)) : ?>
 <div class="page-header">
 	<h2><?php
 			echo HTMLHelper::_(
-				'content.prepare',
-				$displayData->get('category')->title,
-				'',
-				$displayData->get('category')->extension.'.category.title'
-			); ?></h2>
+		'content.prepare',
+		$displayData->get('category')->title,
+		'',
+		$displayData->get('category')->extension . '.category.title'
+	); ?></h2>
 </div><!--/page-header h2-->
 <?php endif; ?>
 <?php if ($params->get('show_cat_tags', 1)) :
-	echo HTMLHelper::_('bs3ghsvs.layout','joomla.content.tags', $displayData->get('category')->tags->itemTags);
+	echo HTMLHelper::_('bs3ghsvs.layout', 'joomla.content.tags', $displayData->get('category')->tags->itemTags);
 endif; ?>
 <?php if ($params->get('show_description', 1) || $catImage) : ?>
 <div class="category-desc">
@@ -74,11 +76,11 @@ endif; ?>
 	<?php if ($params->get('show_description') && $displayData->get('category')->description) : ?>
 		<?php
 			echo HTMLHelper::_(
-				'content.prepare',
-				$displayData->get('category')->description,
-				'',
-				$displayData->get('category')->extension . '.category'
-			); ?>
+	'content.prepare',
+	$displayData->get('category')->description,
+	'',
+	$displayData->get('category')->extension . '.category'
+); ?>
 	<?php endif; ?>
 	<div class="clr"></div>
 </div><!--/category-desc-->

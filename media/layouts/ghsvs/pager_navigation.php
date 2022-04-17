@@ -17,14 +17,13 @@ $next_link = $options->get('next_link', false);
 
 if (!$prev_link && !$next_link)
 {
- return;
+	return;
 }
 ?>
 <ul class="pager pagenav">
 <?php if ($prev_link)
 {
- $prev_title = $options->get('prev_title', '');
-?>
+	$prev_title = $options->get('prev_title', ''); ?>
  <li class="previous">
   <a class="hasTooltip" href="<?php echo $prev_link ?>" rel="prev" title="<?php echo $prev_title ?>">
    <span class="icon-chevron-left"></span>
@@ -36,9 +35,8 @@ if (!$prev_link && !$next_link)
 <?php
 }?>
 <?php if ($next_link)
-{
- $next_title = $options->get('next_title', '');
-?>
+	{
+		$next_title = $options->get('next_title', ''); ?>
  <li class="next">
   <a class="hasTooltip" href="<?php echo $next_link ?>" rel="next" title="<?php echo $next_title ?>">
    <span class="pageprevnextLabel">
@@ -48,5 +46,5 @@ if (!$prev_link && !$next_link)
   </a>
  </li>
 <?php
-}?>
+	}?>
 </ul><!--/pager pagenav-->

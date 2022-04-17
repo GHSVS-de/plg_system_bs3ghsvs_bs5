@@ -23,7 +23,7 @@ $className = substr($extension, 4);
 $catImage = $title = '';
 if ($params->get('show_description_image'))
 {
- $catImage = $displayData->get('category')->getParams()->get('image');
+	$catImage = $displayData->get('category')->getParams()->get('image');
 	if ($catImage)
 	{
 		HTMLHelper::_('plgvenoboxghsvs.venobox');
@@ -37,8 +37,8 @@ if ($params->get('show_description_image'))
 		}
 		$parts = explode('.', $catImage);
 		$ext = array_pop($parts);
-		$thmb = implode('.', $parts).'-thumb.'.$ext;
-		if (!JFile::exists(JPATH_SITE.'/'.$thmb))
+		$thmb = implode('.', $parts) . '-thumb.' . $ext;
+		if (!JFile::exists(JPATH_SITE . '/' . $thmb))
 		{
 			$thmb = $catImage;
 		}
@@ -53,7 +53,7 @@ if (substr($className, -1) == 's')
 }
 $tagsData  = $displayData->get('category')->tags->itemTags;
 ?>
-<div class="<?php echo $className .'-category' . $displayData->pageclass_sfx;?>">
+<div class="<?php echo $className . '-category' . $displayData->pageclass_sfx;?>">
 	<?php if ($params->get('show_page_heading')) : ?>
 	<div class="page-headerHandschrift">
 		<h1>
@@ -61,10 +61,10 @@ $tagsData  = $displayData->get('category')->tags->itemTags;
 		</h1>
 	</div><!--/page-header h1-->
 	<?php endif; ?>
-	<?php if($params->get('show_category_title', 1)) : ?>
+	<?php if ($params->get('show_category_title', 1)) : ?>
 	<div class="page-header">
 		<h2>
-			<?php echo HTMLHelper::_('content.prepare', $displayData->get('category')->title, '', $extension.'.category.title'); ?>
+			<?php echo HTMLHelper::_('content.prepare', $displayData->get('category')->title, '', $extension . '.category.title'); ?>
 		</h2>
 	</div><!--/page-header h2-->
 	<?php endif; ?>
@@ -81,7 +81,7 @@ $tagsData  = $displayData->get('category')->tags->itemTags;
 		</div><!--/item-image-->
 		<?php endif; ?>
 		<?php if ($params->get('show_description') && $displayData->get('category')->description) : ?>
-			<?php echo HTMLHelper::_('content.prepare', $displayData->get('category')->description, '', $extension .'.category'); ?>
+			<?php echo HTMLHelper::_('content.prepare', $displayData->get('category')->description, '', $extension . '.category'); ?>
 		<?php endif; ?>
 		<div class="clr"></div>
 	</div><!--/category-desc-->

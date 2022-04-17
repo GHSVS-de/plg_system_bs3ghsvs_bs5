@@ -3,10 +3,11 @@ defined('JPATH_BASE') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+
 ?>
 <dl class="article-info">
 	<?php if ($displayData['params']->get('show_author')
-		&& !empty($displayData['item']->author ))
+		&& !empty($displayData['item']->author))
 	{ ?>
 		<?php echo HTMLHelper::_('bs3ghsvs.layout', 'joomla.content.info_block.author', $displayData); ?>
 	<?php
@@ -26,8 +27,8 @@ $showDate = $displayData['params']->get('show_publish_date')
 	 !isset($displayData['item']->combinedCatsGhsvs) ||
 		(!$displayData['params']->get('ghsvs_combine_categories', 0) &&
 		!$displayData['item']->params->get('ghsvs_combine_categories', 0))
-	){
-	?>
+	) {
+		?>
 		<?php if ($show_parent_category || $show_category)
 		{ ?>
 			<dt class="visually-hidden"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_CATEGORIES'); ?></dt>
@@ -47,7 +48,7 @@ $showDate = $displayData['params']->get('show_publish_date')
 	}
 	else
 	{
-	?>
+		?>
 		<dt class="visually-hidden"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_CATEGORIES'); ?></dt>
 		<?php
 		$displayData['item']->params->set('ghsvs_combine_categories', 0);

@@ -13,13 +13,13 @@ if (!is_file($file))
 	error_log(str_replace(JPATH_SITE, '', __FILE__) . ' was called but '
 		. str_replace(JPATH_SITE, '', $file) . ' not found. Check your code!'
 		. ' Normally there shouldn\'t be a call like that.');
+
 	return;
 }
 
 require_once $file;
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\Filesystem\Folder;
 use Joomla\CMS\Filesystem\Path;
 use Joomla\CMS\Image\Image;
@@ -32,8 +32,11 @@ use Joomla\Registry\Registry;
 class ImgResizeCache
 {
 	protected $cache_folder;
+
 	protected $cache_folderRel;
+
 	protected $force;
+
 	protected $origBildAbs;
 
 	// Wie übergeben:
@@ -48,14 +51,14 @@ class ImgResizeCache
 	// ImageManager. Only set if WEBP support.
 	protected $driver = '';
 
-	protected $scaleMethods = array();
+	protected $scaleMethods = [];
 
 	// Can be extended. See below.
-	protected $supportedFormats = array(
+	protected $supportedFormats = [
 		IMAGETYPE_JPEG,
 		IMAGETYPE_PNG,
-		IMAGETYPE_GIF
-	);
+		IMAGETYPE_GIF,
+	];
 
 	public function __construct(Registry $plgParams)
 	{
@@ -67,27 +70,27 @@ class ImgResizeCache
 		$this->webpSupport     = $plgParams->get('webpSupport', 0);
 
 		// ImageManager.
-    if ($this->webpSupport && extension_loaded('imagick') && \Imagick::queryFormats('WEBP'))
+		if ($this->webpSupport && extension_loaded('imagick') && \Imagick::queryFormats('WEBP'))
 		{
-      $this->driver             = 'imagick';
+			$this->driver             = 'imagick';
 			$this->supportedFormats[] = IMAGETYPE_WEBP;
 
 			if (\Imagick::queryFormats('BMP'))
 			{
 				$this->supportedFormats[] = IMAGETYPE_BMP;
 			}
-    }
-    elseif ($this->webpSupport && extension_loaded('gd') && function_exists('imagewebp'))
+		}
+		elseif ($this->webpSupport && extension_loaded('gd') && function_exists('imagewebp'))
 		{
-      $this->driver             = 'gd';
+			$this->driver             = 'gd';
 			$this->supportedFormats[] = IMAGETYPE_WEBP;
-    }
+		}
 		// Fallback to Joomla...\Image. Supports only gd at the moment.
 		elseif (extension_loaded('gd'))
 		{
 			$this->driver       = 'joomla';
 			$this->webpSupport  = 0;
-			$this->scaleMethods = array(
+			$this->scaleMethods = [
 				//1 Not supported yet bzw. unsinnig, da w und h jedesmal ratiokonform berechnet werden.
 				//Kommt also selbes raus wie SCALE_INSIDE.
 				//Wenn w und h, wird Bild exakt auf diese Größe gestaucht/gezogen. Ratio geht verloren.
@@ -108,7 +111,7 @@ class ImgResizeCache
 				//6 Not supported yet bzw. unsinnig, da w und h jedesmal ratiokonform berechnet werden.
 				//w und h werden ggf. mit schwarzem Hintergrund gefüllt.
 				#'SCALE_FIT' => Image::SCALE_FIT,
-			);
+			];
 		}
 		if ($this->driver === '')
 		{
@@ -123,11 +126,11 @@ class ImgResizeCache
 		$scaleMethod = 'SCALE_INSIDE',
 		$sizePostfix = '',
 		$force = 0
-	){
+	) {
 		// Defines also $this->origImageInfos array with image infos.
 		if (!$opts || !$this->_checkImage($imagePath))
 		{
-			return array('img-1' => $imagePath, 'count' => 1, 'resized' => 0);
+			return ['img-1' => $imagePath, 'count' => 1, 'resized' => 0];
 		}
 
 		if (!$this->_checkImage($imagePath))
@@ -145,17 +148,17 @@ class ImgResizeCache
 		);
 	}
 
- /**
-  * @param array $opts  (w(pixels), h(pixels), crop(boolean), scale(boolean), thumbnail(boolean), maxOnly(boolean), canvas-color(#abcabc), output-filename(string), cache_http_minutes(int))
-  * @return new URL for resized image.
-  */
+	/**
+	 * @param array $opts  (w(pixels), h(pixels), crop(boolean), scale(boolean), thumbnail(boolean), maxOnly(boolean), canvas-color(#abcabc), output-filename(string), cache_http_minutes(int))
+	 * @return new URL for resized image.
+	 */
 	protected function _resize(
 		$opts = null,
 		$scaleMethod = 'SCALE_INSIDE',
 		$sizePostfix = '',
 		$force = 0
-	){
-		$defaults = array(
+	) {
+		$defaults = [
 			// Fliegt erst mal raus:
 			// 'crop' => false,
 			// 'scale' => false,
@@ -167,11 +170,11 @@ class ImgResizeCache
 			'maxOnly' => false,
 			'cacheFolder' => $this->cache_folder,
 			'quality' => 80,
-			'size' => ''
+			'size' => '',
 			// Weitere Werte können sein:
 			// 'w' => 240,
 			// 'h' => 360,
-		);
+		];
 
 		$opts = array_merge($defaults, $opts);
 
@@ -191,24 +194,24 @@ class ImgResizeCache
 			}
 		}
 
-		$origPathInfos = \pathinfo($this->origBildRel);
-/*
-Array $origPathInfos
-(
-	[dirname] => images/logos
-	[basename] => PLG_CONTENT_SYNTAXHIGHLIGHTERGHSVS.png
-	[extension] => png
-	[filename] => PLG_CONTENT_SYNTAXHIGHLIGHTERGHSVS
-)
-*/
+		$origPathInfos = pathinfo($this->origBildRel);
+		/*
+		Array $origPathInfos
+		(
+			[dirname] => images/logos
+			[basename] => PLG_CONTENT_SYNTAXHIGHLIGHTERGHSVS.png
+			[extension] => png
+			[filename] => PLG_CONTENT_SYNTAXHIGHLIGHTERGHSVS
+		)
+		*/
 		// B\C break somehow.
-		$origPathInfos['extension'] = \strtolower($origPathInfos['extension']);
+		$origPathInfos['extension'] = strtolower($origPathInfos['extension']);
 
 		$targetWidth = $targetHeight = false;
 		$neuBildPfad = $origPathInfos['dirname'];
 
 		// Build cache filename stepwise.
-		$neuBildName = array($origPathInfos['filename']);
+		$neuBildName = [$origPathInfos['filename']];
 
 		if ($sizePostfix)
 		{
@@ -235,11 +238,12 @@ Array $origPathInfos
 			}
 		}
 
-		$imgCollector = array();
+		$imgCollector = [];
 
 		// Without extension.
 		$neuBildName = str_replace(
-			'__', '_',
+			'__',
+			'_',
 			implode('_', $neuBildName)
 		);
 
@@ -253,18 +257,17 @@ Array $origPathInfos
 		$do = 0;
 		if (!$force)
 		{
-			if ($this->webpSupport === 2 && \file_exists($neuBildAbs . '.webp'))
+			if ($this->webpSupport === 2 && file_exists($neuBildAbs . '.webp'))
 			{
 				$imgCollector['img-1'] = $neuBild . '.webp';
 				$imgCollector['count'] = 1;
 				$do = 1;
 			}
-			elseif
-			(
+			elseif (
 				$this->webpSupport === 1
-				&& $webp = \file_exists($neuBildAbs . '.webp')
-				&& $orig = \file_exists($neuBildAbs . '.' . $origPathInfos['extension'])
-			){
+				&& $webp = file_exists($neuBildAbs . '.webp')
+				&& $orig = file_exists($neuBildAbs . '.' . $origPathInfos['extension'])
+			) {
 				$imgCollector['img-1'] = $neuBild . '.' . $origPathInfos['extension'];
 				$imgCollector['count'] = 1;
 
@@ -275,7 +278,7 @@ Array $origPathInfos
 				}
 				$do = 1;
 			}
-			elseif (\file_exists($neuBildAbs . '.' . $origPathInfos['extension']))
+			elseif (file_exists($neuBildAbs . '.' . $origPathInfos['extension']))
 			{
 				$imgCollector['img-1'] = $neuBild . '.' . $origPathInfos['extension'];
 				$imgCollector['count'] = 1;
@@ -288,11 +291,12 @@ Array $origPathInfos
 					$imgCollector['width'],
 					$imgCollector['height']
 				) = Bs3ghsvsItem::getImageSize($imgCollector['img-1'], true);
+
 				return $imgCollector;
 			}
 		}
 
-		if (!\is_dir($neuBildPfad))
+		if (!is_dir($neuBildPfad))
 		{
 			Folder::create($neuBildPfad);
 		}
@@ -328,7 +332,7 @@ Array $origPathInfos
 			}
 			else
 			{
-				$manager = new ImageManager(array('driver' => $this->driver));
+				$manager = new ImageManager(['driver' => $this->driver]);
 				$image = $manager->make($this->origBildAbs);
 			}
 		}
@@ -365,7 +369,7 @@ Array $origPathInfos
 					$quality = round(9 - $quality * 9/100); // 100 quality = 0 compression, 0 quality = 9 compression
 				}
 
-				$resizedImage->toFile($neuBildAbs . '.' . $origPathInfos['extension'], $this->origImageInfos[2], array('quality' => $quality));
+				$resizedImage->toFile($neuBildAbs . '.' . $origPathInfos['extension'], $this->origImageInfos[2], ['quality' => $quality]);
 
 				$imgCollector['img-1'] = $neuBild . '.' . $origPathInfos['extension'];
 			}
@@ -376,7 +380,7 @@ Array $origPathInfos
 				list(
 					$imgCollector['width'],
 					$imgCollector['height']
-				) = \getimagesize($neuBildAbs . '.' . $origPathInfos['extension']);
+				) = getimagesize($neuBildAbs . '.' . $origPathInfos['extension']);
 			}
 			else
 			{
@@ -476,11 +480,11 @@ Array $origPathInfos
 		return $imgCollector;
 	}
 
- /**
-  * Avoid errors if image corrupted
-  * @param string $image_path
-  * @return boolean
-  */
+	/**
+	 * Avoid errors if image corrupted
+	 * @param string $image_path
+	 * @return boolean
+	 */
 	protected function _checkImage($imagePath)
 	{
 		if (!$this->driver)
@@ -489,8 +493,8 @@ Array $origPathInfos
 		}
 
 		$this->imagePath   = $imagePath;
-		$this->origBildRel = \trim(Path::clean($this->imagePath, '/'), '\\/');
-		$purl              = \parse_url($this->origBildRel);
+		$this->origBildRel = trim(Path::clean($this->imagePath, '/'), '\\/');
+		$purl              = parse_url($this->origBildRel);
 
 		if (!empty($purl['scheme']) || !empty($purl['query']))
 		{
@@ -499,14 +503,14 @@ Array $origPathInfos
 
 		$this->origBildAbs = Path::clean(JPATH_SITE . '/' . $this->origBildRel, '/');
 
-		if (!\is_file($this->origBildAbs))
+		if (!is_file($this->origBildAbs))
 		{
 			return false;
 		}
 
 		try
 		{
-			$this->origImageInfos = \getimagesize($this->origBildAbs);
+			$this->origImageInfos = getimagesize($this->origBildAbs);
 
 			if (!$this->origImageInfos)
 			{
@@ -514,7 +518,7 @@ Array $origPathInfos
 			}
 
 			// e.g. supportedFormats[IMAGETYPE_PNG].
-			if (!\in_array($this->origImageInfos[2], $this->supportedFormats))
+			if (!in_array($this->origImageInfos[2], $this->supportedFormats))
 			{
 				return;
 			}

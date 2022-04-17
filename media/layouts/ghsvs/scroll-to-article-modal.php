@@ -12,7 +12,7 @@ $list = $displayData['items'];
 $jinput = Factory::getApplication()->input;
 $view = $jinput->get('view');
 
-$views = array('category');
+$views = ['category'];
 
 // Wenn empty($list) kommen wir hier gar nicht an. Muss also nicht prüfen.
 if (empty($list) || !in_array($view, $views))
@@ -25,10 +25,10 @@ $uri = Uri::getInstance();
 JLoader::register('Bs3ghsvsArticle', JPATH_PLUGINS . '/system/bs3ghsvs/Helper/ArticleHelper.php');
 $id = Bs3ghsvsArticle::buildUniqueIdFromJinput('scrollToArticleModal');
 
-HTMLHelper::_('bs3ghsvs.smoothscroll', array(
+HTMLHelper::_('bs3ghsvs.smoothscroll', [
 	'scrollParent' => '#' . $id,
-	'isAModal' => true
-));
+	'isAModal' => true,
+]);
 ?>
 <div>
 	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#<?php echo $id; ?>">
@@ -63,11 +63,10 @@ HTMLHelper::_('bs3ghsvs.smoothscroll', array(
 							foreach ($list as $item)
 							{
 								$uri->setFragment('blogitem-anker-' . $item->id);
-								$link = $uri->toString(array('path', 'query', 'fragment'));
-								$liclass = 'list-group-item';
-								?>
+								$link = $uri->toString(['path', 'query', 'fragment']);
+								$liclass = 'list-group-item'; ?>
 								<li class="<?php echo $liclass; ?>">
-									<a href="<?php echo $link;?>"><?php echo $item->title;?></a>
+									<a href="<?php echo $link; ?>"><?php echo $item->title; ?></a>
 								</li>
 							<?php
 							} ?>
@@ -98,15 +97,13 @@ else
 {
 	$options = new Registry();
 }
-$class = array();
+$class = [];
 if (!empty($displayData['smoothscroll']))
 {
-
 	$class[] = 'SMOOTHSCROLL';
 }
 
 $class[] = 'sprungmarken makeBackdrop';
-
 
 $dropdownHeader = '<li class="dropdown-header">Hüpfen auf dieser Seite</li>';
 $close = '<li class="dropdown-header"><span class="close glyphicon glyphicon-remove"></span></li>';
@@ -114,32 +111,33 @@ $cnt = 0;
 ?>
 <?php if (!empty($items))
 {
-	$time = 'blogitem-ankers-dropdown-' . str_replace('.', '', uniqid('', true));
-?>
-<div<?php echo $class;?>>
+	$time = 'blogitem-ankers-dropdown-' . str_replace('.', '', uniqid('', true)); ?>
+<div<?php echo $class; ?>>
  <div class="dropdown">
-  <button class="btn btn-primary" type="button" id="<?php echo $time;?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <button class="btn btn-primary" type="button" id="<?php echo $time; ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
    <?php echo Text::_('PLG_SYSTEM_BS3GHSVS_SCROLL_TO'); ?>
    {svg{bi/caret-down-fill}}
   </button>
-  <ul class="dropdown-menu controlMaxWidth " aria-labelledby="<?php echo $time;?>">
+  <ul class="dropdown-menu controlMaxWidth " aria-labelledby="<?php echo $time; ?>">
 		 <?php echo $dropdownHeader; ?>
 			<?php echo $close; ?>
 <?php
-foreach ($items as $item){ $cnt++;
- // Vorsicht mit $item->title. $items wird referenziert übergeben, also
-	// auch die Blogitem-Überschrift geändert!
- $title = str_replace(array('"', "'", '-', '«', '»'), ' ', $item->title);
-?>
-   <li><a href="#blogitem-anker-<?php echo $item->id;?>"><?php echo $title;?></a></li>
+foreach ($items as $item)
+	{
+		$cnt++;
+		// Vorsicht mit $item->title. $items wird referenziert übergeben, also
+		// auch die Blogitem-Überschrift geändert!
+		$title = str_replace(['"', "'", '-', '«', '»'], ' ', $item->title); ?>
+   <li><a href="#blogitem-anker-<?php echo $item->id; ?>"><?php echo $title; ?></a></li>
 <?php
  if (!($cnt % 10))
-	{
-		#echo $close;
-	}
-}; ?>
+ {
+ 	#echo $close;
+ }
+	} ?>
 <?php #echo $close; ?>
   </ul>
 </div>
 </div>
-<?php }; ?>
+<?php
+} ?>
