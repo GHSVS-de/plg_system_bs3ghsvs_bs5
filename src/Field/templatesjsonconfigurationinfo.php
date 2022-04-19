@@ -33,6 +33,7 @@ class JFormFieldTemplatesJsonConfigurationInfo extends FormField
 					. Uri::root() . $path . '" target="_blank">'
 					. $path . '</a></h5>';
 				$options = Bs3ghsvsTemplate::getTemplateOptionsFromJson($template);
+
 				foreach ($options as $key => $dingsbums)
 				{
 					$html[] = '<h6> &gt;&gt; ' . $key . '</h6>';
