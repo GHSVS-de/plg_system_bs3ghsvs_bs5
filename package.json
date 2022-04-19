@@ -71,8 +71,8 @@
 	},
 	"scripts": {
 		"g-build": "node build.js",
-    "g-npm-update-check": "npm outdated",
-    "g-npm-update": "npm update --save-dev"
+    "updateCheck": "npm outdated",
+    "update": "npm update --save-dev"
 	},
 	"dependencies": {
 		"@popperjs/core": "^2.11.0",
