@@ -13,12 +13,14 @@ JHtml::_('bs3ghsvs.addsprungmarke', '.dropdown-articles ul.dropdown-menu');
 $options = new Registry($displayData);
 
 $items = (array) $options->get('items');
+
 if (!$items)
 {
 	return '';
 }
 
 $views = (array) $options->get('views');
+
 if ($views && ! in_array(JFactory::getApplication()->input->get('view'), $views))
 {
 	return '';
@@ -28,10 +30,12 @@ $module = new Registry($options->get('module', new stdClass));
 
 $class = [];
 $class[] = 'dropdown-articles makeBackdrop';
+
 if (!empty($displayData['bootstrapsize']))
 {
 	$class[] = 'span' . $displayData['bootstrapsize'];
 }
+
 if ($class = implode(' ', $class))
 {
 	$class = ' class ="' . $class . '"';

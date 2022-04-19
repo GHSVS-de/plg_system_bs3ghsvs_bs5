@@ -16,10 +16,12 @@ else
 $class = [];
 
 $class[] = 'sprungmarken makeBackdrop';
+
 if (!empty($displayData['bootstrapsize']))
 {
 	$class[] = 'col-sm-' . $displayData['bootstrapsize'];
 }
+
 if ($class = implode(' ', $class))
 {
 	$class = ' class ="' . $class . '"';

@@ -24,11 +24,13 @@ $pageheader_suffix_ghsvs = $params->get('pageheader_suffix_ghsvs', '');
 if ($params->get('show_description_image'))
 {
 	$catImage = $displayData->get('category')->getParams()->get('image');
+
 	if ($catImage)
 	{
 		HTMLHelper::_('plgvenoboxghsvs.venobox');
 		$imgfloat = 'left';
 		$caption = $displayData->get('category')->getParams()->get('image_alt');
+
 		if ($caption)
 		{
 			$title = ' data-title="' . $this->escape($caption) . '"';
@@ -37,6 +39,7 @@ if ($params->get('show_description_image'))
 		$parts = explode('.', $catImage);
 		$ext = array_pop($parts);
 		$thmb = implode('.', $parts) . '-thumb.' . $ext;
+
 		if (!JFile::exists(JPATH_SITE . '/' . $thmb))
 		{
 			$thmb = $catImage;

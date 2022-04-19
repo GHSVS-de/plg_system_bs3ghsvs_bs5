@@ -47,6 +47,7 @@ $tagsCatGhsvs = $displayData->tagsCatGhsvs->itemTags;
 if (!empty($displayData->tags->itemTags))
 {
 	$tags = $displayData->tags->itemTags;
+
 	if (!isset($tags[0]->text))
 	{
 		$tags_ = new TagsHelper;

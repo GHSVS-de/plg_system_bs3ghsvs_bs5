@@ -21,14 +21,17 @@ $canEdit = $params->get('access-edit');
 $className = substr($extension, 4);
 
 $catImage = $title = '';
+
 if ($params->get('show_description_image'))
 {
 	$catImage = $displayData->get('category')->getParams()->get('image');
+
 	if ($catImage)
 	{
 		HTMLHelper::_('plgvenoboxghsvs.venobox');
 		$imgfloat = 'left';
 		$caption = $displayData->get('category')->getParams()->get('image_alt');
+
 		if ($caption)
 		{
 			HTMLHelper::_('behavior.caption');
@@ -38,6 +41,7 @@ if ($params->get('show_description_image'))
 		$parts = explode('.', $catImage);
 		$ext = array_pop($parts);
 		$thmb = implode('.', $parts) . '-thumb.' . $ext;
+
 		if (!JFile::exists(JPATH_SITE . '/' . $thmb))
 		{
 			$thmb = $catImage;

@@ -16,6 +16,7 @@ $displayData = $this->pagination aus View
 );*/
 $pages = $displayData['pagination']->getPaginationPages();
 $pagescounter = $displayData['pagination']->getPagesCounter();
+
 if (!isset($displayData['options']))
 {
 	$displayData['options'] = [];
@@ -69,6 +70,7 @@ foreach ($pages['pages'] as $page)
 {
 	$counter = JText::sprintf('JLIB_HTML_PAGE_CURRENT_OF_TOTAL', $page['data']->text, $total);
 	$class = '';
+
 	if ($page['data']->active)
 	{
 		$class = ' class="active"';

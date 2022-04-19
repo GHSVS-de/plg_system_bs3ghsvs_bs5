@@ -113,6 +113,7 @@ class ImgResizeCache
 				#'SCALE_FIT' => Image::SCALE_FIT,
 			];
 		}
+
 		if ($this->driver === '')
 		{
 			error_log("Error message: No Image driver found for resizing in "
@@ -255,6 +256,7 @@ class ImgResizeCache
 
 		// Anything to do?
 		$do = 0;
+
 		if (!$force)
 		{
 			if ($this->webpSupport === 2 && file_exists($neuBildAbs . '.webp'))

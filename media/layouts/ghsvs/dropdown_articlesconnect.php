@@ -36,10 +36,12 @@ JHtml::_('bs3ghsvs.addsprungmarke', '.articleconnect ul.dropdown-menu');
 
 $class = [];
 $class[] = 'articleconnect makeBackdrop';
+
 if (!empty($displayData['bootstrapsize']))
 {
 	$class[] = 'col-sm-' . $displayData['bootstrapsize'];
 }
+
 if ($class = implode(' ', $class))
 {
 	$class = ' class ="' . $class . '"';

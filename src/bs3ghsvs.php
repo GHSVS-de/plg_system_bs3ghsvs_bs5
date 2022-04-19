@@ -1179,6 +1179,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			$this->executeFe = false;
 			$error[] = 'Bs3GhsvsRegisterSelect';
 		}
+
 		if ($error)
 		{
 			$add = __METHOD__ . ': Something went completely wrong while registering these HTMLHelper-Methods: ' . implode(', ', $error);

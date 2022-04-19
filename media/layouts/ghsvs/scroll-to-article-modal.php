@@ -89,6 +89,7 @@ HTMLHelper::_('bs3ghsvs.smoothscroll', [
 
 <?php
 return;
+
 if (isset($displayData['options']))
 {
 	$options = new Registry($displayData['options']);
@@ -98,6 +99,7 @@ else
 	$options = new Registry();
 }
 $class = [];
+
 if (!empty($displayData['smoothscroll']))
 {
 	$class[] = 'SMOOTHSCROLL';

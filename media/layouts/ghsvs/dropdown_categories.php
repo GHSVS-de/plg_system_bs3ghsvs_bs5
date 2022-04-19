@@ -10,10 +10,12 @@ $module = $displayData['module'];
 
 $class = [];
 $class[] = 'dropdown-categories makeBackdrop';
+
 if (!empty($displayData['bootstrapsize']))
 {
 	$class[] = 'span' . $displayData['bootstrapsize'];
 }
+
 if ($class = implode(' ', $class))
 {
 	$class = ' class ="' . $class . '"';
@@ -51,6 +53,7 @@ foreach ($items as $item)
 		$liclass = '';
 		$cnt++;
 		$link = JRoute::_(ContentHelperRoute::getCategoryRoute($item->id));
+
 		if ($_SERVER['REQUEST_URI'] == $link)
 		{
 			$liclass = ' class="active"';

@@ -29,6 +29,7 @@ else
 			echo JText::_('COM_CONTENT_REGISTER_TO_READ_MORE');
 		elseif ($readmore = $item->alternative_readmore) :
 			echo $readmore;
+
 			if ($params->get('show_readmore_title', 0) != 0) :
 				echo JHtml::_('string.truncate', ($item->title), $params->get('readmore_limit'));
 			endif;

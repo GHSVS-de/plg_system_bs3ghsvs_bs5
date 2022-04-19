@@ -127,6 +127,7 @@ class Bs3GhsvsFormHelper
 				if (!in_array('sr-only', $ignore))
 				{
 					$class = $field->getAttribute('labelclass');
+
 					if (strpos($class, 'sr-only') === false)
 					{
 						$form->setFieldAttribute(
