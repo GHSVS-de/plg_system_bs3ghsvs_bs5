@@ -216,6 +216,7 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 	protected function removeOldUpdateservers()
 	{
 		$db = Factory::getDbo();
+
 		try
 		{
 			$query = $db->getQuery(true);
