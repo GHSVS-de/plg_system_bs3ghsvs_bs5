@@ -19,13 +19,13 @@ if (!is_file($file))
 
 require_once $file;
 
+use Intervention\Image\ImageManager;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Filesystem\Folder;
 use Joomla\CMS\Filesystem\Path;
 use Joomla\CMS\Image\Image;
-use Joomla\CMS\Language\Text;
 
-use Intervention\Image\ImageManager;
+use Joomla\CMS\Language\Text;
 
 use Joomla\Registry\Registry;
 

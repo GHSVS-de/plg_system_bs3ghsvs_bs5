@@ -6,12 +6,12 @@ JLoader::register('Bs3ghsvsPagebreak',JPATH_PLUGINS . '/system/bs3ghsvs/Helper/P
 
 defined('JPATH_PLATFORM') or die;
 
-use Joomla\Registry\Registry;
-use Joomla\CMS\Utility\Utility;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
-
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Utility\Utility;
+
+use Joomla\Registry\Registry;
 
 class Bs3ghsvsPagebreak
 {

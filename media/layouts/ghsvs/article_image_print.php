@@ -2,8 +2,8 @@
 defined('JPATH_BASE') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Plugin\PluginHelper;
 
 echo '<!--' . basename(__DIR__) . '/' . basename(__FILE__) . '-->';
 

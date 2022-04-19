@@ -2,9 +2,9 @@
 defined('JPATH_BASE') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\Utilities\ArrayHelper;
-use Joomla\CMS\Language\Text;
 
 $images = Bs3ghsvsItem::getItemImagesghsvs($displayData['item']);
 

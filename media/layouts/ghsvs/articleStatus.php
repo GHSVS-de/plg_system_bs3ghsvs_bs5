@@ -1,8 +1,8 @@
 <?php
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
 /**
  * $item: article

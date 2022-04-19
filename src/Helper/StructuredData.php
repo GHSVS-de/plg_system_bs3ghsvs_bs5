@@ -15,17 +15,17 @@ if (!is_file($file))
 require_once $file;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Multilanguage;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Mail\MailHelper;
+use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
-use Spatie\SchemaOrg\Schema;
-use Spatie\SchemaOrg\Organization;
 use Joomla\Registry\Registry;
 use Joomla\String\StringHelper;
-use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\Utilities\ArrayHelper;
-use Joomla\CMS\Mail\MailHelper;
-use Joomla\CMS\Language\Multilanguage;
-use Joomla\CMS\Router\Route;
-use Joomla\CMS\Language\Text;
+use Spatie\SchemaOrg\Organization;
+use Spatie\SchemaOrg\Schema;
 
 /*JLoader::registerNamespace(
 	'Spatie\\SchemaOrg',

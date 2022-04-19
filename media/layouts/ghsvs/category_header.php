@@ -54,11 +54,11 @@ if ($params->get('show_description_image'))
 <div class="page-header">
 	<h2><?php
 			echo HTMLHelper::_(
-		'content.prepare',
-		$displayData->get('category')->title,
-		'',
-		$displayData->get('category')->extension . '.category.title'
-	); ?></h2>
+	'content.prepare',
+	$displayData->get('category')->title,
+	'',
+	$displayData->get('category')->extension . '.category.title'
+); ?></h2>
 </div><!--/page-header h2-->
 <?php endif; ?>
 <?php if ($params->get('show_cat_tags', 1)) :

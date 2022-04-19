@@ -1,15 +1,15 @@
 <?php
 defined('JPATH_PLATFORM') or die;
 
-use Joomla\CMS\Helper\TagsHelper;
-use Joomla\Registry\Registry;
-use Joomla\CMS\Language\Text;
-use Joomla\CMS\Image\Image;
 use Joomla\CMS\Filesystem\Path;
-use Joomla\CMS\Utility\Utility;
-use Joomla\CMS\Uri\Uri;
-use Joomla\Utilities\ArrayHelper;
+use Joomla\CMS\Helper\TagsHelper;
+use Joomla\CMS\Image\Image;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Utility\Utility;
+use Joomla\Registry\Registry;
+use Joomla\Utilities\ArrayHelper;
 
 class Bs3ghsvsItem
 {
@@ -309,8 +309,7 @@ class Bs3ghsvsItem
 		string $what,
 		$IMAGES,
 		string $useSizePostfixes = ''
-	): array
-	{
+	): array {
 		$collect_images = [];
 		$key = 0;
 

@@ -12,8 +12,8 @@ Sollte sowohl in Blog, Featured und Article-View funktionieren.
 defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Router\Route;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 
 $params = $displayData['item']->params;
 $print = $displayData['print'];

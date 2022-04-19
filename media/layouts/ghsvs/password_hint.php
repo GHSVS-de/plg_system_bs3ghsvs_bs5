@@ -1,7 +1,7 @@
 <?php
 defined('JPATH_BASE') or die;
-use Joomla\CMS\Language\Text;
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Language\Text;
 
 ?>
 
