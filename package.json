@@ -2,7 +2,7 @@
 	"name": "plg_system_bs3ghsvs_bs5",
 	"nameReal": "plg_system_bs3ghsvs",
 	"filename": "bs3ghsvs",
-	"version": "2022.05.26-dev",
+	"version": "2022.05.26",
 	"versionCompare": "2022.02.17",
 	"update": {
 		"type": "plugin",
@@ -30,10 +30,10 @@
 		"docsDE": "",
 		"docsEN": "",
 		"lastTests": [
-			"PHP 8",
+			"PHP 8.0",
 			"PHP 7.4",
-			"Joomla 3.10.5",
-			"Joomla 4.0.6"
+			"Joomla 3.10",
+			"Joomla 4.1"
 		]
 	},
 	"minimumPhp": "7.3.0",
