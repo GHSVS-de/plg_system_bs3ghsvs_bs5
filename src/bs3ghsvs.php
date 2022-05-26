@@ -630,7 +630,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		if (
 			$iAmAnArticle
 			&& in_array($context, ['com_content.category', 'com_content.featured'])
-			&& strpos($article->images, '"introtext_imagesghsvs":') === false
+			&& empty($article->introtext_imagesghsvs)
 		) {
 			// Build basic $article->Imagesghsvs based upon $article->images and more.
 			Bs3ghsvsItem::getItemImagesghsvs($article);
@@ -644,7 +644,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			} // end if ($IMAGE = $article->Imagesghsvs->get('image_intro'))
 
 			$article->Imagesghsvs->set('introtext_imagesghsvs', $collect_images);
-			$article->images = $article->Imagesghsvs->toString();
+			$article->introtext_imagesghsvs = true;
 		}
 		// END image resize Article-Intro-Images in catgeory/featured view.
 
@@ -652,7 +652,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		if (
 			$iAmAnArticle
 			&& in_array($context, ['com_content.article'])
-			&& strpos($article->images, '"fulltext_imagesghsvs":') === false
+			&& empty($article->fulltext_imagesghsvs)
 		) {
 			// Build basic $article->Imagesghsvs based upon $article->images and more.
 			Bs3ghsvsItem::getItemImagesghsvs($article);
@@ -669,7 +669,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			} // end if ($IMAGE = $article->Imagesghsvs->get('image_fulltext'))
 
 			$article->Imagesghsvs->set('fulltext_imagesghsvs', $collect_images);
-			$article->images = $article->Imagesghsvs->toString();
+			$article->fulltext_imagesghsvs = true;
 		}
 		// END image resize Article-fulltext-Images in article view.
 
@@ -679,7 +679,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			&& in_array($context, ['com_content.article'])
 			&& $view === 'article'
 			// Collection already done? If true leave!
-			&& strpos($article->images, '"articletext_imagesghsvs":') === false
+			&& empty($article->articletext_imagesghsvs)
 		) {
 			if ($this->allImgSrc === null)
 			{
@@ -756,7 +756,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				}
 
 				$article->Imagesghsvs->set('articletext_imagesghsvs', $collect_images);
-				$article->images = $article->Imagesghsvs->toString();
+				$article->articletext_imagesghsvs = true;
 			}
 		}
 		###### image resize - END
