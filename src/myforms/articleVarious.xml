@@ -6,9 +6,9 @@
 			label="PLG_SYSTEM_BS3GHSVS_FIELDSET_BS3GHSVSFIELDS"
 			description="PLG_SYSTEM_BS3GHSVS_FIELDSET_BS3GHSVSFIELDS_DESC">
 
-			<field name="variousSpacer" type="spacer"
+			<field name="variousSpacer" type="note" class="alert alert-danger"
 					label="PLG_SYSTEM_BS3GHSVS_HEAD_VARIOUS"
-					description=""/>
+					description="PLG_SYSTEM_BS3GHSVS_HEAD_VARIOUS_DESC"/>
 
 			<field name="bs3ghsvs_various_active" type="list" default="0"
 				label="PLG_SYSTEM_BS3GHSVS_ACTIVE"
