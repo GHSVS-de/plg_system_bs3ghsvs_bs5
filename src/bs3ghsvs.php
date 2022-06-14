@@ -1005,10 +1005,15 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			&& $this->params->get('opengraphActive') === 1
 		) {
 			$doc = Factory::getDocument();
-			$doc->addCustomTag('<meta property="og:title" content="' . htmlentities($doc->getTitle(), ENT_QUOTES, 'utf-8') . '">');
-			$doc->addCustomTag('<meta property="og:url" content="' . Uri::current() . '">');
-			$doc->addCustomTag('<meta property="og:site_name" content="' . htmlentities($this->app->get('sitename'), ENT_QUOTES, 'utf-8') . '">');
-			$doc->addCustomTag('<meta property="og:description" content="' . htmlentities($doc->getDescription(), ENT_QUOTES, 'utf-8') . '">');
+			$doc->addCustomTag('<meta property="og:title" content="'
+				. htmlentities($doc->getTitle(), ENT_QUOTES, 'utf-8') . '">');
+			$doc->addCustomTag('<meta property="og:url" content="' . Uri::current()
+				. '">');
+			$doc->addCustomTag('<meta property="og:site_name" content="'
+				. htmlentities($this->app->get('sitename'), ENT_QUOTES, 'utf-8') . '">');
+			$doc->addCustomTag('<meta property="og:description" content="'
+				. htmlentities((string) $doc->getDescription(), ENT_QUOTES, 'utf-8')
+				. '">');
 
 			if ($this->templateParams->get('isFrontpage'))
 			{
