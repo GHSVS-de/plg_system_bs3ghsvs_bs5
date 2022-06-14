@@ -80,7 +80,7 @@ class Bs3GhsvsFormHelper
 
 			if (!in_array('form-control', $ignore))
 			{
-				$class = $field->getAttribute('class');
+				$class = $field->getAttribute('class', '');
 
 				if (strpos($class, 'form-control') === false)
 				{
@@ -126,7 +126,7 @@ class Bs3GhsvsFormHelper
 
 				if (!in_array('sr-only', $ignore))
 				{
-					$class = $field->getAttribute('labelclass');
+					$class = $field->getAttribute('labelclass', '');
 
 					if (strpos($class, 'sr-only') === false)
 					{
