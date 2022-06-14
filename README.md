@@ -18,6 +18,8 @@
 
 # My personal build procedure (WSL 1, Debian, Win 10)
 
+**@since v2022.06.14: Build procedure uses local repo fork of https://github.com/GHSVS-de/buildKramGhsvs**
+
 ## Don't forget this step when new Bootstrap JS!
 - https://github.com/GHSVS-de/tpl_bs4ghsvs#readme
 
