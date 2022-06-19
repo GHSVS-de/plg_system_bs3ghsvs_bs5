@@ -219,33 +219,50 @@ var addClassToFirstCharacter = function (myStr)
 	e.g. '#astroid-sticky-header' or '.sticky-top'.
 	e.g. '.isATocId' from mod_tocghsvs.
 	e.g. 40 for 40 additional pixels to calculated height of stickyEle
+	e.g. "stickyCompensation". Die id des <script> tags (wegen Nonce-Problem).
 	*/
-	$.fn.stickyCompensation = function(stickyEle, idClasses, addPixels)
+	$.fn.stickyCompensation = function(stickyEle, idClasses, addPixels, scriptTagId)
 	{
 		var $stickyEle = $(stickyEle);
 		var $idClasses = $(idClasses);
-	//console.log($stickyEle.length);
-	//console.log($idClasses.length);
+
 		if ($stickyEle.length && $idClasses.length)
 		{
 			var height = $.fn.getStickyHeight(stickyEle);
-	//console.log(height);
+
 			if (height)
 			{
-					height = (parseInt(height) + addPixels) + 'px';
+				height = (parseInt(height) + addPixels) + 'px';
+				let css;
+				let styles = `${idClasses}{scroll-margin-top:${height} !important;}`;
 
-					if ($('#tocGhsvsInlineStyles').length)
+				if (scriptTagId)
+				{
+					css = document.getElementById(scriptTagId);
+
+					while (css.firstChild)
 					{
-						$('#tocGhsvsInlineStyles').remove();
+						css.removeChild(css.firstChild);
+					}
+				}
+				else
+				{
+					css = document.getElementById('tocGhsvsInlineStyle');
+
+					if (css)
+					{
+						css.remove();
 					}
 
-					var css = document.createElement('style');
+					css = document.createElement('style');
 					css.type = 'text/css';
 					css.id = 'tocGhsvsInlineStyles';
-					var styles = `${idClasses}{scroll-margin-top:${height} !important;}`;
-					if (css.styleSheet) css.styleSheet.cssText = styles;
-					else css.appendChild(document.createTextNode(styles));
-					document.getElementsByTagName("head")[0].appendChild(css);
+				}
+
+
+				if (css.styleSheet) css.styleSheet.cssText = styles;
+				else css.appendChild(document.createTextNode(styles));
+				document.getElementsByTagName("head")[0].appendChild(css);
 			}
 		}
 	}
