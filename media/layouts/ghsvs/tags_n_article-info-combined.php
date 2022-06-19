@@ -1,5 +1,5 @@
 <?php
-/**
+/*
 Fasst <div class="div4article-info"> zusammen.
 Ruft die Jlayouts 'ghsvs.tags_n_tagscat' und 'joomla.content.info_block.block'.
  */

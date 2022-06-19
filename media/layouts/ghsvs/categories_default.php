@@ -1,5 +1,5 @@
 <?php
-/**
+/*
 GHSVS 2015-01-06
 page-header
  */
