@@ -171,7 +171,22 @@ abstract class JHtmlIconghsvs
 			['params' => $params, 'legacy' => $legacy]
 		);
 
-		return '<a href="#" onclick="window.print();return false;">' . $text . '</a>';
+		Factory::getDocument()->addScriptDeclaration
+		(
+<<<JS
+document.addEventListener('DOMContentLoaded', function()
+{
+	document.getElementById("a4printButton")
+	.addEventListener('click', (e) => {
+		window.print();
+		e.stopImmediatePropagation();
+		e.preventDefault();
+	});
+});
+JS
+		);
+
+		return '<a id="a4printButton" href="#">' . $text . '</a>';
 	}
 
 	public static function edit($article, $params, $attribs = [], $legacy = false)
