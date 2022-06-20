@@ -71,7 +71,7 @@
 		"url": "https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5.git"
 	},
 	"scripts": {
-		"g-build": "node build.js",
+		"build": "node build.js",
     "updateCheck": "npm outdated",
     "update": "npm update --save-dev"
 	},
