@@ -171,9 +171,8 @@ abstract class JHtmlIconghsvs
 			['params' => $params, 'legacy' => $legacy]
 		);
 
-		Factory::getDocument()->addScriptDeclaration
-		(
-<<<JS
+		Factory::getDocument()->addScriptDeclaration(
+			<<<JS
 document.addEventListener('DOMContentLoaded', function()
 {
 	document.getElementById("a4printButton")
