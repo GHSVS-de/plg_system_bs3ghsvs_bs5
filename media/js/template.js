@@ -240,12 +240,17 @@ var addClassToFirstCharacter = function (myStr)
 				{
 					css = document.getElementById(scriptTagId);
 
-					while (css.firstChild)
+					if (css)
 					{
-						css.removeChild(css.firstChild);
+						while (css.firstChild)
+						{
+							css.removeChild(css.firstChild);
+						}
 					}
 				}
-				else
+
+				// Outdated fallback. Not compatible with CSP nonces.
+				if (!css)
 				{
 					css = document.getElementById('tocGhsvsInlineStyle');
 
@@ -259,10 +264,16 @@ var addClassToFirstCharacter = function (myStr)
 					css.id = 'tocGhsvsInlineStyles';
 				}
 
-
-				if (css.styleSheet) css.styleSheet.cssText = styles;
-				else css.appendChild(document.createTextNode(styles));
-				document.getElementsByTagName("head")[0].appendChild(css);
+				if (css)
+				{
+					if (css.styleSheet) css.styleSheet.cssText = styles;
+					else css.appendChild(document.createTextNode(styles));
+					document.getElementsByTagName("head")[0].appendChild(css);
+				}
+				else
+				{
+					console.log("error in file plg_system_bs3ghsvs_bs5/media/js/template.js. Could not find SCRIPT container in $.fn.stickyCompensation.");
+				}
 			}
 		}
 	}
