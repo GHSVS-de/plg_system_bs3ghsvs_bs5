@@ -51,10 +51,7 @@ const thisPackages = [];
 	];
 	await helper.cleanOut(cleanOuts);
 
-	to = './dist'
-	await fse.mkdir(to).then(
-		answer => console.log(pc.yellow(pc.bold(`Created "${to}".`)))
-	);
+	await helper.mkdir('./dist');
 
 	// Get subversion (Bootstrap icons):
 	from = `${__dirname}/node_modules/bootstrap/package.json`;
