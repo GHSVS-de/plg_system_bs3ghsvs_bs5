@@ -556,6 +556,19 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 						}
 					}
 
+					// Change module position on selected menu items?
+					if (!empty($bs3ghsvsModule->modulePosition) && !empty($bs3ghsvsModule->modulePositionMenuItems))
+					{
+						$currentPageId = $this->app->input->get('Itemid', 0);
+
+						if (
+							in_array($currentPageId, $bs3ghsvsModule->modulePositionMenuItems)
+							&& $bs3ghsvsModule->modulePosition !== $module->position
+						) {
+							$module->position = $bs3ghsvsModule->modulePosition;
+						}
+					}
+
 					// Fine for parameters in first level.
 					$bs3ghsvsModule = new Registry($bs3ghsvsModule);
 					$registry->merge($bs3ghsvsModule);

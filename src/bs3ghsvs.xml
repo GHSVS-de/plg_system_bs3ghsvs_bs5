@@ -67,7 +67,7 @@
 
 				<field name="templatesJsonConfigurationInfo"
 					type="templatesJsonConfigurationInfo"
-					description="" hiddenLabel="true" />
+					 hiddenLabel="true" />
 
 			</fieldset>
 
@@ -77,7 +77,7 @@
 
 				<field name="version" type="plgSystemBs3Ghsvs.version"
 					label="JVERSION"
-					description=""/>
+					/>
 
 				<field name="log" type="list" default="0" filter="integer"
 					label="GHSVS_LOG"
@@ -184,7 +184,7 @@
 					<field name="xml_base" type="list" default="2"
 						filter="integer"
 						label="base.xml (System)"
-						description="">
+						>
 							<option value="2">JYES</option>
 							<option value="0">JNO</option>
 					</field>
@@ -192,7 +192,15 @@
 					<field name="xml_module" type="list" default="1"
 						filter="integer"
 						label="module.xml"
-						description="">
+						>
+							<option value="1">JYES</option>
+							<option value="0">JNO</option>
+					</field>
+
+					<field name="xml_modulePosition" type="list" default="0"
+						filter="integer"
+						label="modulePosition.xml"
+						>
 							<option value="1">JYES</option>
 							<option value="0">JNO</option>
 					</field>
@@ -212,7 +220,7 @@
 
 					<field name="xml_contactform" type="list" default="1" filter="integer"
 						label="contactform.xml"
-						description="">
+						>
 							<option value="1">JYES</option>
 							<option value="0">JNO</option>
 					</field>
@@ -243,7 +251,7 @@
 					<field name="xml_base" type="list" default="2"
 						readonly="true" filter="integer"
 						label="base.xml (System)"
-						description="">
+						>
 							<option value="2">JYES</option>
 							<option value="0">JNO</option>
 					</field>
@@ -251,7 +259,7 @@
 					<field name="xml_menuitem" type="list" default="1"
 						readonly="true" filter="integer"
 						label="menuitem.xml"
-						description="">
+						>
 							<option value="1">JYES</option>
 							<option value="0">JNO</option>
 					</field>
@@ -734,7 +742,7 @@
 
 				<field name="sd_robots" type="list" default="1" filter="integer"
 					label="Structured datas nur Robots zeigen"
-					description=""
+
 					showon="structureddataActive:1">
 						<option value="0">JNO</option>
 						<option value="1">JYES</option>
@@ -768,41 +776,41 @@ description="Seit 2016 für Google wohl nicht mehr nötig"
 
 					<field name="name" type="text" default="GHSVS Berlin Neukölln"
 						label="Organization name"
-						description=""
+
 						class="extended-width" />
 
 					<field name="email" type="text" default="info@ghsvs.de"
 						label="Organization email"
-						description=""
+
 						class="extended-width" />
 
 					<field name="telephone" type="text" default="+49-3070225168"
 						label="Organization telephone"
-						description=""
+
 						class="extended-width" />
 
 					<field name="faxNumber" type="text" default="0911-3084400421"
 						label="Organization faxNumber"
-						description=""
+
 						class="extended-width" />
 
 						<field name="foundingDate" type="text" default="2006"
 							label="Organization foundingDate (Year)"
-							description="" />
+							 />
 
 						<field name="description" type="text" default="Internet-Dienstleistungen mannigfaltiger Art zu günstigen Preisen für jedermann."
 							label="Organization description"
-							description=""
+
 							class="extended-width" />
 
 							<field name="foundingLocation" type="text" default="Berlin Neukölln"
 								label="Organization foundingLocation"
-								description=""
+
 								class="extended-width" />
 
 							<field name="founder" type="text" default="Volkmar Volli Schlothauer"
 								label="Organization founder (Name of Person)"
-								description=""
+
 								class="extended-width" />
 
 
@@ -819,7 +827,7 @@ label="Minimum Image Width"
 
 <field name="logo" type="media" default=""
 label="PLG_STRUCTUREDDATAGHSVS_ORGANIZATIONLOGO_LBL"
-description=""
+
 class="extended-width" />
 
 <field type="spacer" name="organizationlogosmallspacer"
@@ -827,7 +835,7 @@ label="PLG_STRUCTUREDDATAGHSVS_ORGANIZATIONLOGOSMALL_DESC"/>
 
 <field name="logosmall" type="media" default=""
 label="PLG_STRUCTUREDDATAGHSVS_ORGANIZATIONLOGOSMALL_LBL"
-description=""
+
 class="extended-width" />
 
 <field type="spacer" name="fallbackimagespacer"
@@ -835,7 +843,7 @@ label="PLG_STRUCTUREDDATAGHSVS_FALLBACKIMAGE_DESC"/>
 
 <field name="fallbackimage" type="media" default=""
 label="PLG_STRUCTUREDDATAGHSVS_FALLBACKIMAGE_LBL"
-description=""
+
 class="extended-width" />
 
 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fields name="params">
+
+		<fieldset name="modulePositionFieldset" label="Bs3Ghsvs">
+
+			<fields name="bs3ghsvsModule"  addfieldprefix="Joomla\Component\Modules\Administrator\Field">
+
+				<field type="note" name="modulePositionSpacer"
+					label="PLG_SYSTEM_BS3GHSVS_MODULEPOSITION"
+					description="PLG_SYSTEM_BS3GHSVS_MODULEPOSITION_DESC"
+					class="alert alert-info"/>
+
+					<field name="modulePosition" type="ModulesPositionedit"
+						client="site"
+						label="PLG_SYSTEM_BS3GHSVS_MODULEPOSITION"/>
+
+					<field name="modulePositionMenuItems" type="Menuitem"
+						multiple="true" layout="joomla.form.field.groupedlist-fancy-select"
+						label="PLG_SYSTEM_BS3GHSVS_MODULEPOSITION_MENUITEMS">
+						<option value="0">JNONE</option>
+					</field>
+
+			</fields>
+		</fieldset>
+
+	</fields>
+</form>
