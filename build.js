@@ -120,7 +120,6 @@ const thisPackages = [];
 		"dirname": __dirname
 	};
 
-
 	await replaceXml.main(replaceXmlOptions);
 	from = Manifest;
 	to = `./dist/${manifestFileName}`;
