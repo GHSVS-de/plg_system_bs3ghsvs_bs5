@@ -81,12 +81,16 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 	// We need a cache. Otherwise already set <figure> tags will be removed in second run of getAllImgSrc(). E.g. when resizer is disabled.
 	protected $allImgSrc = null;
 
+	protected $isJ3 = true;
+
 	function __construct(&$subject, $config = [])
 	{
 		// NEIN!!!!!!!!!!!!!!!! Das darfst nicht in __construct!!!!
 		#if (Factory::getDocument()->getType() !== 'html')
 
 		parent::__construct($subject, $config);
+
+		$this->isJ3 = version_compare(JVERSION, '4', 'lt');
 
 		$this->imgresizeghsvsinstalled =
 			is_file(JPATH_LIBRARIES . '/imgresizeghsvs/vendor/autoload.php');
@@ -873,7 +877,14 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				'Bs3ghsvsStructuredData',
 				__DIR__ . '/Helper/StructuredData.php'
 			);
+
 			$doc = Factory::getDocument();
+
+			if ($this->isJ3 === false)
+			{
+				$wa = $doc->getWebAssetManager();
+			}
+
 			$prettyPrint = JDEBUG || $this->params->get('sd_prettyPrint', 0)
 				? JSON_PRETTY_PRINT : 0;
 
@@ -893,10 +904,22 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				{
 					$schema = Bs3ghsvsStructuredData::sd_breadcrumbList($this->app);
 				}
-				// Don't use addScriptDeclaration in Joomla 3! Maybe in Joomla 4 possible.
+				// Don't use addScriptDeclaration in Joomla 3!
 				// https://github.com/joomla/joomla-cms/pull/25117#issuecomment-518005517
 				// https://github.com/joomla/joomla-cms/pull/25357
-				$doc->addCustomTag(Bs3ghsvsStructuredData::buildScriptTag($schema, $prettyPrint));
+				if ($this->isJ3 === true)
+				{
+					$doc->addCustomTag(Bs3ghsvsStructuredData::buildScriptTag($schema, $prettyPrint));
+				}
+				else
+				{
+					$wa->addInline(
+						'script',
+						json_encode($schema, $prettyPrint | JSON_UNESCAPED_UNICODE),
+						[],
+						['type' => 'application/ld+json']
+					);
+				}
 
 				static::$loaded[__METHOD__]['sd_breadcrumbList'] = 1;
 			}
@@ -916,10 +939,22 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 					);
 				}
 
-				// Don't use addScriptDeclaration in Joomla 3! Maybe in Joomla 4 possible.
+				// Don't use addScriptDeclaration in Joomla 3!
 				// https://github.com/joomla/joomla-cms/pull/25117#issuecomment-518005517
 				// https://github.com/joomla/joomla-cms/pull/25357
-				$doc->addCustomTag(Bs3ghsvsStructuredData::buildScriptTag($schema, $prettyPrint));
+				if ($this->isJ3 === true)
+				{
+					$doc->addCustomTag(Bs3ghsvsStructuredData::buildScriptTag($schema, $prettyPrint));
+				}
+				else
+				{
+					$wa->addInline(
+						'script',
+						json_encode($schema, $prettyPrint | JSON_UNESCAPED_UNICODE),
+						[],
+						['type' => 'application/ld+json']
+					);
+				}
 
 				// double Paranoia.
 				static::$loaded[__METHOD__]['sd_organization'] = 1;
@@ -934,10 +969,22 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				&& $view === 'article'
 			) {
 				$schema = Bs3ghsvsStructuredData::sd_article($article, $this->allImgSrc);
-				// Don't use addScriptDeclaration in Joomla 3! Maybe in Joomla 4 possible.
+				// Don't use addScriptDeclaration in Joomla 3!
 				// https://github.com/joomla/joomla-cms/pull/25117#issuecomment-518005517
 				// https://github.com/joomla/joomla-cms/pull/25357
-				$doc->addCustomTag(Bs3ghsvsStructuredData::buildScriptTag($schema, $prettyPrint));
+				if ($this->isJ3 === true)
+				{
+					$doc->addCustomTag(Bs3ghsvsStructuredData::buildScriptTag($schema, $prettyPrint));
+				}
+				else
+				{
+					$wa->addInline(
+						'script',
+						json_encode($schema, $prettyPrint | JSON_UNESCAPED_UNICODE),
+						[],
+						['type' => 'application/ld+json']
+					);
+				}
 
 				// double Paranoia.
 				static::$loaded[__METHOD__]['sd_article'] = 1;
