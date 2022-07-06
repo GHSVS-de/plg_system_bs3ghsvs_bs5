@@ -12,7 +12,7 @@ const replaceXml = require(`${pathBuildKram}/build/replaceXml.js`);
 const helper = require(`${pathBuildKram}/build/helper.js`);
 
 const pc = require(`${pathBuildKram}/node_modules/picocolors`);
-const fse = require(`${pathBuildKram}/node_modules/fs-extra`);
+//const fse = require(`${pathBuildKram}/node_modules/fs-extra`);
 
 let replaceXmlOptions = {};
 let zipOptions = {};
@@ -64,12 +64,7 @@ const thisPackages = [];
 	{
 		from = `./node_modules/@fortawesome/fontawesome-free/${file}`;
 		to = `${pathMedia}/fontawesome-free/${file}`;
-		await fse.copy(from, to
-		).then(
-			answer => console.log(
-				pc.yellow(pc.bold(`Copied "${from}" to "${to}".`))
-			)
-		);
+		await helper.copy(from, to);
 	}
 
 	// #### Bootstrap.
@@ -77,84 +72,44 @@ const thisPackages = [];
 	{
 		from = `./node_modules/bootstrap/dist/${file}`;
 		to = `${pathMedia}/${file}/bootstrap`;
-		await fse.copy(from, to
-		).then(
-			answer => console.log(
-				pc.yellow(pc.bold(`Copied "${from}" to "${to}".`))
-			)
-		);
+		await helper.copy(from, to);
 	}
 
 	// #### More Bootstrap.
 	from = "./node_modules/bootstrap/js/dist";
 	to = `${pathMedia}/js/bootstrap/plugins`;
-	await fse.copy(from, to
-	).then(
-		answer => console.log(
-			pc.yellow(pc.bold(`Copied "${from}" to "${to}".`))
-		)
-	);
+	await helper.copy(from, to);
 
 	// #### More Bootstrap.
 	from = "./node_modules/bootstrap/scss";
 	to = `${pathMedia}/scss/bootstrap`;
-	await fse.copy(from, to
-	).then(
-		answer => console.log(
-			pc.yellow(pc.bold(`Copied "${from}" to "${to}".`))
-		)
-	);
+	await helper.copy(from, to);
 
 	// #### More Bootstrap.
 	// This is for SCSS compilation for tpl_bs4ghsvs. /git-kram/media/.
 	from = `${pathMedia}/scss/bootstrap`;
 	to = externalScssFolder;
-	await fse.copy(from, to
-	).then(
-		answer => console.log(
-			pc.yellow(pc.bold(`Copied "${from}" to "${to}".`))
-		)
-	);
+	await helper.copy(from, to);
 
 	// #### JQuery.
 	from = `./node_modules/jquery/dist`;
 	to = `${pathMedia}/js/jquery`;
-	await fse.copy(from, to
-	).then(
-		answer => console.log(
-			pc.yellow(pc.bold(`Copied "${from}" to "${to}".`))
-		)
-	);
+	await helper.copy(from, to);
 
 	// #### JQuery-migrate.
 	from = `./node_modules/jquery-migrate/dist`;
 	to = `${pathMedia}/js/jquery-migrate`;
-	await fse.copy(from, to
-	).then(
-		answer => console.log(
-			pc.yellow(pc.bold(`Copied "${from}" to "${to}".`))
-		)
-	);
+	await helper.copy(from, to);
 
 	// ## /media/.
 	from = pathMedia;
 	to = `./package/media`;
-	await fse.copy(from, to
-	).then(
-		answer => console.log(
-			pc.yellow(pc.bold(`Copied "${from}" to "${to}".`))
-		)
-	);
+	await helper.copy(from, to);
 
 	// ## /src/.
 	from = `./src`;
 	to = `./package`;
-	await fse.copy(from, to
-	).then(
-		answer => console.log(
-			pc.yellow(pc.bold(`Copied "${from}" to "${to}".`))
-		)
-	);
+	await helper.copy(from, to);
 
 	const zipFilename = `${name}-${version}_${versionSub}.zip`;
 
@@ -165,11 +120,11 @@ const thisPackages = [];
 		"dirname": __dirname
 	};
 
+
 	await replaceXml.main(replaceXmlOptions);
-	await fse.copy(`${Manifest}`, `./dist/${manifestFileName}`).then(
-		answer => console.log(pc.yellow(pc.bold(
-			`Copied "${manifestFileName}" to "./dist".`)))
-	);
+	from = Manifest;
+	to = `./dist/${manifestFileName}`;
+	await helper.copy(from, to)
 
 	// ## Create zip file and detect checksum then.
 	const zipFilePath = path.resolve(`./dist/${zipFilename}`);
@@ -180,35 +135,14 @@ const thisPackages = [];
 	};
 	await helper.zip(zipOptions)
 
-	const Digest = 'sha256'; //sha384, sha512
-	const checksum = await helper.getChecksum(zipFilePath, Digest)
-  .then(
-		hash => {
-			const tag = `<${Digest}>${hash}</${Digest}>`;
-			console.log(pc.green(pc.bold(`Checksum tag is: ${tag}`)));
-			return tag;
-		}
-	)
-	.catch(error => {
-		console.log(error);
-		console.log(pc.red(pc.bold(
-			`Error while checksum creation. I won't set one!`)));
-		return '';
-	});
-
-	replaceXmlOptions.checksum = checksum;
+	replaceXmlOptions.checksum = await helper._getChecksum(zipFilePath);
 
 	// Bei diesen werden zuerst Vorlagen nach dist/ kopiert und dort erst "replaced".
 	for (const file of [updateXml, changelogXml, releaseTxt])
 	{
 		from = file;
 		to = `./dist/${path.win32.basename(file)}`;
-		await fse.copy(from, to
-		).then(
-			answer => console.log(
-				pc.yellow(pc.bold(`Copied "${from}" to "${to}".`))
-			)
-		);
+		await helper.copy(from, to)
 
 		replaceXmlOptions.xmlFile = path.resolve(to);
 		await replaceXml.main(replaceXmlOptions);
@@ -224,8 +158,7 @@ const thisPackages = [];
 		`./package`,
 	];
 	await helper.cleanOut(cleanOuts).then(
-		answer => console.log(
-			pc.cyan(pc.bold(pc.bgRed(`Finished. Good bye!`)))
-		)
+		answer => console.log(pc.cyan(pc.bold(pc.bgRed(
+			`Finished. Good bye!`))))
 	);
 })();
