@@ -10,12 +10,12 @@ class plgSystemBs3GhsvsFormFieldStructuredataGhsvsInstalled extends FormField
 
 	protected function getInput()
 	{
-		if (is_file(JPATH_LIBRARIES
+		if (!is_file(JPATH_LIBRARIES
 			. '/structuredataghsvs/vendor/autoload.php'))
 		{
-			return Text::_('PLG_SYSTEM_BS3GHSVS_LIB_STRUCTUREDATAGHSVS_EXISTS');
+			return Text::_('PLG_SYSTEM_BS3GHSVS_LIB_STRUCTUREDATAGHSVS_MISSING');
 		}
 
-		return Text::_('PLG_SYSTEM_BS3GHSVS_LIB_STRUCTUREDATAGHSVS_MISSING');
+		return;
 	}
 }
