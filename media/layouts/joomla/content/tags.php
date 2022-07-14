@@ -10,12 +10,12 @@ JLoader::register('TagsHelperRoute', JPATH_BASE . '/components/com_tags/helpers/
 ?>
 <?php if (!empty($displayData)) :
 
-if (!isset($displayData[0]->text))
-{
-	$tags = new JHelperTags;
-	$displayData = $tags->convertPathsToNames($displayData);
-}
-?>
+	if (!isset($displayData[0]->text))
+	{
+		$tags = new JHelperTags;
+		$displayData = $tags->convertPathsToNames($displayData);
+	}
+	?>
 	<div class="tags itemtags">
 		<?php foreach ($displayData as $i => $tag) : ?>
 			<?php if (in_array($tag->access, JAccess::getAuthorisedViewLevels(JFactory::getUser()->get('id')))) : ?>

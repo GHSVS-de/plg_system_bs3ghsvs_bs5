@@ -68,27 +68,27 @@ if (!empty($displayData->tags->itemTags))
 			?>
 <?php
 if ($linkTags)
-			{
-				$link_class = 'label label-tag'; ?>
+{
+	$link_class = 'label label-tag'; ?>
 	<a href="<?php echo Route::_(TagsHelperRoute::getTagRoute($tag->tag_id . '-' . $tag->alias)) ?>" class="<?php echo $link_class; ?>">
 		<?php echo $tagtxt; ?>
 	</a>
 <?php
-			}
-else
-{
-	$link_class = 'label label-default'; ?>
+	}
+		else
+		{
+			$link_class = 'label label-default'; ?>
 	<span class="<?php echo $link_class; ?>"><?php echo $tagtxt; ?></span>
 <?php
-} ?>
+		} ?>
 		<?php endif; ?>
 	<?php endforeach; ?>
 	<?php
-	if ($microdata && count($keywords))
-	{
-		echo '<span itemprop="keywords" class="hidden">' . implode(',', $keywords) . '</span>';
-	}
-?>
+			if ($microdata && count($keywords))
+			{
+				echo '<span itemprop="keywords" class="hidden">' . implode(',', $keywords) . '</span>';
+			}
+	?>
 </div><!--/aria-label="<?php echo Text::_('GHSVS_TAGS_ITEM'); ?>"-->
 <?php
 } // end if ($tags) ?>
@@ -98,26 +98,26 @@ else
 <div aria-label="<?php echo Text::_('GHSVS_TAGS_CATEGORY'); ?>">
 <?php foreach ($tagsCatGhsvs as $i => $tag) :
 
-$collect = [];
-$spanClass = 'label label-categorytag categorytag';
+	$collect = [];
+	$spanClass = 'label label-categorytag categorytag';
 
-if ($linkTags)
-{
-	$collect[1] = '<a href="'
-	. Route::_(TagsHelperRoute::getTagRoute($tag->tag_id . '-' . $tag->alias))
-	. '" class="' . $spanClass . '" title="Kategorien-Schlagwort">';
-	$collect[3] = '</a>';
+	if ($linkTags)
+	{
+		$collect[1] = '<a href="'
+		. Route::_(TagsHelperRoute::getTagRoute($tag->tag_id . '-' . $tag->alias))
+		. '" class="' . $spanClass . '" title="Kategorien-Schlagwort">';
+		$collect[3] = '</a>';
 
-	$spanClass = '';
-}
+		$spanClass = '';
+	}
 
-$spanClass .= ' tag-' . $tag->tag_id . ' tag-list' . $i;
+	$spanClass .= ' tag-' . $tag->tag_id . ' tag-list' . $i;
 
-$collect[0] = '<span class="' . trim($spanClass) . '">';
-$collect[2] = htmlspecialchars($tag->text ? $tag->text : $tag->title, ENT_COMPAT, 'utf-8');
-$collect[] = '</span>';
-ksort($collect);
-?>
+	$collect[0] = '<span class="' . trim($spanClass) . '">';
+	$collect[2] = htmlspecialchars($tag->text ? $tag->text : $tag->title, ENT_COMPAT, 'utf-8');
+	$collect[] = '</span>';
+	ksort($collect);
+	?>
 <?php
 if (in_array($tag->access, Access::getAuthorisedViewLevels(Factory::getUser()->get('id'))))
 {

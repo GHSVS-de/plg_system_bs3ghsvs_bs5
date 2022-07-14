@@ -30,16 +30,17 @@ $maskHClass = ($params->get('mask_pageheaderclass_ghsvs', 0) ? 'Masked' : '');
 
 if ($linkHeadline && empty($displayData->linkGhsvs))
 {
-	switch ($typeAlias){
-  case 'com_content.article':
-  $displayData->linkGhsvs = Route::_(ContentHelperRoute::getArticleRoute($displayData->slug, $displayData->catid));
-  break;
-  case 'com_content.category':
-  $displayData->linkGhsvs = Route::_(ContentHelperRoute::getCategoryRoute($displayData->slug));
-  break;
-  default:
-  $displayData->linkGhsvs = Route::_(ContentHelperRoute::getArticleRoute($displayData->slug, $displayData->catid));
- }
+	switch ($typeAlias)
+	{
+		case 'com_content.article':
+			$displayData->linkGhsvs = Route::_(ContentHelperRoute::getArticleRoute($displayData->slug, $displayData->catid));
+			break;
+		case 'com_content.category':
+			$displayData->linkGhsvs = Route::_(ContentHelperRoute::getCategoryRoute($displayData->slug));
+			break;
+		default:
+			$displayData->linkGhsvs = Route::_(ContentHelperRoute::getArticleRoute($displayData->slug, $displayData->catid));
+	}
 }
 ?>
 <?php echo HTMLHelper::_(

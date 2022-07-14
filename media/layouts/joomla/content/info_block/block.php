@@ -24,7 +24,7 @@ $showDate = $displayData['params']->get('show_publish_date')
 
 <?php
 	if (
-	 !isset($displayData['item']->combinedCatsGhsvs) ||
+		!isset($displayData['item']->combinedCatsGhsvs) ||
 		(!$displayData['params']->get('ghsvs_combine_categories', 0) &&
 		!$displayData['item']->params->get('ghsvs_combine_categories', 0))
 	) {

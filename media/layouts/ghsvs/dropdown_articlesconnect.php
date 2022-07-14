@@ -67,18 +67,18 @@ $cnt = 0;
 			<?php echo $close; ?>
 <?php
 foreach ($items as $item)
-	{
-		$cnt++;
-		// Vorsicht mit $item->title. $items wird referenziert übergeben, also
-		// auch die Blogitem-Überschrift geändert!
-		$title = str_replace(['"', "'", '-', '«', '»'], ' ', $item->title); ?>
+{
+	$cnt++;
+	// Vorsicht mit $item->title. $items wird referenziert übergeben, also
+	// auch die Blogitem-Überschrift geändert!
+	$title = str_replace(['"', "'", '-', '«', '»'], ' ', $item->title); ?>
    <li><a href="<?php echo $item->link; ?>"><?php echo $title; ?></a></li>
 <?php
  if (!($cnt % 10))
  {
  	#echo $close;
  }
-	} ?>
+} ?>
 <?php #echo $close; ?>
   </ul>
 </div>

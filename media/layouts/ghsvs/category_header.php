@@ -48,7 +48,7 @@ if ($params->get('show_description_image'))
 }
 ?>
 <?php
- echo HTMLHelper::_(
+echo HTMLHelper::_(
 	'bs3ghsvs.layout',
 	'ghsvs.page_heading',
 	['params' => $params]

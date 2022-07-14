@@ -416,22 +416,22 @@ class ImgResizeCache
 				{
 					case 0:
 						$count++;
-					break;
+						break;
 
 					case 1:
 						if ($originalIsWebP)
 						{
 							$count = 1;
 						}
-						else
-						{
-							$image->encode('webp');
-							$image->save(
-								$neuBildAbs . '.webp'
-							);
-							$imgCollector['img-2'] = $neuBild . '.webp';
-							$count = 2;
-						}
+					else
+					{
+						$image->encode('webp');
+						$image->save(
+							$neuBildAbs . '.webp'
+						);
+						$imgCollector['img-2'] = $neuBild . '.webp';
+						$count = 2;
+					}
 					break;
 
 					case 2:

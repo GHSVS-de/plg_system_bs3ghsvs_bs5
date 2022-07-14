@@ -399,7 +399,7 @@ class Bs3ghsvsItem
 			{
 				case 1:
 					$collect_images['order'] = '2,1';
-				break;
+					break;
 				case 0:
 				case 2:
 					$collect_images['order'] = '1';

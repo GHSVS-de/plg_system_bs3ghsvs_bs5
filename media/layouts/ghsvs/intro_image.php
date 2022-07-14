@@ -10,7 +10,7 @@ JLoader::register('Bs3ghsvsItem', JPATH_PLUGINS
 
 $options = new Registry(
 	isset(
-	$displayData['options']) ? $displayData['options'] : []
+		$displayData['options']) ? $displayData['options'] : []
 );
 
 $item = $displayData['item'];

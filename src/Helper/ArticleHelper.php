@@ -398,5 +398,5 @@ abstract class Bs3ghsvsArticle
 
 	###################################### 	 * NUR FÜR Datenbank-Migration! REMOVE LATER - START
 	// if you need it See commit https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/commit/4159c02ccafd489a80062cca9cacb49a6df449f1
-###################################### REMOVE LATER - END
+	###################################### REMOVE LATER - END
 }

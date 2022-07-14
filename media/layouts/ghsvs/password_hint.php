@@ -35,15 +35,15 @@ use Joomla\CMS\Language\Text;
 					<div class="col-12">
 					<?php
 					$userParams = ComponentHelper::getParams('com_users');
-					echo Text::sprintf(
-						'GHSVS_PASSWORD_REQUIREMENTS',
-						$userParams->get('minimum_length'),
-						$userParams->get('minimum_integers'),
-						$userParams->get('minimum_symbols'),
-						$userParams->get('minimum_uppercase'),
-						$userParams->get('minimum_lowercase')
-					);
-					?>
+echo Text::sprintf(
+	'GHSVS_PASSWORD_REQUIREMENTS',
+	$userParams->get('minimum_length'),
+	$userParams->get('minimum_integers'),
+	$userParams->get('minimum_symbols'),
+	$userParams->get('minimum_uppercase'),
+	$userParams->get('minimum_lowercase')
+);
+?>
 					</div>
 				</div>
       </div><!--/modal-body-->
@@ -52,6 +52,6 @@ use Joomla\CMS\Language\Text;
 </div>
 <?php
 if (!empty($displayData['style']))
-					{
-						echo '<style>' . $displayData['style'] . '</style>';
-					}
+{
+	echo '<style>' . $displayData['style'] . '</style>';
+}

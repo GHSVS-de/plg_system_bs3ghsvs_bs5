@@ -1359,16 +1359,16 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				$session->set($node, $sessionData);
 
 				return($sessionData[$key] . ' written.');
-			break;
+				break;
 			case 'get':
 				return isset($sessionData[$key]) ? $sessionData[$key] : null;
-			break;
+				break;
 			case 'destroy':
 				$sessionData = null;
 				$session->set($node, $sessionData);
 
 				return '$sessionData destroyed';
-			break;
+				break;
 		}
 
 		return;

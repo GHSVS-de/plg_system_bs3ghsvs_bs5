@@ -52,10 +52,10 @@ $cnt = 0;
 $buttonTitle = JText::_($module->get('title', 'JGLOBAL_ARTICLES'));
 ?>
 <?php
- // Nicht $module->id falls Modul mehrfach angezeigt wird.
-	// GHSVS 2018-06 Use uniqueid()
- #$time = 'articles-dropdown-' . str_replace(array('.', ' ', ','), '', microtime());
-	$time = 'articles-dropdown-' . str_replace('.', '', uniqid('', true));
+// Nicht $module->id falls Modul mehrfach angezeigt wird.
+// GHSVS 2018-06 Use uniqueid()
+#$time = 'articles-dropdown-' . str_replace(array('.', ' ', ','), '', microtime());
+$time = 'articles-dropdown-' . str_replace('.', '', uniqid('', true));
 ?>
 <div<?php echo $class;?>>
  <div class="dropdown">

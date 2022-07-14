@@ -49,26 +49,26 @@ else
 			<?php echo $close; ?>
 <?php
 foreach ($items as $item)
+{
+	$liclass = '';
+	$cnt++;
+	$link = JRoute::_(ContentHelperRoute::getCategoryRoute($item->id));
+
+	if ($_SERVER['REQUEST_URI'] == $link)
 	{
-		$liclass = '';
-		$cnt++;
-		$link = JRoute::_(ContentHelperRoute::getCategoryRoute($item->id));
+		$liclass = ' class="active"';
+	}
 
-		if ($_SERVER['REQUEST_URI'] == $link)
-		{
-			$liclass = ' class="active"';
-		}
-
-		// Vorsicht mit $item->title. $items wird referenziert übergeben, also
-		// auch die Blogitem-Überschrift geändert!
-		$title = str_replace(['"', "'", '-', '«', '»'], ' ', $item->title); ?>
+	// Vorsicht mit $item->title. $items wird referenziert übergeben, also
+	// auch die Blogitem-Überschrift geändert!
+	$title = str_replace(['"', "'", '-', '«', '»'], ' ', $item->title); ?>
    <li<?php echo $liclass; ?>><a href="<?php echo $link; ?>"><?php echo $title; ?></a></li>
 <?php
  if (!($cnt % 10))
  {
  	#echo $close;
  }
-	} ?>
+} ?>
 <?php #echo $close; ?>
   </ul>
 </div>

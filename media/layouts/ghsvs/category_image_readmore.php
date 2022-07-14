@@ -117,8 +117,8 @@ if ($image = $images->get('image_intro'))
 	<div class="btnGroupGhsvs">
 <?php
 if ($imagepopup)
-	{
-		?>
+{
+	?>
 		<a class="linkWithIconGhsvs venobox" href="<?php echo $imagepopup?>" data-title="<?php echo $imagepopupDescr; ?>" title="Popup. Größere Auflösung.">{svg{bi/zoom-in}}</a>
 	<?php
 	} ?>
@@ -131,7 +131,8 @@ if ($imagepopup)
  
 	<?php echo $picture; ?>
   
- <?php if ($caption){ ?><figcaption><?php echo $caption; ?></figcaption><?php } ?>
+ <?php if ($caption)
+ { ?><figcaption><?php echo $caption; ?></figcaption><?php } ?>
 <?php echo($caption ? '</div>' : ''); ?>
 </figure>
 

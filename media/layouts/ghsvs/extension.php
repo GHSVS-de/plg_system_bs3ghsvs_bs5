@@ -84,14 +84,14 @@ if ($extensionData->get('updateserver'))
 
 <?php
 if ($extensionData->get('languages'))
-		{
-			$flags = Bs3ghsvsArticle::buildFlagImages($extensionData->get('languages')); ?>
+{
+	$flags = Bs3ghsvsArticle::buildFlagImages($extensionData->get('languages')); ?>
 <h4 class="h6"><?php echo Text::_('PLG_SYSTEM_BS3GHSVS_EXTENSION_LANGUAGES'); ?></h4>
 <p>
 	<?php echo implode(' ', $flags); ?>:
 </p>
 <?php
-		} ?>
+} ?>
 
 <?php
 if (($out = trim($extensionData->get('project'))))
