@@ -146,15 +146,15 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 
 		HTMLHelper::addIncludePath(__DIR__ . '/html');
 
+		$this->sd_robotsStateOk = $this->params->get('sd_robots', 1) === 0
+			|| ($this->params->get('sd_robots', 1) === 1 && $this->app->client->robot);
+
 		if (!$this->templates || !$this->app->isClient('site'))
 		{
 			$this->executeFe = false;
 
 			return;
 		}
-
-		$this->sd_robotsStateOk = $this->params->get('sd_robots', 1) === 0
-			|| ($this->params->get('sd_robots', 1) === 1 && $this->app->client->robot);
 	}
 
 	public function onAfterRoute()
@@ -590,6 +590,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 	public function onContentPrepare($context, &$article, &$params, $page = 0)
 	{
 		$isRobot = (int) $this->app->client->robot;
+		$isHtml = Factory::getDocument()->getType() === 'html';
 
 		$this->templateParams = $this->app->getTemplate(true)->params;
 
@@ -631,7 +632,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		$print = $this->app->input->getBool('print');
 
 		###### Extra fields from #__bs3ghsvs_article - START
-		if ($iAmAnArticle && Factory::getDocument()->getType() === 'html')
+		if ($iAmAnArticle && $isHtml === true)
 		{
 			$article->bs3ghsvsFields = Bs3ghsvsArticle::getExtraFields(
 				$article->id,
@@ -781,10 +782,10 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		###### open graph - START
 		if (
 			$iAmAnArticle
+			&& $isHtml === true
 			&& $this->params->get('opengraphActive') === 1
 			&& $context === 'com_content.article'
 			&& $view === 'article'
-			&& Factory::getDocument()->getType() === 'html'
 		) {
 			// Build basic $article->Imagesghsvs based upon $article->images and more.
 			Bs3ghsvsItem::getItemImagesghsvs($article);
@@ -867,12 +868,20 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		###### open graph - END
 
 		###### schema-org - START
-		if (
-			$this->sd_robotsStateOk
-			&& $this->params->get('structureddataActive', 0) === 1
-			&& Factory::getDocument()->getType() === 'html'
-			&& $this->structuredataghsvsinstalled === true
-		) {
+
+		/* Vorübergehende Krücke, da ich BreadCrumbList separat aktivieren will, was
+		für andere Settings ebenfalls folgen soll. */
+		$structureddataActive = $this->params->get('structureddataActive', 0) === 1;
+		$structureddataBreadcrumbListActive =
+			$this->params->get('structureddataBreadcrumbListActive', 0) === 1
+			&& !isset(static::$loaded[__METHOD__]['sd_breadcrumbList']);
+
+		$doSd = $isHtml === true && $this->sd_robotsStateOk
+			&& ($structureddataActive === true || $structureddataBreadcrumbListActive === true)
+			&& $this->structuredataghsvsinstalled === true;
+
+		if ($doSd === true)
+		{
 			JLoader::register(
 				'Bs3ghsvsStructuredData',
 				__DIR__ . '/Helper/StructuredData.php'
@@ -889,7 +898,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				? JSON_PRETTY_PRINT : 0;
 
 			// start Schema BreadcrumbList
-			if (!isset(static::$loaded[__METHOD__]['sd_breadcrumbList']))
+			if ($structureddataBreadcrumbListActive === true)
 			{
 				if (
 					$iAmAnArticle
@@ -904,6 +913,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				{
 					$schema = Bs3ghsvsStructuredData::sd_breadcrumbList($this->app);
 				}
+
 				// Don't use addScriptDeclaration in Joomla 3!
 				// https://github.com/joomla/joomla-cms/pull/25117#issuecomment-518005517
 				// https://github.com/joomla/joomla-cms/pull/25357
@@ -925,70 +935,74 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			}
 			// end Schema BreadcrumbList
 
-			// start Schema Organization
-			if (!isset(static::$loaded[__METHOD__]['sd_organization']))
+			if ($structureddataActive)
 			{
-				if ($iAmAContactView)
+				// start Schema Organization
+				if (!isset(static::$loaded[__METHOD__]['sd_organization']))
 				{
-					$schema = Bs3ghsvsStructuredData::sd_contactPoint($article);
-				}
-				else
-				{
-					$schema = Bs3ghsvsStructuredData::sd_organization(
-						!$this->templateParams->get('isFrontpage')
-					);
-				}
+					if ($iAmAContactView)
+					{
+						$schema = Bs3ghsvsStructuredData::sd_contactPoint($article);
+					}
+					else
+					{
+						$schema = Bs3ghsvsStructuredData::sd_organization(
+							!$this->templateParams->get('isFrontpage')
+						);
+					}
 
-				// Don't use addScriptDeclaration in Joomla 3!
-				// https://github.com/joomla/joomla-cms/pull/25117#issuecomment-518005517
-				// https://github.com/joomla/joomla-cms/pull/25357
-				if ($this->isJ3 === true)
-				{
-					$doc->addCustomTag(Bs3ghsvsStructuredData::buildScriptTag($schema, $prettyPrint));
-				}
-				else
-				{
-					$wa->addInline(
-						'script',
-						json_encode($schema, $prettyPrint | JSON_UNESCAPED_UNICODE),
-						[],
-						['type' => 'application/ld+json']
-					);
-				}
+					// Don't use addScriptDeclaration in Joomla 3!
+					// https://github.com/joomla/joomla-cms/pull/25117#issuecomment-518005517
+					// https://github.com/joomla/joomla-cms/pull/25357
+					if ($this->isJ3 === true)
+					{
+						$doc->addCustomTag(Bs3ghsvsStructuredData::buildScriptTag($schema, $prettyPrint));
+					}
+					else
+					{
+						$wa->addInline(
+							'script',
+							json_encode($schema, $prettyPrint | JSON_UNESCAPED_UNICODE),
+							[],
+							['type' => 'application/ld+json']
+						);
+					}
 
-				// double Paranoia.
-				static::$loaded[__METHOD__]['sd_organization'] = 1;
+					// double Paranoia.
+					static::$loaded[__METHOD__]['sd_organization'] = 1;
+				}
+				// end Schema Organization
+
+				// start Schema Article
+				if (
+					$iAmAnArticle
+					&& !isset(static::$loaded[__METHOD__]['sd_article'])
+					&& in_array($context, ['com_content.article'])
+					&& $view === 'article'
+				) {
+					$schema = Bs3ghsvsStructuredData::sd_article($article, $this->allImgSrc);
+
+					// Don't use addScriptDeclaration in Joomla 3!
+					// https://github.com/joomla/joomla-cms/pull/25117#issuecomment-518005517
+					// https://github.com/joomla/joomla-cms/pull/25357
+					if ($this->isJ3 === true)
+					{
+						$doc->addCustomTag(Bs3ghsvsStructuredData::buildScriptTag($schema, $prettyPrint));
+					}
+					else
+					{
+						$wa->addInline(
+							'script',
+							json_encode($schema, $prettyPrint | JSON_UNESCAPED_UNICODE),
+							[],
+							['type' => 'application/ld+json']
+						);
+					}
+
+					// double Paranoia.
+					static::$loaded[__METHOD__]['sd_article'] = 1;
+				} // end Schema Article
 			}
-			// end Schema Organization
-
-			// start Schema Article
-			if (
-				$iAmAnArticle
-				&& !isset(static::$loaded[__METHOD__]['sd_article'])
-				&& in_array($context, ['com_content.article'])
-				&& $view === 'article'
-			) {
-				$schema = Bs3ghsvsStructuredData::sd_article($article, $this->allImgSrc);
-				// Don't use addScriptDeclaration in Joomla 3!
-				// https://github.com/joomla/joomla-cms/pull/25117#issuecomment-518005517
-				// https://github.com/joomla/joomla-cms/pull/25357
-				if ($this->isJ3 === true)
-				{
-					$doc->addCustomTag(Bs3ghsvsStructuredData::buildScriptTag($schema, $prettyPrint));
-				}
-				else
-				{
-					$wa->addInline(
-						'script',
-						json_encode($schema, $prettyPrint | JSON_UNESCAPED_UNICODE),
-						[],
-						['type' => 'application/ld+json']
-					);
-				}
-
-				// double Paranoia.
-				static::$loaded[__METHOD__]['sd_article'] = 1;
-			} // end Schema Article
 		}
 		###### schema-org - END
 
