@@ -15,7 +15,7 @@ use Joomla\CMS\Language\Text;
 
 <?php
 $show_parent_category = $displayData['params']->get('show_parent_category')
-	&& !empty($displayData['item']->parent_slug);
+	&& !empty($displayData['item']->parent_id);
 $show_category = $displayData['params']->get('show_category');
 $showDate = $displayData['params']->get('show_publish_date')
 	|| $displayData['params']->get('show_create_date')
