@@ -35,9 +35,6 @@ const thisPackages = [];
 
 (async function exec()
 {
-	// This is for SCSS compilation for tpl_bs4ghsvs. /git-kram/media/,
-	const externalScssFolder = path.join(__dirname, '../', 'media/plg_system_bs3ghsvs/scss/bootstrap');
-
 	let cleanOuts = [
 		`./package`,
 		`./dist`,
@@ -47,7 +44,6 @@ const thisPackages = [];
 		`${pathMedia}/js/bootstrap`,
 		`${pathMedia}/js/jquery`,
 		`${pathMedia}/js/jquery-migrate`,
-		externalScssFolder,
 	];
 	await helper.cleanOut(cleanOuts);
 
@@ -83,12 +79,6 @@ const thisPackages = [];
 	// #### More Bootstrap.
 	from = "./node_modules/bootstrap/scss";
 	to = `${pathMedia}/scss/bootstrap`;
-	await helper.copy(from, to);
-
-	// #### More Bootstrap.
-	// This is for SCSS compilation for tpl_bs4ghsvs. /git-kram/media/.
-	from = `${pathMedia}/scss/bootstrap`;
-	to = externalScssFolder;
 	await helper.copy(from, to);
 
 	// #### JQuery.
