@@ -76,11 +76,6 @@ const thisPackages = [];
 	to = `${pathMedia}/js/bootstrap/plugins`;
 	await helper.copy(from, to);
 
-	// #### More Bootstrap.
-	from = "./node_modules/bootstrap/scss";
-	to = `${pathMedia}/scss/bootstrap`;
-	await helper.copy(from, to);
-
 	// #### JQuery.
 	from = `./node_modules/jquery/dist`;
 	to = `${pathMedia}/js/jquery`;
