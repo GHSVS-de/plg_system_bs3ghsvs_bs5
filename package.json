@@ -2,8 +2,8 @@
 	"name": "plg_system_bs3ghsvs_bs5",
 	"nameReal": "plg_system_bs3ghsvs",
 	"filename": "bs3ghsvs",
-	"version": "2022.07.19",
-	"versionCompare": "2022.07.14",
+	"version": "2022.07.24",
+	"versionCompare": "2022.07.19",
 	"update": {
 		"type": "plugin",
 		"folder": "system",
