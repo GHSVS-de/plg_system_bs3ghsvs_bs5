@@ -28,7 +28,6 @@ const {
 const manifestFileName = `${filename}.xml`;
 const Manifest = `${__dirname}/package/${manifestFileName}`;
 const pathMedia = `./media`;
-let versionSub = '';
 
 // Dummy. Just annoying to adapt replaceXml calls.
 const thisPackages = [];
@@ -39,20 +38,10 @@ const thisPackages = [];
 		`./package`,
 		`./dist`,
 		`${pathMedia}/fontawesome-free`,
-		`${pathMedia}/scss/bootstrap`,
-		`${pathMedia}/css/bootstrap`,
-		`${pathMedia}/js/bootstrap`,
-		`${pathMedia}/js/jquery`,
-		`${pathMedia}/js/jquery-migrate`,
 	];
 	await helper.cleanOut(cleanOuts);
 
 	await helper.mkdir('./dist');
-
-	// Get subversion (Bootstrap icons):
-	from = `${__dirname}/node_modules/bootstrap/package.json`;
-	versionSub = await helper.findVersionSubSimple (from, 'bootstrap');
-	console.log(pc.magenta(pc.bold(`versionSub identified as: "${versionSub}"`)));
 
 	// ### Prepare /media/.
 	// #### Fontawesome without SVGs.
@@ -62,29 +51,6 @@ const thisPackages = [];
 		to = `${pathMedia}/fontawesome-free/${file}`;
 		await helper.copy(from, to);
 	}
-
-	// #### Bootstrap.
-	for (const file of ['js', 'css'])
-	{
-		from = `./node_modules/bootstrap/dist/${file}`;
-		to = `${pathMedia}/${file}/bootstrap`;
-		await helper.copy(from, to);
-	}
-
-	// #### More Bootstrap.
-	from = "./node_modules/bootstrap/js/dist";
-	to = `${pathMedia}/js/bootstrap/plugins`;
-	await helper.copy(from, to);
-
-	// #### JQuery.
-	from = `./node_modules/jquery/dist`;
-	to = `${pathMedia}/js/jquery`;
-	await helper.copy(from, to);
-
-	// #### JQuery-migrate.
-	from = `./node_modules/jquery-migrate/dist`;
-	to = `${pathMedia}/js/jquery-migrate`;
-	await helper.copy(from, to);
 
 	// ## /media/.
 	from = pathMedia;
@@ -96,7 +62,7 @@ const thisPackages = [];
 	to = `./package`;
 	await helper.copy(from, to);
 
-	const zipFilename = `${name}-${version}_${versionSub}.zip`;
+	const zipFilename = `${name}-${version}.zip`;
 
 	replaceXmlOptions = {
 		"xmlFile": Manifest,
@@ -134,11 +100,6 @@ const thisPackages = [];
 
 	cleanOuts = [
 		`${pathMedia}/fontawesome-free`,
-		`${pathMedia}/scss/bootstrap`,
-		`${pathMedia}/css/bootstrap`,
-		`${pathMedia}/js/bootstrap`,
-		`${pathMedia}/js/jquery`,
-		`${pathMedia}/js/jquery-migrate`,
 		`./package`,
 	];
 	await helper.cleanOut(cleanOuts).then(
