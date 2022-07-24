@@ -20,9 +20,6 @@
 
 **@since v2022.06.14: Build procedure uses local repo fork of https://github.com/GHSVS-de/buildKramGhsvs**
 
-## Don't forget this step when new Bootstrap JS!
-- https://github.com/GHSVS-de/tpl_bs4ghsvs#readme
-
 ## Then
 - Prepare/adapt `./package.json`.
 - `cd /mnt/z/git-kram/plg_system_bs3ghsvs_bs5`
