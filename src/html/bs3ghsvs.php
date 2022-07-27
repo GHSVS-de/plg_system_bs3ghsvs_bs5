@@ -122,40 +122,6 @@ abstract class JHtmlBs3ghsvs
 	}
 
 	/**
-	 * bs3ghsvs.templatejs
-	 * Load js file from plugin media folder (self::$basepath).
-	 */
-	public static function templatejs($file = 'template', $jquery = true)
-	{
-		if ($jquery)
-		{
-			HTMLHelper::_('jquery.framework');
-		}
-
-		if (!empty(static::$loaded[__METHOD__]))
-		{
-			return;
-		}
-
-		$attribs = [];
-		$min = JDEBUG ? '' : '.min';
-		$version = JDEBUG ? time() : 'auto';
-
-		$file = static::$basepath . '/' . $file . $min . '.js';
-
-		HTMLHelper::_(
-			'script',
-			$file,
-			['version' => $version, 'relative' => true],
-			$attribs
-		);
-
-		static::$loaded[__METHOD__] = 1;
-
-		return;
-	}
-
-	/**
 	 *
 	 */
 	public static function addsprungmarke($selector, $sprungmarke = '#BELOWHEADER')
@@ -317,6 +283,44 @@ abstract class JHtmlBs3ghsvs
 			HTMLHelper::_('behavior.core');
 			Factory::getDocument()->addScriptDeclaration(implode('', $js));
 		}
+	}
+
+	/**
+	 * bs3ghsvs.templatejs
+	 * Load js file from plugin media folder (self::$basepath).
+	 */
+	public static function templatejs()
+	{
+		if (($wa = PlgSystemBS3Ghsvs::getWa()))
+		{
+			$wa->useScript('plg_system_bs3ghsvs.templatejs');
+		}
+		else
+		{
+			HTMLHelper::_('jquery.framework');
+
+			if (!empty(static::$loaded[__METHOD__]))
+			{
+				return;
+			}
+
+			$attribs = [];
+			$min = JDEBUG ? '' : '.min';
+			$version = JDEBUG ? time() : 'auto';
+
+			$file = static::$basepath . '/' . $file . $min . '.js';
+
+			HTMLHelper::_(
+				'script',
+				$file,
+				['version' => $version, 'relative' => true],
+				$attribs
+			);
+
+			static::$loaded[__METHOD__] = 1;
+		}
+
+		return;
 	}
 
 	/*
