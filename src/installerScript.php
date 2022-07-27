@@ -36,6 +36,8 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/plugins/system/bs3ghsvs/html/footableghsvs.php',
 		'/media/plg_system_bs3ghsvs/layouts/ghsvs/frontediting_modules_in_article.php',
 		'/media/plg_system_bs3ghsvs/layouts/ghsvs/scroll-to-article-modal.php',
+		'/media/plg_system_bs3ghsvs/js/category-blog-list-toggle.js',
+		'/media/plg_system_bs3ghsvs/js/category-blog-list-toggle.min.js',
 	];
 
 	/**
@@ -66,6 +68,7 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/media/plg_system_bs3ghsvs/css/bootstrap',
 		'/media/plg_system_bs3ghsvs/js/jquery',
 		'/media/plg_system_bs3ghsvs/js/jquery-migrate',
+
 	];
 
 	public function preflight($type, $parent)
