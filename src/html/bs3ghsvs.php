@@ -239,39 +239,6 @@ abstract class JHtmlBs3ghsvs
 	}
 
 	/**
-	 * bs3ghsvs.smoothscroll
-	 * 2020-03-10: Remove smoothScrolling() in favour of CSS "scroll-behavior: smooth".
-	 * We only need smoothscroll() for closing modals now.
-	 */
-	public static function smoothscroll($params = [])
-	{
-		// Nur, um bei identischen, aber lediglich anders sortierten $params
-		// nicht doppelt zu laden
-		ksort($params);
-		$params = new Registry($params);
-		$scrollParent = trim($params->get('scrollParent', '.SMOOTHSCROLL'));
-		$isAModal = $params->get('isAModal', false);
-
-		$sig = md5(serialize([$scrollParent, $params]));
-
-		if ($isAModal && !isset(static::$loaded[__METHOD__][$sig]))
-		{
-			Factory::getDocument()->addScriptDeclaration(
-				'jQuery(function(){'
-				. 'jQuery("' . $scrollParent . ' a[href*=\"#\"]").not("[href=\"#\"]").not("[href=\"#0\"]")'
-				. '.on("click", function(event){'
-				. 'jQuery("' . $scrollParent . '").modal("hide");'
-				. 'jQuery("' . $scrollParent . ' .dropdown").removeClass("open");'
-				. '});'
-				. '});'
-			);
-			static::$loaded[__METHOD__][$sig] = true;
-		}
-
-		return;
-	}
-
-	/**
 	 * Bei Klick auf Accordion-Slides Status in Session schreiben,
 	 * In Session gespeicherte, aktive Slides öffnen.
 	 */
@@ -394,6 +361,9 @@ abstract class JHtmlBs3ghsvs
 		return;
 	}
 
+	/*
+		2022-07: Wird verwendet. J3 und J4.
+	*/
 	public static function toTop()
 	{
 		if (($wa = PlgSystemBS3Ghsvs::getWa()))

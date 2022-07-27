@@ -14,8 +14,6 @@ class Bs3GhsvsRegisterBs3ghsvs
 			'rendermodules',
 			'templatejs',
 			'addsprungmarke',
-			// Be aware: 2020-03-10: Removed smoothScrolling() JS in favour of CSS "scroll-behavior: smooth".
-			'smoothscroll',
 			'spoiler', // Eigener Bootstrap Spoiler-Button.
 			'activeToSession',
 			'bloglisttoggle',
