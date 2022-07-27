@@ -76,9 +76,7 @@
     "updateCheck": "npm outdated",
     "update": "npm update --save-dev"
 	},
-	"dependencies": {
-		"@fortawesome/fontawesome-free": "^5"
-	},
+	"dependencies": {},
 	"devDependencies": {
 		"js-yaml": "^4.1.0"
 	},

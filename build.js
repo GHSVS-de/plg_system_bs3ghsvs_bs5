@@ -35,20 +35,10 @@ const thisPackages = [];
 	let cleanOuts = [
 		`./package`,
 		`./dist`,
-		`${pathMedia}/fontawesome-free`,
 	];
 	await helper.cleanOut(cleanOuts);
 
 	await helper.mkdir('./dist');
-
-	// ### Prepare /media/.
-	// #### Fontawesome without SVGs.
-	for (const file of ['css', 'scss', 'webfonts', 'LICENSE.txt', 'package.json'])
-	{
-		from = `./node_modules/@fortawesome/fontawesome-free/${file}`;
-		to = `${pathMedia}/fontawesome-free/${file}`;
-		await helper.copy(from, to);
-	}
 
 	// ## /media/.
 	from = pathMedia;
@@ -97,7 +87,6 @@ const thisPackages = [];
 	}
 
 	cleanOuts = [
-		`${pathMedia}/fontawesome-free`,
 		`./package`,
 	];
 	await helper.cleanOut(cleanOuts).then(

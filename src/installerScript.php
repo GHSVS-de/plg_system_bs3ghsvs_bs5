@@ -25,12 +25,8 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 	 */
 	protected $deleteFiles = [
 		'/media/plg_system_bs3ghsvs/css/index.html',
-		'/media/plg_system_bs3ghsvs/fontawesome-free/5/_V5.11.2/index.html',
-		'/media/plg_system_bs3ghsvs/fontawesome-free/5/_V5.13.0/index.html',
-		'/media/plg_system_bs3ghsvs/fontawesome-free/5/svgs/solid/haykal.svg',
 		'/plugins/system/bs3ghsvs/html/animsitionghsvs.php',
 		'/plugins/system/bs3ghsvs/html/slicknavghsvs.php',
-		'/media/plg_system_bs3ghsvs/fontawesome-free/attribution.js',
 		'/plugins/system/bs3ghsvs/language/de-DE/de-DE.plg_system_bs3ghsvs-copy.ini',
 		'/plugins/system/bs3ghsvs/language/en-GB/en-GB.plg_system_bs3ghsvs-copy.ini',
 		'/plugins/system/bs3ghsvs/Field/lessenabled.php',
@@ -48,9 +44,6 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 	 * @since  2.0
 	 */
 	protected $deleteFolders = [
-		'/media/plg_system_bs3ghsvs/fontawesome-free/5/_V5.11.2',
-		'/media/plg_system_bs3ghsvs/fontawesome-free/5/_V5.13.0',
-		'/media/plg_system_bs3ghsvs/fontawesome-free/5',
 		'/plugins/system/bs3ghsvs/Helper/schema-org',
 		'/media/plg_system_bs3ghsvs/js/skipto',
 		'/plugins/system/bs3ghsvs/vendor',
@@ -60,8 +53,7 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/media/plg_system_bs3ghsvs/css/animsition',
 		'/media/plg_system_bs3ghsvs/css/SlickNav',
 		'/media/plg_system_bs3ghsvs/js/SlickNav',
-		'/media/plg_system_bs3ghsvs/fontawesome-free/sprites',
-		'/media/plg_system_bs3ghsvs/fontawesome-free/svgs',
+		'/media/plg_system_bs3ghsvs/fontawesome-free',
 		'/media/plg_system_bs3ghsvs/js/slide-in-panel',
 		'/media/plg_system_bs3ghsvs/js/footable',
 		'/media/plg_system_bs3ghsvs/js/moment',
