@@ -319,48 +319,6 @@ abstract class JHtmlBs3ghsvs
 		}
 	}
 
-	/**
-	 * 2015-11-02
-	 * Lädt category-blog-list-toggle.js für den Blog-Listen-Toggler, das Button-Status in Session schreibt.
-	 */
-	public static function bloglisttoggle()
-	{
-		if (empty(static::$loaded[__METHOD__]))
-		{
-			$attribs = [];
-			$min = JDEBUG ? '' : '.min';
-			$version = JDEBUG ? time() : 'auto';
-
-			Factory::getDocument()->addScriptOptions(
-				'category-blog-list-toggle',
-				[
-					'chevronRight' => '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>',
-					// Spinner:
-					'arrowRepeat' => '<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-repeat" fill="currentColor" xmlns="http://www.w3.org/2000/svg">  <path fill-rule="evenodd" d="M2.854 7.146a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L2.5 8.207l1.646 1.647a.5.5 0 0 0 .708-.708l-2-2zm13-1a.5.5 0 0 0-.708 0L13.5 7.793l-1.646-1.647a.5.5 0 0 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z"/>  <path fill-rule="evenodd" d="M8 3a4.995 4.995 0 0 0-4.192 2.273.5.5 0 0 1-.837-.546A6 6 0 0 1 14 8a.5.5 0 0 1-1.001 0 5 5 0 0 0-5-5zM2.5 7.5A.5.5 0 0 1 3 8a5 5 0 0 0 9.192 2.727.5.5 0 1 1 .837.546A6 6 0 0 1 2 8a.5.5 0 0 1 .501-.5z"/></svg>',
-				]
-			);
-
-			// Wegen Bootstrap-Button
-			HTMLHelper::_('bootstrap.framework');
-
-			// Ajax teils umgeschrieben. Noch nicht komplett Vanilla!!
-			HTMLHelper::_('behavior.core');
-
-			$file = self::$basepath . '/category-blog-list-toggle' . $min . '.js';
-
-			HTMLHelper::_(
-				'script',
-				$file,
-				['version' => $version, 'relative' => true],
-				$attribs
-			);
-
-			static::$loaded[__METHOD__] = 1;
-		}
-
-		return;
-	}
-
 	/*
 		2022-07: Wird verwendet. J3 und J4.
 	*/

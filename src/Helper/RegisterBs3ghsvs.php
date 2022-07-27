@@ -16,7 +16,6 @@ class Bs3GhsvsRegisterBs3ghsvs
 			'addsprungmarke',
 			'spoiler', // Eigener Bootstrap Spoiler-Button.
 			'activeToSession',
-			'bloglisttoggle',
 			'toTop',
 		],
 	];

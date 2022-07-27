@@ -35,133 +35,6 @@ Siehe Wo-sind-welche-functions-JQuery.xlsx
 
 
 
-
-
-
-
-
-
- /*
- Benötigt vorbereitenden Code in blogghsvs.php.
- Dort wird Session initialisiert. Eine aktuelle Klasse bestimmt und gesetzt.
- var blogListToggler = "#BLOGLISTTOGGLER";
- */
- $.fn.sessionListOrBlog = function(blogListToggler, currentClass){
-  
-  if (
-   typeof currentClass === "undefined" ||
-   currentClass === null || jQuery.inArray(currentClass, ["listeghsvs", "blogghsvs"]) < 0
-  )
-  {
-   return false;
-  }
-  
-  if (typeof blogListToggler === "undefined" || blogListToggler === null)
-  {
-   var blogListToggler = "#BLOGLISTTOGGLER";
-  }
-  
-  // Starttext für Button
-  var TEXT = Joomla.JText._('SINFOTPL_STARTTEXT');
-
-  // key für Session
-  var KEY = blogListToggler.replace("#", "");
-  
-  // Umgebender Container für den Button
-  var div4blogListToggler = blogListToggler + "DIV";
-
-  $(div4blogListToggler).html('<a class="btn ' +currentClass+ '" id="' +KEY+ '" href="#">' + TEXT + '</a>');
-  
-  // Der eben gesetzte Button:
-  var $this = $(blogListToggler);
- 
-  if ($this.length)
-  {
-   // Jetzt erst den DIV mit Button drin anzeigen
-   $(div4blogListToggler).removeClass("hide");
-   
-   // com_ajax-Defaults für folgende Abfragen
-   var NODE = "jshopghsvs";
-   var FORMAT = "raw";
-   var OPTION = "com_ajax";
-   var PLUGIN = "session";
-
-   // Buttontexte und ...
-   var LISTTEXT = Joomla.JText._('SINFOTPL_LISTTEXT');
-   var BLOGTEXT = Joomla.JText._('SINFOTPL_BLOGTEXT');
-   var AJAXLOADING = "<img src='"+JURIROOT+"/images/ajax-loader.gif'/>";
-   var FEHLER = "Entschuldigung! Ein Fehler in der Abfrage ist aufgetreten.";
-   
-   // Sessionabfrage und Init habe ich bereits in PHP erledigt (currentClass)
-   var response = currentClass;
-   
-   // Dann bin ich in Liste und will bei nächstem Klick zurück in Blog:
-   if(response == "blogghsvs"){
-    $this.html(BLOGTEXT);
-   }else if(response == "listeghsvs"){
-    $this.html(LISTTEXT);
-   }else{
-    $(div4blogListToggler).addClass("hide");
-    return false;
-   }
-
-   $this.click(function(ef){
-    ef.preventDefault();
-    if ($this.hasClass("blogghsvs"))
-    {
-     currentClass = "blogghsvs";
-     var newClass = "listeghsvs";
-     //var btnText = LISTTEXT;
-    }
-    else if ($this.hasClass("listeghsvs"))
-    {
-     currentClass = "listeghsvs";
-     var newClass = "blogghsvs";
-     //var btnText = BLOGTEXT;
-    }
-    else
-    {
-     $(div4blogListToggler).addClass("hide");
-     return false;
-    }
-    
-    //Session schreiben
-    var request = {
-     "option": OPTION,
-     "plugin": PLUGIN,
-     "cmd": "add",
-     "key": KEY, //Key in der Session
-     "data": newClass, //Der Wert zum Key show|hide 
-     "node": NODE, //Bereich in der Session
-     "format": FORMAT
-    };
-    $.ajax({
-     type: "POST",
-     data: request,
-     beforeSend: function(){
-      $this.html(AJAXLOADING);
-     },
-     success: function(response){
-      /*
-      $this.removeClass("listeghsvs blogghsvs").addClass(newClass);
-      $this.html(btnText);
-      */
-      location.reload();
-     },
-     error: function(response){
-      alert(FEHLER);
-      $(div4blogListToggler).addClass("hide");
-     }
-    });// end $.ajax
-   });
-  }; // end if $this.length
- }; // end $.fn.sessionListOrBlog
-
-
-
-
-
-
  // Im Unterschied zu autoheightghsvs, werden die höhenanzupassenden Container
  // pro Reihe angepasst, also nicht alle auf der Seite mit ident. Höhe
  // Neu: substract: Ein weiterer Container (z.B. readmore), der von errechneter Höhe abgezogen wird
@@ -182,7 +55,7 @@ Siehe Wo-sind-welche-functions-JQuery.xlsx
   var substractHeight = 0;
   $rows = $(row, outer);
   if($rows.length && $(outer + " " + row + " " + inner).length){
-   
+
    $("html").addClass("autoheightPerRow");
    $.each($rows, function(indexRow, ROW){
     var $this = $(this);
@@ -191,13 +64,13 @@ Siehe Wo-sind-welche-functions-JQuery.xlsx
     if(countItems > 1){
      $items.height("auto");
      $this.height("auto");
-     
+
      // alert(limitBreite);
      if(typeof limitBreite === "undefined" || limitBreite === null){
       // Keine Ahnung, warum hier kein var davorstehen darf. Sonst undefined ba vorhergehendem Alert.
       limitBreite = (100 / countItems);
      }
-     
+
      //Prozentuale Breite des regulierenden Selectors
      limiterSelectorWidth = ($items.width() * 100) / $rows.width();
      //So lange diese Breite unterhalb gewähltem Wert (default:50%), gleiche aller Boxen Höhen an:
@@ -206,7 +79,7 @@ Siehe Wo-sind-welche-functions-JQuery.xlsx
       if (substract && $(substract, ROW).length){
        substractHeight = $(substract, ROW).max(function(){
         return $(this).outerHeight(true);
-       }); 
+       });
       }
       if (substract2 && $(substract2, ROW).length){
        substractHeight = substractHeight + $(substract2, ROW).max(function(){
@@ -231,17 +104,17 @@ Siehe Wo-sind-welche-functions-JQuery.xlsx
 
 	$.fn.smoothScrolling = function(myThis, event, duration)
 	{
-		
+
 		return;
-		
+
 		if (isNaN(duration))
 		{
 			duration = 300;
 		}
-		
+
     if (
-      location.pathname.replace(/^\//, '') == myThis.pathname.replace(/^\//, '') 
-      && 
+      location.pathname.replace(/^\//, '') == myThis.pathname.replace(/^\//, '')
+      &&
       location.hostname == myThis.hostname
     ) {
       // Figure out element to scroll to
@@ -273,7 +146,7 @@ Siehe Wo-sind-welche-functions-JQuery.xlsx
  //Aufruf(!) dieser Funktion muss in load wegen Safari-Bug:
  $.fn.autoheightghsvs=function(
   mainSelector, //.MAINSELECTOR Boxen umgebender .row-fluid
-  innerSelector, //.INNERSELECTOR Höhenanzupassende Boxen selbst. Können auch innerhalb nested .row-fluid sein. 
+  innerSelector, //.INNERSELECTOR Höhenanzupassende Boxen selbst. Können auch innerhalb nested .row-fluid sein.
   limiterSelector, //.LIMITERSELECTOR Die Box, deren prozentuale Minimal-Breite (limitWidth) über Höhenanpassung entscheidet.
   limitWidth, //50 [%] Bei Werten darunter findet keine Anpassung mehr statt.
   ignoreLimitWidth // Falls auch bei 100% Breite oder nicht floaten Höhe angepasst werden soll.
@@ -330,7 +203,7 @@ Siehe Wo-sind-welche-functions-JQuery.xlsx
     //return $(this).height();
    });
    $(mainSelector + " " + innerSelector).removeClass("emptyBox").height(maxHeight);
-  
+
   //Falls diese Breite oberhalb gewähltem Wert (default:50%), gleiche Höhen nicht an, außer bei leeren, die dann 0-Height:
   }else{
    $(mainSelector + " " + innerSelector).each(function(){
@@ -351,7 +224,7 @@ Siehe Wo-sind-welche-functions-JQuery.xlsx
 		var container = "#" + messagepage;
 		var url = JURIROOT2 + "/" + messagepage + ".html";
 		var hidebutton = ".btn." + messagepage;
-		
+
   //Session abfragen
   var request = {
    "option": "com_ajax",
@@ -366,7 +239,7 @@ Siehe Wo-sind-welche-functions-JQuery.xlsx
    data: request,
    success: function(response){
     if(response != "hide"){
-					
+
      $(container).load(url);
     }
    }
@@ -379,7 +252,7 @@ Siehe Wo-sind-welche-functions-JQuery.xlsx
     "plugin": "session",
     "cmd": "add",
     "key": "updateHint", //Key in der Session
-    "data": "hide", //Der Wert zum Key show|hide 
+    "data": "hide", //Der Wert zum Key show|hide
     "node": "jshopghsvs", //Bereich in der Session
     "format": "raw"
    };
@@ -388,9 +261,9 @@ Siehe Wo-sind-welche-functions-JQuery.xlsx
     data: request,
     success: function(response){
      $(container).remove();
-     
+
      /* DEBUG: braucht oben format:debug
-     
+
      if(response.data){
       var result = "";
       $.each(response.data, function (index, value) {
@@ -414,7 +287,7 @@ Siehe Wo-sind-welche-functions-JQuery.xlsx
 
 
  $(document).ready(function(){
- 
+
   //START - ToggleButtons GHSVS.
   /*
   Init-Teil:
@@ -435,7 +308,7 @@ Siehe Wo-sind-welche-functions-JQuery.xlsx
 
     //replace, weil ich von id auf class umgestellt habe.
     var $target=$(targetId.replace("#", "."));
-    
+
     if($target.length && jQuery.trim($target.text()) != ""){ //Gibt es einen oder mehrere DIV mit class .TOGGLERCatDescr? Und nicht alle leer?
      var $this = $(this);
      //Session abfragen
@@ -475,12 +348,12 @@ Siehe Wo-sind-welche-functions-JQuery.xlsx
     }
    }
   );
-  
+
   $(document).on("click", 'a[href^="#TOGGLER"]', function(e){
    e.preventDefault();
    var targetId = $(this).attr("href"); //z.B. #TOGGLERCatDescr
    //replace, weil ich von id auf class umgestellt habe.
-   $target=$(targetId.replace("#", ".")); 
+   $target=$(targetId.replace("#", "."));
    if($target.length && jQuery.trim($target.text()) != ""){ //Gibt es einen oder mehrere DIV mit class .TOGGLERCatDescr? Und nicht alle leer?
     if($target.hasClass("show")){
      var newClass = "hide";
@@ -497,7 +370,7 @@ Siehe Wo-sind-welche-functions-JQuery.xlsx
      "plugin": "session",
      "cmd": "add",
      "key": targetId.replace("#", ""), //Key in der Session
-     "data": newClass, //Der Wert zum Key show|hide 
+     "data": newClass, //Der Wert zum Key show|hide
      "node": "jshopghsvs", //Bereich in der Session
      "format": "raw"
     };
