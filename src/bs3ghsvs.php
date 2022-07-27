@@ -84,8 +84,8 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 	// Also usable in other files via PlgSystemBS3Ghsvs::$isJ3.
 	public static $isJ3 = true;
 
-	// Web Asset Mnager. Used in other files via PlgSystemBS3Ghsvs::$wa.
-	public static $wa;
+	// Used in other files via $wa =  PlgSystemBS3Ghsvs::getWa().
+	protected static $wa = null;
 
 	function __construct(&$subject, $config = [])
 	{
@@ -194,12 +194,6 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 
 	public function onAfterDispatch()
 	{
-		if (self::$isJ3 === false)
-		{
-			self::$wa = $this->app->getDocument()->getWebAssetManager();
-			self::$wa->getRegistry()->addExtensionRegistryFile('plg_system_bs3ghsvs');
-		}
-
 		// Hint for user in back-end that image resizer doesn't cache.
 		if (
 			$this->app->isClient('administrator')
@@ -599,6 +593,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 
 	public function onContentPrepare($context, &$article, &$params, $page = 0)
 	{
+		$wa = self::getWa();
 		$isRobot = (int) $this->app->client->robot;
 		$isHtml = Factory::getDocument()->getType() === 'html';
 
@@ -897,11 +892,9 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				__DIR__ . '/Helper/StructuredData.php'
 			);
 
-			$doc = Factory::getDocument();
-
-			if (self::$isJ3 === false)
+			if (empty($wa))
 			{
-				$wa = $doc->getWebAssetManager();
+			$doc = Factory::getDocument();
 			}
 
 			$prettyPrint = JDEBUG || $this->params->get('sd_prettyPrint', 0)
@@ -927,7 +920,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				// Don't use addScriptDeclaration in Joomla 3!
 				// https://github.com/joomla/joomla-cms/pull/25117#issuecomment-518005517
 				// https://github.com/joomla/joomla-cms/pull/25357
-				if (self::$isJ3 === true)
+				if (empty($wa))
 				{
 					$doc->addCustomTag(Bs3ghsvsStructuredData::buildScriptTag($schema, $prettyPrint));
 				}
@@ -964,7 +957,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 					// Don't use addScriptDeclaration in Joomla 3!
 					// https://github.com/joomla/joomla-cms/pull/25117#issuecomment-518005517
 					// https://github.com/joomla/joomla-cms/pull/25357
-					if (self::$isJ3 === true)
+					if (empty($wa))
 					{
 						$doc->addCustomTag(Bs3ghsvsStructuredData::buildScriptTag($schema, $prettyPrint));
 					}
@@ -995,7 +988,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 					// Don't use addScriptDeclaration in Joomla 3!
 					// https://github.com/joomla/joomla-cms/pull/25117#issuecomment-518005517
 					// https://github.com/joomla/joomla-cms/pull/25357
-					if (self::$isJ3 === true)
+					if (empty($wa))
 					{
 						$doc->addCustomTag(Bs3ghsvsStructuredData::buildScriptTag($schema, $prettyPrint));
 					}
@@ -1470,5 +1463,16 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		}
 
 		return $imagesToResizeCollect;
+	}
+
+	public static function getWa()
+	{
+		if (self::$isJ3 === false && empty(self::$wa))
+		{
+			self::$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+			self::$wa->getRegistry()->addExtensionRegistryFile('plg_system_bs3ghsvs');
+		}
+
+		return self::$wa;
 	}
 }

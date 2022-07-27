@@ -396,9 +396,9 @@ abstract class JHtmlBs3ghsvs
 
 	public static function toTop()
 	{
-		if (!empty(PlgSystemBS3Ghsvs::$wa))
+		if (($wa = PlgSystemBS3Ghsvs::getWa()))
 		{
-			PlgSystemBS3Ghsvs::$wa->usePreset('plg_system_bs3ghsvs.toTop');
+			$wa->usePreset('plg_system_bs3ghsvs.toTop');
 		}
 		else if (empty(static::$loaded[__METHOD__]))
 		{
