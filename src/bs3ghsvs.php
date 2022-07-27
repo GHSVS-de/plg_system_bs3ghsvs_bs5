@@ -81,7 +81,11 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 	// We need a cache. Otherwise already set <figure> tags will be removed in second run of getAllImgSrc(). E.g. when resizer is disabled.
 	protected $allImgSrc = null;
 
-	protected $isJ3 = true;
+	// Also usable in other files via PlgSystemBS3Ghsvs::$isJ3.
+	public static $isJ3 = true;
+
+	// Web Asset Mnager. Used in other files via PlgSystemBS3Ghsvs::$wa.
+	public static $wa;
 
 	function __construct(&$subject, $config = [])
 	{
@@ -90,7 +94,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 
 		parent::__construct($subject, $config);
 
-		$this->isJ3 = version_compare(JVERSION, '4', 'lt');
+		self::$isJ3 = version_compare(JVERSION, '4', 'lt');
 
 		$this->imgresizeghsvsinstalled =
 			is_file(JPATH_LIBRARIES . '/imgresizeghsvs/vendor/autoload.php');
@@ -190,6 +194,12 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 
 	public function onAfterDispatch()
 	{
+		if (self::$isJ3 === false)
+		{
+			self::$wa = $this->app->getDocument()->getWebAssetManager();
+			self::$wa->getRegistry()->addExtensionRegistryFile('plg_system_bs3ghsvs');
+		}
+
 		// Hint for user in back-end that image resizer doesn't cache.
 		if (
 			$this->app->isClient('administrator')
@@ -889,7 +899,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 
 			$doc = Factory::getDocument();
 
-			if ($this->isJ3 === false)
+			if (self::$isJ3 === false)
 			{
 				$wa = $doc->getWebAssetManager();
 			}
@@ -917,7 +927,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				// Don't use addScriptDeclaration in Joomla 3!
 				// https://github.com/joomla/joomla-cms/pull/25117#issuecomment-518005517
 				// https://github.com/joomla/joomla-cms/pull/25357
-				if ($this->isJ3 === true)
+				if (self::$isJ3 === true)
 				{
 					$doc->addCustomTag(Bs3ghsvsStructuredData::buildScriptTag($schema, $prettyPrint));
 				}
@@ -954,7 +964,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 					// Don't use addScriptDeclaration in Joomla 3!
 					// https://github.com/joomla/joomla-cms/pull/25117#issuecomment-518005517
 					// https://github.com/joomla/joomla-cms/pull/25357
-					if ($this->isJ3 === true)
+					if (self::$isJ3 === true)
 					{
 						$doc->addCustomTag(Bs3ghsvsStructuredData::buildScriptTag($schema, $prettyPrint));
 					}
@@ -985,7 +995,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 					// Don't use addScriptDeclaration in Joomla 3!
 					// https://github.com/joomla/joomla-cms/pull/25117#issuecomment-518005517
 					// https://github.com/joomla/joomla-cms/pull/25357
-					if ($this->isJ3 === true)
+					if (self::$isJ3 === true)
 					{
 						$doc->addCustomTag(Bs3ghsvsStructuredData::buildScriptTag($schema, $prettyPrint));
 					}

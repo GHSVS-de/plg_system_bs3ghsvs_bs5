@@ -1,0 +1,29 @@
+{
+  "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+  "assets": [
+    {
+      "name": "plg_system_bs3ghsvs.toTop",
+      "type": "preset",
+      "dependencies": [
+				"plg_system_bs3ghsvs.toTop#script",
+				"plg_system_bs3ghsvs.toTop#style"
+      ]
+		},
+		{
+      "name": "plg_system_bs3ghsvs.toTop",
+      "type": "script",
+			"uri": "plg_system_bs3ghsvs/toTop.js",
+      "attributes": {
+        "defer": true
+      }
+    },
+		{
+      "name": "plg_system_bs3ghsvs.toTop",
+      "type": "style",
+			"uri": "plg_system_bs3ghsvs/toTop.css",
+      "attributes": {
+        "defer": true
+      }
+    }
+	]
+}

@@ -21,7 +21,7 @@ abstract class JHtmlBs3ghsvs
 	// media-Ordner:
 	protected static $basepath = 'plg_system_bs3ghsvs';
 
-	/**
+	/*
 	 * bs3ghsvs.layout
 	 *
 	 * 2016-05-29: Überarbeitung wegen jetzt einfacherer Abwicklung mit file.php aus Joomla 3.6.0.
@@ -396,7 +396,11 @@ abstract class JHtmlBs3ghsvs
 
 	public static function toTop()
 	{
-		if (empty(static::$loaded[__METHOD__]))
+		if (!empty(PlgSystemBS3Ghsvs::$wa))
+		{
+			PlgSystemBS3Ghsvs::$wa->usePreset('plg_system_bs3ghsvs.toTop');
+		}
+		else if (empty(static::$loaded[__METHOD__]))
 		{
 			$attribs = ['defer' => 'defer'];
 			$min = JDEBUG ? '' : '.min';
