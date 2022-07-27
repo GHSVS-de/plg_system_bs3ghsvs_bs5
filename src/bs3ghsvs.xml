@@ -43,6 +43,7 @@
 		<folder>js</folder>
 		<folder>layouts</folder>
 		<folder>scss</folder>
+		<filename>joomla.asset.json</filename>
 	</media>
 
 	<install>
