@@ -894,15 +894,19 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 
 			if (empty($wa))
 			{
-			$doc = Factory::getDocument();
+				$doc = Factory::getDocument();
 			}
 
 			$prettyPrint = JDEBUG || $this->params->get('sd_prettyPrint', 0)
 				? JSON_PRETTY_PRINT : 0;
 
 			// start Schema BreadcrumbList
-			if ($structureddataBreadcrumbListActive === true)
+			if (
+				$structureddataBreadcrumbListActive === true
+				&& !isset(static::$loaded[__METHOD__]['sd_breadcrumbList']))
 			{
+				$waName = 'sd_breadcrumbList';
+
 				if (
 					$iAmAnArticle
 					&& in_array($context, ['com_content.article'])
@@ -929,7 +933,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 					$wa->addInline(
 						'script',
 						json_encode($schema, $prettyPrint | JSON_UNESCAPED_UNICODE),
-						[],
+						['name' => 'plg_system_bs3ghsvs.' . $waName],
 						['type' => 'application/ld+json']
 					);
 				}
@@ -943,9 +947,12 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				// start Schema Organization
 				if (!isset(static::$loaded[__METHOD__]['sd_organization']))
 				{
+					$waName = 'sd_organization';
+
 					if ($iAmAContactView)
 					{
 						$schema = Bs3ghsvsStructuredData::sd_contactPoint($article);
+						$waName = 'sd_contactPoint';
 					}
 					else
 					{
@@ -966,7 +973,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 						$wa->addInline(
 							'script',
 							json_encode($schema, $prettyPrint | JSON_UNESCAPED_UNICODE),
-							[],
+							['name' => 'plg_system_bs3ghsvs.' . $waName],
 							['type' => 'application/ld+json']
 						);
 					}
@@ -983,6 +990,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 					&& in_array($context, ['com_content.article'])
 					&& $view === 'article'
 				) {
+					$waName = 'sd_article';
 					$schema = Bs3ghsvsStructuredData::sd_article($article, $this->allImgSrc);
 
 					// Don't use addScriptDeclaration in Joomla 3!
@@ -997,7 +1005,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 						$wa->addInline(
 							'script',
 							json_encode($schema, $prettyPrint | JSON_UNESCAPED_UNICODE),
-							[],
+							['name' => 'plg_system_bs3ghsvs.' . $waName],
 							['type' => 'application/ld+json']
 						);
 					}
@@ -1055,6 +1063,8 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 
 	public function onBeforeCompileHead()
 	{
+		//$wa = self::getWa();
+		//$wa->usePreset('plg_system_bs3ghsvs.custom');
 		// Auf manchen Seiten nötig sonst fatal error.
 		// Vielleicht Methode schreiben, um nicht doppelt zu laden?
 		// mit static::$loaded.
