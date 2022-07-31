@@ -121,9 +121,9 @@ abstract class JHtmlBs3ghsvs
 		return implode('', $output);
 	}
 
-	/**
-	 *
-	 */
+	/*
+		2022-07: Wird verwendet. J3 und J4.
+	*/
 	public static function addsprungmarke($selector, $sprungmarke = '#BELOWHEADER')
 	{
 		if (Factory::getApplication()->client->robot)
@@ -133,27 +133,36 @@ abstract class JHtmlBs3ghsvs
 
 		$selector = trim($selector);
 		$sprungmarke = trim($sprungmarke);
+		$sig = 'addsprungmarke' . md5(serialize([$selector, $sprungmarke]));
 
-		$sig = md5(serialize([$selector, $sprungmarke]));
-
-		if (!empty(static::$loaded[__METHOD__][$sig]))
+		if (isset(static::$loaded[__METHOD__][$sig]))
 		{
 			return;
 		}
 
-		if (!empty(static::$loaded[__METHOD__]['core']))
+		if (!isset(static::$loaded[__METHOD__]['core']))
 		{
-			$min = JDEBUG ? '' : '.min';
-			$version = JDEBUG ? time() : 'auto';
 			HTMLHelper::_('bs3ghsvs.templatejs');
 			static::$loaded[__METHOD__]['core'] = 1;
 		}
 
-		Factory::getDocument()->addScriptDeclaration(
-			';(function($){$(document).ready(function(){'
+		$js = ';(function($){$(document).ready(function(){'
 			. '$.fn.addSprungmarkeToUrl("' . $selector . '", "' . $sprungmarke . '");'
-			. '})})(jQuery);'
-		);
+			. '})})(jQuery);';
+
+		if (($wa = PlgSystemBS3Ghsvs::getWa()))
+		{
+			$wa->addInline(
+				'script',
+				$js,
+				['name' => 'plg_system_bs3ghsvs.' . $sig]
+			);
+		}
+		else
+		{
+			Factory::getDocument()->addScriptDeclaration($js);
+		}
+
 		static::$loaded[__METHOD__][$sig] = 1;
 
 		return;
@@ -288,6 +297,7 @@ abstract class JHtmlBs3ghsvs
 	/**
 	 * bs3ghsvs.templatejs
 	 * Load js file from plugin media folder (self::$basepath).
+	 * 2022-07: Wird verwendet. J3 und J4.
 	 */
 	public static function templatejs()
 	{
