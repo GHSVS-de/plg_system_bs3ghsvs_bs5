@@ -308,7 +308,7 @@ abstract class JHtmlBs3ghsvs
 			$min = JDEBUG ? '' : '.min';
 			$version = JDEBUG ? time() : 'auto';
 
-			$file = static::$basepath . '/' . $file . $min . '.js';
+			$file = static::$basepath . '/template' . $min . '.js';
 
 			HTMLHelper::_(
 				'script',
