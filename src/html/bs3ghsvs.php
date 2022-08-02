@@ -173,10 +173,8 @@ abstract class JHtmlBs3ghsvs
 	 * See https://getbootstrap.com/docs/3.4/javascript/#collapse-usage
 	 * $in = false => closed
 	 */
-	public static function spoiler(
-		$text,
-		$options = []
-	) {
+	public static function spoiler($text, $options = [])
+	{
 		if (!trim($text))
 		{
 			return '';
