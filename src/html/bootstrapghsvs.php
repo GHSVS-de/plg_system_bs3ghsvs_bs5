@@ -22,56 +22,58 @@ abstract class JHtmlBootstrapghsvs
    */
 	public static function framework()
 	{
-		if (!empty(static::$loaded[__METHOD__]))
+		if (isset(static::$loaded[__METHOD__]))
 		{
 			return;
 		}
 
-		$attribs = [];
-		$min = JDEBUG ? '' : '.min';
-		$suf = $min ? 'Min' : '';
-		$version = JDEBUG ? time() : 'auto';
-		HTMLHelper::_('jquery.framework');
-
-		$options = PlgSystemBS3Ghsvs::$options['bootstrapJs'];
-		$Load = $options['Load'];
-
-		if ($Load === 'cdn')
+		if (($wa = PlgSystemBS3Ghsvs::getWa()))
 		{
-			$file = $options['cdn' . $suf];
-			$attribs['crossorigin'] = 'anonymous';
-			$attribs['integrity'] = $options['cdnIntegrity' . $suf];
-			$version = '';
-		}
-		elseif ($Load === 'media')
-		{
-			// B/C
-			if (!isset($options['otherFileName']))
-			{
-				$options['otherFileName'] = '';
-			}
-
-			$file = $options['otherFileName'] ? : 'bootstrap';
-			$file = ltrim($options['media'] . '/' . $file . $min . '.js', '/');
+			// Tipp: To be defined in Template if other files wanted than core.
+			$wa->useScript('bootstrap.es5');
 		}
 		else
 		{
-			self::$loaded[__METHOD__] = 1;
+			$attribs = [];
+			$min = JDEBUG ? '' : '.min';
+			$suf = $min ? 'Min' : '';
+			$version = JDEBUG ? time() : 'auto';
+			HTMLHelper::_('jquery.framework');
 
-			return;
-		}
+				// From Template's plgSystemBs3Ghsvs.json.
+			$options = PlgSystemBS3Ghsvs::$options['bootstrapJs'];
+			$Load = $options['Load'];
 
-		HTMLHelper::_(
-			'script',
-			$file,
-			['version' => $version, 'relative' => true],
-			$attribs
-		);
+			if ($Load === 'media')
+			{
+				// B/C
+				if (!isset($options['otherFileName']))
+				{
+					$options['otherFileName'] = '';
+				}
 
-		if (PlgSystemBS3Ghsvs::$log)
-		{
-			$add = __METHOD__ . ': File ' . $file . '. Loaded?';
-			Log::add($add, Log::INFO, 'bs3ghsvs');
+				$file = $options['otherFileName'] ? : 'bootstrap';
+				$file = $options['media'] . '/' . $file . $min . '.js';
+			}
+			else
+			{
+				self::$loaded[__METHOD__] = 1;
+
+				return;
+			}
+
+			HTMLHelper::_(
+				'script',
+				$file,
+				['version' => $version, 'relative' => true],
+				$attribs
+			);
+
+			if (PlgSystemBS3Ghsvs::$log)
+			{
+				$add = __METHOD__ . ': File ' . $file . '. Loaded?';
+				Log::add($add, Log::INFO, 'bs3ghsvs');
+			}
 		}
 
 		static::$loaded[__METHOD__] = 1;
