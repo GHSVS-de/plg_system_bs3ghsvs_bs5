@@ -878,7 +878,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		für andere Settings ebenfalls folgen soll. */
 		$structureddataActive = $this->params->get('structureddataActive', 0) === 1;
 		$structureddataBreadcrumbListActive =
-			$this->params->get('structureddataBreadcrumbListActive', 0) === 1
+			$this->params->get('structureddataBreadcrumbListActive', 1) === 1
 			&& !isset(static::$loaded[__METHOD__]['sd_breadcrumbList']);
 
 		$doSd = $isHtml === true && $this->sd_robotsStateOk

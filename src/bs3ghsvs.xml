@@ -727,7 +727,7 @@
 					label="PLG_SYSTEM_BS3GHSVS_STRUCTUREDDATABREADCRUMBLIST"
 					description="PLG_SYSTEM_BS3GHSVS_STRUCTUREDDATABREADCRUMBLIST_DESC"/>
 
-				<field name="structureddataBreadcrumbListActive" type="list" default="0"
+				<field name="structureddataBreadcrumbListActive" type="list" default="1"
 					label="PLG_SYSTEM_BS3GHSVS_STRUCTUREDDATABREADCRUMBLIST"
 					filter="integer">
 						<option value="0">JNO</option>
