@@ -45,6 +45,8 @@ const thisPackages = [];
 	to = `./package/media`;
 	await helper.copy(from, to);
 
+	await helper.gzip([to]);
+
 	// ## /src/.
 	from = `./src`;
 	to = `./package`;
@@ -87,7 +89,7 @@ const thisPackages = [];
 	}
 
 	cleanOuts = [
-		`./package`,
+		//`./package`,
 	];
 	await helper.cleanOut(cleanOuts).then(
 		answer => console.log(pc.cyan(pc.bold(pc.bgRed(
