@@ -125,6 +125,7 @@ Array
 	/**
 	 * Collect additional template params and more (too much?).
 	 * Don't call before onAfterRoute!
+	 * E.g. fired in plugin's onAfterDispatch.
 	 */
 	public static function initTemplate()
 	{
