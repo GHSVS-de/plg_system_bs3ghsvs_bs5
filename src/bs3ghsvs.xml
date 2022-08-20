@@ -44,7 +44,7 @@
 		<folder>scss</folder>
 		<filename>joomla.asset.json</filename>
 	</media>
-
+	{{namespace}}
 	<install>
 		<sql>
 			<file driver="mysql" charset="utf8">sql/mysql/bs3ghsvs.sql</file>
