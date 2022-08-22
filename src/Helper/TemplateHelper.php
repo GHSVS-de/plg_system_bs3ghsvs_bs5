@@ -16,6 +16,8 @@ class Bs3ghsvsTemplate
 
 	protected static $loaded;
 
+	protected static $TEMPLATEPARAMS;
+
 	/**
 	 * Return an array of template names (folders) where the plugin specific json configuration file exists.
 	 */
@@ -169,6 +171,9 @@ Array
 				$template->params->set('page_titleMenu', trim($menuParams->get('page_title', '')));
 			}
 
+			// Special für hypnosteam u.a. ältere.
+			$template->params->set('menuParams', is_bool($menuParams) ? new Registry : $menuParams);
+
 			$BodyClasses[] = $option ? 'option-' . $option : 'no-option';
 			$BodyClasses[] = $view ? 'view-' . $view : 'no-view';
 
@@ -221,6 +226,10 @@ Array
 			}
 
 			$template->params->set('initTemplate', true);
+
+			// Special für hypnosteam u.a. ältere.
+			self::$TEMPLATEPARAMS = $template->params;
+
 			static::$loaded[__METHOD__] = 1;
 		}
 	}
@@ -420,5 +429,14 @@ Array
 		}
 
 		return $template->template;
+	}
+
+	/*
+		Special für hypnosteam u.a. ältere.
+	*/
+	public static function getTemplateParams()
+	{
+		self::initTemplate();
+		return self::$TEMPLATEPARAMS;
 	}
 }
