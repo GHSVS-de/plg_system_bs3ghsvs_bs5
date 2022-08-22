@@ -24,7 +24,7 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 	 * @since  2.0
 	 */
 	protected $deleteFiles = [
-		'/media/plg_system_bs3ghsvs/css/index.html',
+
 		'/plugins/system/bs3ghsvs/html/animsitionghsvs.php',
 		'/plugins/system/bs3ghsvs/html/slicknavghsvs.php',
 		'/plugins/system/bs3ghsvs/html/___HALDE___.php',
@@ -42,14 +42,37 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 
 		'/plugins/system/bs3ghsvs/language/de-DE/de-DE.plg_system_bs3ghsvs-copy.ini',
 		'/plugins/system/bs3ghsvs/language/en-GB/en-GB.plg_system_bs3ghsvs-copy.ini',
-		'/plugins/system/bs3ghsvs/Field/lessenabled.php',
 
+		'/plugins/system/bs3ghsvs/Field/lessenabled.php',
 		'/plugins/system/bs3ghsvs/Field/articleswithextrafieldsinfo.php',
 		'/plugins/system/bs3ghsvs/Field/enabledchecker.php',
+		'/plugins/system/bs3ghsvs/myforms/modules.xml',
+		'/plugins/system/bs3ghsvs/myforms/search_modules.xml',
+		'/plugins/system/bs3ghsvs/myforms/templates.xml',
+		'/plugins/system/bs3ghsvs/myforms/templates_less.xml',
+
 		'/media/plg_system_bs3ghsvs/layouts/ghsvs/frontediting_modules_in_article.php',
 		'/media/plg_system_bs3ghsvs/layouts/ghsvs/scroll-to-article-modal.php',
+
 		'/media/plg_system_bs3ghsvs/js/category-blog-list-toggle.js',
 		'/media/plg_system_bs3ghsvs/js/category-blog-list-toggle.min.js',
+		'/media/plg_system_bs3ghsvs/js/addSprungmarkeToUrlGhsvs-uncompressed.js',
+		'/media/plg_system_bs3ghsvs/js/caption.js',
+		'/media/plg_system_bs3ghsvs/js/jquery.backToTop-uncompressed.js',
+		'/media/plg_system_bs3ghsvs/js/jquery.backToTop.js',
+		'/media/plg_system_bs3ghsvs/js/jquery.menuslideghsvs.js',
+		'/media/plg_system_bs3ghsvs/js/jquery.sessionTogglerButton-uncompressed.js',
+		'/media/plg_system_bs3ghsvs/js/jquery.sessionTogglerButton.js',
+		'/media/plg_system_bs3ghsvs/js/jquery.topmenushowghsvs.js',
+		'/media/plg_system_bs3ghsvs/js/template-uncompressed.js',
+		'/media/plg_system_bs3ghsvs/js/Wo-sind-welche-functions-JQuery.xlsx',
+
+		'/media/plg_system_bs3ghsvs/css/index.html',
+		'/media/plg_system_bs3ghsvs/css/jquery.backToTop-uncompressed.css',
+		'/media/plg_system_bs3ghsvs/css/jquery.backToTop.css',
+		'/media/plg_system_bs3ghsvs/css/venobox-uncompressed.css',
+		'/media/plg_system_bs3ghsvs/css/venobox.css',
+
 	];
 
 	/**
@@ -60,27 +83,36 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 	 */
 	protected $deleteFolders = [
 		'/plugins/system/bs3ghsvs/Helper/schema-org',
-		'/media/plg_system_bs3ghsvs/js/skipto',
+
 		'/plugins/system/bs3ghsvs/vendor',
 		'/media/plg_system_bs3ghsvs/less',
+		'/media/plg_system_bs3ghsvs/fontawesome-free',
+
+		'/media/plg_system_bs3ghsvs/css/animsition',
+		'/media/plg_system_bs3ghsvs/css/bootstrap',
+		'/media/plg_system_bs3ghsvs/css/bootstrap4',
+		'/media/plg_system_bs3ghsvs/css/footable2',
+		'/media/plg_system_bs3ghsvs/css/SlickNav',
+		'/media/plg_system_bs3ghsvs/css/footable',
+
+		'/media/plg_system_bs3ghsvs/js/skipto',
 		'/media/plg_system_bs3ghsvs/js/tocGhsvs',
 		'/media/plg_system_bs3ghsvs/js/animsition',
-		'/media/plg_system_bs3ghsvs/css/animsition',
-		'/media/plg_system_bs3ghsvs/css/SlickNav',
 		'/media/plg_system_bs3ghsvs/js/SlickNav',
-		'/media/plg_system_bs3ghsvs/fontawesome-free',
+		'/media/plg_system_bs3ghsvs/js/jquery-migrate',
 		'/media/plg_system_bs3ghsvs/js/slide-in-panel',
 		'/media/plg_system_bs3ghsvs/js/footable',
 		'/media/plg_system_bs3ghsvs/js/moment',
-		'/media/plg_system_bs3ghsvs/css/footable',
+		'/media/plg_system_bs3ghsvs/js/bootstrap',
+		'/media/plg_system_bs3ghsvs/js/jquery',
+		'/media/plg_system_bs3ghsvs/js/__HALDE__',
+		'/media/plg_system_bs3ghsvs/js/bootstrap4',
+		'/media/plg_system_bs3ghsvs/js/footable2',
+		'/media/plg_system_bs3ghsvs/js/venobox',
+
 		'/plugins/system/bs3ghsvs/versions-installed',
 		'/media/plg_system_bs3ghsvs/svgs',
 		'/media/plg_system_bs3ghsvs/scss/bootstrap',
-		'/media/plg_system_bs3ghsvs/js/bootstrap',
-		'/media/plg_system_bs3ghsvs/css/bootstrap',
-		'/media/plg_system_bs3ghsvs/js/jquery',
-		'/media/plg_system_bs3ghsvs/js/jquery-migrate',
-
 	];
 
 	public function preflight($type, $parent)
