@@ -359,6 +359,12 @@ class Bs3ghsvsStructuredData
 
 		for ($i = 0; $i < $count; $i++)
 		{
+			// PHP 8.1
+			if (empty($items[$i]->link))
+			{
+				$items[$i]->link = '';
+			}
+
 			if (!trim($items[$i]->link))
 			{
 				continue;
