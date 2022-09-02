@@ -8,7 +8,7 @@ use Joomla\Registry\Registry;
 
 defined('_JEXEC') or die;
 
-JHtml::_('bs3ghsvs.addsprungmarke', '.dropdown-articles ul.dropdown-menu');
+JHtml::_('bs3ghsvs.addsprungmarke', ['selector' => '.dropdown-articles ul.dropdown-menu']);
 
 $options = new Registry($displayData);
 

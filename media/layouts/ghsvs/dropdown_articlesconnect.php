@@ -32,7 +32,7 @@ if (empty($items))
 	return '';
 }
 
-JHtml::_('bs3ghsvs.addsprungmarke', '.articleconnect ul.dropdown-menu');
+JHtml::_('bs3ghsvs.addsprungmarke', ['selector' => '.articleconnect ul.dropdown-menu']);
 
 $class = [];
 $class[] = 'articleconnect makeBackdrop';
