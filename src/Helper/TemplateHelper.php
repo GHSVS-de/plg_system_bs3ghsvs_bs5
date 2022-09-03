@@ -144,6 +144,20 @@ Array
 			$tplPath = 'templates/' . $template->template;
 			$BodyClasses = [];
 
+			/*
+				Special für hypnosteam u.a. ältere.
+			*/
+			// Under some weird circumstances, e.g. virtuemart::cart it may happen that id is not set:
+			// This is a very harsh and stupid "Krücke"!
+			if (empty($template->id))
+			{
+				JTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_templates/tables');
+				$style = JTable::getInstance('Style', 'TemplatesTable');
+				$style->load(['client_id' => 0, 'home' => 1]);
+				$template->id = self::getStyle(['client_id' => 0, 'home' => 1]);
+				$template->home = 1;
+			}
+
 			$template->params->set('isFrontpage', static::getIsFrontpage());
 
 			if (!$template->params->get('sitetitle'))
@@ -438,5 +452,22 @@ Array
 	{
 		self::initTemplate();
 		return self::$TEMPLATEPARAMS;
+	}
+
+	/*
+		Special für hypnosteam u.a. ältere.
+	*/
+	protected static function getStyle(array $options)
+	{
+		$sig = md5(serialize($options));
+
+		if (!isset(self::$loaded[__METHOD__][$sig])) {
+			JTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_templates/tables');
+			$style = JTable::getInstance('Style', 'TemplatesTable');
+			$style->load($options);
+			self::$loaded[__METHOD__][$sig] = $style;
+		}
+
+		return self::$loaded[__METHOD__][$sig];
 	}
 }
