@@ -274,6 +274,17 @@
 					label="PLG_SYSTEM_BS3GHSVS_IMGSRCDETECTION"
 					description="PLG_SYSTEM_BS3GHSVS_IMGSRCDETECTION_DESC"/>
 
+				<field name="jlayout_articletext" type="text" filter="string"
+					default="ghsvs.article_image"
+					label="PLG_SYSTEM_BS3GHSVS_LAYOUT_ARTICLETEXT">
+				</field>
+
+				<field name="jlayout_articletextSpacer" type="note"
+					label="PLG_SYSTEM_BS3GHSVS_LAYOUT_ARTICLETEXT"
+					description="PLG_SYSTEM_BS3GHSVS_LAYOUT_ARTICLETEXT_DESC"
+					class="alert alert-info">
+				</field>
+
 				<field type="plgSystemBs3ghsvs.ImgResizeGhsvsInstalled"
 					name="ImgResizeGhsvsInstalled"
 					hiddenLabel="true"/>
@@ -536,17 +547,6 @@
 					label="Bildoptimierer für Bilder im Beitragstext aktiv">
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
-				</field>
-
-				<field name="jlayout_articletext" type="text" filter="trim"
-					default="ghsvs.article_image"
-					label="JLayout">
-				</field>
-
-				<field name="jlayout_articletextSpacer" type="note"
-					label="JLayout [jlayout_articletext]"
-					description="PLG_SYSTEM_BS3GHSVS_LAYOUT_ARTICLETEXTSPACER"
-					class="alert alert-info">
 				</field>
 
 				<field type="spacer" name="spacerx321453" hr="true" />
