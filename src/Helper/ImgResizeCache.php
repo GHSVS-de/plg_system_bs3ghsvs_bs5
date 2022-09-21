@@ -62,7 +62,7 @@ class ImgResizeCache
 
 	public function __construct(Registry $plgParams)
 	{
-		$this->cache_folder    = Factory::getApplication()->get('cache_path', JPATH_CACHE);
+		$this->cache_folder    = Factory::getApplication()->get('cache_path', JPATH_SITE . '/cache');
 		$this->cache_folderRel = trim(str_replace(JPATH_SITE, '', $this->cache_folder), '\\/ ');
 		$this->force           = $plgParams->get('resizeForce', 0);
 
