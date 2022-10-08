@@ -102,8 +102,12 @@ class Bs3ghsvsPagebreak
 						$title = $title2 = $class = '';
 						$title = htmlspecialchars_decode($match['title'], ENT_COMPAT);
 						$title = htmlspecialchars($title, ENT_COMPAT, 'utf-8');
-						$title2 = @htmlspecialchars_decode($match['title2'], ENT_COMPAT);
-						$title2 = htmlspecialchars($title2, ENT_COMPAT, 'utf-8');
+
+						// PHP 8
+						if (isset($match['title2'])) {
+							$title2 = htmlspecialchars_decode($match['title2'], ENT_COMPAT);
+							$title2 = htmlspecialchars($title2, ENT_COMPAT, 'utf-8');
+						}
 
 						$href = $selector . '_' . $key;
 
