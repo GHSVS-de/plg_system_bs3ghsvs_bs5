@@ -162,7 +162,7 @@ Array
 
 			if (!$template->params->get('sitetitle'))
 			{
-				$template->params->set('sitetitle', trim($app->getCfg('sitename')));
+				$template->params->set('sitetitle', trim($app->get('sitename', '')));
 			}
 
 			if (!$template->params->get('sitetitle'))
