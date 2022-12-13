@@ -493,11 +493,15 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 
 				foreach ($setRequired as $field)
 				{
-					$form->setFieldAttribute(
-						$field,
-						'required',
-						$paras->get($field . '_required', 0) ? 'true' : 'false'
-					);
+					$required = $paras->get($field . '_required', 0);
+
+					if ($required === -1)
+					{
+						$form->setFieldAttribute($field, 'type', 'hidden');
+						$required = 0;
+					}
+
+					$form->setFieldAttribute($field, 'required', $required ? 'true' : 'false');
 				}
 			}
 		}
