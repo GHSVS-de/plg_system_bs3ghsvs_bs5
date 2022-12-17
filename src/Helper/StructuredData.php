@@ -23,7 +23,6 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Registry\Registry;
 use Joomla\String\StringHelper;
-use Joomla\Utilities\ArrayHelper;
 use Spatie\SchemaOrg\Organization;
 use Spatie\SchemaOrg\Schema;
 
@@ -199,10 +198,12 @@ class Bs3ghsvsStructuredData
 
 		if (!empty($articletext_imagesghsvs))
 		{
-			$articletext_imagesghsvs = ArrayHelper::getColumn(
-				(array) $articletext_imagesghsvs,
-				'_u'
-			);
+			// Do we have a _og fulltext image?
+			/* @since J!4.3 ArrayHelper::getColumn() V2.0 fails.
+			Back to the roots of previous ArrayHelper version.
+			*/
+			$articletext_imagesghsvs = array_column((array) $articletext_imagesghsvs,
+				'_u', null);
 
 			foreach ($articletext_imagesghsvs as $image)
 			{
