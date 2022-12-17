@@ -1,7 +1,4 @@
 <?php
-/*
-2015-08-30: GHSVS
-*/
 defined('JPATH_BASE') or die;
 
 use Joomla\CMS\Factory;
@@ -13,7 +10,6 @@ use Joomla\CMS\Log\Log;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Registry\Registry;
-use Joomla\Utilities\ArrayHelper;
 use Spatie\SchemaOrg\Schema;
 
 JLoader::register('Bs3ghsvsTemplate', __DIR__ . '/Helper/TemplateHelper.php');
@@ -805,9 +801,13 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				&& $this->params->get('image_fulltext')->active_og
 			) {
 				// Do we have a _og fulltext image?
-				$ogImages = ArrayHelper::getColumn(
+				/* @since J!4.3 ArrayHelper::getColumn() V2.0 fails.
+				Back to the roots of previous ArrayHelper version.
+				*/
+				$ogImages = array_column(
 					(array) $article->Imagesghsvs->get('fulltext_imagesghsvs'),
-					'_og'
+					'_og',
+					null
 				);
 
 				if (!empty($ogImages[0]['img-1']))
@@ -842,13 +842,14 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 				&& $this->params->get('image_articletext')->active_og
 			) {
 				// Do we have _og articletext images?
-				if ($ogImages = ArrayHelper::getColumn(
-					(array) $article->Imagesghsvs->get('articletext_imagesghsvs'),
-					'_og'
-				))
+				/* @since J!4.3 ArrayHelper::getColumn() V2.0 fails.
+				Back to the roots of previous ArrayHelper version.
+				*/
+				if ($ogImages = array_column(
+					(array) $article->Imagesghsvs->get('articletext_imagesghsvs'), '_og', null))
 				{
 					// Reduce to only image paths.
-					if ($ogImages = ArrayHelper::getColumn($ogImages, 'img-1'))
+					if ($ogImages = array_column((array) $ogImages, 'img-1', null))
 					{
 						$this->ogCollection['com_content.article'] = array_merge(
 							$this->ogCollection['com_content.article'],
