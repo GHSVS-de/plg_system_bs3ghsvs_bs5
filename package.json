@@ -2,8 +2,8 @@
 	"name": "plg_system_bs3ghsvs_bs5",
 	"nameReal": "plg_system_bs3ghsvs",
 	"filename": "bs3ghsvs",
-	"version": "2022.10.10",
-	"versionCompare": "2022.09.21",
+	"version": "2022.12.20",
+	"versionCompare": "2022.10.10",
 	"update": {
 		"type": "plugin",
 		"folder": "system",
@@ -13,10 +13,10 @@
 			"3.*",
 			"4.*"
 		],
-		"namespace": ""
+		"namespace": "GHSVS\\Plugin\\System\\Bs3Ghsvs"
 	},
 	"releaseTxt": {
-		"title": "Joomla system plugin Bs3Ghsvsvs",
+		"title": "Joomla system plugin Bs3Ghsvs",
 		"requires": [
 			"Optional: For feature \"Structured Data\" pkg_lib_structuredataghsvs",
 			"Optional: For feature \"Image Resize\" pkg_lib_imgresizeghsvs",
@@ -35,9 +35,9 @@
 		"lastTests": [
 			"PHP 8.0",
 			"PHP 8.1",
-			"PHP 7.4",
 			"Joomla 3.10",
-			"Joomla 4.2"
+			"Joomla 4.2",
+			"Joomla 4.3-dev"
 		]
 	},
 	"minimumPhp": "7.4.0",
@@ -77,8 +77,6 @@
     "update": "npm update --save-dev"
 	},
 	"dependencies": {},
-	"devDependencies": {
-		"js-yaml": "^4.1.0"
-	},
+	"devDependencies": {},
 	"browserslist": []
 }
