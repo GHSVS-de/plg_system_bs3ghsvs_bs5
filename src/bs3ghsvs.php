@@ -1066,6 +1066,13 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		$this->order();
 	}
 
+	public function onContentSearch($text = '', $phrase = '', $ordering = '', $areas = null)
+	{
+		// Wegen möglichem Fatal Error auf com_search, wenn bspw. Template einen unvorsichtigen Override enthält wie bei tpl_herzpraxis_astroid_ghsvs.
+		$wa = self::getWa();
+		return [];
+	}
+
 	public function onBeforeCompileHead()
 	{
 		//$wa = self::getWa();
