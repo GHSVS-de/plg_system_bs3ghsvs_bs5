@@ -202,7 +202,8 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			);
 		}
 
-		if ($this->executeFe === true || $this->params->get('initTemplateAlways', 0) === 1)
+		if ($this->app->isClient('site')
+			&& ($this->executeFe === true || $this->params->get('initTemplateAlways', 0) === 1))
 		{
 			Bs3ghsvsTemplate::initTemplate();
 
