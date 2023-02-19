@@ -151,10 +151,7 @@ Array
 			// This is a very harsh and stupid "Krücke"!
 			if (empty($template->id))
 			{
-				JTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_templates/tables');
-				$style = JTable::getInstance('Style', 'TemplatesTable');
-				$style->load(['client_id' => 0, 'home' => 1]);
-				$template->id = self::getStyle(['client_id' => 0, 'home' => 1]);
+				$template->id = self::getStyle(['client_id' => 0, 'home' => 1])->id;
 				$template->home = 1;
 			}
 
@@ -358,9 +355,16 @@ Array
 			$tag = '';
 		}
 
+		$select = ['id', 'home', 'template', 's.params'];
+
+		if (PlgSystemBS3Ghsvs::$isJ3 === false)
+		{
+			$select = array_merge($select, ['s.inheritable', 's.parent']);
+		}
+
 		// Load styles
 		$query = $db->getQuery(true)
-			->select('id, home, template, s.params')
+			->select($db->quoteName($select))
 			->from('#__template_styles as s')
 			->where('s.client_id = 0')
 			->where('e.enabled = 1')
@@ -418,10 +422,42 @@ Array
 		// Need to filter the default value as well
 		$template->template = InputFilter::getInstance()->clean($template->template, 'cmd');
 
-		// Fallback template
+		// Child templates since Joomla 4.
+		if (!empty($template->parent))
+		{
+			if (!is_file(JPATH_THEMES . '/' . $template->template . '/index.php'))
+			{
+				if (!is_file(JPATH_THEMES . '/' . $template->parent . '/index.php'))
+				{
+					$app->enqueueMessage(Text::_('JERROR_ALERTNOTEMPLATE')
+						. ' in __METHOD__', 'error');
+
+					// Try to find data for 'cassiopeia' template
+					$original_tmpl = $template->template;
+
+					foreach ($templates as $tmpl)
+					{
+						if ($tmpl->template === 'cassiopeia')
+						{
+							$template = $tmpl;
+							break;
+						}
+					}
+
+					// Check, the data were found and if template really exists
+					if (!is_file(JPATH_THEMES . '/' . $template->template . '/index.php'))
+					{
+						throw new \InvalidArgumentException(
+							Text::sprintf('JERROR_COULD_NOT_FIND_TEMPLATE', $original_tmpl));
+					}
+				}
+			}
+		}
+		else
+		{
 		if (!file_exists(JPATH_THEMES . '/' . $template->template . '/index.php'))
 		{
-			$this->enqueueMessage(Text::_('JERROR_ALERTNOTEMPLATE') . ' in __METHOD__', 'error');
+				$app->enqueueMessage(Text::_('JERROR_ALERTNOTEMPLATE') . ' in __METHOD__', 'error');
 
 			// Try to find data for 'cassiopeia' template
 			$original_tmpl = $template->template;
@@ -441,7 +477,7 @@ Array
 				throw new \InvalidArgumentException(Text::sprintf('JERROR_COULD_NOT_FIND_TEMPLATE', $original_tmpl . ' in __METHOD__'));
 			}
 		}
-
+		}
 		return $template->template;
 	}
 
@@ -462,8 +498,15 @@ Array
 		$sig = md5(serialize($options));
 
 		if (!isset(self::$loaded[__METHOD__][$sig])) {
+			if (PlgSystemBS3Ghsvs::$isJ3 === false)
+			{
+				$style = new Joomla\Component\Templates\Administrator\Table\StyleTable(Factory::getDbo());
+			}
+			else
+			{
 			JTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_templates/tables');
 			$style = JTable::getInstance('Style', 'TemplatesTable');
+			}
 			$style->load($options);
 			self::$loaded[__METHOD__][$sig] = $style;
 		}
