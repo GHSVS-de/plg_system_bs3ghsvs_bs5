@@ -2,7 +2,7 @@
 /*
 J3.8.9
 */
-defined('JPATH_PLATFORM') or die;
+defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
 
@@ -11,7 +11,7 @@ class Bs3GhsvsRegisterIcon
 	protected static $icon = [
 		'create',
 		'email', // Blocked.
-		'edit', // Erst mal lassen. 2021: Dann doch nicht, weils zu Absturz führen kann.
+		'edit', // Erst mal lassen. 2021: Dann doch nicht, weils zu Absturz fï¿½hren kann.
 		'print_popup',
 		'print_screen',
 	];

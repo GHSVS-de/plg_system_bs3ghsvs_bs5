@@ -4,7 +4,7 @@
 JLoader::register('Bs3ghsvsPagebreak',JPATH_PLUGINS . '/system/bs3ghsvs/Helper/PagebreakHelper.php');
 */
 
-defined('JPATH_PLATFORM') or die;
+defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;

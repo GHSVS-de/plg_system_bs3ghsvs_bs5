@@ -5,10 +5,10 @@ Usage:
 <field name="assetsbe" type="plgSystemHyphenateGhsvs.assetsbe" hidden="true"
 	loadjs="false" loadcss="true" />
 
-If attributs loadjs or loadcss are missing their default value is TRUE => Assets will be loaded.	
+If attributs loadjs or loadcss are missing their default value is TRUE => Assets will be loaded.
 
 */
-defined('JPATH_PLATFORM') or die;
+defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\FormField;
