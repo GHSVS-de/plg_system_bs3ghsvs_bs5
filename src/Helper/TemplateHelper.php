@@ -231,6 +231,7 @@ Array
 
 				$template->params->set('companylogo', $logo);
 				$logoAlt = htmlentities($logoAlt, ENT_QUOTES, 'UTF-8');
+				$template->params->set('logoAltTranslated', $logoAlt);
 
 				$logo = '<img class="logo" id="SITELOGO" src="' . $logo . '" alt="' . $logoAlt . '"/>';
 				$template->params->set('logoimg', $logo);
