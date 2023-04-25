@@ -279,7 +279,7 @@ class Bs3ghsvsStructuredData
 		$schema = Schema::Organization()
 		->url(Uri::root())
 		->name($organization->get('name'))
-		->logo(Bs3ghsvsItem::addUriRoot($organization->get('logo')));
+		->logo(Bs3ghsvsItem::addUriRoot($organization->get('logo', '')));
 
 		if ($onlyBase === true)
 		{
