@@ -62,6 +62,12 @@
 					showon="bs3ghsvs_extension_active:1">
 						<option value="J3">PLG_SYSTEM_BS3GHSVS_EXTENSION_TERGETPLATFORM_J3</option>
 						<option value="J4">PLG_SYSTEM_BS3GHSVS_EXTENSION_TERGETPLATFORM_J4</option>
+						<option value="J5">PLG_SYSTEM_BS3GHSVS_EXTENSION_TERGETPLATFORM_J5</option>
+						<option value="J6">PLG_SYSTEM_BS3GHSVS_EXTENSION_TERGETPLATFORM_J6</option>
+						<option value="J7">PLG_SYSTEM_BS3GHSVS_EXTENSION_TERGETPLATFORM_J7</option>
+						<option value="J8">PLG_SYSTEM_BS3GHSVS_EXTENSION_TERGETPLATFORM_J8</option>
+						<option value="J9">PLG_SYSTEM_BS3GHSVS_EXTENSION_TERGETPLATFORM_J9</option>
+						<option value="J10">PLG_SYSTEM_BS3GHSVS_EXTENSION_TERGETPLATFORM_J10</option>
 				</field>
 
 				<field name="languages" type="filelist" directory="media/mod_languages/images/"
