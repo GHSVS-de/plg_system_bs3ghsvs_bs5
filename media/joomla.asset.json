@@ -32,6 +32,20 @@
 			"dependencies": [
 				"jquery"
 			]
+		},
+		{
+			"name": "plg_system_bs3ghsvs.bootstrap.es5.fallback.joomla5",
+			"description": "Notfall-Asset",
+			"type": "script",
+			"deprecated": true,
+			"uri": "",
+			"dependencies": [
+				"core"
+			],
+			"attributes": {
+			"nomodule": true,
+			"defer": true
+			}
 		}
 	]
 }
