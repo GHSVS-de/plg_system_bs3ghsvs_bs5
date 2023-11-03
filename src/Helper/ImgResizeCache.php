@@ -60,6 +60,9 @@ class ImgResizeCache
 		IMAGETYPE_GIF,
 	];
 
+	// PHP Deprecated: Creation of dynamic property ImgResizeCache::$webpSupport is deprecated
+	protected $webpSupport;
+
 	public function __construct(Registry $plgParams)
 	{
 		$this->cache_folder    = Factory::getApplication()->get('cache_path', JPATH_SITE . '/cache');
