@@ -11,7 +11,7 @@ class Bs3GhsvsRegisterIcon
 	protected static $icon = [
 		'create',
 		'email', // Blocked.
-		'edit', // Erst mal lassen. 2021: Dann doch nicht, weils zu Absturz f�hren kann.
+		'edit', // Erst mal lassen. 2021: Dann doch nicht, weils zu Absturz führen kann.
 		'print_popup',
 		'print_screen',
 	];
