@@ -29,6 +29,7 @@ use Joomla\CMS\Language\Text;
 
 use Joomla\Registry\Registry;
 
+#[\AllowDynamicProperties]
 class ImgResizeCache
 {
 	protected $cache_folder;
