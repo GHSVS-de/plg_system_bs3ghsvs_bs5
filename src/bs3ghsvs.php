@@ -71,9 +71,6 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 	// Is library installed?
 	protected $structuredataghsvsinstalled = false;
 
-	// Are SVGG icons installed?
-	protected $iconsghsvsinstalled = false;
-
 	// We need a cache. Otherwise already set <figure> tags will be removed in second run of getAllImgSrc(). E.g. when resizer is disabled.
 	protected $allImgSrc = null;
 
@@ -98,9 +95,6 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		$this->structuredataghsvsinstalled =
 			is_file(JPATH_LIBRARIES . '/structuredataghsvs/vendor/autoload.php');
 
-		$this->iconsghsvsinstalled =
-			is_file(JPATH_SITE . '/media/iconsghsvs/svgs/prepped-icons.json');
-
 		if (
 			$this->params->get('resizeGlobalActive', 1) === 0
 			|| $this->imgresizeghsvsinstalled === false
@@ -108,11 +102,6 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			$this->params->set('resizeForce', 0);
 			$this->params->set('imageoptimizer_intro_full', 0);
 			$this->params->set('imageoptimizer_articletext', 0);
-		}
-
-		if ($this->iconsghsvsinstalled === false)
-		{
-			$this->params->set('svgSupport', 0);
 		}
 
 		// For getter method from outside.
@@ -1170,10 +1159,8 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		$done             = 0;
 		$sd_killmicrodata = $this->params->get('structureddataActive', 0) === 1
 			&& $this->params->get('sd_killmicrodata', 1) === 1;
-		$svgSupport = ($this->params->get('svgSupport', 1) === 1
-			&& $this->iconsghsvsinstalled);
 
-		if ($sd_killmicrodata || $svgSupport)
+		if ($sd_killmicrodata)
 		{
 			$html   = [];
 			$all    = $this->app->getBody();
@@ -1207,21 +1194,6 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 					$html[1],
 					$done
 				);
-			}
-
-			// Beispiel: {svg{bi/x-circle-fill}class="text-danger" href="//ghsvs.de"}
-			if ($svgSupport && strpos($html[1], '{svg{') !== false)
-			{
-				$html[1] = Bs3ghsvsItem::replaceSvgPlaceholders(
-					$html[1],
-					[
-						'addSpan'   => $this->params->get('svgSpan', 1),
-						'spanClass' => $this->params->get('svgSpanClass', 'svgSpan'),
-						'removeTag' => $this->params->get('removeTagIfNoSvg', 1),
-						'removeSpaces' => $this->params->get('svgRemoveSpaces', 0),
-					]
-				);
-				$done = 1;
 			}
 
 			if ($done)
