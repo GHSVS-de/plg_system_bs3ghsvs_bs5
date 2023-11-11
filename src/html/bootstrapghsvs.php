@@ -29,8 +29,21 @@ abstract class JHtmlBootstrapghsvs
 
 		if (($wa = PlgSystemBS3Ghsvs::getWa()))
 		{
-			// Tipp: To be defined in Template if other files wanted than core.
-			$wa->useScript('bootstrap.es5');
+			/*
+			Joomla 5 fix. In fällen, wo anderes Template geladen wird, aber das Plugin
+			trotzdem sich irgendwie einmischt und im Plugin Verhalten – Abwärtskompatibilität
+			ES5 Assets nicht aktiviert werden kann.
+			Etwas schräg.
+			*/
+			if (version_compare(JVERSION, '5', 'lt'))
+			{
+				// Tipp: To be defined in Template if other files wanted than core.
+				$wa->useScript('bootstrap.es5');
+			}
+			else
+			{
+				$wa->useScript('plg_system_bs3ghsvs.bootstrap.es5.fallback.joomla5');
+			}
 		}
 		else
 		{
