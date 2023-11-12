@@ -816,6 +816,13 @@ class="extended-width" />
 				label="Pagebreakghsvs-Slider"
 				description="Im Zusammenspiel mit Editor-Plugin 'pagebreakghsvs' (Button for Editors (insert slide markers) by GHSVS.de)">
 
+				<field name="PagebreakGhsvsActive" type="list" default="1" filter="integer"
+					label="PagebreakGhsvs aktiv"
+					>
+						<option value="1">JYES</option>
+						<option value="0">JNO</option>
+				</field>
+
 				<field name="toggleContainer" type="text" default="div" filter="string"
 					label="HTML-Container für Slide-Toggler [toggleContainer]"
 					/>

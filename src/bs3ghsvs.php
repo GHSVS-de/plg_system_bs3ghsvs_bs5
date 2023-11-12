@@ -1017,6 +1017,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			$this->app->isClient('site')
 			&& $context === 'com_content.article'
 			&& strpos($article->text, '{pagebreakghsvs-slider ') !== false
+			&& $this->params->get('PagebreakGhsvsActive', 1) !== 0
 		) {
 			JLoader::register(
 				'Bs3ghsvsPagebreak',
