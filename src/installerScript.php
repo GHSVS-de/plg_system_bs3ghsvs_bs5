@@ -53,6 +53,11 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 
 
 		'/plugins/system/bs3ghsvs/Field/iconsghsvsinstalled.php',
+		'/plugins/system/bs3ghsvs/Field/assetsbe.php',
+		'/plugins/system/bs3ghsvs/Field/version.php',
+		'/plugins/system/bs3ghsvs/Field/templatesjsonconfigurationinfo.php',
+		'/plugins/system/bs3ghsvs/Field/imgresizeghsvsinstalled.php',
+		'/plugins/system/bs3ghsvs/Field/structuredataghsvsinstalled.php',
 		'/plugins/system/bs3ghsvs/Helper/PagebreakHelper.php',
 
 		'/media/plg_system_bs3ghsvs/layouts/ghsvs/frontediting_modules_in_article.php',
@@ -117,6 +122,8 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/plugins/system/bs3ghsvs/versions-installed',
 		'/media/plg_system_bs3ghsvs/svgs',
 		'/media/plg_system_bs3ghsvs/scss/bootstrap',
+
+		'/plugins/system/bs3ghsvs/Field',
 	];
 
 	public function preflight($type, $parent)

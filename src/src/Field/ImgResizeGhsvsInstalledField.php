@@ -1,10 +1,12 @@
 <?php
-defined('_JEXEC') or die;
+namespace GHSVS\Plugin\System\Bs3Ghsvs\Field;
+
+\defined('_JEXEC') or die;
 
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\Language\Text;
 
-class plgSystemBs3GhsvsFormFieldImgResizeGhsvsInstalled extends FormField
+class ImgResizeGhsvsInstalledField extends FormField
 {
 	protected $type = 'ImgResizeGhsvsInstalled';
 

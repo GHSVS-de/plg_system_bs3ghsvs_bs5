@@ -58,16 +58,16 @@
 				label="PLG_SYSTEM_BS3GHSVS_FIELDSET_INFOS">
 
 				<field name="templatesJsonConfigurationInfo"
-					type="templatesJsonConfigurationInfo"
+					type="TemplatesJsonConfigurationInfo"
 					 hiddenLabel="true" />
 
 			</fieldset>
 
 			<fieldset name="basic">
-				<field name="assetsbe" type="plgSystemBs3Ghsvs.assetsbe"
+				<field name="assetsbe" type="AssetsBe"
 					loadjs="false" loadJQuery="false" loadcss="true" />
 
-				<field name="version" type="plgSystemBs3Ghsvs.version"
+				<field name="version" type="Version"
 					label="JVERSION"
 					/>
 
@@ -286,7 +286,7 @@
 					class="alert alert-info">
 				</field>
 
-				<field type="plgSystemBs3ghsvs.ImgResizeGhsvsInstalled"
+				<field type="ImgResizeGhsvsInstalled"
 					name="ImgResizeGhsvsInstalled"
 					hiddenLabel="true"/>
 
@@ -671,7 +671,7 @@
 				label="PLG_SYSTEM_BS3GHSVS_FIELDSET_STRUCTUREDDATA"
 				description="PLG_SYSTEM_BS3GHSVS_FIELDSET_STRUCTUREDDATA_DESC">
 
-				<field type="plgSystemBs3ghsvs.structuredataghsvsinstalled"
+				<field type="StructuredDataGhsvsInstalled"
 					name="structuredataghsvsinstalled"
 					hiddenLabel="true"/>
 

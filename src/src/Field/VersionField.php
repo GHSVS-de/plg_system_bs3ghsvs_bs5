@@ -1,22 +1,16 @@
 <?php
-/*
-GHSVS 2019-02-01
-Usage:
-<field name="assetsbe" type="plgSystemHyphenateGhsvs.assetsbe" hidden="true"
-	loadjs="false" loadcss="true" />
+namespace GHSVS\Plugin\System\Bs3Ghsvs\Field;
 
-If attributs loadjs or loadcss are missing their default value is TRUE => Assets will be loaded.
-
-*/
-defined('_JEXEC') or die;
+\defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\Language\Text;
+use Exception;
 
-class plgSystemBs3GhsvsFormFieldVersion extends FormField
+class VersionField extends FormField
 {
-	protected $type = 'version';
+	protected $type = 'Version';
 
 	protected function getInput()
 	{
@@ -38,7 +32,6 @@ class plgSystemBs3GhsvsFormFieldVersion extends FormField
 		}
 		$manifest = @json_decode($manifest);
 		$version = isset($manifest->version) ? $manifest->version : Text::_('JLIB_UNKNOWN');
-
 		return $version;
 	}
 }
