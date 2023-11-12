@@ -1011,28 +1011,6 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			}
 		}
 		###### schema-org - END
-
-		###### pagebreakghsvs-slider - START
-		if (
-			$this->app->isClient('site')
-			&& $context === 'com_content.article'
-			&& strpos($article->text, '{pagebreakghsvs-slider ') !== false
-			&& $this->params->get('PagebreakGhsvsActive', 1) !== 0
-		) {
-			JLoader::register(
-				'Bs3ghsvsPagebreak',
-				JPATH_PLUGINS . '/system/bs3ghsvs/Helper/PagebreakHelper.php'
-			);
-
-			// E.g. call via 'content.prepare'
-			if (!isset($article->id))
-			{
-				$article->id = uniqid();
-			}
-
-			Bs3ghsvsPagebreak::buildSliders($article->text, $article->id);
-		}
-		###### pagebreakghsvs-slider - END
 	}
 
 	public function onSubmitContact(&$contact, &$data)
