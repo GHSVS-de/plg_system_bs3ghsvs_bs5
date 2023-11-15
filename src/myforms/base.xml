@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-	<fields name="dummy" addfieldpath="plugins/system/bs3ghsvs/Field">
+	<fields name="dummy" addfieldprefix="GHSVS\Plugin\System\Bs3Ghsvs\Field">
 		<fieldset name="basic">
-			<field name="assetsbe" type="plgSystemBs3Ghsvs.assetsbe"
+			<field name="assetsbe" type="AssetsBe"
 				loadjs="false" loadJQuery="false" loadcss="true" />
 		</fieldset>
 	</fields>
