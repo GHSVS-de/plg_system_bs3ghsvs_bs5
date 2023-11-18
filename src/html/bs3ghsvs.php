@@ -14,6 +14,9 @@ use Joomla\CMS\Layout\FileLayout;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\Registry\Registry;
 
+// @since 2023-11
+use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsHelper;
+
 abstract class JHtmlBs3ghsvs
 {
 	protected static $loaded = [];
@@ -157,7 +160,7 @@ abstract class JHtmlBs3ghsvs
 			. '$.fn.addSprungmarkeToUrl("' . $selector . '", "' . $sprungmarke . '");'
 			. '})})(jQuery);';
 
-		if (($wa = PlgSystemBS3Ghsvs::getWa())) {
+		if (($wa = Bs3GhsvsHelper::getWa())) {
 			$wa->addInline('script', $js, ['name' => 'plg_system_bs3ghsvs.' . $sig]);
 		} else {
 			Factory::getDocument()->addScriptDeclaration($js);
@@ -299,7 +302,7 @@ abstract class JHtmlBs3ghsvs
 	 */
 	public static function templatejs()
 	{
-		if (($wa = PlgSystemBS3Ghsvs::getWa()))
+		if (($wa = Bs3GhsvsHelper::getWa()))
 		{
 			$wa->useScript('plg_system_bs3ghsvs.templatejs');
 		}
@@ -336,7 +339,7 @@ abstract class JHtmlBs3ghsvs
 	*/
 	public static function toTop()
 	{
-		if (($wa = PlgSystemBS3Ghsvs::getWa()))
+		if (($wa = Bs3GhsvsHelper::getWa()))
 		{
 			$wa->usePreset('plg_system_bs3ghsvs.toTop');
 		}
