@@ -6,6 +6,9 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\Utilities\ArrayHelper;
 
+// @since 2023-11
+use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsItemHelper as Bs3ghsvsItem;
+
 $images = Bs3ghsvsItem::getItemImagesghsvs($displayData['item']);
 
 if ($image = $images->get('image_fulltext'))

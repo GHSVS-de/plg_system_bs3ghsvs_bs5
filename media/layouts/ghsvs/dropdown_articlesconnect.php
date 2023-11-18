@@ -8,7 +8,7 @@ if (!JPluginHelper::isEnabled('system', 'articleconnectghsvs'))
 	return '';
 }
 
-JLoader::register('PlgArticleConnectHelper', JPATH_SITE . '/plugins/system/articleconnectghsvs/helper.php');
+\JLoader::register('PlgArticleConnectHelper', JPATH_SITE . '/plugins/system/articleconnectghsvs/helper.php');
 
 if (isset($displayData['options']))
 {

@@ -28,12 +28,12 @@
 
 	<files>
 		<filename plugin="{{filename}}">{{filename}}.php</filename>
-		<folder>Field</folder>
 		<folder>Helper</folder>
 		<folder>html</folder>
 		<folder>language</folder>
 		<folder>myforms</folder>
 		<folder>sql</folder>
+		<folder>src</folder>
 		<filename>installerScript.php</filename>
 		<filename>LICENSE.txt</filename>
 	</files>

@@ -9,7 +9,10 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Utilities\ArrayHelper;
 
-JLoader::register('ContentHelperRoute', JPATH_BASE . '/components/com_content/helpers/route.php');
+// @since 2023-11
+use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsItemHelper as Bs3ghsvsItem;
+
+\JLoader::register('ContentHelperRoute', JPATH_BASE . '/components/com_content/helpers/route.php');
 
 $item = $displayData['item'];
 
@@ -126,11 +129,11 @@ if ($imagepopup)
 			{svg{bi/link-45deg}}
 		</a>
 	</div>
-	
+
 <?php echo($caption ? '<div class="img_caption">':''); ?>
- 
+
 	<?php echo $picture; ?>
-  
+
  <?php if ($caption)
  { ?><figcaption><?php echo $caption; ?></figcaption><?php } ?>
 <?php echo($caption ? '</div>' : ''); ?>

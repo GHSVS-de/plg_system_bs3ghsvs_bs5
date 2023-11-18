@@ -4,6 +4,9 @@ defined('JPATH_BASE') or die;
 use Joomla\CMS\Language\Text;
 use Joomla\Registry\Registry;
 
+// @since 2023-11
+use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsItemHelper as Bs3ghsvsItem;
+
 /**
  * $item = article object.
 */

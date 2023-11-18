@@ -6,7 +6,7 @@ Ich will verschachtelte Tags darstellen
 
 defined('JPATH_BASE') or die;
 
-JLoader::register('TagsHelperRoute', JPATH_BASE . '/components/com_tags/helpers/route.php');
+\JLoader::register('TagsHelperRoute', JPATH_BASE . '/components/com_tags/helpers/route.php');
 ?>
 <?php if (!empty($displayData)) :
 

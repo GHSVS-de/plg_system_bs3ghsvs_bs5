@@ -7,8 +7,8 @@ use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
 
-// NEIN NEIN NEIN! Da Prüfung auf empty() fehlschlägt! Also runter
-#echo PHP_EOL . '<!--File: ' . str_replace(JPATH_SITE, '', dirname(__FILE__)) . '/'. basename(__FILE__) . '-->' . PHP_EOL;
+// @since 2023-11
+use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsItemHelper as Bs3ghsvsItem;
 
 /*
  * $attributes: Registry. All found attributes like class, alt ... of img tag.
