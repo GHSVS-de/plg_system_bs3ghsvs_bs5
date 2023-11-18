@@ -18,6 +18,6 @@ src/vendor/bin/pscss
 _composer/vendor
 src/vendor/scssphp/scssphp/bin/pscss
 build/build-svgs - Kopie.js
-/dist/*.xml
-/dist/*.txt
+# /dist/*.xml
+# /dist/*.txt
 dist copy
