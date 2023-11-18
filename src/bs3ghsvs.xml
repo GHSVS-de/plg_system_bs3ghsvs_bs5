@@ -52,7 +52,7 @@
 	</install>
 	{{namespace}}
 	<config{{addfieldprefix}}>
-		<fields name="params" addfieldpath="plugins/system/{{filename}}/Field">
+		<fields name="params">
 
 			<fieldset name="fieldsetInfos"
 				label="PLG_SYSTEM_BS3GHSVS_FIELDSET_INFOS">
