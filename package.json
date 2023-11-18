@@ -2,16 +2,18 @@
 	"name": "plg_system_bs3ghsvs_bs5",
 	"nameReal": "plg_system_bs3ghsvs",
 	"filename": "bs3ghsvs",
-	"version": "2022.12.20",
-	"versionCompare": "2022.10.10",
+	"version": "2023.11.18",
+	"versionCompare": "2022.12.20",
+	"versionSub": "",
 	"update": {
+		"infourl": "https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5{{thisRelease}}",
 		"type": "plugin",
 		"folder": "system",
 		"client": "site",
 		"tag": "stable",
 		"targetplatform": [
-			"3.*",
-			"4.*"
+			"4\\.(3|4|5|6|7|8|9|10|11|12|13|14|15)",
+			"5.*"
 		],
 		"namespace": "GHSVS\\Plugin\\System\\Bs3Ghsvs"
 	},
@@ -20,8 +22,7 @@
 		"requires": [
 			"Optional: For feature \"Structured Data\" pkg_lib_structuredataghsvs",
 			"Optional: For feature \"Image Resize\" pkg_lib_imgresizeghsvs",
-			"Optional: For feature \"Embed SVG\" pkg_file_iconsghsvs",
-			"Recommended: For assets (e.g. Bootstrap) pkg_file_assetghsvs. Lots of assets have been removed from this plugin (Bootstrap CSS, JS, SCSS. JQuery JS. JQuery-slim. JQuery-migrate.)."
+			"Optional: For assets (e.g. Bootstrap) pkg_file_assetghsvs. Lots of assets have been removed from this plugin (Bootstrap CSS, JS, SCSS. JQuery JS. JQuery-slim. JQuery-migrate.)."
 		],
 		"uses": [],
 		"language": []
@@ -33,16 +34,15 @@
 		"docsDE": "",
 		"docsEN": "",
 		"lastTests": [
-			"PHP 8.0",
+			"PHP 8.2",
 			"PHP 8.1",
-			"Joomla 3.10",
-			"Joomla 4.2",
-			"Joomla 4.3-dev"
+			"Joomla 4.4",
+			"Joomla 5.0"
 		]
 	},
 	"minimumPhp": "7.4.0",
-	"maximumPhp": "8.99999.99999",
-	"minimumJoomla": "3.10.0",
+	"maximumPhp": "",
+	"minimumJoomla": "4.3.0",
 	"maximumJoomla": "4.9999.9999",
 	"allowDowngrades": "1",
 	"creationDate": "2015-08-30",
