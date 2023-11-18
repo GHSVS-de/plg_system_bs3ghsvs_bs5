@@ -28,7 +28,7 @@ class Bs3GhsvsRegisterBs3ghsvs
 		{
 			$class = $prefix . ucfirst($file);
 
-			JLoader::register($class, __DIR__ . '/../html/' . $file . '.php');
+			\JLoader::register($class, __DIR__ . '/../html/' . $file . '.php');
 
 			foreach ($what as $method)
 			{
