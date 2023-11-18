@@ -12,7 +12,6 @@
 ### Replacements. Conditional requirements.
 - - @since V2021.07.04: If you want to use the **"Structured Data"** feature of the plugin you have to install [GHSVS-de/pkg_lib_structuredataghsvs](https://github.com/GHSVS-de/pkg_lib_structuredataghsvs/releases) separately in your Joomla.
 - - @since V2021.07.12: If you want to use the **"Image Resize"** feature of the plugin you have to install [GHSVS-de/pkg_lib_imgresizeghsvs](https://github.com/GHSVS-de/pkg_lib_imgresizeghsvs/releases) separately in your Joomla.
-- - @since V2022.02.??: If you want to use the **"Embed SVG"** feature of the plugin you have to install [GHSVS-de/pkg_file_iconsghsvs](https://github.com/GHSVS-de/pkg_file_iconsghsvs/releases) separately in your Joomla.
 
 -----------------------------------------------------
 
@@ -30,13 +29,6 @@
 ### Update dependencies
 - `npm run updateCheck` or (faster) `npm outdated`
 - `npm run update` (if needed) or (faster) `npm update --save-dev`
-
-## PHP Codestyle
-If you think it's worth it.
-- `cd /mnt/z/git-kram/php-cs-fixer-ghsvs`
-- `npm run plg_system_bs3ghsvs_bs5Dry` (= dry test run).
-- `npm run plg_system_bs3ghsvs_bs5` (= cleans code).
-- `cd /mnt/z/git-kram/plg_system_bs3ghsvs_bs5` (back to this repo).
 
 ## Build installable ZIP package
 - `node build.js`
