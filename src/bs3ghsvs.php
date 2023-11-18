@@ -12,6 +12,10 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\Registry\Registry;
 use Spatie\SchemaOrg\Schema;
 
+// @since 2023-11
+use Joomla\CMS\Event\Application\AfterInitialiseDocumentEvent;
+use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsHelper;
+
 JLoader::register('Bs3ghsvsTemplate', __DIR__ . '/Helper/TemplateHelper.php');
 JLoader::register('Bs3GhsvsFormHelper', __DIR__ . '/Helper/FormHelper.php');
 JLoader::register('Bs3ghsvsItem', __DIR__ . '/Helper/ItemHelper.php');
@@ -74,11 +78,6 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 	// We need a cache. Otherwise already set <figure> tags will be removed in second run of getAllImgSrc(). E.g. when resizer is disabled.
 	protected $allImgSrc = null;
 
-	// Also usable in other files via PlgSystemBS3Ghsvs::$isJ3.
-	public static $isJ3 = true;
-
-	// Used in other files via $wa =  PlgSystemBS3Ghsvs::getWa().
-	protected static $wa = null;
 
 	function __construct(&$subject, $config = [])
 	{
@@ -86,8 +85,6 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		#if (Factory::getDocument()->getType() !== 'html')
 
 		parent::__construct($subject, $config);
-
-		self::$isJ3 = version_compare(JVERSION, '4', 'lt');
 
 		$this->imgresizeghsvsinstalled =
 			is_file(JPATH_LIBRARIES . '/imgresizeghsvs/vendor/autoload.php');
@@ -203,7 +200,22 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			}
 		}
 	}
-
+public function onAfterInitialiseDocument(AfterInitialiseDocumentEvent $event)
+{
+	if ($this->params->get('loadBootstrapEarly', 1))
+	{
+		// Load BS.
+		HTMLHelper::_('bootstrap.framework');
+	}
+}
+public function onBeforeRender()
+{
+	if ($this->params->get('loadBootstrapEarly', 1))
+	{
+		// Load BS.
+		#HTMLHelper::_('bootstrap.framework');
+	}
+}
 	public function onContentBeforeSave($context, $article, $isNew, $data = [])
 	{
 		// articleconnect is deprecated as far as I remember.
@@ -1044,6 +1056,11 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 
 	public function onBeforeCompileHead()
 	{
+			if ($this->params->get('loadBootstrapEarly', 1))
+		{
+			// Load BS.
+			#HTMLHelper::_('bootstrap.framework');
+		}
 		//$wa = self::getWa();
 		//$wa->usePreset('plg_system_bs3ghsvs.custom');
 		// Auf manchen Seiten nötig sonst fatal error.
@@ -1439,14 +1456,11 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		return $imagesToResizeCollect;
 	}
 
-	public static function getWa()
+	/*
+	Kann man dann wohl raushauen, die Methode hier.
+	*/
+	private static function getWa()
 	{
-		if (self::$isJ3 === false && empty(self::$wa))
-		{
-			self::$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-			self::$wa->getRegistry()->addExtensionRegistryFile('plg_system_bs3ghsvs');
-		}
-
-		return self::$wa;
+		return Bs3GhsvsHelper::getWa();
 	}
 }
