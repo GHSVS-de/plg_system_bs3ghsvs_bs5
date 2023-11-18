@@ -357,11 +357,7 @@ Array
 		}
 
 		$select = ['id', 'home', 'template', 's.params'];
-
-		if (PlgSystemBS3Ghsvs::$isJ3 === false)
-		{
 			$select = array_merge($select, ['s.inheritable', 's.parent']);
-		}
 
 		// Load styles
 		$query = $db->getQuery(true)
@@ -499,15 +495,7 @@ Array
 		$sig = md5(serialize($options));
 
 		if (!isset(self::$loaded[__METHOD__][$sig])) {
-			if (PlgSystemBS3Ghsvs::$isJ3 === false)
-			{
 				$style = new Joomla\Component\Templates\Administrator\Table\StyleTable(Factory::getDbo());
-			}
-			else
-			{
-			JTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_templates/tables');
-			$style = JTable::getInstance('Style', 'TemplatesTable');
-			}
 			$style->load($options);
 			self::$loaded[__METHOD__][$sig] = $style;
 		}
