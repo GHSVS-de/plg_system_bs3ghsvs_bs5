@@ -20,6 +20,12 @@
 	<maximumJoomla>{{maximumJoomla}}</maximumJoomla>
 	<allowDowngrades>{{allowDowngrades}}</allowDowngrades>
 
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/mysql/bs3ghsvs.sql</file>
+		</sql>
+	</install>
+
 	<files>
 		<filename plugin="{{filename}}">{{filename}}.php</filename>
 		<folder>Field</folder>
@@ -42,12 +48,6 @@
 		<folder>scss</folder>
 		<filename>joomla.asset.json</filename>
 	</media>
-	{{namespace}}
-	<install>
-		<sql>
-			<file driver="mysql" charset="utf8">sql/mysql/bs3ghsvs.sql</file>
-		</sql>
-	</install>
 	{{namespace}}
 	<config{{addfieldprefix}}>
 		<fields name="params">
