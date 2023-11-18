@@ -6,6 +6,9 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Log\Log;
 use Joomla\Utilities\ArrayHelper;
 
+// @since 2023-11
+use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsHelper;
+
 abstract class JHtmlBootstrapghsvs
 {
 	protected static $loaded = [];
@@ -22,72 +25,49 @@ abstract class JHtmlBootstrapghsvs
    */
 	public static function framework()
 	{
-		if (isset(static::$loaded[__METHOD__]))
+		$isJ5 = version_compare(JVERSION, '5', 'ge');
+
+		if (!$isJ5 && isset(static::$loaded[__METHOD__]))
 		{
+			# Für Joomla 5 muss das auch öfter durchlaufen werden können.
 			return;
 		}
 
-		if (($wa = PlgSystemBS3Ghsvs::getWa()))
-		{
-			/*
-			Joomla 5 fix. In fällen, wo anderes Template geladen wird, aber das Plugin
-			trotzdem sich irgendwie einmischt und im Plugin Verhalten – Abwärtskompatibilität
-			ES5 Assets nicht aktiviert werden kann.
-			Etwas schräg.
-			*/
-			if (version_compare(JVERSION, '5', 'lt'))
-			{
-				// Tipp: To be defined in Template if other files wanted than core.
-				$wa->useScript('bootstrap.es5');
-			}
-			else
-			{
-				$wa->useScript('plg_system_bs3ghsvs.bootstrap.es5.fallback.joomla5');
-			}
-		}
-		else
-		{
-			$attribs = [];
-			$min = JDEBUG ? '' : '.min';
-			$suf = $min ? 'Min' : '';
-			$version = JDEBUG ? time() : 'auto';
-			HTMLHelper::_('jquery.framework');
+		$wa = Bs3GhsvsHelper::getWa();
 
-				// From Template's plgSystemBs3Ghsvs.json.
-			$options = PlgSystemBS3Ghsvs::$options['bootstrapJs'];
-			$Load = $options['Load'];
+		// Krücke für Joomla 5
+		$wamName = 'bootstrap.es5';
+		$type = 'script';
+		$war = $wa->getRegistry();
 
-			if ($Load === 'media')
+		if ($wa->assetExists($type, $wamName))
 			{
-				// B/C
-				if (!isset($options['otherFileName']))
+			$asset = $war->get($type, $wamName);
+
+			if (empty($asset->getUri()))
 				{
-					$options['otherFileName'] = '';
+				$war->remove($type, $wamName);
+			}
 				}
 
-				$file = $options['otherFileName'] ? : 'bootstrap';
-				$file = $options['media'] . '/' . $file . $min . '.js';
-			}
-			else
+		if (!$wa->assetExists($type, $wamName))
 			{
-				self::$loaded[__METHOD__] = 1;
-
-				return;
-			}
-
-			HTMLHelper::_(
-				'script',
-				$file,
-				['version' => $version, 'relative' => true],
-				$attribs
+			$options = [
+				'type' => $type,
+				'version' => '5.2.2-assetghsvs'];
+			$uri = 'assetghsvs/bootstrap/52/-_custom_-/bootstrap.bundle.js';
+			$war->add(
+				$type,
+				$war->createAsset(
+					$wamName,
+					$uri,
+					$options, // array_merge($asset->getOptions(), $options),
+					[], // $asset->getAttributes(),
+					[], // $asset->getDependencies(),
+				)
 			);
-
-			if (PlgSystemBS3Ghsvs::$log)
-			{
-				$add = __METHOD__ . ': File ' . $file . '. Loaded?';
-				Log::add($add, Log::INFO, 'bs3ghsvs');
-			}
 		}
+		$wa->useAsset($type, $wamName);
 
 		static::$loaded[__METHOD__] = 1;
 
