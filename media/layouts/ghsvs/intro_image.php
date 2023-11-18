@@ -5,8 +5,8 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Language\Text;
 use Joomla\Registry\Registry;
 
-JLoader::register('Bs3ghsvsItem', JPATH_PLUGINS
-	. '/system/bs3ghsvs/Helper/ItemHelper.php');
+// @since 2023-11
+use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsItemHelper as Bs3ghsvsItem;
 
 $options = new Registry(
 	isset(

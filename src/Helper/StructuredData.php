@@ -26,13 +26,9 @@ use Joomla\String\StringHelper;
 use Spatie\SchemaOrg\Organization;
 use Spatie\SchemaOrg\Schema;
 
-/*JLoader::registerNamespace(
-	'Spatie\\SchemaOrg',
-	__DIR__ . '/schema-org/src',
-	false,
-	false,
-	'psr4'
-);*/
+// @since 2023-11
+use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsHelper;
+use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsItemHelper as Bs3ghsvsItem;
 
 class Bs3ghsvsStructuredData
 {
@@ -48,16 +44,11 @@ class Bs3ghsvsStructuredData
 	*/
 	public static function sd_article($article, $allImgSrc)
 	{
-		$plgParams = PlgSystemBS3Ghsvs::getPluginParams();
+		$plgParams = Bs3GhsvsHelper::getPluginParams();
 		$app = Factory::getApplication();
 
 		// Contains logos too.
 		$organization = new Registry($plgParams->get('sd_organization'));
-
-		JLoader::register(
-			'Bs3ghsvsItem',
-			__DIR__ . '/ItemHelper.php'
-		);
 
 		### Logo for publisher > Organization.
 		// Height 60px.
@@ -271,7 +262,7 @@ class Bs3ghsvsStructuredData
 	*/
 	public static function sd_organization(bool $onlyBase = false)
 	{
-		$plgParams = PlgSystemBS3Ghsvs::getPluginParams();
+		$plgParams = Bs3GhsvsHelper::getPluginParams();
 
 		// Contains logos too.
 		$organization = new Registry($plgParams->get('sd_organization'));

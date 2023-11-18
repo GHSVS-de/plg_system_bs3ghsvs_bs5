@@ -8,6 +8,10 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\Registry\Registry;
 
+
+// @since 2023-11
+use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsHelper;
+
 abstract class Bs3ghsvsArticle
 {
 	protected static $loaded = [];
@@ -39,7 +43,7 @@ abstract class Bs3ghsvsArticle
 		$prefix = 'article';
 		$activeXml = Bs3GhsvsFormHelper::getActiveXml(
 			$prefix,
-			PlgSystemBS3Ghsvs::getPluginParams(),
+			Bs3GhsvsHelper::getPluginParams(),
 			[1] // stati
 		);
 

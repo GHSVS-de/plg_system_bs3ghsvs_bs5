@@ -6,6 +6,9 @@
 
 defined('JPATH_BASE') or die;
 
+// @since 2023-11
+use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsItemHelper as Bs3ghsvsItem;
+
 $file = JPATH_LIBRARIES . '/imgresizeghsvs/vendor/autoload.php';
 
 if (!is_file($file))

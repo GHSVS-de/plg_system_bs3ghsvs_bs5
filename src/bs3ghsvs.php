@@ -15,11 +15,11 @@ use Spatie\SchemaOrg\Schema;
 // @since 2023-11
 use Joomla\CMS\Event\Application\AfterInitialiseDocumentEvent;
 use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsHelper;
+use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsItemHelper;
 
-JLoader::register('Bs3ghsvsTemplate', __DIR__ . '/Helper/TemplateHelper.php');
-JLoader::register('Bs3GhsvsFormHelper', __DIR__ . '/Helper/FormHelper.php');
-JLoader::register('Bs3ghsvsItem', __DIR__ . '/Helper/ItemHelper.php');
-JLoader::register('Bs3ghsvsArticle', __DIR__ . '/Helper/ArticleHelper.php');
+\JLoader::register('Bs3ghsvsTemplate', __DIR__ . '/Helper/TemplateHelper.php');
+\JLoader::register('Bs3GhsvsFormHelper', __DIR__ . '/Helper/FormHelper.php');
+\JLoader::register('Bs3ghsvsArticle', __DIR__ . '/Helper/ArticleHelper.php');
 
 class PlgSystemBS3Ghsvs extends CMSPlugin
 {
@@ -61,9 +61,6 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 
 	public static $log = 0;
 
-	// for public static getter function. Via PlgSystemBS3Ghsvs::getPluginParams.
-	protected static $plgParams;
-
 	// Collect og images for later output.
 	protected $ogCollection = [];
 
@@ -100,9 +97,6 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			$this->params->set('imageoptimizer_intro_full', 0);
 			$this->params->set('imageoptimizer_articletext', 0);
 		}
-
-		// For getter method from outside.
-		static::$plgParams = $this->params;
 
 		if (self::$log || (self::$log = $this->params->get('log', 0)))
 		{
@@ -658,14 +652,14 @@ public function onBeforeRender()
 			&& empty($article->introtext_imagesghsvs)
 		) {
 			// Build basic $article->Imagesghsvs based upon $article->images and more.
-			Bs3ghsvsItem::getItemImagesghsvs($article);
+			Bs3GhsvsItemHelper::getItemImagesghsvs($article);
 			$collect_images = [];
 
 			if ($this->params->get('imageoptimizer_intro_full') === 1
 				&& ($IMAGE = $article->Imagesghsvs->get('image_intro'))
 				&& file_exists(JPATH_SITE . '/' . $IMAGE)
 			) {
-				$collect_images = Bs3ghsvsItem::getImageResizeImages('image_intro', $IMAGE);
+				$collect_images = Bs3GhsvsItemHelper::getImageResizeImages('image_intro', $IMAGE);
 			} // end if ($IMAGE = $article->Imagesghsvs->get('image_intro'))
 
 			$article->Imagesghsvs->set('introtext_imagesghsvs', $collect_images);
@@ -680,14 +674,14 @@ public function onBeforeRender()
 			&& empty($article->fulltext_imagesghsvs)
 		) {
 			// Build basic $article->Imagesghsvs based upon $article->images and more.
-			Bs3ghsvsItem::getItemImagesghsvs($article);
+			Bs3GhsvsItemHelper::getItemImagesghsvs($article);
 			$collect_images = [];
 
 			if ($this->params->get('imageoptimizer_intro_full') === 1
 				&& ($IMAGE = $article->Imagesghsvs->get('image_fulltext'))
 				&& file_exists(JPATH_SITE . '/' . $IMAGE)
 			) {
-				$collect_images = Bs3ghsvsItem::getImageResizeImages(
+				$collect_images = Bs3GhsvsItemHelper::getImageResizeImages(
 					'image_fulltext',
 					$IMAGE
 				);
@@ -708,14 +702,14 @@ public function onBeforeRender()
 		) {
 			if ($this->allImgSrc === null)
 			{
-				$this->allImgSrc = Bs3ghsvsItem::getAllImgSrc($article->text);
+				$this->allImgSrc = Bs3GhsvsItemHelper::getAllImgSrc($article->text);
 			}
 
 			// <img src=...> found in article text?
 			if ($this->allImgSrc)
 			{
 				// Build *basic* $article->Imagesghsvs based upon $article->images and more.
-				Bs3ghsvsItem::getItemImagesghsvs($article);
+				Bs3GhsvsItemHelper::getItemImagesghsvs($article);
 				$collect_images = [];
 
 				// First resize found images and collect results.
@@ -723,7 +717,7 @@ public function onBeforeRender()
 				{
 					if ($this->params->get('imageoptimizer_articletext') === 1)
 					{
-						$collect_images = Bs3ghsvsItem::getImageResizeImages(
+						$collect_images = Bs3GhsvsItemHelper::getImageResizeImages(
 							'image_articletext',
 							$this->allImgSrc['src']
 						);
@@ -795,7 +789,7 @@ public function onBeforeRender()
 			&& $view === 'article'
 		) {
 			// Build basic $article->Imagesghsvs based upon $article->images and more.
-			Bs3ghsvsItem::getItemImagesghsvs($article);
+			Bs3GhsvsItemHelper::getItemImagesghsvs($article);
 
 			if (
 				$this->params->get('imageoptimizer_intro_full') === 1
@@ -865,7 +859,7 @@ public function onBeforeRender()
 			{
 				if ($this->allImgSrc === null)
 				{
-					$this->allImgSrc = Bs3ghsvsItem::getAllImgSrc($article->text);
+					$this->allImgSrc = Bs3GhsvsItemHelper::getAllImgSrc($article->text);
 				}
 
 				if ($this->allImgSrc)
@@ -894,7 +888,7 @@ public function onBeforeRender()
 
 		if ($doSd === true)
 		{
-			JLoader::register(
+			\JLoader::register(
 				'Bs3ghsvsStructuredData',
 				__DIR__ . '/Helper/StructuredData.php'
 			);
@@ -1135,7 +1129,7 @@ public function onBeforeRender()
 
 			foreach ($this->ogCollection as $imagePath)
 			{
-				$doc->addCustomTag('<meta property="og:image" content="' . Bs3ghsvsItem::addUriRoot($imagePath) . '">');
+				$doc->addCustomTag('<meta property="og:image" content="' . Bs3GhsvsItemHelper::addUriRoot($imagePath) . '">');
 			}
 		}
 		#### Open Graph tags END
@@ -1201,13 +1195,13 @@ public function onBeforeRender()
 
 	protected function register()
 	{
-		JLoader::register('Bs3GhsvsRegisterJQuery', __DIR__ . '/Helper/RegisterJQuery.php');
-		JLoader::register('Bs3GhsvsRegisterBootstrap', __DIR__ . '/Helper/RegisterBootstrap.php');
-		JLoader::register('Bs3GhsvsRegisterBehavior', __DIR__ . '/Helper/RegisterBehavior.php');
-		JLoader::register('Bs3GhsvsRegisterFormbehavior', __DIR__ . '/Helper/RegisterFormbehavior.php');
-		JLoader::register('Bs3GhsvsRegisterBs3ghsvs', __DIR__ . '/Helper/RegisterBs3ghsvs.php');
-		JLoader::register('Bs3GhsvsRegisterIcon', __DIR__ . '/Helper/RegisterIcon.php');
-		JLoader::register('Bs3GhsvsRegisterSelect', __DIR__ . '/Helper/RegisterSelect.php');
+		\JLoader::register('Bs3GhsvsRegisterJQuery', __DIR__ . '/Helper/RegisterJQuery.php');
+		\JLoader::register('Bs3GhsvsRegisterBootstrap', __DIR__ . '/Helper/RegisterBootstrap.php');
+		\JLoader::register('Bs3GhsvsRegisterBehavior', __DIR__ . '/Helper/RegisterBehavior.php');
+		\JLoader::register('Bs3GhsvsRegisterFormbehavior', __DIR__ . '/Helper/RegisterFormbehavior.php');
+		\JLoader::register('Bs3GhsvsRegisterBs3ghsvs', __DIR__ . '/Helper/RegisterBs3ghsvs.php');
+		\JLoader::register('Bs3GhsvsRegisterIcon', __DIR__ . '/Helper/RegisterIcon.php');
+		\JLoader::register('Bs3GhsvsRegisterSelect', __DIR__ . '/Helper/RegisterSelect.php');
 
 		$error = [];
 
@@ -1314,14 +1308,6 @@ public function onBeforeRender()
 		return true;
 	}
 
-	/**
-	 * Getter for parameters of this plugin via PlgSystemBS3Ghsvs::getPluginParams()
-	 */
-	public static function getPluginParams()
-	{
-		return static::$plgParams;
-	}
-
 	function onAjaxSessionBs3Ghsvs()
 	{
 		if (strtolower($this->app->input->server->get('HTTP_X_REQUESTED_WITH', '')) !== 'xmlhttprequest')
@@ -1376,7 +1362,7 @@ public function onBeforeRender()
 		array $imagesToResizeCollect,
 		$moduleParams = false
 	) : array {
-		$PlgParams = self::getPluginParams();
+		$PlgParams = Bs3GhsvsHelper::getPluginParams();
 
 		// Modules resizing should get an own setting. Too lazy at the moment.
 		if ($PlgParams->get('imageoptimizer_articletext') !== 1)
@@ -1388,7 +1374,7 @@ public function onBeforeRender()
 		$imagesToResizeCollectKeys = array_keys($imagesToResizeCollect);
 
 		// Extract images HTML tags parts via preg_match all.
-		$imagesInModule = Bs3ghsvsItem::getAllImgSrc(implode($imagesToResizeCollect));
+		$imagesInModule = Bs3GhsvsItemHelper::getAllImgSrc(implode($imagesToResizeCollect));
 
 		$collect_images = [];
 		$imagesToResizeCollectTemp = [];
@@ -1398,7 +1384,7 @@ public function onBeforeRender()
 		if (!empty($imagesInModule['src']))
 		{
 			// Resize and create resized images collection (contains width/height and so on, too).
-			$collect_images = Bs3ghsvsItem::getImageResizeImages(
+			$collect_images = Bs3GhsvsItemHelper::getImageResizeImages(
 				// Be careful. Already reserved: 'image_intro', 'image_fulltext', 'image_articletext'!
 				'image_module',
 				$imagesInModule['src'],
