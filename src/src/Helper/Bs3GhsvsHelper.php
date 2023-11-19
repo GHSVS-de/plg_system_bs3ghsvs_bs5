@@ -11,6 +11,7 @@ namespace GHSVS\Plugin\System\Bs3Ghsvs\Helper;
 use Joomla\CMS\Factory;
 use Joomla\Registry\Registry;
 
+#[\AllowDynamicProperties]
 class Bs3GhsvsHelper
 {
 	private static $wa;

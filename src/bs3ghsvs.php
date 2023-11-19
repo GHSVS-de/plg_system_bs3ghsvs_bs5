@@ -16,10 +16,10 @@ use Spatie\SchemaOrg\Schema;
 use Joomla\CMS\Event\Application\AfterInitialiseDocumentEvent;
 use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsHelper;
 use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsItemHelper;
+use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsArticleHelper;
 
 \JLoader::register('Bs3ghsvsTemplate', __DIR__ . '/Helper/TemplateHelper.php');
 \JLoader::register('Bs3GhsvsFormHelper', __DIR__ . '/Helper/FormHelper.php');
-\JLoader::register('Bs3ghsvsArticle', __DIR__ . '/Helper/ArticleHelper.php');
 
 class PlgSystemBS3Ghsvs extends CMSPlugin
 {
@@ -635,7 +635,7 @@ public function onBeforeRender()
 		###### Extra fields from #__bs3ghsvs_article - START
 		if ($iAmAnArticle && $isHtml === true)
 		{
-			$article->bs3ghsvsFields = Bs3ghsvsArticle::getExtraFields(
+			$article->bs3ghsvsFields = Bs3GhsvsArticleHelper::getExtraFields(
 				$article->id,
 				[],
 				true

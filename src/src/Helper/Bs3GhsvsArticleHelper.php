@@ -1,5 +1,7 @@
 <?php
-defined('_JEXEC') or die;
+namespace GHSVS\Plugin\System\Bs3Ghsvs\Helper;
+
+\defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
@@ -12,7 +14,8 @@ use Joomla\Registry\Registry;
 // @since 2023-11
 use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsHelper;
 
-abstract class Bs3ghsvsArticle
+#[\AllowDynamicProperties]
+class Bs3GhsvsArticleHelper
 {
 	protected static $loaded = [];
 
@@ -41,7 +44,7 @@ abstract class Bs3ghsvsArticle
 		}
 
 		$prefix = 'article';
-		$activeXml = Bs3GhsvsFormHelper::getActiveXml(
+		$activeXml = \Bs3GhsvsFormHelper::getActiveXml(
 			$prefix,
 			Bs3GhsvsHelper::getPluginParams(),
 			[1] // stati
@@ -162,7 +165,7 @@ abstract class Bs3ghsvsArticle
 					continue;
 				}
 
-				$item->link = Route::_(ContentHelperRoute::getArticleRoute(
+				$item->link = Route::_(\ContentHelperRoute::getArticleRoute(
 					$item->id,
 					$item->catid,
 					$item->language

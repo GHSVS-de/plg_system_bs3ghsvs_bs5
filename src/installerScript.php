@@ -61,8 +61,11 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/plugins/system/bs3ghsvs/Field/templatesjsonconfigurationinfo.php',
 		'/plugins/system/bs3ghsvs/Field/imgresizeghsvsinstalled.php',
 		'/plugins/system/bs3ghsvs/Field/structuredataghsvsinstalled.php',
+		'/plugins/system/bs3ghsvs/src/Field/templatesjsonconfigurationinfo.php',
+
 		'/plugins/system/bs3ghsvs/Helper/PagebreakHelper.php',
 		'/plugins/system/bs3ghsvs/Helper/ItemHelper.php',
+		'/plugins/system/bs3ghsvs/Helper/ArticleHelper.php',
 
 		'/media/plg_system_bs3ghsvs/layouts/ghsvs/frontediting_modules_in_article.php',
 		'/media/plg_system_bs3ghsvs/layouts/ghsvs/scroll-to-article-modal.php',
