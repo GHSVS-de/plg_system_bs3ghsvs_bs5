@@ -1,5 +1,7 @@
 <?php
-defined('_JEXEC') or die;
+namespace GHSVS\Plugin\System\Bs3Ghsvs\Helper;
+
+\defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
@@ -8,7 +10,7 @@ use Joomla\CMS\Filter\InputFilter;
 use Joomla\CMS\Language\Text;
 use Joomla\Registry\Registry;
 
-class Bs3ghsvsTemplate
+class Bs3GhsvsTemplateHelper
 {
 	protected static $templates = null;
 

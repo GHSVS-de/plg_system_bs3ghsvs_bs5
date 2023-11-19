@@ -18,8 +18,7 @@ use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsHelper;
 use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsItemHelper;
 use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsArticleHelper;
 use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsFormHelper;
-
-\JLoader::register('Bs3ghsvsTemplate', __DIR__ . '/Helper/TemplateHelper.php');
+use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsTemplateHelper;
 
 class PlgSystemBS3Ghsvs extends CMSPlugin
 {
@@ -120,7 +119,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		$this->order();
 
 		// Check for file plgSystemBs3Ghsvs.json in templatefolders.
-		$this->templates = Bs3ghsvsTemplate::getActiveInTemplates();
+		$this->templates = Bs3GhsvsTemplateHelper::getActiveInTemplates();
 
 		$this->formPath = JPATH_PLUGINS . '/system/bs3ghsvs/myforms/';
 
@@ -155,7 +154,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			$this->app->set('gzip', 0);
 		}
 
-		$this->template = Bs3ghsvsTemplate::getTemplateNameEarly($this->app, $this->db);
+		$this->template = Bs3GhsvsTemplateHelper::getTemplateNameEarly($this->app, $this->db);
 		$this->executeFe = in_array($this->template, $this->templates);
 
 		if ($this->executeFe === false)
@@ -163,7 +162,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			return;
 		}
 
-		self::$options = Bs3ghsvsTemplate::getTemplateOptionsFromJson($this->template);
+		self::$options = Bs3GhsvsTemplateHelper::getTemplateOptionsFromJson($this->template);
 
 		$this->executeFe = $this->register();
 	}
@@ -185,7 +184,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		if ($this->app->isClient('site')
 			&& ($this->executeFe === true || $this->params->get('initTemplateAlways', 0) === 1))
 		{
-			Bs3ghsvsTemplate::initTemplate();
+			Bs3GhsvsTemplateHelper::initTemplate();
 
 			if ($this->params->get('loadBootstrapEarly', 1))
 			{
@@ -409,7 +408,7 @@ public function onBeforeRender()
 		if (
 			$this->app->isClient('administrator')
 			&& $context === 'com_templates.style'
-			&& ($template = Bs3ghsvsTemplate::getTemplateByStyleId($this->app->input->get('id')))
+			&& ($template = Bs3GhsvsTemplateHelper::getTemplateByStyleId($this->app->input->get('id')))
 			&& in_array($template, $this->templates)
 		) {
 			$form->loadFile($this->formPath . '/base.xml', $reset = false, $path = false);

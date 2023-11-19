@@ -11,7 +11,8 @@ use Joomla\CMS\Form\FormField;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 
-\JLoader::register('Bs3ghsvsTemplate', __DIR__ . '/../Helper/TemplateHelper.php');
+// @since 2023-11
+use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsTemplateHelper;
 
 class TemplatesJsonConfigurationInfoField extends FormField
 {
@@ -20,7 +21,7 @@ class TemplatesJsonConfigurationInfoField extends FormField
 	protected function getInput()
 	{
 		$html = ['<h4>' . Text::_('PLG_SYSTEM_BS3GHSVS_TEMPLATES_JSON_CONFIGURATION_INFO') . '</h4>'];
-		$templates = \Bs3ghsvsTemplate::getActiveInTemplates();
+		$templates = Bs3GhsvsTemplateHelper::getActiveInTemplates();
 
 		if (!$templates)
 		{
@@ -34,7 +35,7 @@ class TemplatesJsonConfigurationInfoField extends FormField
 				$html[] = '<h5>* Template: ' . $template . '<br>** File: <a href="'
 					. Uri::root() . $path . '" target="_blank">'
 					. $path . '</a></h5>';
-				$options = \Bs3ghsvsTemplate::getTemplateOptionsFromJson($template);
+				$options = Bs3GhsvsTemplateHelper::getTemplateOptionsFromJson($template);
 
 				foreach ($options as $key => $dingsbums)
 				{
