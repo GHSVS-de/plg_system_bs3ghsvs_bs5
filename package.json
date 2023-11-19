@@ -25,7 +25,10 @@
 			"Optional: For assets (e.g. Bootstrap) pkg_file_assetghsvs. Lots of assets have been removed from this plugin (Bootstrap CSS, JS, SCSS. JQuery JS. JQuery-slim. JQuery-migrate.)."
 		],
 		"uses": [],
-		"language": []
+		"language": [
+			"en-GB",
+			"de-DE"
+		]
 	},
 	"changelog": {
 		"projecturl": "https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5",
@@ -65,7 +68,7 @@
 		"system plugin"
 	],
 	"private": false,
-	"description": "Joomla system plugin. Register and override JHtml helpers. And much more.",
+	"description": "Joomla system plugin to register and override JHtml helpers. And more more more. Plugin for ghsvs.de templates.",
 	"license": "GPL-3.0",
 	"repository": {
 		"type": "git",
