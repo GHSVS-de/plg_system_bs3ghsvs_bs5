@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+  "name": "plg_system_bs3ghsvs_bs5",
+  "version": "2023.11.19",
+	"versionSub": "",
+  "description": "Joomla system plugin to register and override JHtml helpers. And more more more. Plugin for ghsvs.de templates.",
+  "license": "GNU General Public License version 3 or later; see LICENSE.txt.",
+	"assets": [
+		{
+			"name": "plg_system_bs3ghsvs.toTop",
+			"type": "preset",
+			"dependencies": [
+				"plg_system_bs3ghsvs.toTop#script",
+				"plg_system_bs3ghsvs.toTop#style"
+			]
+		},
+		{
+			"name": "plg_system_bs3ghsvs.toTop",
+			"type": "script",
+			"version": "2023.11.19",
+			"uri": "plg_system_bs3ghsvs/toTop.js",
+			"attributes": {
+				"defer": true
+			}
+		},
+		{
+			"name": "plg_system_bs3ghsvs.toTop",
+			"type": "style",
+			"version": "2023.11.19",
+			"uri": "plg_system_bs3ghsvs/toTop.css",
+			"attributes": {
+				"defer": true
+			}
+		},
+		{
+			"name": "plg_system_bs3ghsvs.templatejs",
+			"type": "script",
+			"version": "2023.11.19",
+			"uri": "plg_system_bs3ghsvs/template.js",
+			"dependencies": [
+				"jquery"
+			]
+		},
+		{
+			"name": "plg_system_bs3ghsvs.bootstrap.es5.fallback.joomla5",
+			"description": "Notfall-Asset",
+			"type": "script",
+			"deprecated": true,
+			"uri": "",
+			"dependencies": [
+				"core"
+			],
+			"attributes": {
+			"nomodule": true,
+			"defer": true
+			}
+		}
+	]
+}
