@@ -22,7 +22,7 @@
 		"requires": [
 			"Optional: For feature \"Structured Data\" pkg_lib_structuredataghsvs",
 			"Optional: For feature \"Image Resize\" pkg_lib_imgresizeghsvs",
-			"Optional: For assets (e.g. Bootstrap) pkg_file_assetghsvs. Lots of assets have been removed from this plugin (Bootstrap CSS, JS, SCSS. JQuery JS. JQuery-slim. JQuery-migrate.)."
+			"Optional: Optional: For assets (e.g. Custom builts of Bootstrap-JS, JQuery-slim) pkg_file_assetghsvs."
 		],
 		"uses": [],
 		"language": [
