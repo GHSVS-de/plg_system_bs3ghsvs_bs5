@@ -1196,8 +1196,6 @@ public function onBeforeRender()
 	{
 		\JLoader::register('Bs3GhsvsRegisterJQuery', __DIR__ . '/Helper/RegisterJQuery.php');
 		\JLoader::register('Bs3GhsvsRegisterBootstrap', __DIR__ . '/Helper/RegisterBootstrap.php');
-		\JLoader::register('Bs3GhsvsRegisterBehavior', __DIR__ . '/Helper/RegisterBehavior.php');
-		\JLoader::register('Bs3GhsvsRegisterFormbehavior', __DIR__ . '/Helper/RegisterFormbehavior.php');
 		\JLoader::register('Bs3GhsvsRegisterBs3ghsvs', __DIR__ . '/Helper/RegisterBs3ghsvs.php');
 		\JLoader::register('Bs3GhsvsRegisterIcon', __DIR__ . '/Helper/RegisterIcon.php');
 		\JLoader::register('Bs3GhsvsRegisterSelect', __DIR__ . '/Helper/RegisterSelect.php');
@@ -1214,18 +1212,6 @@ public function onBeforeRender()
 		{
 			$this->executeFe = false;
 			$error[] = 'Bs3GhsvsRegisterBootstrap';
-		}
-
-		if (false === Bs3GhsvsRegisterBehavior::register())
-		{
-			$this->executeFe = false;
-			$error[] = 'Bs3GhsvsRegisterBehavior';
-		}
-
-		if (false === Bs3GhsvsRegisterFormbehavior::register())
-		{
-			$this->executeFe = false;
-			$error[] = 'Bs3GhsvsRegisterFormbehavior';
 		}
 
 		if (false === Bs3GhsvsRegisterBs3ghsvs::register())
