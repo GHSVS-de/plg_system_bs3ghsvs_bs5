@@ -1,40 +1,48 @@
 {
-	"$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+  "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+  "name": "{{name}}",
+  "version": "{{version}}",
+	"versionSub": "{{versionSub}}",
+  "description": "{{description}}",
+  "license": "{{licenseLong}}",
 	"assets": [
 		{
-			"name": "plg_system_bs3ghsvs.toTop",
+			"name": "{{nameReal}}.toTop",
 			"type": "preset",
 			"dependencies": [
-				"plg_system_bs3ghsvs.toTop#script",
-				"plg_system_bs3ghsvs.toTop#style"
+				"{{nameReal}}.toTop#script",
+				"{{nameReal}}.toTop#style"
 			]
 		},
 		{
-			"name": "plg_system_bs3ghsvs.toTop",
+			"name": "{{nameReal}}.toTop",
 			"type": "script",
-			"uri": "plg_system_bs3ghsvs/toTop.js",
+			"version": "{{version}}",
+			"uri": "{{nameReal}}/toTop.js",
 			"attributes": {
 				"defer": true
 			}
 		},
 		{
-			"name": "plg_system_bs3ghsvs.toTop",
+			"name": "{{nameReal}}.toTop",
 			"type": "style",
-			"uri": "plg_system_bs3ghsvs/toTop.css",
+			"version": "{{version}}",
+			"uri": "{{nameReal}}/toTop.css",
 			"attributes": {
 				"defer": true
 			}
 		},
 		{
-			"name": "plg_system_bs3ghsvs.templatejs",
+			"name": "{{nameReal}}.templatejs",
 			"type": "script",
-			"uri": "plg_system_bs3ghsvs/template.js",
+			"version": "{{version}}",
+			"uri": "{{nameReal}}/template.js",
 			"dependencies": [
 				"jquery"
 			]
 		},
 		{
-			"name": "plg_system_bs3ghsvs.bootstrap.es5.fallback.joomla5",
+			"name": "{{nameReal}}.bootstrap.es5.fallback.joomla5",
 			"description": "Notfall-Asset",
 			"type": "script",
 			"deprecated": true,

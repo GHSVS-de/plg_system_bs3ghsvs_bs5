@@ -12,7 +12,14 @@ const replaceXml = require(`${pathBuildKram}/build/replaceXml.js`);
 const helper = require(`${pathBuildKram}/build/helper.js`);
 const pc = require(`${pathBuildKram}/node_modules/picocolors`);
 
-let replaceXmlOptions = {};
+let replaceXmlOptions = {
+	"xmlFile": "",
+	"zipFilename": "",
+	"checksum": "",
+	"dirname": __dirname,
+	"jsonString": "",
+	"versionSub": ""
+};
 let zipOptions = {};
 let from = "";
 let to = "";
@@ -38,6 +45,7 @@ const thisPackages = [];
 	];
 	await helper.cleanOut(cleanOuts);
 
+	await helper.mkdir('./package');
 	await helper.mkdir('./dist');
 
 	// ## /media/.
@@ -52,14 +60,16 @@ const thisPackages = [];
 	to = `./package`;
 	await helper.copy(from, to);
 
+	from = path.resolve('package', 'media', 'joomla.asset.json');
+	replaceXmlOptions.xmlFile = from;
+	await replaceXml.main(replaceXmlOptions);
+
+	await helper.copy(from, `./dist/joomla.asset.json`)
+
 	const zipFilename = `${name}-${version}.zip`;
 
-	replaceXmlOptions = {
-		"xmlFile": Manifest,
-		"zipFilename": zipFilename,
-		"checksum": "",
-		"dirname": __dirname
-	};
+	replaceXmlOptions.xmlFile = Manifest;
+	replaceXmlOptions.zipFilename = zipFilename;
 
 	await replaceXml.main(replaceXmlOptions);
 	from = Manifest;
@@ -89,10 +99,11 @@ const thisPackages = [];
 	}
 
 	cleanOuts = [
-		`./package`,
+		`./package`
 	];
 	await helper.cleanOut(cleanOuts).then(
-		answer => console.log(pc.cyan(pc.bold(pc.bgRed(
-			`Finished. Good bye!`))))
+		answer => console.log(
+			pc.cyan(pc.bold(pc.bgRed(`Finished. Good bye!`)))
+		)
 	);
 })();
