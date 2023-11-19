@@ -2,8 +2,8 @@
 	"name": "plg_system_bs3ghsvs_bs5",
 	"nameReal": "plg_system_bs3ghsvs",
 	"filename": "bs3ghsvs",
-	"version": "2023.11.19",
-	"versionCompare": "2023.11.18",
+	"version": "2023.11.20",
+	"versionCompare": "2023.11.19",
 	"versionSub": "",
 	"update": {
 		"infourl": "https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5{{thisRelease}}",
