@@ -1,0 +1,821 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="system" method="upgrade">
+	<name>PLG_SYSTEM_BS3GHSVS</name>
+	<author>G@HService Berlin Neukölln, Volkmar Volli Schlothauer</author>
+	<creationDate>2015-08-30</creationDate>
+	<copyright>(C) 2015, G@HService Berlin Neukölln, Volkmar Volli Schlothauer.</copyright>
+	<license>GNU General Public License version 3 or later; see LICENSE.txt.</license>
+	<authorUrl>https://ghsvs.de</authorUrl>
+	<version>2023.11.18</version>
+	<description>PLG_SYSTEM_BS3GHSVS_DESC</description>
+
+	<updateservers><server type="extension" priority="1" name="PLG_SYSTEM_BS3GHSVS_BS5">https://raw.githubusercontent.com/GHSVS-de/upadateservers/master/plg_system_bs3ghsvs_bs5-update.xml</server></updateservers>
+
+	<infourl>https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/releases/tag/2023.11.18</infourl>
+
+	<scriptfile>installerScript.php</scriptfile>
+	<minimumPhp>7.4.0</minimumPhp>
+	<maximumPhp></maximumPhp>
+	<minimumJoomla>4.3.0</minimumJoomla>
+	<maximumJoomla>5.9999.9999</maximumJoomla>
+	<allowDowngrades>1</allowDowngrades>
+
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/mysql/bs3ghsvs.sql</file>
+		</sql>
+	</install>
+
+	<files>
+		<filename plugin="bs3ghsvs">bs3ghsvs.php</filename>
+		<folder>Helper</folder>
+		<folder>html</folder>
+		<folder>language</folder>
+		<folder>myforms</folder>
+		<folder>sql</folder>
+		<folder>src</folder>
+		<filename>installerScript.php</filename>
+		<filename>LICENSE.txt</filename>
+	</files>
+
+	<media folder="media" destination="plg_system_bs3ghsvs">
+		<folder>css</folder>
+		<folder>fonts</folder>
+		<folder>glyphicons</folder>
+		<folder>images</folder>
+		<folder>js</folder>
+		<folder>layouts</folder>
+		<folder>scss</folder>
+		<filename>joomla.asset.json</filename>
+	</media>
+	<namespace path="src">GHSVS\Plugin\System\Bs3Ghsvs</namespace>
+	<config addfieldprefix="GHSVS\Plugin\System\Bs3Ghsvs\Field">
+		<fields name="params">
+
+			<fieldset name="fieldsetInfos"
+				label="PLG_SYSTEM_BS3GHSVS_FIELDSET_INFOS">
+
+				<field name="templatesJsonConfigurationInfo"
+					type="TemplatesJsonConfigurationInfo"
+					 hiddenLabel="true" />
+
+			</fieldset>
+
+			<fieldset name="basic">
+				<field name="assetsbe" type="AssetsBe"
+					loadjs="false" loadJQuery="false" loadcss="true" />
+
+				<field name="version" type="Version"
+					label="JVERSION"
+					/>
+
+				<field name="log" type="list" default="0" filter="integer"
+					label="GHSVS_LOG"
+					description="GHSVS_LOG_DESC">
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
+				</field>
+
+				<field name="loadBootstrapEarly" type="list" default="1" filter="integer"
+					label="Load Bootstrap early"
+					description="Plugin loads Bootstrap as early as possible in relevant templates.">
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
+				</field>
+
+				<field name="deleteCanonicals" type="list" default="1" filter="integer"
+					label="PLG_SYSTEM_BS3GHSVS_DELETE_CANONICALS"
+					>
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
+				</field>
+
+				<field name="gzipOffFacebook" type="list" default="1" filter="integer"
+					label="PLG_SYSTEM_BS3GHSVS_GZIPOFFFACEBOOK"
+					>
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
+				</field>
+
+				<field name="initTemplateAlways" type="list" default="0" filter="integer"
+					label="PLG_SYSTEM_BS3GHSVS_INITTEMPLATEALWAYS"
+					>
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
+				</field>
+
+			</fieldset><!--/basic-->
+
+			<fieldset name="FieldsetXmlActive"
+				label="PLG_SYSTEM_BS3GHSVS_FIELDSET_XMLACTIVE"
+				description="PLG_SYSTEM_BS3GHSVS_FIELDSET_XMLACTIVE_DESC">
+
+				<fields name="XmlActiveArticle">
+
+					<field name="XmlActiveArticleSpacer" type="spacer"
+						label="PLG_SYSTEM_BS3GHSVS_XMLACTIVE_ARTICLE"/>
+
+					<field name="xml_base" type="list" default="0"
+						filter="integer"
+						label="base.xml (System)">
+							<option value="2">JYES</option>
+							<option value="0">JNO</option>
+					</field>
+
+					<field name="xml_articleVarious" type="list" default="0"
+						filter="integer"
+						label="articleVarious.xml">
+							<option value="1">JYES</option>
+							<option value="0">JNO</option>
+					</field>
+
+					<field name="xml_articleExtension" type="list" default="0"
+						filter="integer"
+						label="articleExtension.xml">
+							<option value="1">JYES</option>
+							<option value="0">JNO</option>
+					</field>
+
+					<field name="xml_articleImages" type="list" default="0"
+						filter="integer"
+						label="articleImages.xml">
+							<option value="1">JYES</option>
+							<option value="0">JNO</option>
+					</field>
+
+					<field name="xml_articleSettings" type="list" default="0"
+						filter="integer"
+						label="articleSettings.xml">
+							<option value="1">JYES</option>
+							<option value="0">JNO</option>
+					</field>
+
+					<field name="xml_articleTermin" type="list" default="0"
+						filter="integer"
+						label="articleTermin.xml">
+							<option value="1">JYES</option>
+							<option value="0">JNO</option>
+					</field>
+
+					<field name="xml_articleCite" type="list" default="0"
+						filter="integer"
+						label="articleCite.xml">
+							<option value="1">JYES</option>
+							<option value="0">JNO</option>
+					</field>
+
+				</fields><!--/XmlActiveArticle-->
+
+				<fields name="XmlActiveModule">
+
+					<field name="XmlActiveModuleSpacer" type="spacer"
+						label="PLG_SYSTEM_BS3GHSVS_XMLACTIVE_MODULE"/>
+
+					<field name="xml_base" type="list" default="2"
+						filter="integer"
+						label="base.xml (System)"
+						>
+							<option value="2">JYES</option>
+							<option value="0">JNO</option>
+					</field>
+
+					<field name="xml_module" type="list" default="1"
+						filter="integer"
+						label="module.xml"
+						>
+							<option value="1">JYES</option>
+							<option value="0">JNO</option>
+					</field>
+
+					<field name="xml_modulePosition" type="list" default="0"
+						filter="integer"
+						label="modulePosition.xml"
+						>
+							<option value="1">JYES</option>
+							<option value="0">JNO</option>
+					</field>
+
+				</fields><!--/XmlActiveModule-->
+
+				<fields name="XmlActiveContactForm">
+
+					<field name="XmlActiveContactForm" type="spacer"
+						label="PLG_SYSTEM_BS3GHSVS_XMLACTIVE_CONTACTFORM"
+						/>
+
+					<field name="XmlActiveContactFormNote" type="note"
+						class="alert aler-info"
+						label=""
+						description="Kontaktformularen wird im Frontend ein Telefon-Feld hinzugefügt. Außerdem können paar Felder auf 'Optional' umgestellt werden."/>
+
+					<field name="xml_contactform" type="list" default="1" filter="integer"
+						label="contactform.xml"
+						>
+							<option value="1">JYES</option>
+							<option value="0">JNO</option>
+					</field>
+
+					<field name="contact_phoneghsvs_required" type="list" default="0" filter="integer"
+						label="PLG_SYSTEM_BS3GHSVS_PHONE_REQUIRED"
+
+						showon="xml_contactform:1">
+							<option value="0">JNO</option>
+							<option value="1">JYES</option>
+							<option value="-1">JHIDE</option>
+					</field>
+
+					<field name="contact_name_required" type="list" default="0" filter="integer"
+						label="PLG_SYSTEM_BS3GHSVS_NAME_REQUIRED"
+
+						showon="xml_contactform:1">
+							<option value="0">JNO</option>
+							<option value="1">JYES</option>
+					</field>
+
+				</fields><!--/XmlActiveContactForm-->
+				<fields name="XmlActiveMenuitem">
+
+					<field name="XmlActiveMenuitemSpacer" type="spacer"
+						label="PLG_SYSTEM_BS3GHSVS_XMLACTIVE_MENUITEM"
+						/>
+
+					<field name="xml_base" type="list" default="2"
+						readonly="true" filter="integer"
+						label="base.xml (System)"
+						>
+							<option value="2">JYES</option>
+							<option value="0">JNO</option>
+					</field>
+
+					<field name="xml_menuitem" type="list" default="1"
+						readonly="true" filter="integer"
+						label="menuitem.xml"
+						>
+							<option value="1">JYES</option>
+							<option value="0">JNO</option>
+					</field>
+
+				</fields><!--/XmlActiveMenuitem-->
+
+			</fieldset><!--/FieldsetXmlActive-->
+
+			<fieldset name="FieldsetImageResize"
+				label="PLG_SYSTEM_BS3GHSVS_FIELDSET_IMAGERESIZE">
+
+				<field name="imgSrcDetection" type="list" default="html5"
+					label="PLG_SYSTEM_BS3GHSVS_IMGSRCDETECTION">
+					<option value="html5">HTML5</option>
+					<option value="html4">HTML4</option>
+				</field>
+
+				<field name="imgSrcDetectionSpacer" type="note"
+					class="alert alert-info"
+					label="PLG_SYSTEM_BS3GHSVS_IMGSRCDETECTION"
+					description="PLG_SYSTEM_BS3GHSVS_IMGSRCDETECTION_DESC"/>
+
+				<field name="jlayout_articletext" type="text" filter="string"
+					default="ghsvs.article_image"
+					label="PLG_SYSTEM_BS3GHSVS_LAYOUT_ARTICLETEXT">
+				</field>
+
+				<field name="jlayout_articletextSpacer" type="note"
+					label="PLG_SYSTEM_BS3GHSVS_LAYOUT_ARTICLETEXT"
+					description="PLG_SYSTEM_BS3GHSVS_LAYOUT_ARTICLETEXT_DESC"
+					class="alert alert-info">
+				</field>
+
+				<field type="ImgResizeGhsvsInstalled"
+					name="ImgResizeGhsvsInstalled"
+					hiddenLabel="true"/>
+
+				<field name="resizeGlobalActive" type="list" default="1" filter="integer"
+					label="Resizer global aktivieren"
+					>
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
+					</field>
+
+				<field type="note" name="resizeGlobalActiveSpacer"
+					class="alert alert-block"
+					label="Resizer global aktivieren: Wenn NEIN, sind alle folgenden Einstellungen wirkungslos. Es wird nichts getan während Sie hier Einstellungen machen können." />
+
+				<field name="webpSupport" type="list" default="0" filter="integer"
+					label="WEBP-Support"
+					>
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
+						<option value="2">ONLY</option>
+				</field>
+
+				<field type="note" name="webpSupportSpacer"
+					class="alert alert-block"
+					label="PLG_SYSTEM_BS3GHSVS_WEBPSUPPORT_DESC" />
+
+				<field name="resizeForce" type="list" default="0" filter="integer"
+					label="PLG_SYSTEM_BS3GHSVS_FORCE">
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
+				</field>
+
+				<field type="note" name="forceSpacer"
+					class="alert alert-block"
+					label="PLG_SYSTEM_BS3GHSVS_FORCE_DESC" />
+
+				<field name="resizeForceMessage" type="list" default="1" filter="integer"
+					label="PLG_SYSTEM_BS3GHSVS_FORCEMESSAGE"
+					showon="resizeForce:1">
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
+				</field>
+
+<field type="spacer" name="spacer156" hr="true" />
+
+				<field type="note" name="introfullimagespacer"
+					label="PLG_SYSTEM_BS3GHSVS_INTROFULLIMAGES"
+					class="alert alert-danger alert-headline"/>
+
+				<field type="note" name="FallbackimageSpacer"
+					label="PLG_SYSTEM_BS3GHSVS_FALLBACKIMAGE"
+					description="PLG_SYSTEM_BS3GHSVS_FALLBACKIMAGE_DESC"
+					class="alert alert-info"/>
+
+				<field type="media" name="Fallbackimage"
+					label="PLG_SYSTEM_BS3GHSVS_FALLBACKIMAGE"
+					class="extended-width"/>
+
+				<field type="note" name="replaceIntroFullReplaceSpacer"
+					label="PLG_SYSTEM_BS3GHSVS_REPLACEINTROFULL"
+					description="PLG_SYSTEM_BS3GHSVS_REPLACEINTROFULL_DESC"
+					class="alert alert-info"/>
+
+				<field name="replaceIntroFull" type="list" default="0" filter="integer"
+					label="PLG_SYSTEM_BS3GHSVS_REPLACEINTROFULL">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+					<option value="-1">PLG_SYSTEM_BS3GHSVS_REPLACEINTROFULL_ONLY_FULL_TO_INTRO</option>
+					<option value="-2">PLG_SYSTEM_BS3GHSVS_REPLACEINTROFULL_ONLY_INTRO_TO_FULL</option>
+				</field>
+
+				<field name="imageoptimizer_intro_full" type="list" default="0"
+					filter="integer"
+					label="Bildoptimierer für Intro- und Beitrags-Bilder aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field type="spacer" name="spacerx" hr="true" />
+
+<fields name="image_intro">
+
+
+				<field type="note" name="image_intro_x_Spacer"
+					label="Einleitungsbild (image_intro) X-LARGE (x)"
+					class="alert-success"/>
+
+				<field name="active_x" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="attribs_x" type="text" filter="trim"
+					default="w=700,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_x:1"/>
+
+
+				<field type="note" name="image_intro_l_Spacer"
+					label="Einleitungsbild (image_intro) LARGE (l)"
+					class="alert-success"/>
+
+				<field name="active_l" type="list" default="1" filter="integer"
+					readonly="true"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="attribs_l" type="text" filter="trim"
+					default="w=480,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"/>
+
+
+				<field type="note" name="image_intro_m_Spacer"
+					label="Einleitungsbild (image_intro) MEDIUM (m)"
+					class="alert-success"/>
+
+				<field name="active_m" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="attribs_m" type="text" filter="trim"
+					default="w=360,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_m:1"/>
+
+
+				<field type="note" name="image_intro_s_Spacer"
+					label="Einleitungsbild (image_intro) SMALL (s)"
+					class="alert-success"/>
+
+				<field name="active_s" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="attribs_s" type="text" filter="trim"
+					default="w=320,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_s:1"/>
+
+
+				<field type="note" name="image_intro_og_Spacer"
+					label="Einleitungsbild (image_intro) OPEN GRAPH (og)"
+					class="alert-success"/>
+
+				<field name="active_og" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="attribs_og" type="text" filter="trim"
+					default="w=310,h=310,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_og:1"/>
+
+</fields><!--/image_intro-->
+
+<field type="spacer" name="spacerx2" hr="true" />
+
+<fields name="image_fulltext">
+
+
+				<field type="note" name="image_fulltext_x_Spacer"
+					label="Beitragsbild (image_fulltext) X-LARGE (x)"
+					class="alert-info"/>
+
+				<field name="active_x" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="attribs_x" type="text" filter="trim"
+					default="w=700,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_x:1"/>
+
+
+				<field type="note" name="image_fulltext_l_Spacer"
+					label="Beitragsbild (image_fulltext) LARGE (l)"
+					class="alert-info"/>
+
+				<field name="active_l" type="list" default="1" filter="integer"
+					readonly="true"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="attribs_l" type="text" filter="trim"
+					default="w=480,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"/>
+
+
+				<field type="note" name="image_fulltext_m_Spacer"
+					label="Beitragsbild (image_fulltext) MEDIUM (m)"
+					class="alert-info"/>
+
+				<field name="active_m" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="attribs_m" type="text" filter="trim"
+					default="w=400,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_m:1"/>
+
+
+				<field type="note" name="image_fulltext_s_Spacer"
+					label="Beitragsbild (image_fulltext) SMALL (s)"
+					class="alert-info"/>
+
+				<field name="active_s" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="attribs_s" type="text" filter="trim"
+					default="w=320,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_s:1"/>
+
+
+				<field type="note" name="image_fulltext_og_Spacer"
+					label="Beitragsbild (image_fulltext) OPEN GRAPH (og)"
+					class="alert-info"/>
+
+				<field name="active_og" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="attribs_og" type="text" filter="trim"
+					default="w=310,h=310,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_og:1"/>
+
+</fields><!--/image_fulltext-->
+
+<field type="spacer" name="spacer15612" hr="true" />
+
+				<field type="note" name="articleimagespacer"
+					label="PLG_SYSTEM_BS3GHSVS_ARTICLEIMAGES"
+					class="alert alert-danger alert-headline"/>
+
+				<field name="imageoptimizer_articletext" type="list" default="0"
+					filter="integer"
+					label="Bildoptimierer für Bilder im Beitragstext aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field type="spacer" name="spacerx321453" hr="true" />
+
+<fields name="image_articletext">
+
+
+				<field type="note" name="image_articletext_x_Spacer"
+					label="Bild in Beitragstext X-LARGE (x)"
+					class="alert-success"/>
+
+				<field name="active_x" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="attribs_x" type="text" filter="trim"
+					default="w=1000,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_x:1"/>
+
+
+				<field type="note" name="image_articletext_l_Spacer"
+					label="Bild in Beitragstext LARGE (l)"
+					class="alert-success"/>
+
+				<field name="active_l" type="list" default="1" filter="integer"
+					readonly="true"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="attribs_l" type="text" filter="trim"
+					default="w=480,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"/>
+
+
+				<field type="note" name="image_articletext_m_Spacer"
+					label="Bild in Beitragstext MEDIUM (m)"
+					class="alert-success"/>
+
+				<field name="active_m" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="attribs_m" type="text" filter="trim"
+					default="w=400,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_m:1"/>
+
+
+				<field type="note" name="image_articletext_s_Spacer"
+					label="Bild in Beitragstext SMALL (s)"
+					class="alert-success"/>
+
+				<field name="active_s" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="attribs_s" type="text" filter="trim"
+					default="w=320,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_s:1"/>
+
+
+				<field type="note" name="image_articletext_og_Spacer"
+					label="Bild in Beitragstext OPEN GRAPH (og)"
+					class="alert-success"/>
+
+				<field name="active_og" type="list" default="0" filter="integer"
+					label="aktiv">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+
+				<field name="attribs_og" type="text" filter="trim"
+					default="w=310,h=310,quality=80,maxOnly=TRUE"
+					label="Optionen" class="extended-width"
+					showon="active_og:1"/>
+
+</fields><!--/image_articletext-->
+
+			</fieldset><!--/FieldsetImageResize-->
+
+			<fieldset name="FieldsetOpenGraph"
+				label="PLG_SYSTEM_BS3GHSVS_FIELDSET_OPENGRAPH"
+				description="PLG_SYSTEM_BS3GHSVS_FIELDSET_OPENGRAPH_DESC">
+
+				<field name="opengraphActive" type="list" default="1"
+					label="PLG_SYSTEM_BS3GHSVS_OPENGRAPHACTIVE"
+
+					filter="integer">
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
+				</field>
+
+				<field name="default_imagesspacer" type="spacer"
+					label="PLG_CONTENT_FACEBOOKOPENGRAPHGHSVS_DEFAULT_IMAGE_DESC" />
+
+				<field name="og_default_images" type="text"
+					default="images/fb_default_images"
+					readonly="true"
+					label="PLG_CONTENT_FACEBOOKOPENGRAPHGHSVS_DEFAULT_IMAGE"
+					 />
+
+			</fieldset><!--/FieldsetOpenGraph-->
+
+			<fieldset name="FieldsetSvg"
+				label="PLG_SYSTEM_BS3GHSVS_FIELDSET_SVG"
+				description="PLG_SYSTEM_BS3GHSVS_FIELDSET_SVG_DESC">
+
+			</fieldset><!--/FieldsetSvg-->
+
+			<fieldset name="FieldsetStructuredData"
+				label="PLG_SYSTEM_BS3GHSVS_FIELDSET_STRUCTUREDDATA"
+				description="PLG_SYSTEM_BS3GHSVS_FIELDSET_STRUCTUREDDATA_DESC">
+
+				<field type="StructuredDataGhsvsInstalled"
+					name="structuredataghsvsinstalled"
+					hiddenLabel="true"/>
+
+				<field name="sd_robots" type="list" default="1" filter="integer"
+					label="Structured datas nur Robots zeigen">
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
+				</field>
+
+				<field name="structureddataBreadcrumbListSpacer" type="note" close="true"
+					class="alert alert-info"
+					label="PLG_SYSTEM_BS3GHSVS_STRUCTUREDDATABREADCRUMBLIST"
+					description="PLG_SYSTEM_BS3GHSVS_STRUCTUREDDATABREADCRUMBLIST_DESC"/>
+
+				<field name="structureddataBreadcrumbListActive" type="list" default="1"
+					label="PLG_SYSTEM_BS3GHSVS_STRUCTUREDDATABREADCRUMBLIST"
+					filter="integer">
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
+				</field>
+
+				<field name="structureddataActive" type="list" default="0"
+					label="PLG_SYSTEM_BS3GHSVS_STRUCTUREDDATAACTIVE"
+
+					filter="integer">
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
+				</field>
+
+				<field name="sd_killmicrodata" type="list" default="1" filter="integer"
+					label="Remove Joomlas Microdatas"
+
+					showon="structureddataActive:1">
+						<option value="0">JNO</option>
+						<option value="1">always (all pages)</option>
+				</field>
+
+				<field name="sd_prettyPrint" type="list" default="0"
+					label="JSON_PRETTY_PRINT"
+					description="YES: For debugging purposes. ld+json scripts easier readable in page source code. Recommended: NO"
+					showon="structureddataActive:1">
+						<option value="0">JNO</option>
+						<option value="1">JYES</option>
+				</field>
+
+<field name="sd_articlespacer" type="spacer"
+label="PLG_SYSTEM_BS3GHSVS_HEAD_SD_ARTICLE"
+					showon="structureddataActive:1" />
+
+<field name="sd_articleBody" type="list" default="0" filter="integer"
+label="Include articleBody"
+description="Seit 2016 für Google wohl nicht mehr nötig"
+					showon="structureddataActive:1">
+<option value="0">JNO</option>
+<option value="1">JYES</option>
+</field>
+
+
+				<fields name="sd_organization">
+
+					<field name="sd_organizationspacer" type="spacer"
+						label="PLG_SYSTEM_BS3GHSVS_HEAD_SD_ORGANIZATION" />
+
+					<field name="name" type="text" default="GHSVS Berlin Neukölln"
+						label="Organization name"
+
+						class="extended-width" />
+
+					<field name="email" type="text" default="info@ghsvs.de"
+						label="Organization email"
+
+						class="extended-width" />
+
+					<field name="telephone" type="text" default="+49-3070225168"
+						label="Organization telephone"
+
+						class="extended-width" />
+
+					<field name="faxNumber" type="text" default="0911-3084400421"
+						label="Organization faxNumber"
+
+						class="extended-width" />
+
+						<field name="foundingDate" type="text" default="2006"
+							label="Organization foundingDate (Year)"
+							 />
+
+						<field name="description" type="text" default="Internet-Dienstleistungen mannigfaltiger Art zu günstigen Preisen für jedermann."
+							label="Organization description"
+
+							class="extended-width" />
+
+							<field name="foundingLocation" type="text" default="Berlin Neukölln"
+								label="Organization foundingLocation"
+
+								class="extended-width" />
+
+							<field name="founder" type="text" default="Volkmar Volli Schlothauer"
+								label="Organization founder (Name of Person)"
+
+								class="extended-width" />
+
+
+
+<field type="spacer" name="organizationlogospacer"
+label="PLG_SYSTEM_BS3GHSVS_HEAD_SD_ORGANIZATION_IMAGES"/>
+
+<field type="spacer" name="organizationminWidthspacer"
+label="Google verlangt bspw. für Beitragsbilder minimal 696 Pixel. Setze auf 0 für ignorieren."/>
+
+<field name="minWidth" type="number" default="696" min="0" filter="integer"
+label="Minimum Image Width"
+ />
+
+<field name="logo" type="media" default=""
+label="PLG_STRUCTUREDDATAGHSVS_ORGANIZATIONLOGO_LBL"
+
+class="extended-width" />
+
+<field type="spacer" name="organizationlogosmallspacer"
+label="PLG_STRUCTUREDDATAGHSVS_ORGANIZATIONLOGOSMALL_DESC"/>
+
+<field name="logosmall" type="media" default=""
+label="PLG_STRUCTUREDDATAGHSVS_ORGANIZATIONLOGOSMALL_LBL"
+
+class="extended-width" />
+
+<field type="spacer" name="fallbackimagespacer"
+label="PLG_STRUCTUREDDATAGHSVS_FALLBACKIMAGE_DESC"/>
+
+<field name="fallbackimage" type="media" default=""
+label="PLG_STRUCTUREDDATAGHSVS_FALLBACKIMAGE_LBL"
+
+class="extended-width" />
+
+
+				</fields>
+
+			</fieldset><!--/FieldsetStructuredData-->
+
+			<fieldset name="FieldsetPagebreak"
+				label="PLG_SYSTEM_BS3GHSVS_FIELDSET_PAGEBREAK"
+				description="PLG_SYSTEM_BS3GHSVS_FIELDSET_PAGEBREAK_DESC">
+
+			</fieldset><!--/FieldsetPagebreak-->
+
+  </fields>
+ </config>
+</extension>

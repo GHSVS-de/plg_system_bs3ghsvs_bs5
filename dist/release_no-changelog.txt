@@ -1,0 +1,32 @@
+2023.11.18
+
+Joomla system plugin Bs3Ghsvs 2023.11.18
+
+Joomla system plugin. Register and override JHtml helpers. And much more.
+
+### Download
+[plg_system_bs3ghsvs_bs5-2023.11.18.zip](https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/raw/2023.11.18/dist/plg_system_bs3ghsvs_bs5-2023.11.18.zip)
+
+### Joomla-Target-Platform(s)
+4\.(3|4|5|6|7|8|9|10|11|12|13|14|15), 5.&ast;
+
+### For the interested ones
+- Deutsche Beschreibung: 
+- English Description: 
+- [Compare releases 2022.12.20...2023.11.18](https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/compare/2022.12.20...2023.11.18)
+- minimumJoomla: 4.3.0
+- maximumJoomla: 5.9999.9999
+- minimumPhp: 7.4.0
+- maximumPhp: 
+- Checksum: `<sha256>de36eb9d7410fad3d9363364632bd1ed638a4d5dde84ce83a9bb11a2bacf9397</sha256>`
+- Readme: https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5#readme
+- Updates XML: https://raw.githubusercontent.com/GHSVS-de/upadateservers/master/plg_system_bs3ghsvs_bs5-update.xml
+- Last tests: PHP 8.2<br>PHP 8.1<br>Joomla 4.4<br>Joomla 5.0
+- Language files: 
+- Requires: Optional: For feature "Structured Data" pkg_lib_structuredataghsvs<br>Optional: For feature "Image Resize" pkg_lib_imgresizeghsvs<br>Optional: For assets (e.g. Bootstrap) pkg_file_assetghsvs. Lots of assets have been removed from this plugin (Bootstrap CSS, JS, SCSS. JQuery JS. JQuery-slim. JQuery-migrate.).
+- Uses: 
+- Contained packages (sub Joomla extensions):
+```
+
+```
+
