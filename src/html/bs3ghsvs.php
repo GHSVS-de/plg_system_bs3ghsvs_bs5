@@ -298,77 +298,20 @@ abstract class JHtmlBs3ghsvs
 	/**
 	 * bs3ghsvs.templatejs
 	 * Load js file from plugin media folder (self::$basepath).
-	 * 2022-07: Wird verwendet. J3 und J4.
+	 * 2022-07: Wird verwendet. J3 und J4. J5
 	 */
 	public static function templatejs()
 	{
-		if (($wa = Bs3GhsvsHelper::getWa()))
-		{
-			$wa->useScript('plg_system_bs3ghsvs.templatejs');
-		}
-		else
-		{
-			HTMLHelper::_('jquery.framework');
-
-			if (!empty(static::$loaded[__METHOD__]))
-			{
-				return;
-			}
-
-			$attribs = [];
-			$min = JDEBUG ? '' : '.min';
-			$version = JDEBUG ? time() : 'auto';
-
-			$file = static::$basepath . '/template' . $min . '.js';
-
-			HTMLHelper::_(
-				'script',
-				$file,
-				['version' => $version, 'relative' => true],
-				$attribs
-			);
-
-			static::$loaded[__METHOD__] = 1;
-		}
-
+		Bs3GhsvsHelper::getWa()->useScript('plg_system_bs3ghsvs.templatejs');
 		return;
 	}
 
 	/*
-		2022-07: Wird verwendet. J3 und J4.
+		2022-07: Wird verwendet. J3 und J4. J5
 	*/
 	public static function toTop()
 	{
-		if (($wa = Bs3GhsvsHelper::getWa()))
-		{
-			$wa->usePreset('plg_system_bs3ghsvs.toTop');
-		}
-		else if (empty(static::$loaded[__METHOD__]))
-		{
-			$attribs = ['defer' => 'defer'];
-			$min = JDEBUG ? '' : '.min';
-			$version = JDEBUG ? time() : 'auto';
-
-			// JS wird benötigt für Einblenden des Knopfs.
-			$file = self::$basepath . '/toTop' . $min . '.js';
-
-			HTMLHelper::_(
-				'script',
-				$file,
-				['version' => $version, 'relative' => true],
-				$attribs
-			);
-
-			$file = self::$basepath . '/toTop' . $min . '.css';
-
-			HTMLHelper::_(
-				'stylesheet',
-				$file,
-				['version' => $version, 'relative' => true],
-				$attribs
-			);
-			static::$loaded[__METHOD__] = 1;
-		}
+		Bs3GhsvsHelper::getWa()->usePreset('plg_system_bs3ghsvs.toTop');
 
 		// Auf mehrseitigen Blogansichten wechselt sonst die Seite.
 		$uri = \Joomla\CMS\Uri\Uri::getInstance()->toString();

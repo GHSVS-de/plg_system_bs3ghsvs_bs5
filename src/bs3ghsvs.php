@@ -1194,19 +1194,12 @@ public function onBeforeRender()
 
 	protected function register()
 	{
-		\JLoader::register('Bs3GhsvsRegisterJQuery', __DIR__ . '/Helper/RegisterJQuery.php');
 		\JLoader::register('Bs3GhsvsRegisterBootstrap', __DIR__ . '/Helper/RegisterBootstrap.php');
 		\JLoader::register('Bs3GhsvsRegisterBs3ghsvs', __DIR__ . '/Helper/RegisterBs3ghsvs.php');
 		\JLoader::register('Bs3GhsvsRegisterIcon', __DIR__ . '/Helper/RegisterIcon.php');
 		\JLoader::register('Bs3GhsvsRegisterSelect', __DIR__ . '/Helper/RegisterSelect.php');
 
 		$error = [];
-
-		if (false === Bs3GhsvsRegisterJQuery::register())
-		{
-			$this->executeFe = false;
-			$error[] = 'Bs3GhsvsRegisterJQuery';
-		}
 
 		if (false === Bs3GhsvsRegisterBootstrap::register())
 		{

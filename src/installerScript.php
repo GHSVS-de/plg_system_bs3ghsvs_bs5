@@ -71,9 +71,12 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/plugins/system/bs3ghsvs/Helper/mootoolsblocker.php',
 		'/plugins/system/bs3ghsvs/Helper/formbehaviorblocker.php',
 		'/plugins/system/bs3ghsvs/Helper/RegisterFormbehavior.php',
+		'/plugins/system/bs3ghsvs/Helper/jqueryblocker.php',
+		'/plugins/system/bs3ghsvs/Helper/RegisterJQuery.php',
 
 		'/plugins/system/bs3ghsvs/html/behaviorghsvs.php',
 		'/plugins/system/bs3ghsvs/html/formbehaviorghsvs.php',
+		'/plugins/system/bs3ghsvs/html/jqueryghsvs.php',
 
 		'/media/plg_system_bs3ghsvs/layouts/ghsvs/frontediting_modules_in_article.php',
 		'/media/plg_system_bs3ghsvs/layouts/ghsvs/scroll-to-article-modal.php',

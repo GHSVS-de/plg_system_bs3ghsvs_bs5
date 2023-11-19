@@ -86,72 +86,12 @@ abstract class JHtmlBootstrapghsvs
 	 * @since   3.0
 	 */
 
-	/*
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
-	*/
 	public static function loadCss(
 		$includeMainCss = true,
 		$direction = 'ltr',
 		$attribs = []
 	) {
-		if (!empty(self::$loaded[__METHOD__]))
-		{
-			return;
-		}
-
-		$attribs = [];
-		$min = JDEBUG ? '' : '.min';
-		$suf = $min ? 'Min' : '';
-		$version = JDEBUG ? time() : 'auto';
-
-		$options = PlgSystemBS3Ghsvs::$options['bootstrapCss'];
-		$Load = $options['Load'];
-
-		if ($Load === 'cdn')
-		{
-			$file = $options['cdn' . $suf];
-			$attribs['crossorigin'] = 'anonymous';
-			$attribs['integrity'] = $options['cdnIntegrity' . $suf];
-			$version = '';
-		}
-		elseif ($Load === 'media')
-		{
-			// B/C
-			if (!isset($options['otherFileName']))
-			{
-				$options['otherFileName'] = '';
-			}
-
-			$file = $options['otherFileName'] ? : 'bootstrap';
-			$file = ltrim($options['media'] . '/' . $file . $min . '.css', '/');
-		}
-		else
-		{
-			self::$loaded[__METHOD__] = 1;
-
-			return;
-		}
-
-		HTMLHelper::_(
-			'stylesheet',
-			$file,
-			['version' => $version, 'relative' => true],
-			$attribs
-		);
-
-		if (PlgSystemBS3Ghsvs::$log)
-		{
-			$add = __METHOD__ . ': File ' . $file . '. Loaded?';
-			Log::add($add, Log::INFO, 'bs3ghsvs');
-		}
-
-		static::$loaded[__METHOD__] = 1;
-
-		return;
+		Bs3GhsvsHelper::getWa()->useStyle('bootstrap.css');
 	}
 
 	/**
