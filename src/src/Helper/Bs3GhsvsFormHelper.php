@@ -1,5 +1,7 @@
 <?php
-defined('_JEXEC') or die;
+namespace GHSVS\Plugin\System\Bs3Ghsvs\Helper;
+
+\defined('_JEXEC') or die;
 
 use Joomla\CMS\Language\Text;
 

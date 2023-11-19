@@ -66,6 +66,7 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/plugins/system/bs3ghsvs/Helper/PagebreakHelper.php',
 		'/plugins/system/bs3ghsvs/Helper/ItemHelper.php',
 		'/plugins/system/bs3ghsvs/Helper/ArticleHelper.php',
+		'/plugins/system/bs3ghsvs/Helper/FormHelper.php',
 
 		'/media/plg_system_bs3ghsvs/layouts/ghsvs/frontediting_modules_in_article.php',
 		'/media/plg_system_bs3ghsvs/layouts/ghsvs/scroll-to-article-modal.php',

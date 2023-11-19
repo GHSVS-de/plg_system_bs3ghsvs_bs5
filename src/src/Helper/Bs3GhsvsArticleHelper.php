@@ -10,9 +10,9 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\Registry\Registry;
 
-
 // @since 2023-11
 use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsHelper;
+use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsFormHelper;
 
 #[\AllowDynamicProperties]
 class Bs3GhsvsArticleHelper
@@ -44,7 +44,7 @@ class Bs3GhsvsArticleHelper
 		}
 
 		$prefix = 'article';
-		$activeXml = \Bs3GhsvsFormHelper::getActiveXml(
+		$activeXml = Bs3GhsvsFormHelper::getActiveXml(
 			$prefix,
 			Bs3GhsvsHelper::getPluginParams(),
 			[1] // stati
