@@ -10,12 +10,14 @@ namespace GHSVS\Plugin\System\Bs3Ghsvs\Helper;
 
 use Joomla\CMS\Factory;
 use Joomla\Registry\Registry;
+use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsTemplateHelper;
 
 #[\AllowDynamicProperties]
 class Bs3GhsvsHelper
 {
 	private static $wa;
 	private static $pluginParams;
+	private static $templateName;
 
 	/*
 	Initialisere WAM und lade joomla.asset.json.
@@ -29,6 +31,15 @@ class Bs3GhsvsHelper
 		}
 
 		return self::$wa;
+	}
+
+	public static function getTemplateName()
+	{
+		if (empty(self::$templateName))
+		{
+			self::$templateName = Bs3GhsvsTemplateHelper::getTemplateName();
+		}
+		return self::$templateName;
 	}
 
 	public static function getPluginParams($plugin = ['system', 'bs3ghsvs'])

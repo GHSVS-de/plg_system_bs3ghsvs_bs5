@@ -73,10 +73,19 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/plugins/system/bs3ghsvs/Helper/RegisterFormbehavior.php',
 		'/plugins/system/bs3ghsvs/Helper/jqueryblocker.php',
 		'/plugins/system/bs3ghsvs/Helper/RegisterJQuery.php',
+		'/plugins/system/bs3ghsvs/Helper/bootstrapblocker.php',
+		'/plugins/system/bs3ghsvs/Helper/RegisterBootstrap.php',
+		'/plugins/system/bs3ghsvs/Helper/RegisterBs3ghsvs.php',
+		'/plugins/system/bs3ghsvs/Helper/RegisterIcon.php',
+		'/plugins/system/bs3ghsvs/Helper/RegisterSelect.php',
 
 		'/plugins/system/bs3ghsvs/html/behaviorghsvs.php',
 		'/plugins/system/bs3ghsvs/html/formbehaviorghsvs.php',
 		'/plugins/system/bs3ghsvs/html/jqueryghsvs.php',
+		'/plugins/system/bs3ghsvs/html/bootstrapghsvs.php',
+		'/plugins/system/bs3ghsvs/html/bs3ghsvs.php',
+		'/plugins/system/bs3ghsvs/html/iconghsvs.php',
+		'/plugins/system/bs3ghsvs/html/selectghsvs.php',
 
 		'/media/plg_system_bs3ghsvs/layouts/ghsvs/frontediting_modules_in_article.php',
 		'/media/plg_system_bs3ghsvs/layouts/ghsvs/scroll-to-article-modal.php',
@@ -143,6 +152,8 @@ class plgSystemBs3GhsvsInstallerScript extends InstallerScript
 		'/media/plg_system_bs3ghsvs/scss/bootstrap',
 
 		'/plugins/system/bs3ghsvs/Field',
+
+		'/plugins/system/bs3ghsvs/html',
 	];
 
 	public function preflight($type, $parent)

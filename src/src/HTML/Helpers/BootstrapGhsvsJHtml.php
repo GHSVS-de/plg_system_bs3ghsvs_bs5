@@ -1,5 +1,7 @@
 <?php
-defined('_JEXEC') or die;
+namespace GHSVS\Plugin\System\Bs3Ghsvs\HTML\Helpers;
+
+\defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -8,8 +10,9 @@ use Joomla\Utilities\ArrayHelper;
 
 // @since 2023-11
 use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsHelper;
+use Joomla\CMS\HTML\Helpers\Bootstrap;
 
-abstract class JHtmlBootstrapghsvs
+class BootstrapGhsvsJHtml extends Bootstrap
 {
 	protected static $loaded = [];
 
@@ -23,8 +26,8 @@ abstract class JHtmlBootstrapghsvs
 	 * See https://github.com/twbs/bootstrap/blob/v3.4.1/bower.json
 	 * @param string | integer $bsversion '' => folder bootstrap/ | '4' => (folder bootstrap4/)
    */
-	public static function framework()
-	{
+	public static function framework($debug = null): void
+	{#
 		$isJ5 = version_compare(JVERSION, '5', 'ge');
 
 		if (!$isJ5 && isset(static::$loaded[__METHOD__]))
@@ -34,41 +37,60 @@ abstract class JHtmlBootstrapghsvs
 		}
 
 		$wa = Bs3GhsvsHelper::getWa();
+		$templateName = Bs3GhsvsHelper::getTemplateName();
 
 		// Krücke für Joomla 5
 		$wamName = 'bootstrap.es5';
 		$type = 'script';
-		$war = $wa->getRegistry();
 
+		/*
+		Ein altes Template könnte 'bootstrap.es5' mit eigener Uri enthalten.
+		Alles Ok. Nimms!
+		Ggf. hat aber das Rückwärts-Plugin ein leeres 'bootstrap.es5' (Joomla 5)
+		untergejubelt. Dann versuche zu ersetzen, falls 'template.bs4ghsvs.bootstrap-js'
+		existiert.
+		Und dann gibt es noch Fall3, dass in Joomla 5 gar kein 'bootstrap.es5' definiert
+		ist.
+		*/
 		if ($wa->assetExists($type, $wamName))
-			{
+		{
+			$war = $wa->getRegistry();
 			$asset = $war->get($type, $wamName);
 
 			if (empty($asset->getUri()))
-				{
-				$war->remove($type, $wamName);
-			}
-				}
-
-		if (!$wa->assetExists($type, $wamName))
 			{
-			$options = [
-				'type' => $type,
-				'version' => '5.2.2-assetghsvs'];
-			$uri = 'assetghsvs/bootstrap/52/-_custom_-/bootstrap.bundle.js';
-			$war->add(
-				$type,
-				$war->createAsset(
-					$wamName,
-					$uri,
-					$options, // array_merge($asset->getOptions(), $options),
-					[], // $asset->getAttributes(),
-					[], // $asset->getDependencies(),
-				)
+				// Nötig? Nachdem ich untiges geädert habe? A: Ja.
+				$war->remove($type, $wamName);
+				$wamName = 'template.' . $templateName .  '.bootstrap.es5';
+			}
+		}
+
+		if ($wa->assetExists($type, $wamName))
+		{
+			$wa->useAsset($type, $wamName);
+		}
+		else
+		{
+			array_map(
+				function ($script) use ($wa) {
+					$wa->useScript('' . $script);
+				},
+				[
+					'core',
+					'bootstrap.alert',
+					'bootstrap.button',
+					'bootstrap.carousel',
+					'bootstrap.collapse',
+					'bootstrap.dropdown',
+					'bootstrap.modal',
+					'bootstrap.offcanvas',
+					'bootstrap.popover',
+					'bootstrap.scrollspy',
+					'bootstrap.tab',
+					'bootstrap.toast'
+				]
 			);
 		}
-		$wa->useAsset($type, $wamName);
-
 		static::$loaded[__METHOD__] = 1;
 
 		return;
@@ -85,12 +107,8 @@ abstract class JHtmlBootstrapghsvs
 	 *
 	 * @since   3.0
 	 */
-
-	public static function loadCss(
-		$includeMainCss = true,
-		$direction = 'ltr',
-		$attribs = []
-	) {
+public static function loadCss($includeMainCss = true, $direction = 'ltr', $attribs = []): void
+{
 		Bs3GhsvsHelper::getWa()->useStyle('bootstrap.css');
 	}
 
@@ -109,7 +127,7 @@ abstract class JHtmlBootstrapghsvs
 	 *
 	 * @since   3.0
 	 */
-	public static function carousel($selector = 'carousel', $params = [])
+	public static function carousel($selector = 'carousel', $params = []): void
 	{
 		$sig = md5(serialize([$selector, sort($params)]));
 
@@ -138,7 +156,7 @@ abstract class JHtmlBootstrapghsvs
 	/**
 	 * Now Collapse
 	*/
-	public static function startAccordion($selector = 'myAccordian', $params = [])
+	public static function startAccordion($selector = 'myAccordian', $options = []): string
 	{
 		if (!isset(static::$loaded[__METHOD__][$selector]))
 		{
@@ -265,7 +283,7 @@ JS;
 		$class = '',
 		$headingTagGhsvs = '',
 		$title = ''
-	) {
+	) : string {
 		// "in" = BS3. "show" = BS4/BS5.
 		//$in = (static::$loaded[__CLASS__ . '::startAccordion'][$selector]['active'] == $id)
 		//? ' in show' : '';

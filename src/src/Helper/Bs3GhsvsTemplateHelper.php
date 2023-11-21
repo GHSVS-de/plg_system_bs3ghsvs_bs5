@@ -9,6 +9,8 @@ use Joomla\CMS\Filesystem\Folder;
 use Joomla\CMS\Filter\InputFilter;
 use Joomla\CMS\Language\Text;
 use Joomla\Registry\Registry;
+use Joomla\Database\ParameterType;
+use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsHelper;
 
 class Bs3GhsvsTemplateHelper
 {
@@ -20,8 +22,11 @@ class Bs3GhsvsTemplateHelper
 
 	protected static $TEMPLATEPARAMS;
 
+	// Current template, falls es sich irgendwo ergibt, es zu füllen.
+	public static $templateName;
+
 	/**
-	 * Return an array of template names (folders) where the plugin specific json configuration file exists.
+	 * Return an array of template names (folders) where the plugin specific json configuration file exists OR @since 2023-11 that has been selected in plugin.
 	 */
 	public static function getActiveInTemplates() : array
 	{
@@ -30,15 +35,41 @@ class Bs3GhsvsTemplateHelper
 			return self::$templates;
 		}
 
-		$path = JPATH_SITE . '/templates/';
-		self::$templates = Folder::folders($path);
+		self::$templates = [];
 
-		foreach (self::$templates as $i => $template)
+		$path = JPATH_SITE . '/templates/';
+		$templateFolders = Folder::folders($path);
+		$PlgParams = Bs3GhsvsHelper::getPluginParams();
+
+		// -1:Never|0:Wenn json|1:Immer|10:Wenn json oder ausgewählt|11:ausgewählte
+		$initTemplateAlways = (int) $PlgParams->get('initTemplateAlways', 0);
+		$load_in_templates = $PlgParams->get('load_in_templates', [], 'ARRAY');
+
+		if ($initTemplateAlways === -1)
 		{
-			if (!is_file($path . $template . self::$templateOptionsFile))
+			// never
+			self::$templates = [];
+		}
+		else if ($initTemplateAlways === 1)
+		{
+			// immer
+			self::$templates = $templateFolders;
+		}
+		else if ($initTemplateAlways === 0 || $initTemplateAlways === 10)
+		{
+			// wenn json
+			foreach ($templateFolders as $i => $template)
 			{
-				unset(self::$templates[$i]);
+				if (is_file($path . $template . self::$templateOptionsFile))
+				{
+					self::$templates[] = $template;
+				}
 			}
+		}
+
+		if ($load_in_templates && ($initTemplateAlways === 10 || $initTemplateAlways === 11))
+		{
+			self::$templates = array_unique(array_merge(self::$templates, $load_in_templates));
 		}
 
 		return self::$templates;
@@ -77,7 +108,6 @@ Array
 	{
 		$file = JPATH_SITE . '/templates/' . $templateFolder . self::$templateOptionsFile;
 		$templateOptions = file_get_contents($file);
-
 		return json_decode(trim($templateOptions), true);
 	}
 
@@ -143,6 +173,8 @@ Array
 			$itemid = $app->input->getInt('Itemid', 0);
 
 			$template = $app->getTemplate(true);
+			self::$templateName = $template->template;
+
 			$tplPath = 'templates/' . $template->template;
 			$BodyClasses = [];
 
@@ -504,4 +536,45 @@ Array
 
 		return self::$loaded[__METHOD__][$sig];
 	}
+
+	/*
+	Für die Auswahlliste von Templates (nicht Stilen).
+	Auch deaktivierte Template-Erweiterungen.
+	*/
+	public static function getTemplateOptions($clientId = '*')
+	{
+			// Build the filter options.
+			$db    = Factory::getDbo();
+			$query = $db->getQuery(true);
+
+			$query->select($db->quoteName('element', 'value'))
+					->select($db->quoteName('name', 'text'))
+					->select($db->quoteName('extension_id', 'e_id'))
+					->from($db->quoteName('#__extensions'))
+					->where($db->quoteName('type') . ' = ' . $db->quote('template'))
+					// ->where($db->quoteName('enabled') . ' = 1')
+					->order($db->quoteName('client_id') . ' ASC')
+					->order($db->quoteName('name') . ' ASC');
+
+			if ($clientId != '*') {
+					$clientId = (int) $clientId;
+					$query->where($db->quoteName('client_id') . ' = :clientid')
+							->bind(':clientid', $clientId, ParameterType::INTEGER);
+			}
+
+			$db->setQuery($query);
+			$options = $db->loadObjectList();
+
+			return $options;
+	}
+
+	public static function getTemplateName()
+	{
+		if (empty(self::$templateName))
+		{
+			self::$templateName = Factory::getApplication()->getTemplate();
+		}
+		return self::$templateName;
+	}
+
 }

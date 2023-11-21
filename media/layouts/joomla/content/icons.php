@@ -23,18 +23,18 @@ $time = str_replace('.', '', uniqid('', true));
 <?php
 if ($displayData['params']->get('show_print_icon'))
 { ?>
-				<li class="print-icon"> <?php echo JHtml::_('icon.print_popup', $displayData['item'], $displayData['params']); ?></li>
+				<li class="print-icon"> <?php echo HTMLHelper::_('iconghsvs.print_popup', $displayData['item'], $displayData['params']); ?></li>
 <?php
 	} ?>
 <?php
 if ($displayData['params']->get('show_email_icon'))
 { ?>
-				<li class="email-icon"> <?php echo JHtml::_('icon.email', $displayData['item'], $displayData['params']); ?> </li>
+				<li class="email-icon"> <?php echo HTMLHelper::_('icon.email', $displayData['item'], $displayData['params']); ?> </li>
 <?php
 	} ?>
 <?php if ($canEdit)
 	{ ?>
-				<li class="edit-icon"> <?php echo JHtml::_('icon.edit', $displayData['item'], $displayData['params']); ?> </li>
+				<li class="edit-icon"> <?php echo HTMLHelper::_('icon.edit', $displayData['item'], $displayData['params']); ?> </li>
 <?php
 	} ?>
  </ul>
@@ -43,6 +43,9 @@ if ($displayData['params']->get('show_email_icon'))
 
 <?php endif; ?>
 <div class="pull-right visible-print">
-	<?php echo JHtml::_('icon.print_screen', $displayData['item'], $displayData['params']); ?>
-</div>
+	<?php
 
+	#echo ' 4654sd48sa7d98sD81s8d71dsa <pre>' . print_r($displayData, true) . '</pre>';exit;
+
+	echo HTMLHelper::_('iconghsvs.print_screen', $displayData['params']); ?>
+</div>

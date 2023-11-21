@@ -4,7 +4,9 @@ JHTML::_('bs3ghsvs.something'...);
 */
 ?>
 <?php
-defined('JPATH_BASE') or die;
+namespace GHSVS\Plugin\System\Bs3Ghsvs\HTML\Helpers;
+
+\defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ModuleHelper;
@@ -17,7 +19,7 @@ use Joomla\Registry\Registry;
 // @since 2023-11
 use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsHelper;
 
-abstract class JHtmlBs3ghsvs
+class Bs3ghsvsJHtml
 {
 	protected static $loaded = [];
 

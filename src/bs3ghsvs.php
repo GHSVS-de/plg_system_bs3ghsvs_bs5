@@ -19,6 +19,7 @@ use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsItemHelper;
 use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsArticleHelper;
 use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsFormHelper;
 use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsTemplateHelper;
+use GHSVS\Plugin\System\Bs3Ghsvs\HTML\RegisterJHtml;
 
 class PlgSystemBS3Ghsvs extends CMSPlugin
 {
@@ -30,8 +31,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 	protected $autoloadLanguage = true;
 
 	/**
-	 * Array von Template-Namen, die html/plgSystemBs3GhsvsActive.json enthalten.
-	 * Bspw. zum Ausschluss von HTMLHelper-Registreirung in nicht relevanten Templates.
+	 * Array von Template-Namen für die im Plugin "Run TemplateHelper::init()" gewählt wurden.
 	 */
 	protected $templates = [];
 
@@ -108,7 +108,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 
 		// Open graph feature can be used in any template.
 		// Create arrays early to avoid PHP Notices later on.
-		if ($this->params->get('opengraphActive') === 1 && $this->app->isClient('site'))
+		if ($this->params->get('opengraphActive', 1) === 1 && $this->app->isClient('site'))
 		{
 			$this->ogCollection['com_content.article'] = [];
 			$this->ogCollection['mod_custom.content'] = [];
@@ -122,8 +122,6 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 		$this->templates = Bs3GhsvsTemplateHelper::getActiveInTemplates();
 
 		$this->formPath = JPATH_PLUGINS . '/system/bs3ghsvs/myforms/';
-
-		HTMLHelper::addIncludePath(__DIR__ . '/html');
 
 		$this->sd_robotsStateOk = $this->params->get('sd_robots', 1) === 0
 			|| ($this->params->get('sd_robots', 1) === 1 && $this->app->client->robot);
@@ -181,8 +179,7 @@ class PlgSystemBS3Ghsvs extends CMSPlugin
 			);
 		}
 
-		if ($this->app->isClient('site')
-			&& ($this->executeFe === true || $this->params->get('initTemplateAlways', 0) === 1))
+		if ($this->app->isClient('site') && ($this->executeFe === true))
 		{
 			Bs3GhsvsTemplateHelper::initTemplate();
 
@@ -197,8 +194,9 @@ public function onAfterInitialiseDocument(AfterInitialiseDocumentEvent $event)
 {
 	if ($this->params->get('loadBootstrapEarly', 1))
 	{
+		# NEIN! HIER IST ZU FRÜH!!
 		// Load BS.
-		HTMLHelper::_('bootstrap.framework');
+		#HTMLHelper::_('bootstrap.framework');
 	}
 }
 public function onBeforeRender()
@@ -206,7 +204,7 @@ public function onBeforeRender()
 	if ($this->params->get('loadBootstrapEarly', 1))
 	{
 		// Load BS.
-		#HTMLHelper::_('bootstrap.framework');
+		HTMLHelper::_('bootstrap.framework');
 	}
 }
 	public function onContentBeforeSave($context, $article, $isNew, $data = [])
@@ -405,7 +403,7 @@ public function onBeforeRender()
 		$context = $form->getName();
 
 		// Template styles.
-		if (
+		/* if (
 			$this->app->isClient('administrator')
 			&& $context === 'com_templates.style'
 			&& ($template = Bs3GhsvsTemplateHelper::getTemplateByStyleId($this->app->input->get('id')))
@@ -413,6 +411,18 @@ public function onBeforeRender()
 		) {
 			$form->loadFile($this->formPath . '/base.xml', $reset = false, $path = false);
 			$form->loadFile($this->formPath . '/template.xml', $reset = false, $path = false);
+		} */
+
+		if (
+			$this->app->isClient('administrator')
+			&& $context === 'com_templates.style'
+		) {
+			$key = 'Template';
+
+			foreach (Bs3GhsvsFormHelper::getActiveXml($key, $this->params) as $file => $x)
+			{
+				$form->loadFile($this->formPath . '/' . $file . '.xml', $reset = false, $path = false);
+			}
 		}
 
 		// Module edit in backend UND in Frontend.
@@ -1049,10 +1059,10 @@ public function onBeforeRender()
 
 	public function onBeforeCompileHead()
 	{
-			if ($this->params->get('loadBootstrapEarly', 1))
+		if ($this->params->get('loadBootstrapEarly', 1))
 		{
 			// Load BS.
-			#HTMLHelper::_('bootstrap.framework');
+			HTMLHelper::_('bootstrap.framework');
 		}
 		//$wa = self::getWa();
 		//$wa->usePreset('plg_system_bs3ghsvs.custom');
@@ -1194,35 +1204,24 @@ public function onBeforeRender()
 
 	protected function register()
 	{
-		\JLoader::register('Bs3GhsvsRegisterBootstrap', __DIR__ . '/Helper/RegisterBootstrap.php');
-		\JLoader::register('Bs3GhsvsRegisterBs3ghsvs', __DIR__ . '/Helper/RegisterBs3ghsvs.php');
-		\JLoader::register('Bs3GhsvsRegisterIcon', __DIR__ . '/Helper/RegisterIcon.php');
-		\JLoader::register('Bs3GhsvsRegisterSelect', __DIR__ . '/Helper/RegisterSelect.php');
-
 		$error = [];
 
-		if (false === Bs3GhsvsRegisterBootstrap::register())
+		if (false === RegisterJHtml::register('bootstrap'))
 		{
 			$this->executeFe = false;
 			$error[] = 'Bs3GhsvsRegisterBootstrap';
 		}
 
-		if (false === Bs3GhsvsRegisterBs3ghsvs::register())
+		if (false === RegisterJHtml::register('bs3ghsvs'))
 		{
 			$this->executeFe = false;
 			$error[] = 'Bs3GhsvsRegisterBs3ghsvs';
 		}
 
-		if (false === Bs3GhsvsRegisterIcon::register())
+		if (false === RegisterJHtml::register('iconghsvs'))
 		{
 			$this->executeFe = false;
 			$error[] = 'Bs3GhsvsRegisterIcon';
-		}
-
-		if (false === Bs3GhsvsRegisterSelect::register())
-		{
-			$this->executeFe = false;
-			$error[] = 'Bs3GhsvsRegisterSelect';
 		}
 
 		if ($error)
