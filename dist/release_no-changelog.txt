@@ -22,7 +22,6 @@ Joomla system plugin to register and override JHtml helpers. And more more more.
 - maximumJoomla: 5.9999.9999
 - minimumPhp: 7.4.0
 - maximumPhp:
-- Checksum: `<sha256>1f0cc3b2ecc8d26128e14efb671ea02308050f3d45c61a45e71efb29e23b580a</sha256>`
 - Readme: https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5#readme
 - Updates XML: https://raw.githubusercontent.com/GHSVS-de/upadateservers/master/plg_system_bs3ghsvs_bs5-update.xml
 - Last tests: PHP 8.2<br>PHP 8.1<br>Joomla 4.4<br>Joomla 5.0
