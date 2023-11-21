@@ -29,7 +29,6 @@
 	<files>
 		<filename plugin="{{filename}}">{{filename}}.php</filename>
 		<folder>Helper</folder>
-		<folder>html</folder>
 		<folder>language</folder>
 		<folder>myforms</folder>
 		<folder>sql</folder>
