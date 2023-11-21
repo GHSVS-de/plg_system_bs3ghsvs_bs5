@@ -6,12 +6,12 @@
 	<copyright>(C) 2015, G@HService Berlin Neukölln, Volkmar Volli Schlothauer.</copyright>
 	<license>GNU General Public License version 3 or later; see LICENSE.txt.</license>
 	<authorUrl>https://ghsvs.de</authorUrl>
-	<version>2023.11.20</version>
+	<version>2023.11.21</version>
 	<description>PLG_SYSTEM_BS3GHSVS_DESC</description>
 
 	<updateservers><server type="extension" priority="1" name="PLG_SYSTEM_BS3GHSVS_BS5">https://raw.githubusercontent.com/GHSVS-de/upadateservers/master/plg_system_bs3ghsvs_bs5-update.xml</server></updateservers>
 
-	<infourl>https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/releases/tag/2023.11.20</infourl>
+	<infourl>https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/releases/tag/2023.11.21</infourl>
 
 	<scriptfile>installerScript.php</scriptfile>
 	<minimumPhp>7.4.0</minimumPhp>
@@ -97,11 +97,25 @@
 						<option value="1">JYES</option>
 				</field>
 
+				<field name="initTemplateAlwaysSpacer" type="note" close="true"
+				class="alert alert-info mb-0 w-100"
+				label="PLG_SYSTEM_BS3GHSVS_INITTEMPLATEALWAYS"
+				description="PLG_SYSTEM_BS3GHSVS_INITTEMPLATEALWAYS_DESC"/>
+
 				<field name="initTemplateAlways" type="list" default="0" filter="integer"
 					label="PLG_SYSTEM_BS3GHSVS_INITTEMPLATEALWAYS"
 					>
-						<option value="0">JNO</option>
-						<option value="1">JYES</option>
+						<option value="-1">PLG_SYSTEM_BS3GHSVS_INITTEMPLATEALWAYS_NEVER</option>
+						<option value="0">PLG_SYSTEM_BS3GHSVS_INITTEMPLATEALWAYS_IF_JSON</option>
+						<option value="1">PLG_SYSTEM_BS3GHSVS_INITTEMPLATEALWAYS_ALWAYS</option>
+						<option value="10">PLG_SYSTEM_BS3GHSVS_INITTEMPLATEALWAYS_IF_JSON_OR_SELECTED</option>
+						<option value="11">PLG_SYSTEM_BS3GHSVS_INITTEMPLATEALWAYS_SELECTED</option>
+				</field>
+
+				<field name="load_in_templates" type="TemplateNameGhsvs" default="" multiple="true"
+					showon="initTemplateAlways:10,11"
+					label="PLG_SYSTEM_BS3GHSVS_TEMPLATES"
+					layout="joomla.form.field.list-fancy-select">
 				</field>
 
 			</fieldset><!--/basic-->
@@ -256,7 +270,29 @@
 					</field>
 
 				</fields><!--/XmlActiveMenuitem-->
+				<fields name="XmlActiveTemplate">
 
+					<field name="XmlActiveTemplateSpacer" type="spacer"
+						label="PLG_SYSTEM_BS3GHSVS_XMLACTIVE_TEMPLATE"
+						/>
+
+					<field name="xml_base" type="list" default="0"
+						filter="integer"
+						label="base.xml (System)"
+						>
+							<option value="2">JYES</option>
+							<option value="0">JNO</option>
+					</field>
+
+					<field name="xml_template" type="list" default="0"
+						filter="integer"
+						label="template.xml"
+						>
+							<option value="1">JYES</option>
+							<option value="0">JNO</option>
+					</field>
+
+				</fields><!--/XmlActiveTemplate-->
 			</fieldset><!--/FieldsetXmlActive-->
 
 			<fieldset name="FieldsetImageResize"
@@ -642,7 +678,6 @@
 
 				<field name="opengraphActive" type="list" default="1"
 					label="PLG_SYSTEM_BS3GHSVS_OPENGRAPHACTIVE"
-
 					filter="integer">
 						<option value="0">JNO</option>
 						<option value="1">JYES</option>

@@ -1,29 +1,30 @@
-2023.11.20
+2023.11.21
 
-Joomla system plugin Bs3Ghsvs 2023.11.20
+Joomla system plugin Bs3Ghsvs 2023.11.21
 
 Joomla system plugin to register and override JHtml helpers. And more more more. Plugin for ghsvs.de templates.
 
 ### Joomla 4.3+, Joomla 5
 
 ### Download
-[plg_system_bs3ghsvs_bs5-2023.11.20.zip](https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/raw/2023.11.20/dist/plg_system_bs3ghsvs_bs5-2023.11.20.zip)
+[plg_system_bs3ghsvs_bs5-2023.11.21.zip](https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/raw/2023.11.21/dist/plg_system_bs3ghsvs_bs5-2023.11.21.zip)
 
 ### Joomla-Target-Platform(s)
 4\.(3|4|5|6|7|8|9|10|11|12|13|14|15), 5.&ast;
 
 ### For the interested ones
-- Mainly remove JQuery JHtml registration
+- Mainly review of JHtml registration.
+- Use "clean" form fields.
 - Deutsche Beschreibung:
 - English Description:
-- [Compare releases 2023.11.19...2023.11.20](https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/compare/2023.11.19...2023.11.20)
+- [Compare releases 2023.11.20...2023.11.21](https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/compare/2023.11.20...2023.11.21)
 - minimumJoomla: 4.3.0
 - maximumJoomla: 5.9999.9999
 - minimumPhp: 7.4.0
 - maximumPhp:
-- Checksum: `<sha256>2833cf9d90523473f5733a7a6ab9a2b0c626aa76742a38e74185b13fbd214e5b</sha256>`
+- Checksum: `<sha256>1f0cc3b2ecc8d26128e14efb671ea02308050f3d45c61a45e71efb29e23b580a</sha256>`
 - Readme: https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5#readme
 - Updates XML: https://raw.githubusercontent.com/GHSVS-de/upadateservers/master/plg_system_bs3ghsvs_bs5-update.xml
 - Last tests: PHP 8.2<br>PHP 8.1<br>Joomla 4.4<br>Joomla 5.0
 - Language files: en-GB<br>de-DE
-- Requires: Optional: For feature "Structured Data" pkg_lib_structuredataghsvs<br>Optional: For feature "Image Resize" pkg_lib_imgresizeghsvs<br>Optional: For assets (e.g. Custom builts of Bootstrap-JS, JQuery-slim) pkg_file_assetghsvs.
+- Requires: Optional: For feature "Structured Data" pkg_lib_structuredataghsvs<br>Optional: For feature "Image Resize" pkg_lib_imgresizeghsvs<br>Optional: Optional: For assets (e.g. Custom builts of Bootstrap-JS, JQuery-slim) pkg_file_assetghsvs.
