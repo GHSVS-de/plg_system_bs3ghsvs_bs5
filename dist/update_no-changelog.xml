@@ -1,4 +1,4 @@
-<!--PLG_SYSTEM_BS3GHSVS_BS5 Version 2023.11.21 Target platform: 4\.(3|4|5|6|7|8|9|10|11|12|13|14|15)-->
+<!--PLG_SYSTEM_BS3GHSVS_BS5 Version 2023.12.12 Target platform: 4\.(3|4|5|6|7|8|9|10|11|12|13|14|15)-->
 	<update>
 		<name>PLG_SYSTEM_BS3GHSVS_BS5</name>
 		<description>Joomla system plugin to register and override JHtml helpers. And more more more. Plugin for ghsvs.de templates.</description>
@@ -6,10 +6,10 @@
 		<type>plugin</type>
 		<folder>system</folder>
 		<client>site</client>
-		<version>2023.11.21</version>
-		<infourl>https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/releases/tag/2023.11.21</infourl>
+		<version>2023.12.12</version>
+		<infourl>https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/releases/tag/2023.12.12</infourl>
 		<downloads>
-			<downloadurl type="full" format="zip">https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/raw/2023.11.21/dist/plg_system_bs3ghsvs_bs5-2023.11.21.zip</downloadurl>
+			<downloadurl type="full" format="zip">https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/raw/2023.12.12/dist/plg_system_bs3ghsvs_bs5-2023.12.12.zip</downloadurl>
 		</downloads>
 		<tags>
 			<tag>stable</tag>
@@ -18,10 +18,10 @@
 		<maintainerurl>https://ghsvs.de</maintainerurl>
 		<targetplatform name="joomla" version="4\.(3|4|5|6|7|8|9|10|11|12|13|14|15)" />
 		<php_minimum>7.4.0</php_minimum>
-		<sha256>ccb41f7fbfac5cc52bf902eebbc0a05c7e47d4514d23188bc871d668ae9d93d0</sha256>
+		<sha256>1b2c353178b5f0d8c7c3b383b23726bb3a21025f600ed1f803080da5ee468974</sha256>
 	</update>
-<!--/PLG_SYSTEM_BS3GHSVS_BS5 Version 2023.11.21 Target platform: 4\.(3|4|5|6|7|8|9|10|11|12|13|14|15)-->
-<!--PLG_SYSTEM_BS3GHSVS_BS5 Version 2023.11.21 Target platform: 5.*-->
+<!--/PLG_SYSTEM_BS3GHSVS_BS5 Version 2023.12.12 Target platform: 4\.(3|4|5|6|7|8|9|10|11|12|13|14|15)-->
+<!--PLG_SYSTEM_BS3GHSVS_BS5 Version 2023.12.12 Target platform: 5.*-->
 	<update>
 		<name>PLG_SYSTEM_BS3GHSVS_BS5</name>
 		<description>Joomla system plugin to register and override JHtml helpers. And more more more. Plugin for ghsvs.de templates.</description>
@@ -29,10 +29,10 @@
 		<type>plugin</type>
 		<folder>system</folder>
 		<client>site</client>
-		<version>2023.11.21</version>
-		<infourl>https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/releases/tag/2023.11.21</infourl>
+		<version>2023.12.12</version>
+		<infourl>https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/releases/tag/2023.12.12</infourl>
 		<downloads>
-			<downloadurl type="full" format="zip">https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/raw/2023.11.21/dist/plg_system_bs3ghsvs_bs5-2023.11.21.zip</downloadurl>
+			<downloadurl type="full" format="zip">https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/raw/2023.12.12/dist/plg_system_bs3ghsvs_bs5-2023.12.12.zip</downloadurl>
 		</downloads>
 		<tags>
 			<tag>stable</tag>
@@ -41,6 +41,6 @@
 		<maintainerurl>https://ghsvs.de</maintainerurl>
 		<targetplatform name="joomla" version="5.*" />
 		<php_minimum>7.4.0</php_minimum>
-		<sha256>ccb41f7fbfac5cc52bf902eebbc0a05c7e47d4514d23188bc871d668ae9d93d0</sha256>
+		<sha256>1b2c353178b5f0d8c7c3b383b23726bb3a21025f600ed1f803080da5ee468974</sha256>
 	</update>
-<!--/PLG_SYSTEM_BS3GHSVS_BS5 Version 2023.11.21 Target platform: 5.*-->
+<!--/PLG_SYSTEM_BS3GHSVS_BS5 Version 2023.12.12 Target platform: 5.*-->

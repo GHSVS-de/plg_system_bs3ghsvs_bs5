@@ -1,29 +1,32 @@
-2023.11.21
+2023.12.12
 
-Joomla system plugin Bs3Ghsvs 2023.11.21
+Joomla system plugin Bs3Ghsvs 2023.12.12
 
 Joomla system plugin to register and override JHtml helpers. And more more more. Plugin for ghsvs.de templates.
 
-### Joomla 4.3+, Joomla 5
-
 ### Download
-[plg_system_bs3ghsvs_bs5-2023.11.21.zip](https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/raw/2023.11.21/dist/plg_system_bs3ghsvs_bs5-2023.11.21.zip)
+[plg_system_bs3ghsvs_bs5-2023.12.12.zip](https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/raw/2023.12.12/dist/plg_system_bs3ghsvs_bs5-2023.12.12.zip)
 
 ### Joomla-Target-Platform(s)
 4\.(3|4|5|6|7|8|9|10|11|12|13|14|15), 5.&ast;
 
 ### For the interested ones
-- Mainly review of JHtml registration.
-- Use "clean" form fields.
-- Deutsche Beschreibung:
-- English Description:
-- [Compare releases 2023.11.20...2023.11.21](https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/compare/2023.11.20...2023.11.21)
+- Deutsche Beschreibung: 
+- English Description: 
+- [Compare releases 2023.11.21...2023.12.12](https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5/compare/2023.11.21...2023.12.12)
 - minimumJoomla: 4.3.0
 - maximumJoomla: 5.9999.9999
 - minimumPhp: 7.4.0
-- maximumPhp:
+- maximumPhp: 
+- Checksum: `<sha256>1b2c353178b5f0d8c7c3b383b23726bb3a21025f600ed1f803080da5ee468974</sha256>`
 - Readme: https://github.com/GHSVS-de/plg_system_bs3ghsvs_bs5#readme
 - Updates XML: https://raw.githubusercontent.com/GHSVS-de/upadateservers/master/plg_system_bs3ghsvs_bs5-update.xml
 - Last tests: PHP 8.2<br>PHP 8.1<br>Joomla 4.4<br>Joomla 5.0
 - Language files: en-GB<br>de-DE
 - Requires: Optional: For feature "Structured Data" pkg_lib_structuredataghsvs<br>Optional: For feature "Image Resize" pkg_lib_imgresizeghsvs<br>Optional: Optional: For assets (e.g. Custom builts of Bootstrap-JS, JQuery-slim) pkg_file_assetghsvs.
+- Uses: 
+- Contained packages (sub Joomla extensions):
+```
+
+```
+
