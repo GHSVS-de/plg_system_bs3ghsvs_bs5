@@ -47,7 +47,7 @@ class BootstrapGhsvsJHtml extends Bootstrap
 		Ein altes Template könnte 'bootstrap.es5' mit eigener Uri enthalten.
 		Alles Ok. Nimms!
 		Ggf. hat aber das Rückwärts-Plugin ein leeres 'bootstrap.es5' (Joomla 5)
-		untergejubelt. Dann versuche zu ersetzen, falls 'template.bs4ghsvs.bootstrap-js'
+		untergejubelt. Dann versuche zu ersetzen, falls 'template.TEMPLATENAME.bootstrap.es5'
 		existiert.
 		Und dann gibt es noch Fall3, dass in Joomla 5 gar kein 'bootstrap.es5' definiert
 		ist.
