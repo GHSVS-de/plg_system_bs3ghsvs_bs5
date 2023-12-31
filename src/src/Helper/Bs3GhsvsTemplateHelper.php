@@ -107,7 +107,21 @@ Array
 	public static function getTemplateOptionsFromJson($templateFolder)
 	{
 		$file = JPATH_SITE . '/templates/' . $templateFolder . self::$templateOptionsFile;
-		$templateOptions = file_get_contents($file);
+
+		/*
+			Seit Version 2023.12.12 ist eine AUswahl initTemplateAlways im Plugin,
+			die auch Suche in Templates
+			erlaubt, die diese Datei nicht enthalten. Sie ist sowieso veraltet seit es
+			den WAM gibt. Deshalb Bugfix is_file.
+		 */
+		if (is_file($file))
+		{
+			$templateOptions = file_get_contents($file);
+		}
+		else
+		{
+			$templateOptions = '{}';
+		}
 		return json_decode(trim($templateOptions), true);
 	}
 
