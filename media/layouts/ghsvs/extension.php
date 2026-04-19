@@ -7,6 +7,8 @@ use Joomla\Registry\Registry;
 // @since 2023-12
 use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsArticleHelper as Bs3ghsvsArticle;
 
+use GHSVS\Plugin\System\Bs3Ghsvs\Helper\Bs3GhsvsItemHelper as Bs3ghsvsItem;
+
 /**
  * $item = article object.
 */
